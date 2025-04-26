@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Loggedin from "./layouts/Loggedin";
+import MainLayout from "./layouts/MainLayout";
 import { Button, ConfigProvider, theme } from "antd";
 import "./App.scss";
 
 function App() {
-  const [isDarkmode, setIsDarkmode] = useState(false);
-  const [direction, setDirection] = useState<"rtl" | "ltr">("rtl");
+  const [isDarkmode, setIsDarkmode] = useState(true);
+  const [direction, setDirection] = useState<"rtl" | "ltr">("ltr");
   const darkModeToggle = () => {
     setIsDarkmode(!isDarkmode);
   };
@@ -37,11 +37,11 @@ function App() {
           className={isDarkmode ? "App App--dark" : "App App--light"}
           dir={direction}
         >
-          <Loggedin>
+          <MainLayout>
             {componentC}
             {English}
             {Arabic}
-          </Loggedin>
+          </MainLayout>
         </div>
       </ConfigProvider>
     </>
