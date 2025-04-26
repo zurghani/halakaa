@@ -1,10 +1,7 @@
 import { useState } from "react";
-import MainLayout from "./layouts/MainLayout";
 import { Button, ConfigProvider, theme } from "antd";
 import "./App.scss";
-import NotFound from "./errors/NotFound";
-import ServerError from "./errors/ServerError";
-import UnknownError from "./errors/UnknownError";
+import AppRoutes from "./Routes";
 
 function App() {
   const [isDarkmode, setIsDarkmode] = useState(true);
@@ -40,11 +37,7 @@ function App() {
           className={isDarkmode ? "App App--dark" : "App App--light"}
           dir={direction}
         >
-          <MainLayout>
-            {componentC}
-            {English}
-            {Arabic}
-          </MainLayout>
+          <AppRoutes />
         </div>
       </ConfigProvider>
     </>
