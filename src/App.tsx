@@ -5,26 +5,43 @@ import "./App.scss";
 
 function App() {
   const [isDarkmode, setIsDarkmode] = useState(false);
+  const [direction, setDirection] = useState<"rtl" | "ltr">("rtl");
   const darkModeToggle = () => {
     setIsDarkmode(!isDarkmode);
   };
-  const componentA = <Button type="primary">Admin Component A</Button>;
-  const componentB = <Button type="default">تجربة</Button>;
+  const English = (
+    <Button type="primary" onClick={() => setDirection("ltr")}>
+      English
+    </Button>
+  );
+  const Arabic = (
+    <Button type="default" onClick={() => setDirection("rtl")}>
+      العربية
+    </Button>
+  );
   const componentC = (
     <Button type="dashed" onClick={darkModeToggle}>
-      Student Component C
+      Toggle Dark Mode
     </Button>
   );
   return (
     <>
       <ConfigProvider
+        direction={direction}
         theme={{
           algorithm: isDarkmode ? theme.darkAlgorithm : theme.defaultAlgorithm,
           // token: { fontFamily: "Zain" },
         }}
       >
-        <div className={isDarkmode ? "App App--dark" : "App App--light"}>
-          <Loggedin>{componentC}</Loggedin>
+        <div
+          className={isDarkmode ? "App App--dark" : "App App--light"}
+          dir={direction}
+        >
+          <Loggedin>
+            {componentC}
+            {English}
+            {Arabic}
+          </Loggedin>
         </div>
       </ConfigProvider>
     </>
