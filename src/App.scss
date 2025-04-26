@@ -1,0 +1,13 @@
+.App {
+    // Common styles for the App component
+    height: 100dvh;
+    &--dark {
+        background-color: #2e2d2d;
+        color: #ffffff;
+    }
+
+    &--light {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
