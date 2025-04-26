@@ -2,6 +2,9 @@ import { useState } from "react";
 import MainLayout from "./layouts/MainLayout";
 import { Button, ConfigProvider, theme } from "antd";
 import "./App.scss";
+import NotFound from "./errors/NotFound";
+import ServerError from "./errors/ServerError";
+import UnknownError from "./errors/UnknownError";
 
 function App() {
   const [isDarkmode, setIsDarkmode] = useState(true);
