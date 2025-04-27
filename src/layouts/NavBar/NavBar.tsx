@@ -1,15 +1,18 @@
-import React from "react";
+import React, { use } from "react";
 // navbar component goes here
+// use this code for reference
 import "./NavBar.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDirection, toggleDarkMode } from "../../store/ui.slice";
 import { Button } from "antd";
+import { login, logout } from "../../store/auth.slice";
+import { RootState } from "../../store";
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
+  const isloggedIn = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
 
-  const darkModeToggle = () => {
-    dispatch(toggleDarkMode());
-  };
   const English = (
     <Button
       type="default"
@@ -32,9 +35,29 @@ const NavBar: React.FC = () => {
     <Button
       type="dashed"
       style={{ margin: "0px 5px" }}
-      onClick={darkModeToggle}
+      onClick={() => dispatch(toggleDarkMode())}
     >
       Toggle Dark Mode
+    </Button>
+  );
+  const Login = (
+    <Button
+      color="cyan"
+      variant="outlined"
+      style={{ margin: "0px 5px" }}
+      onClick={() => dispatch(login())}
+    >
+      login
+    </Button>
+  );
+  const Logout = (
+    <Button
+      color="red"
+      variant="outlined"
+      style={{ margin: "0px 5px" }}
+      onClick={() => dispatch(logout())}
+    >
+      logout
     </Button>
   );
   return (
@@ -45,6 +68,7 @@ const NavBar: React.FC = () => {
           {English}
           {Arabic}
           {DarkMode}
+          {isloggedIn ? Logout : Login}
         </span>
       </div>
     </>
