@@ -11,5 +11,5 @@ export const store = configureStore({
 });
 
 // Types for usage
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

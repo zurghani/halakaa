@@ -1,12 +1,12 @@
 import { ConfigProvider, theme } from "antd";
 import AppRoutes from "./Routes";
 import { useSelector } from "react-redux";
-import { RootState } from "./store";
+import { AppStore } from "./store";
 import "./App.scss";
 
 function App() {
-  const isDarkMode = useSelector((state: RootState) => state.ui.isDarkMode);
-  const direction = useSelector((state: RootState) => state.ui.direction);
+  const isDarkMode = useSelector((state: AppStore) => state.ui.isDarkMode);
+  const direction = useSelector((state: AppStore) => state.ui.direction);
 
   return (
     <>

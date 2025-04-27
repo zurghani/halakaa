@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 // navbar component goes here
 // use this code for reference
 import "./NavBar.scss";
@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDirection, toggleDarkMode } from "../../store/ui.slice";
 import { Button } from "antd";
 import { login, logout } from "../../store/auth.slice";
-import { RootState } from "../../store";
+import { AppStore } from "../../store";
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
   const isloggedIn = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
+    (state: AppStore) => state.auth.isAuthenticated
   );
 
   const English = (
