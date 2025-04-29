@@ -1,13 +1,14 @@
-import React from "react";
 // navbar component goes here
 // use this code for reference
-import "./NavBar.scss";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Button } from "antd";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { logout } from "../../store/auth.slice";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
 import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
-import { useTranslation } from "react-i18next";
+import "./NavBar.scss";
+
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
