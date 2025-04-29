@@ -6,6 +6,7 @@ import "./Login.scss";
 import { AppStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
 
 // place login component here
 
@@ -14,12 +15,10 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const isAuthenticated = useSelector(
-    (state: AppStore) => state.auth.isAuthenticated
-  );
   console.log(t("login"));
   return (
     <div className="page">
+      <LanguageSelect />
       <Button
         color="cyan"
         variant="solid"
