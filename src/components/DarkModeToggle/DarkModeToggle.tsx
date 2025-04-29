@@ -1,8 +1,9 @@
-import { Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDarkMode } from "../../store/ui.slice";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import { toggleDarkMode } from "../../store/ui.slice";
 import { AppStore } from "../../store";
+
 const DarkModeToggle = () => {
   const dispatch = useDispatch();
   const isDarkMode = useSelector((state: AppStore) => state.ui.isDarkMode);

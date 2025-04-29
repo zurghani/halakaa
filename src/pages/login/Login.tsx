@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../store/auth.slice";
 import "./Login.scss";
-import { AppStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";

@@ -1,4 +1,3 @@
-// src/components/LanguageSwitcher.tsx
 import { Select } from "antd";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
