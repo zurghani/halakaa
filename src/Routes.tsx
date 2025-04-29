@@ -1,17 +1,20 @@
+// npm packages
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NotFound from "./pages/error/NotFound";
-import ServerError from "./pages/error/ServerError";
+// components
 import UnknownError from "./pages/error/UnknownError";
-import MainLayout from "./layouts/MainLayout";
+import ServerError from "./pages/error/ServerError";
+import NotFound from "./pages/error/NotFound";
 import Login from "./pages/login/Login";
-import RoutesGuard from "./Routes.guard";
+import MainLayout from "./layouts/MainLayout";
+// guards
+import AuthenticationGuard from "./guard/AuthenticationGuard";
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route element={<RoutesGuard />}>
+        <Route element={<AuthenticationGuard />}>
           <Route element={<MainLayout />}>
             <Route path="/home" element={<div>Home</div>} />
           </Route>

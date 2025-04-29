@@ -5,6 +5,7 @@ import "antd/dist/reset.css";
 import "./main.scss";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
+import "./utils/i18n.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
