@@ -8,6 +8,7 @@ import Login from "./pages/login/Login";
 import MainLayout from "./layouts/MainLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
+import Home from "./pages/home/Home";
 
 const AppRoutes = () => {
   return (
@@ -16,8 +17,8 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route element={<AuthenticationGuard />}>
           <Route element={<MainLayout />}>
-            <Route path="/" element={<div>Home</div>} />
-            <Route path="/home" element={<div>Home</div>} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
           </Route>
         </Route>
         <Route path="/500" element={<ServerError />} />
