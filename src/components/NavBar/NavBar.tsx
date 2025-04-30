@@ -1,5 +1,3 @@
-// navbar component goes here
-// use this code for reference
 import React from "react";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
