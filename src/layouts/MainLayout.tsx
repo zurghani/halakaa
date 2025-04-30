@@ -11,7 +11,7 @@ interface MainLayoutProps {
 function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
-      <NavBar />
+      <NavBar userRole={"Admin"} username={"Serati Ma"}/>
       <div className="layout__content">
         <Outlet />
       </div>

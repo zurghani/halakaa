@@ -1,5 +1,65 @@
 .navbar {
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
-  color: #e02929;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 16px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 0px #F0F0F0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+
+  &__left {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: 25px 20px;
+    transition: color 0.3s ease;
+    position: relative;
+    border-bottom: 2px solid transparent;
+
+
+  }
+
+  &__item-content {
+    display: flex;
+    gap: 10px;
+
+    &:hover {
+      color: #1890FF;
+      border-bottom-color: #1890FF;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+  }
+
+
+  &__userPfp {
+    width: 24px;
+    height: 24px;
+    padding-right: 8px;
+    box-sizing: content-box
+  }
+
+  &__toolbar-item {
+    display: flex;
+    padding: 0px 12px;
+    align-items: center;
+
+  }
+
 }
