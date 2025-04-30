@@ -1,4 +1,8 @@
 {
+  "app": {
+    "title": "Halaka",
+    "description": "Quran classroom"
+  },
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
