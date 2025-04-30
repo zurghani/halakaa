@@ -15,12 +15,10 @@ function App() {
         theme={{
           algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
           // token: { fontFamily: "Zain" },
-        }}
-      >
+        }}>
         <div
           className={isDarkMode ? "App App--dark" : "App App--light"}
-          dir={direction}
-        >
+          dir={direction}>
           <AppRoutes />
         </div>
       </ConfigProvider>

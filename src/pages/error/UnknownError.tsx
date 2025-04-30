@@ -11,7 +11,7 @@ function UnknownError() {
       title="Something Went Wrong"
       subTitle="An unexpected error has occurred. Please try again later."
       extra={[
-        <Button type="primary" onClick={() => navigate("/home")}>
+        <Button key="navigate" type="primary" onClick={() => navigate("/home")}>
           Reload
         </Button>,
       ]}

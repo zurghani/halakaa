@@ -25,8 +25,7 @@ const Login: React.FC = () => {
         onClick={() => {
           dispatch(login());
           navigate("/home");
-        }}
-      >
+        }}>
         {t("login")}
       </Button>
     </div>

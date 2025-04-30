@@ -12,8 +12,7 @@ const DarkModeToggle = () => {
       type="dashed"
       style={{ margin: "0px 5px" }}
       onClick={() => dispatch(toggleDarkMode())}
-      icon={isDarkMode ? <MoonOutlined /> : <SunOutlined />}
-    ></Button>
+      icon={isDarkMode ? <MoonOutlined /> : <SunOutlined />}></Button>
   );
 };
 export default DarkModeToggle;

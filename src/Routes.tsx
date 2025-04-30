@@ -16,6 +16,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route element={<AuthenticationGuard />}>
           <Route element={<MainLayout />}>
+            <Route path="/" element={<div>Home</div>} />
             <Route path="/home" element={<div>Home</div>} />
           </Route>
         </Route>
