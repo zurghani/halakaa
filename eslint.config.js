@@ -5,7 +5,6 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react';
 import typescript from '@typescript-eslint/eslint-plugin';
-// import jsxA11y from 'eslint-plugin-jsx-a11y';
 import prettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
