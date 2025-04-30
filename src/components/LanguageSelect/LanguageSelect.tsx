@@ -18,8 +18,7 @@ const LanguageSelect = () => {
     <Select
       value={i18n.language as "ar" | "en"}
       style={{ width: 120 }}
-      onChange={handleChange}
-    >
+      onChange={handleChange}>
       <Option value="en">English</Option>
       <Option value="ar">العربية</Option>
     </Select>

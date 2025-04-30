@@ -24,8 +24,7 @@ const NavBar: React.FC = () => {
             color="red"
             variant="outlined"
             style={{ margin: "0px 5px" }}
-            onClick={() => dispatch(logout())}
-          >
+            onClick={() => dispatch(logout())}>
             {t("logout")}
           </Button>
         </span>
