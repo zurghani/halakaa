@@ -3,10 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 16px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 0px #F0F0F0;
+  box-shadow: 0 1px 0px #f0f0f0;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
 
@@ -28,8 +27,6 @@
     transition: color 0.3s ease;
     position: relative;
     border-bottom: 2px solid transparent;
-
-
   }
 
   &__item-content {
@@ -37,8 +34,8 @@
     gap: 10px;
 
     &:hover {
-      color: #1890FF;
-      border-bottom-color: #1890FF;
+      color: #1890ff;
+      border-bottom-color: #1890ff;
     }
   }
 
@@ -47,19 +44,16 @@
     align-items: center;
   }
 
-
   &__userPfp {
     width: 24px;
     height: 24px;
     padding-right: 8px;
-    box-sizing: content-box
+    box-sizing: content-box;
   }
 
   &__toolbar-item {
     display: flex;
     padding: 0px 12px;
     align-items: center;
-
   }
-
 }
