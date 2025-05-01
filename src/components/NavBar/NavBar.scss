@@ -8,6 +8,7 @@
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
+  height: 64px;
 
   &__left {
     margin: 0;
@@ -27,33 +28,34 @@
     transition: color 0.3s ease;
     position: relative;
     border-bottom: 2px solid transparent;
-  }
 
-  &__item-content {
-    display: flex;
-    gap: 10px;
+    &__title {
+      display: flex;
+      gap: 10px;
 
-    &:hover {
-      color: #1890ff;
-      border-bottom-color: #1890ff;
+      &:hover {
+        color: #1890ff;
+        border-bottom-color: #1890ff;
+      }
     }
   }
 
   &__toolbar {
     display: flex;
     align-items: center;
+
+    &__item {
+      display: flex;
+      padding: 0px 12px;
+      align-items: center;
+    }
+
+    &__profilePicture {
+      width: 24px;
+      height: 24px;
+      padding-right: 8px;
+      box-sizing: content-box;
+    }
   }
 
-  &__userPfp {
-    width: 24px;
-    height: 24px;
-    padding-right: 8px;
-    box-sizing: content-box;
-  }
-
-  &__toolbar-item {
-    display: flex;
-    padding: 0px 12px;
-    align-items: center;
-  }
 }

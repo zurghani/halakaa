@@ -32,11 +32,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-student",
-            label: <a onClick={() => navigate("/home")}>{t("create")}</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
           },
           {
             key: "admin-find-student",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },
@@ -46,11 +46,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-teacher",
-            label: <a onClick={() => navigate("/home")}>Create</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
           },
           {
             key: "admin-find-teacher",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },
@@ -60,11 +60,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-class",
-            label: <a onClick={() => navigate("/home")}>Create</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
           },
           {
             key: "admin-find-class",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },
@@ -74,11 +74,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-user",
-            label: <a onClick={() => navigate("/home")}>Create</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
           },
           {
             key: "admin-find-user",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },
@@ -92,7 +92,7 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "teacher-find-student",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },
@@ -102,7 +102,7 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "teacher-find-class",
-            label: <a onClick={() => navigate("/home")}>Find</a>,
+            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
           },
         ],
       },

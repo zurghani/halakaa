@@ -25,10 +25,10 @@ const UserDropDown: React.FC = () => {
     },
   ];
   return (
-    <span className="navbar__toolbar-item">
+    <span className="navbar__toolbar__item">
       <Dropdown key={username} menu={{ items: userDropDown }}>
         <div>
-          <img src={profile_pic} alt="" className="navbar__userPfp" />
+          <img src={profile_pic} alt="" className="navbar__toolbar__profilePicture" />
           {username}
         </div>
       </Dropdown>
