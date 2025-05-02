@@ -3,6 +3,18 @@
     "title": "Halaka",
     "description": "Quran classroom"
   },
+  "navBar": {
+    "student": "Student",
+    "teacher": "Teacher",
+    "class": "Class",
+    "user": "User",
+    "reports": "Reports",
+    "system settings": "System Settings",
+    "settings": "Settings",
+    "logout": "Logout",
+    "create": "Create",
+    "find": "Find"
+  },
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
