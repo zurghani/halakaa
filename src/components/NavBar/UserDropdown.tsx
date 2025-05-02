@@ -1,9 +1,9 @@
 import React from "react";
+import { Dropdown } from "antd";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStore } from "../../store";
 import { logout } from "../../store/auth.slice";
-import { Dropdown } from "antd";
 import profile_pic from "../../assets/profile_placeholder.png";
 
 const UserDropDown: React.FC = () => {
@@ -28,7 +28,11 @@ const UserDropDown: React.FC = () => {
     <span className="navbar__toolbar__item">
       <Dropdown key={username} menu={{ items: userDropDown }}>
         <div>
-          <img src={profile_pic} alt="" className="navbar__toolbar__profilePicture" />
+          <img
+            src={profile_pic}
+            alt="profile picture"
+            className="navbar__toolbar__profilePicture"
+          />
           {username}
         </div>
       </Dropdown>

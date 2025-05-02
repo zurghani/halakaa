@@ -11,6 +11,7 @@ import {
 import { NavigateFunction } from "react-router-dom";
 import { UserRole } from "../../store/user.slice";
 import { TFunction } from "i18next";
+import { Paths } from "../../Routes";
 
 type NavPermissionsType = {
   [key in UserRole | "non"]?: {
@@ -32,11 +33,19 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-student",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.STUDENT.CREATE)}>
+                {t("navBar.create")}
+              </a>
+            ),
           },
           {
             key: "admin-find-student",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.STUDENT.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },
@@ -46,11 +55,19 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-teacher",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.TEACHER.CREATE)}>
+                {t("navBar.create")}
+              </a>
+            ),
           },
           {
             key: "admin-find-teacher",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.TEACHER.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },
@@ -60,11 +77,19 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-class",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.CLASS.CREATE)}>
+                {t("navBar.create")}
+              </a>
+            ),
           },
           {
             key: "admin-find-class",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.CLASS.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },
@@ -74,11 +99,19 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "admin-create-user",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.create")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.USER.CREATE)}>
+                {t("navBar.create")}
+              </a>
+            ),
           },
           {
             key: "admin-find-user",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.USER.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },
@@ -92,7 +125,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "teacher-find-student",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.STUDENT.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },
@@ -102,7 +139,11 @@ export const NavPermissions = (
         dropdown: [
           {
             key: "teacher-find-class",
-            label: <a onClick={() => navigate("/home")}>{t("navBar.find")}</a>,
+            label: (
+              <a onClick={() => navigate(Paths.CLASS.FIND)}>
+                {t("navBar.find")}
+              </a>
+            ),
           },
         ],
       },

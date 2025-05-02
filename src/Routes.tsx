@@ -14,19 +14,56 @@ const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path={Paths.AUTH.LOGIN} element={<Login />} />
         <Route element={<AuthenticationGuard />}>
           <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path={Paths.HOME.ROOT} element={<Home />} />
+            <Route path={Paths.HOME.MAIN} element={<Home />} />
           </Route>
         </Route>
-        <Route path="/500" element={<ServerError />} />
-        <Route path="/error" element={<UnknownError />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
+        <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
+        <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
       </Routes>
     </Router>
   );
 };
 
 export default AppRoutes;
+
+export const Paths = {
+  AUTH: {
+    LOGIN: "/login",
+  },
+  HOME: {
+    ROOT: "/",
+    MAIN: "/home",
+  },
+  ERROR: {
+    UNKNOWN: "/error",
+    SERVER: "/500",
+    NOT_FOUND: "*",
+  },
+  DASHBOARD: "/dashboard",
+  STUDENT: {
+    ROOT: "/student",
+    CREATE: "/student/create",
+    FIND: "/student/find",
+  },
+  TEACHER: {
+    ROOT: "/teacher",
+    CREATE: "/teacher/create",
+    FIND: "/teacher/find",
+  },
+  CLASS: {
+    ROOT: "/class",
+    CLASSROOM: "/classroom",
+    CREATE: "/class/create",
+    FIND: "/class/find",
+  },
+  USER: {
+    ROOT: "/user",
+    CREATE: "/user/create",
+    FIND: "/user/find",
+  },
+};
