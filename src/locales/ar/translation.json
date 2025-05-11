@@ -3,6 +3,18 @@
     "title": "حلقة",
     "description": "مدرسة القرآن الكريم"
   },
+  "navBar": {
+    "student": "طالب",
+    "teacher": "مدرس",
+    "class": "فصل",
+    "user": "مستخدم",
+    "reports": "تقارير",
+    "system settings": "إعدادات النظام",
+    "settings": "إعدادات",
+    "logout": "الخروج",
+    "create": "إنشاء",
+    "find": "وَجَد"
+  },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",

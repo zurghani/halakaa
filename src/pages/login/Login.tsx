@@ -6,6 +6,7 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
+import { Paths } from "../../Routes";
 
 // place login component here
 
@@ -24,7 +25,7 @@ const Login: React.FC = () => {
         className="button"
         onClick={() => {
           dispatch(login());
-          navigate("/home");
+          navigate(Paths.HOME.ROOT);
         }}>
         {t("login")}
       </Button>
