@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from "antd";
-import AppRoutes from "./Routes";
 import { useSelector } from "react-redux";
 import { AppStore } from "./store";
+import AppRoutes from "./Routes";
 import "./App.scss";
 
 function App() {
