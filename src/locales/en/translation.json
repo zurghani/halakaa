@@ -20,5 +20,12 @@
   "thankYou": "Thank you",
   "hello": "Hello",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "day": "Day",
+  "week": "Week",
+  "month": "Month",
+  "all": "All",
+  "download": "Download",
+  "cancel": "Cancel"
+
 }
