@@ -36,21 +36,28 @@ const DownloadModal = ({ title, dataSelectorFunction }: DownloadModalProps) => {
       </Button>
       <Modal
         className="modal"
-        title={title}
+        title={t("modal.title") + title}
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        cancelText={t("cancel")}
-        okText={t("download")}
+        cancelText={t("modal.cancel")}
+        okText={t("modal.download")}
         okButtonProps={{ icon: <DownloadOutlined /> }}>
         <div className="modal__content">
           <div className="modal__content__timeFrameSelect">
-            <Segmented options={[t("day"), t("week"), t("month"), t("all")]} />
+            <Segmented
+              options={[
+                t("modal.day"),
+                t("modal.week"),
+                t("modal.month"),
+                t("modal.all"),
+              ]}
+            />
           </div>
           <div className="modal__content__fileFormatText">
-            <Text strong>Select Format</Text>
-            <Text type="secondary"> • you will need excel to view CSV</Text>
+            <Text strong>{t("modal.selectFormat")}</Text>
+            <Text type="secondary"> • {t("modal.bodyText")}</Text>
           </div>
           <div className="modal__content__fileFormatSelect">
             <Segmented options={["PDF", "CSV"]} />

@@ -15,17 +15,23 @@
     "create": "Create",
     "find": "Find"
   },
+  "modal": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "all": "All",
+    "download": "Download",
+    "cancel": "Cancel",
+    "bodyText": "You will need excel to view CSV",
+    "selectFormat": "Select Format",
+    "title": "Download Reports for Student: "
+
+  },
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
   "hello": "Hello",
   "login": "Login",
-  "logout": "Logout",
-  "day": "Day",
-  "week": "Week",
-  "month": "Month",
-  "all": "All",
-  "download": "Download",
-  "cancel": "Cancel"
+  "logout": "Logout"
 
 }
