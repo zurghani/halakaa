@@ -7,7 +7,12 @@ import "./DownloadModal.scss";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-const DownloadModal: React.FC = () => {
+interface DownloadModalProps {
+  title: string;
+  dataSelectorFunction: any; //NOT SURE WHAT THE TYPE SHOULD BE
+}
+
+const DownloadModal = ({ title, dataSelectorFunction }: DownloadModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -31,7 +36,7 @@ const DownloadModal: React.FC = () => {
       </Button>
       <Modal
         className="modal"
-        title="Download Reports for Student: Ahmed Mohamed"
+        title={title}
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalOpen}
         onOk={handleOk}

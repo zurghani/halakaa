@@ -8,7 +8,9 @@ const Home: React.FC = () => {
     <div>
       <h1>{t("app.title")}</h1>
       <p>{t("app.description")}</p>
-      <DownloadModal></DownloadModal>
+      <DownloadModal
+        title="Download Reports for Student: Ahmed Mohamed"
+        dataSelectorFunction=""></DownloadModal>
     </div>
   );
 };
