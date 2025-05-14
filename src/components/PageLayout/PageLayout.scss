@@ -1,0 +1,31 @@
+.layout {
+
+
+    &__card {
+        width: 100%;
+        border: 1px solid;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid;
+        }
+
+        &__body {
+            width: 100%;
+            border: 1px solid;
+            margin-top: 24px;
+
+
+            
+
+            &__section {
+                display: flex;
+                border: 1px solid;
+
+            }
+        }
+    }
+}
