@@ -15,6 +15,17 @@
     "create": "إنشاء",
     "find": "وَجَد"
   },
+  "modal": {
+    "day": "يوم",
+    "week": "أسبوع",
+    "month": "شهر",
+    "all": "كل",
+    "download": "تحميل",
+    "cancel": "يلغي",
+    "bodyText": "سوف تحتاج إلى برنامج Excel لعرض ملف CSV",
+    "selectFormat": "حدد التنسيق",
+    "title": "تنزيل التقارير للطالب: "
+  },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",
