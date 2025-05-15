@@ -32,9 +32,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               className="layout__card__body"
               direction="vertical"
               size="middle">
-              {React.Children.map(children, (child, index) => (
-                <div className="layout__card__body__section">{child}</div>
-              ))}
+              <Outlet />
             </Space>
           </Card>
         </div>
