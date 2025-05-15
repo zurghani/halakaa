@@ -1,4 +1,5 @@
-import { Breadcrumb, Button, Card, Space } from "antd";
+import { Breadcrumb, BreadcrumbProps, Button, Card, Space } from "antd";
+import { Link, Outlet, useMatches, useNavigate } from "react-router-dom";
 import React from "react";
 import "./PageLayout.scss";
 
@@ -6,31 +7,25 @@ interface PageLayoutProps {
   title: any;
   actions?: React.ReactNode[];
   children: React.ReactNode;
+  breadCrumbItems: BreadcrumbProps["items"];
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({
   title,
   actions,
   children,
+  breadCrumbItems,
 }) => {
+  breadCrumbItems = [{ title: "Main" }, { title: "Home" }];
   return (
     <>
       <div className="layout">
         {/* Breadcrumb Section */}
-        <Breadcrumb />
+        <Breadcrumb className="layout__breadCrumb" items={breadCrumbItems} />
 
         {/* Main Card */}
         <div className="layout__card">
-          <Card title={undefined}>
-            {/* Card Header */}
-            <div className="layout__card__header">
-              <h2>{title}</h2>
-              <Space>
-                <Button>Test</Button>
-                <Button>Test2</Button>
-              </Space>
-            </div>
-
+          <Card title={title} extra={<Space>{actions}</Space>}>
             {/* Card Body */}
 
             <Space
