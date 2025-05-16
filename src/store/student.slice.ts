@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { dummyStudent } from "./studentDummy";
 
-interface StudentState {
+export interface StudentState {
     name: string | null;
     id: string | null;
     gender: string | null;
@@ -26,7 +27,7 @@ const initialState: StudentState = {
 
 const studentSlice = createSlice({
     name: "student",
-    initialState,
+    initialState: dummyStudent,
     reducers: {
         updateStudent(
             state,
