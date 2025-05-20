@@ -1,4 +1,4 @@
-import { StudentState } from "./student.slice";
+import { StudentState } from "../student.slice";
 
 
 export const dummyStudent: StudentState = {
@@ -8,8 +8,11 @@ export const dummyStudent: StudentState = {
     age: 15,
     parent: "Jane Doe",
     joinDate: "2023-09-01",
-    attendance: 95,
-    successRate: 85,
-    quranCompletion: 70
+    stats: {
+        attendance: 95,
+        successRate: 85,
+        quranCompletion: 70
+    }
+
 };
 
