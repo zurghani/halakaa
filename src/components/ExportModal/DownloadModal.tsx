@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Modal, Segmented } from "antd";
-import { Divider, Typography } from "antd";
+import { Typography } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import "./DownloadModal.scss";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Text } = Typography;
 
 interface DownloadModalProps {
   title: string;
@@ -31,9 +31,7 @@ const DownloadModal = ({ title, dataSelectorFunction }: DownloadModalProps) => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal} icon={<DownloadOutlined />}>
-        Open Download Modal
-      </Button>
+      <Button onClick={showModal} icon={<DownloadOutlined />}></Button>
       <Modal
         className="modal"
         title={t("modal.title") + title}
@@ -45,7 +43,7 @@ const DownloadModal = ({ title, dataSelectorFunction }: DownloadModalProps) => {
         okText={t("modal.download")}
         okButtonProps={{ icon: <DownloadOutlined /> }}>
         <div className="modal__content">
-          <div className="modal__content__timeFrameSelect">
+          <div className="modal__content__time-frame-select">
             <Segmented
               options={[
                 t("modal.day"),
@@ -55,11 +53,11 @@ const DownloadModal = ({ title, dataSelectorFunction }: DownloadModalProps) => {
               ]}
             />
           </div>
-          <div className="modal__content__fileFormatText">
+          <div className="modal__content__file-format-text">
             <Text strong>{t("modal.selectFormat")}</Text>
             <Text type="secondary"> • {t("modal.bodyText")}</Text>
           </div>
-          <div className="modal__content__fileFormatSelect">
+          <div className="modal__content__file-format-select">
             <Segmented options={["PDF", "CSV"]} />
           </div>
         </div>

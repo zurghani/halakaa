@@ -1,37 +1,25 @@
 .modal {
-    width: 612px;
-
 
     &__content {
-        padding: 24px;
-        gap: 10px;
-        height: 172px;
+        padding: 1.5rem;
+        height: 10.75rem;
 
-        
-        
-
-        &__timeFrameSelect {
+        &__time-frame-select {
             display: flex;
             align-items: center;
             justify-content: center;
-
-
         }
-        &__fileFormatText {
+        &__file-format-text {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px;
-
+            margin: 0.625rem;
         }
 
-        &__fileFormatSelect {
+        &__file-format-select {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
     }
-
-
 }
