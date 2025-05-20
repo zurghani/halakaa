@@ -27,6 +27,17 @@
     "title": "Download Reports for Student: "
 
   },
+  "class": {
+    "classID": "Class ID",
+    "description": "Description",
+    "teacher": "Teacher",
+    "ageGroup": "Age Group",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classSize": "Class Size",
+    "students": "Students"
+
+  },
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",

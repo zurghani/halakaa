@@ -26,6 +26,17 @@
     "selectFormat": "حدد التنسيق",
     "title": "تنزيل التقارير للطالب: "
   },
+  "class": {
+    "classID": "معرف الفصل",
+    "description": "وصف",
+    "teacher": "مدرس",
+    "ageGroup": "الفئة العمرية",
+    "startsAt": "يبدأ في",
+    "endsAt": "ينتهي عند",
+    "classSize": "حجم الفصل",
+    "students": "طلاب"
+
+  },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",
