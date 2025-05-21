@@ -26,6 +26,14 @@
     "selectFormat": "حدد التنسيق",
     "title": "تنزيل التقارير للطالب: "
   },
+    "tags": {
+    "absent": "غائب",
+    "present": "حاضر",
+    "late": "متأخر",
+    "memorization": "الحفظ",
+    "revision": "مراجعة",
+    "reciting": "تلاوة"
+  },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",
