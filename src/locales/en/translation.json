@@ -36,6 +36,14 @@
         "classSize": "Class Size",
         "students": "Students"
     },
+    "tags": {
+        "absent": "Absent",
+        "present": "Present",
+        "late": "Late",
+        "memorization": "Memorization",
+        "revision": "Revision",
+        "reciting": "Reciting"
+    },
     "welcome": "Welcome",
     "goodbye": "Goodbye",
     "thankYou": "Thank you",
