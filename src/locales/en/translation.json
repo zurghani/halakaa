@@ -1,48 +1,45 @@
 {
-  "app": {
-    "title": "Halaka",
-    "description": "Quran classroom"
-  },
-  "navBar": {
-    "student": "Student",
-    "teacher": "Teacher",
-    "class": "Class",
-    "user": "User",
-    "reports": "Reports",
-    "system settings": "System Settings",
-    "settings": "Settings",
-    "logout": "Logout",
-    "create": "Create",
-    "find": "Find"
-  },
-  "modal": {
-    "day": "Day",
-    "week": "Week",
-    "month": "Month",
-    "all": "All",
-    "download": "Download",
-    "cancel": "Cancel",
-    "bodyText": "You will need excel to view CSV",
-    "selectFormat": "Select Format",
-    "title": "Download Reports for Student: "
-
-  },
-  "class": {
-    "classID": "Class ID",
-    "description": "Description",
-    "teacher": "Teacher",
-    "ageGroup": "Age Group",
-    "startsAt": "Starts at",
-    "endsAt": "Ends at",
-    "classSize": "Class Size",
-    "students": "Students"
-
-  },
-  "welcome": "Welcome",
-  "goodbye": "Goodbye",
-  "thankYou": "Thank you",
-  "hello": "Hello",
-  "login": "Login",
-  "logout": "Logout"
-
+    "app": {
+        "title": "Halaka",
+        "description": "Quran classroom"
+    },
+    "navBar": {
+        "student": "Student",
+        "teacher": "Teacher",
+        "class": "Class",
+        "user": "User",
+        "reports": "Reports",
+        "system settings": "System Settings",
+        "settings": "Settings",
+        "logout": "Logout",
+        "create": "Create",
+        "find": "Find"
+    },
+    "modal": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "all": "All",
+        "download": "Download",
+        "cancel": "Cancel",
+        "bodyText": "You will need excel to view CSV",
+        "selectFormat": "Select Format",
+        "title": "Download Reports for Student: "
+    },
+    "class": {
+        "classID": "Class ID",
+        "description": "Description",
+        "teacher": "Teacher",
+        "ageGroup": "Age Group",
+        "startsAt": "Starts at",
+        "endsAt": "Ends at",
+        "classSize": "Class Size",
+        "students": "Students"
+    },
+    "welcome": "Welcome",
+    "goodbye": "Goodbye",
+    "thankYou": "Thank you",
+    "hello": "Hello",
+    "login": "Login",
+    "logout": "Logout"
 }

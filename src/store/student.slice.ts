@@ -12,7 +12,7 @@ export interface StudentState {
         attendance: number | null;
         successRate: number | null;
         quranCompletion: number | null;
-    }
+    };
 }
 
 const initialState: StudentState = {
@@ -25,9 +25,9 @@ const initialState: StudentState = {
     stats: {
         attendance: null,
         successRate: null,
-        quranCompletion: null
-    }
-}
+        quranCompletion: null,
+    },
+};
 
 const studentSlice = createSlice({
     name: "student",
@@ -35,7 +35,13 @@ const studentSlice = createSlice({
     reducers: {
         updateStudent(
             state,
-            action: PayloadAction<{ name?: string; gender?: string; attendance?: number; successRate?: number; quranCompletion?: number; }>
+            action: PayloadAction<{
+                name?: string;
+                gender?: string;
+                attendance?: number;
+                successRate?: number;
+                quranCompletion?: number;
+            }>
         ) {
             if (action.payload.name) {
                 state.name = action.payload.name;
@@ -52,11 +58,8 @@ const studentSlice = createSlice({
             if (action.payload.quranCompletion) {
                 state.stats.quranCompletion = action.payload.quranCompletion;
             }
-
-        }
-
-
-    }
+        },
+    },
 });
 
 export const { updateStudent } = studentSlice.actions;

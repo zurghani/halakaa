@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dummyClass } from "./dummy_data/class.dummy"
+import { dummyClass } from "./dummy_data/class.dummy";
 
 export interface ClassState {
     id: string | null;
@@ -8,18 +8,18 @@ export interface ClassState {
     ageGroup: string | null;
     startTime: string | null;
     endTime: string | null;
-    classSize: number | null
+    classSize: number | null;
 }
 
-const initialState: ClassState= {
+const initialState: ClassState = {
     id: null,
     description: null,
     teacher: null,
     ageGroup: null,
     startTime: null,
     endTime: null,
-    classSize: null
-}
+    classSize: null,
+};
 
 const classSlice = createSlice({
     name: "class",
@@ -27,7 +27,14 @@ const classSlice = createSlice({
     reducers: {
         updateClass(
             state,
-            action: PayloadAction<{ description?: string; teacher?: string; ageGroup?: string; startTime?: string; endTime?: string; classSize?: number; }>
+            action: PayloadAction<{
+                description?: string;
+                teacher?: string;
+                ageGroup?: string;
+                startTime?: string;
+                endTime?: string;
+                classSize?: number;
+            }>
         ) {
             if (action.payload.description) {
                 state.description = action.payload.description;
@@ -47,11 +54,8 @@ const classSlice = createSlice({
             if (action.payload.classSize) {
                 state.classSize = action.payload.classSize;
             }
-
-        }
-
-
-    }
+        },
+    },
 });
 
 export const { updateClass } = classSlice.actions;
