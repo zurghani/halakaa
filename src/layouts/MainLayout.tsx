@@ -5,19 +5,19 @@ import Footer from "../components/Footer/Footer";
 import "./MainLayout.scss";
 
 interface MainLayoutProps {
-  children?: ReactNode;
+    children?: ReactNode;
 }
 
 function MainLayout({ children }: MainLayoutProps) {
-  return (
-    <>
-      <NavBar />
-      <div className="layout__content">
-        <Outlet />
-      </div>
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <NavBar />
+            <div className="layout__content">
+                <Outlet />
+            </div>
+            <Footer />
+        </>
+    );
 }
 
 export default MainLayout;

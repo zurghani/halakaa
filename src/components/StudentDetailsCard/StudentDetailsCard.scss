@@ -1,0 +1,11 @@
+.student-section {
+    &__info {
+        margin-bottom: 1.5rem;
+    }
+    &__stat {
+        text-align: center;
+        &__progress {
+            margin-bottom: 0.5rem;
+        }
+    }
+}

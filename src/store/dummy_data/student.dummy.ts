@@ -1,6 +1,5 @@
 import { StudentState } from "../student.slice";
 
-
 export const dummyStudent: StudentState = {
     name: "John Doe",
     id: "54372",
@@ -11,8 +10,6 @@ export const dummyStudent: StudentState = {
     stats: {
         attendance: 95,
         successRate: 85,
-        quranCompletion: 70
-    }
-
+        quranCompletion: 70,
+    },
 };
-
