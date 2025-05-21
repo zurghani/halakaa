@@ -6,13 +6,13 @@ import userReducer from "./user.slice";
 import studentReducer from "./student.slice";
 import classReducer from "./class.slice";
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        ui: uiReducer,
-        user: userReducer,
-        student: studentReducer,
-        class: classReducer,
-    },
+  reducer: {
+    auth: authReducer,
+    ui: uiReducer,
+    user: userReducer,
+    student: studentReducer,
+    class: classReducer,
+  },
 });
 
 // Types for usage
