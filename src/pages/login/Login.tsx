@@ -18,27 +18,9 @@ const Login: React.FC = () => {
     <>
     <LanguageSelect />
 
-    <div className="loginPage" 
-    style={{
-      minHeight: '100vh',
-      boxSizing: 'border-box',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      maxWidth: '80vw',
-      width: '100%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    }}>
-
-      <h2 className="loginPage__title" 
-       style={{
-         fontWeight: "400",
-         textAlign: "center",
-        }}> {t("loginPage.title")} </h2>
-
-      <p className="loginPage__subtitle" 
+    <div className="login" >
+      <h2 className="login__title" > {t("loginPage.title")} </h2>
+      <p className="login__subtitle" 
        style={{
          color: "#afafaf",
          fontSize: "0.62rem",
@@ -81,13 +63,7 @@ const Login: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button 
-            style={{
-              backgroundColor: "#7db406",
-              visibility: "visible",
-              boxShadow: "none",
-            }}
-            className="loginPage__submit"
+          <Button
             type="primary"
             block
             onClick={() => {

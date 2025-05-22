@@ -1,6 +1,4 @@
-$btnColor: #7db406;
-
-.LoginPage {
+.login {
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
@@ -22,11 +20,5 @@ $btnColor: #7db406;
     font-size: 0.62rem;
     margin-bottom: 1rem;
     text-align: center;
-  }
-
-  &__submit {
-    background-color: $btnColor;
-    visibility: visible;
-    box-shadow: none;
   }
 }
