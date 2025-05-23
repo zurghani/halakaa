@@ -3,9 +3,9 @@
     "title": "Halaka",
     "description": "Quran classroom"
   },
-  "loginPage": {
+  "login": {
     "title": "Al-Rahman School",
-    "supTitle": "Al-Rahman Mosque Quran School Tracking System",
+    "subtitle": "Al-Rahman Mosque Quran School Tracking System",
     "username": "Username",
     "password": "Password",
     "validation": {
@@ -15,7 +15,8 @@
       "usernamePattern": "Only letters, numbers, periods, underscores, and hyphens are allowed!",
       "passwordRequired": "Please input your Password!",
       "passwordMin": "Password must be at least 6 characters long!"
-    }
+    },
+    "loginButton": "Login"
   },
   "navBar": {
     "student": "Student",
@@ -45,7 +46,5 @@
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
   "hello": "Hello",
-  "login": "Login",
   "logout": "Logout"
-
 }

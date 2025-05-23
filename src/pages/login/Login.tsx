@@ -1,6 +1,6 @@
-import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import React from "react";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Typography } from "antd";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/auth.slice";
 import "./Login.scss";
@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
 import { Paths } from "../../Routes";
 
+const { Title } = Typography;
+
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,65 +18,66 @@ const Login: React.FC = () => {
 
   return (
     <>
-    <LanguageSelect />
+      <LanguageSelect />
 
-    <div className="login" >
-      <h2 className="login__title" > {t("loginPage.title")} </h2>
-      <p className="login__subtitle" 
-       style={{
-         color: "#afafaf",
-         fontSize: "0.62rem",
-         marginBottom: "1rem",
-         textAlign: "center",
-        }}> {t("loginPage.supTitle")} </p>
+      <div className="login">
+        <Title level={2}  className="login__title">
+          {t("login.title")}
+        </Title>
+        <Title level={5} type="secondary" className="login__subtitle">
+          {t("login.subtitle")}
+        </Title>
 
-      <Form
-        name="login"
-        initialValues={{ remember: true }}
-        style={{ maxWidth: 360 }}
-        >
-        <Form.Item
-          name="username"
-          rules={[
-            { required: true, message:  t('loginPage.validation.passwordRequired') },
-            { min: 3, message: t('loginPage.validation.usernameMin') },
-            { max: 20, message: t('loginPage.validation.usernameMax') },
-            { pattern: /^[a-zA-Z0-9._-]+$/, message: t('loginPage.validation.usernamePattern') },
-          ]}
-          >
-          <Input 
-            prefix={<UserOutlined />} 
-            placeholder= {t("loginPage.username")}
+        <Form name="login" initialValues={{ remember: true }}>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: t("login.validation.passwordRequired"),
+              },
+              { min: 3, message: t("login.validation.usernameMin") },
+              { max: 20, message: t("login.validation.usernameMax") },
+              {
+                pattern: /^[a-zA-Z0-9._-]+$/,
+                message: t("login.validation.usernamePattern"),
+              },
+            ]}>
+            <Input
+              prefix={<UserOutlined />}
+              placeholder={t("login.username")}
             />
-        </Form.Item>
+          </Form.Item>
 
-        <Form.Item
-          name="password"
-          rules={[
-            { required: true, message: t('loginPage.validation.passwordRequired') },
-            { min: 8, message: t('loginPage.validation.passwordMin') },
-          ]}
-          >
-          <Input.Password 
-            prefix={<LockOutlined />} 
-            type="password" 
-            placeholder= {t("loginPage.password")}
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: t("login.validation.passwordRequired"),
+              },
+              { min: 8, message: t("login.validation.passwordMin") },
+            ]}>
+            <Input.Password
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder={t("login.password")}
             />
-        </Form.Item>
+          </Form.Item>
 
-        <Form.Item>
-          <Button
-            type="primary"
-            block
-            onClick={() => {
-              dispatch(login());
-              navigate(Paths.HOME.ROOT);
-            }}>
-            {t("login")}
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+          <Form.Item>
+            <Button
+              type="primary"
+              block
+              onClick={() => {
+                dispatch(login());
+                navigate(Paths.HOME.ROOT);
+              }}>
+              {t("login.loginButton")}
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </>
   );
 };
