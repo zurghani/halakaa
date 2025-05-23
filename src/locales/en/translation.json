@@ -5,7 +5,7 @@
   },
   "login": {
     "title": "Al-Rahman School",
-    "subtitle": "Al-Rahman Mosque Quran School Tracking System",
+    "subtitle": "Quran School Tracking System",
     "username": "Username",
     "password": "Password",
     "validation": {
@@ -40,7 +40,6 @@
     "bodyText": "You will need excel to view CSV",
     "selectFormat": "Select Format",
     "title": "Download Reports for Student: "
-
   },
   "welcome": "Welcome",
   "goodbye": "Goodbye",

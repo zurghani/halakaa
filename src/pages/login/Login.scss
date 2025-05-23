@@ -7,4 +7,16 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+
+  &__title {
+  }
+
+  &__subtitle {
+    margin-top: 0rem !important;
+    margin-bottom: 1rem !important;
+  }
+  &__form {
+    width: 100%;
+    max-width: 18rem;
+  }
 }

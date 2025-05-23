@@ -1,13 +1,13 @@
 import React from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/auth.slice";
-import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
+import { login } from "../../store/auth.slice";
 import { Paths } from "../../Routes";
+import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
+import "./Login.scss";
 
 const { Title } = Typography;
 
@@ -21,14 +21,15 @@ const Login: React.FC = () => {
       <LanguageSelect />
 
       <div className="login">
-        <Title level={2}  className="login__title">
-          {t("login.title")}
-        </Title>
+        <Title className="login__title">{t("login.title")}</Title>
         <Title level={5} type="secondary" className="login__subtitle">
           {t("login.subtitle")}
         </Title>
 
-        <Form name="login" initialValues={{ remember: true }}>
+        <Form
+          className="login__form"
+          name="login"
+          initialValues={{ remember: true }}>
           <Form.Item
             name="username"
             rules={[
