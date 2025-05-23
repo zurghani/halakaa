@@ -12,7 +12,7 @@ export default tseslint.config(
     ignores: ['dist', 'build', 'node_modules'],
   },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, 'plugin:prettier/recommended'],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -32,7 +32,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
 
       // Prettier integration
-      'prettier/prettier': 'warn',
+      // 'prettier/prettier': 'warn',
 
       // TypeScript & React tweaks
       'react/react-in-jsx-scope': 'off',

@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();

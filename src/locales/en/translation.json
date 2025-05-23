@@ -41,6 +41,24 @@
     "selectFormat": "Select Format",
     "title": "Download Reports for Student: "
   },
+  "class": {
+    "classID": "Class ID",
+    "description": "Description",
+    "teacher": "Teacher",
+    "ageGroup": "Age Group",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classSize": "Class Size",
+    "students": "Students"
+  },
+  "tags": {
+    "absent": "Absent",
+    "present": "Present",
+    "late": "Late",
+    "memorization": "Memorization",
+    "revision": "Revision",
+    "reciting": "Reciting"
+  },
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",

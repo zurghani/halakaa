@@ -28,7 +28,7 @@
     "settings": "إعدادات",
     "logout": "الخروج",
     "create": "إنشاء",
-    "find": "وَجَد"
+    "find": "بحث"
   },
   "modal": {
     "day": "يوم",
@@ -36,10 +36,28 @@
     "month": "شهر",
     "all": "كل",
     "download": "تحميل",
-    "cancel": "يلغي",
+    "cancel": "إلغاء",
     "bodyText": "سوف تحتاج إلى برنامج Excel لعرض ملف CSV",
-    "selectFormat": "حدد التنسيق",
+    "selectFormat": "حدد صيغة الملف",
     "title": "تنزيل التقارير للطالب: "
+  },
+  "class": {
+    "classID": "معرف الفصل",
+    "description": "وصف",
+    "teacher": "مدرس",
+    "ageGroup": "الفئة العمرية",
+    "startsAt": "من",
+    "endsAt": "إلى",
+    "classSize": "حجم الفصل",
+    "students": "طلاب"
+  },
+  "tags": {
+    "absent": "غائب",
+    "present": "حاضر",
+    "late": "متأخر",
+    "memorization": "حفظ",
+    "revision": "مراجعة",
+    "reciting": "تلاوة"
   },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",

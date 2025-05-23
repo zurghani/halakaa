@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../store";
 import { Col, Progress, Row } from "antd";
 
-import "./StudentInfo.scss";
+import "./StudentDetailsCard.scss";
 
 const StudentStat = ({
   perventage,
@@ -19,7 +19,7 @@ const StudentStat = ({
     </div>
   );
 };
-const StudentInfo: React.FC = () => {
+const StudentDetailsCard: React.FC = () => {
   const student = useSelector((state: AppStore) => state.student);
   console.log(student);
   return (
@@ -58,4 +58,4 @@ const StudentInfo: React.FC = () => {
   );
 };
 
-export default StudentInfo;
+export default StudentDetailsCard;
