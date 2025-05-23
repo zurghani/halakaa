@@ -14,7 +14,7 @@ function App() {
         direction={direction}
         theme={{
           algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          // token: { fontFamily: "Zain" },
+          token: { fontFamily: "Cairo" },
         }}>
         <div
           className={isDarkMode ? "App App--dark" : "App App--light"}

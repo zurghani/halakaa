@@ -3,6 +3,21 @@
     "title": "Halaka",
     "description": "Quran classroom"
   },
+  "login": {
+    "title": "Al-Rahman School",
+    "subtitle": "Quran School Tracking System",
+    "username": "Username",
+    "password": "Password",
+    "validation": {
+      "usernameRequired": "Please input your Username!",
+      "usernameMin": "Username must be at least 3 characters long!",
+      "usernameMax": "Username cannot be longer than 20 characters!",
+      "usernamePattern": "Only letters, numbers, periods, underscores, and hyphens are allowed!",
+      "passwordRequired": "Please input your Password!",
+      "passwordMin": "Password must be at least 6 characters long!"
+    },
+    "loginButton": "Login"
+  },
   "navBar": {
     "student": "Student",
     "teacher": "Teacher",
@@ -48,6 +63,5 @@
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
   "hello": "Hello",
-  "login": "Login",
   "logout": "Logout"
 }
