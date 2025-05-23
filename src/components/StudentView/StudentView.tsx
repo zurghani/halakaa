@@ -1,26 +1,18 @@
-import { Button, Col, Row } from "antd";
+import { Button, Col, Empty, Row } from "antd";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../store";
 
 const StudentView: React.FC = () => {
-  const students = [
-    "Student A",
-    "Student B",
-    "Student C",
-    "Student D",
-    "Student E",
-    "Student F",
-    "Student G",
-    "Student H",
-  ];
+  const teacher = useSelector((state: AppStore) => state.teacher);
 
+  if (!teacher.students?.length) {
+    return <Empty />;
+  }
   return (
     <Row gutter={[16, 8]} align="middle" justify="center">
-      <Col span={24}>
-        <h1>Welcome</h1>
-      </Col>
-      <Col span={24}>Pick a student to start</Col>
-      {students.map((student, index) => {
+      {teacher.students.map((student, index) => {
         const key = `col-${index}`;
         return (
           <Col
