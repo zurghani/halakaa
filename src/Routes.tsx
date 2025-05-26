@@ -10,8 +10,7 @@ import MainLayout from "./layouts/MainLayout";
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import Home from "./pages/home/Home";
 import ParentGuard from "./guard/ParentGuard";
-import ParentLayout from "./layouts/Parent/ParentLayout";
-import ParentHome from "./pages/parent/parentHome";
+import ParentHome from "./pages/parent/ParentHome";
 
 const AppRoutes = () => {
   return (
@@ -19,14 +18,11 @@ const AppRoutes = () => {
       <Routes>
         <Route path={Paths.AUTH.LOGIN} element={<Login />} />
         <Route element={<AuthenticationGuard />}>
-          {/* Parent-specific Routes */}
-          <Route element={<ParentGuard />}>
-            <Route element={<ParentLayout />}>
-              <Route path={Paths.PARENT.ROOT} element={<ParentHome />} />
-            </Route>
-          </Route>
           {/* Other Authenticated Routes */}
           <Route element={<MainLayout />}>
+            <Route element={<ParentGuard />}>
+              <Route path={Paths.PARENT.ROOT} element={<ParentHome />} />
+            </Route>
             <Route path={Paths.HOME.ROOT} element={<Home />} />
             <Route path={Paths.HOME.MAIN} element={<Home />} />
           </Route>

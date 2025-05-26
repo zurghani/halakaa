@@ -5,7 +5,7 @@ import uiReducer from "./ui.slice";
 import userReducer from "./user.slice";
 import studentReducer from "./student.slice";
 import classReducer from "./class.slice";
-import teacherReducer from "./teacher.slice";
+import parentReducer from "./parent.slice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,7 +13,7 @@ export const store = configureStore({
     user: userReducer,
     student: studentReducer,
     class: classReducer,
-    teacher: teacherReducer,
+    parent: parentReducer,
   },
 });
 

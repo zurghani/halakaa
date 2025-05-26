@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dummyTeacher } from "./dummy_data/teacher.dummy";
+import { dummyParent } from "./dummy_data/parent.dummy";
 
-export interface TeacherState {
+export interface ParentState {
   id: string | null;
   name: string | null;
   students: string[];
 }
 
-const initialState: TeacherState = {
+const initialState: ParentState = {
   id: null,
   name: null,
   students: [],
 };
 
-const teacherSlice = createSlice({
-  name: "teacher",
-  initialState: dummyTeacher,
+const parentSlice = createSlice({
+  name: "parent",
+  initialState: dummyParent,
   reducers: {
-    updateTeacher(
+    updateParent(
       state,
       action: PayloadAction<{
         name?: string;
@@ -38,6 +38,6 @@ const teacherSlice = createSlice({
   },
 });
 
-export const { updateTeacher, addStudent, removeStudent } =
-  teacherSlice.actions;
-export default teacherSlice.reducer;
+export const { updateParent, addStudent, removeStudent } =
+  parentSlice.actions;
+export default parentSlice.reducer;

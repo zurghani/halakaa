@@ -25,7 +25,7 @@ const initialState: UserState = {
   email: null,
   phone: null,
   langauge: null,
-  role: UserRole.Parent,
+  role: null,
 };
 // place holder
 // only an example, not an actual implementation

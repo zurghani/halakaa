@@ -2,17 +2,17 @@ import { Button, Col, Empty, Row } from "antd";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../store";
+import { AppStore } from "../../../../store";
 
-const StudentView: React.FC = () => {
-  const teacher = useSelector((state: AppStore) => state.teacher);
+const ParentStudentList: React.FC = () => {
+  const parent = useSelector((state: AppStore) => state.parent);
 
-  if (!teacher.students?.length) {
+  if (!parent.students?.length) {
     return <Empty />;
   }
   return (
     <Row gutter={[16, 8]} align="middle" justify="center">
-      {teacher.students.map((student, index) => {
+      {parent.students.map((student, index) => {
         const key = `col-${index}`;
         return (
           <Col
@@ -24,7 +24,6 @@ const StudentView: React.FC = () => {
             xl={{ flex: "25%" }}>
             <Button
               icon={<UserOutlined />}
-              color="default"
               variant="outlined"
               style={{ width: "100%", height: "100px" }}>
               {student}
@@ -36,4 +35,4 @@ const StudentView: React.FC = () => {
   );
 };
 
-export default StudentView;
+export default ParentStudentList;

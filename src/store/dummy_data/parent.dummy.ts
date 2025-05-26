@@ -1,6 +1,6 @@
-import { TeacherState } from "../teacher.slice";
+import { ParentState } from "../parent.slice";
 
-export const dummyTeacher: TeacherState = {
+export const dummyParent: ParentState = {
   id: "72562",
   name: "Malik Ahmed",
   students: [
