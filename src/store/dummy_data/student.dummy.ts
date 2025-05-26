@@ -1,15 +1,7 @@
-import { StudentState } from "../student.slice";
+import { Student } from "../types";
 
-export const dummyStudent: StudentState = {
-  name: "John Doe",
+export const dummyStudent: Student = {
   id: "54372",
+  name: "John Doe",
   gender: "Male",
-  age: 15,
-  parent: "Jane Doe",
-  joinDate: "2023-09-01",
-  stats: {
-    attendance: 95,
-    successRate: 85,
-    quranCompletion: 70,
-  },
 };
