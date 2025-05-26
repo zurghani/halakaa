@@ -1,24 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { dummyClass } from "./dummy_data/class.dummy";
+import { Classes } from "./types";
 
-export interface ClassState {
-  id: string | null;
-  description: string | null;
-  teacher: string | null;
-  ageGroup: string | null;
-  startTime: string | null;
-  endTime: string | null;
-  classSize: number | null;
-}
 
-const initialState: ClassState = {
+
+const initialState: Classes = {
   id: null,
-  description: null,
-  teacher: null,
-  ageGroup: null,
-  startTime: null,
-  endTime: null,
-  classSize: null,
+  time: {}
 };
 
 const classSlice = createSlice({
@@ -40,20 +28,18 @@ const classSlice = createSlice({
         state.description = action.payload.description;
       }
       if (action.payload.teacher) {
-        state.teacher = action.payload.teacher;
+        state.teacherId = action.payload.teacher;
       }
       if (action.payload.ageGroup) {
         state.ageGroup = action.payload.ageGroup;
       }
       if (action.payload.startTime) {
-        state.startTime = action.payload.startTime;
+        state.time.start = action.payload.startTime;
       }
       if (action.payload.endTime) {
-        state.endTime = action.payload.endTime;
+        state.time.end = action.payload.endTime;
       }
-      if (action.payload.classSize) {
-        state.classSize = action.payload.classSize;
-      }
+
     },
   },
 });

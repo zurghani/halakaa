@@ -1,11 +1,13 @@
-import { ClassState } from "../class.slice";
+import { Classes } from "../types";
 
-export const dummyClass: ClassState = {
+export const dummyClass: Classes = {
   id: "54372",
+  teacherId: "12345",
   description: "Main afternoon class.",
-  teacher: "Adam Ali",
+  time: {
+    start: "3:00 PM",
+    end: "6:00 PM",
+  },
   ageGroup: "6 - 10",
-  startTime: "3:00 PM",
-  endTime: "6:00 PM",
-  classSize: 12,
+  students: [{ id: "1", name: "ali" }, { id: "1", name: "ali" }],
 };

@@ -1,32 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { dummyStudent } from "./dummy_data/student.dummy";
+import { Student } from "./types";
 
-export interface StudentState {
-  id: string | null;
-  name: string | null;
-  age: number | null;
-  gender: string | null;
-  parent: string | null;
-  joinDate: string | null;
-  stats: {
-    attendance: number | null;
-    successRate: number | null;
-    quranCompletion: number | null;
-  };
-}
 
-const initialState: StudentState = {
+const initialState: Student = {
   id: null,
   name: null,
-  age: null,
-  gender: null,
-  parent: null,
-  joinDate: null,
-  stats: {
-    attendance: null,
-    successRate: null,
-    quranCompletion: null,
-  },
 };
 
 const studentSlice = createSlice({
@@ -48,15 +27,6 @@ const studentSlice = createSlice({
       }
       if (action.payload.gender) {
         state.gender = action.payload.gender;
-      }
-      if (action.payload.attendance) {
-        state.stats.attendance = action.payload.attendance;
-      }
-      if (action.payload.successRate) {
-        state.stats.successRate = action.payload.successRate;
-      }
-      if (action.payload.quranCompletion) {
-        state.stats.quranCompletion = action.payload.quranCompletion;
       }
     },
   },

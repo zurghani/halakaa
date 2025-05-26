@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { dummyParent } from "./dummy_data/parent.dummy";
+import { Parent, Student } from "./types";
 
-export interface ParentState {
-  id: string | null;
-  name: string | null;
-  students: string[];
-}
 
-const initialState: ParentState = {
-  id: null,
+
+const initialState: Parent = {
+  uuid: null,
   name: null,
-  students: [],
 };
 
 const parentSlice = createSlice({
@@ -27,17 +23,15 @@ const parentSlice = createSlice({
         state.name = action.payload.name;
       }
     },
-    addStudent(state, action: PayloadAction<string>) {
-      state.students.push(action.payload);
-    },
-    removeStudent(state, action: PayloadAction<string>) {
-      state.students = state.students.filter(
-        (student: any) => student !== action.payload
-      );
+    setStudents(state, action: PayloadAction<Student[]>) {
+      state.students = action.payload.map((student) => ({
+        id: student.id,
+        name: student.name,
+      }));
     },
   },
 });
 
-export const { updateParent, addStudent, removeStudent } =
+export const { updateParent, setStudents } =
   parentSlice.actions;
 export default parentSlice.reducer;
