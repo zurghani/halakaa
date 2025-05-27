@@ -6,15 +6,15 @@ import { Col, Progress, Row } from "antd";
 import "./StudentDetailsCard.scss";
 
 const StudentStat = ({
-  perventage,
+  percentage,
   legend,
 }: {
-  perventage: number;
+  percentage: number;
   legend: string;
 }) => {
   return (
     <div className="student-section__stat">
-      <Progress type="circle" percent={Number(perventage)} size={80} />
+      <Progress type="circle" percent={Number(percentage)} size={80} />
       <p>{legend}</p>
     </div>
   );
@@ -33,25 +33,19 @@ const StudentDetailsCard: React.FC = () => {
 
         <Col span={4}>Age:</Col>
         <Col span={20}>{student.age}</Col>
-
-        <Col span={4}>Joined:</Col>
-        <Col span={20}>{student.joinDate}</Col>
+        {/* NOT SUPPORTE WITH CURRENT STUDENT TYPE */}
+        {/* <Col span={4}>Joined:</Col>
+        <Col span={20}>{student.joinDate}</Col> */}
       </Row>
       <Row justify="space-between" align="middle">
         <Col span={6}>
-          <StudentStat
-            perventage={student.stats.quranCompletion || 0}
-            legend="Of the Quran"></StudentStat>
+          <StudentStat percentage={75} legend="Of the Quran"></StudentStat>
         </Col>
         <Col span={6}>
-          <StudentStat
-            perventage={student.stats.successRate || 0}
-            legend="Success"></StudentStat>
+          <StudentStat percentage={50} legend="Success"></StudentStat>
         </Col>
         <Col span={6}>
-          <StudentStat
-            perventage={student.stats.attendance || 0}
-            legend="Attendance"></StudentStat>
+          <StudentStat percentage={25} legend="Attendance"></StudentStat>
         </Col>
       </Row>
     </>

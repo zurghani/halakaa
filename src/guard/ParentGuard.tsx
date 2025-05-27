@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../store";
 import { Navigate, Outlet } from "react-router-dom";
 import { Paths } from "../Routes";
-import { UserRole } from "../store/user.slice";
+import { UserRole } from "../store/types";
 
 const ParentGuard: React.FC = () => {
   const userRole = useSelector((state: AppStore) => state.user.role);
