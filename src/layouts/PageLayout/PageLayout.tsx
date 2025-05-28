@@ -1,22 +1,19 @@
-import { Breadcrumb, BreadcrumbProps, Button, Card, Space } from "antd";
-import { Link, Outlet, useMatches, useNavigate } from "react-router-dom";
-import React from "react";
+import { Breadcrumb, BreadcrumbProps, Card, Space } from "antd";
+import { Outlet, useOutletContext } from "react-router-dom";
+import React, { useState } from "react";
 import "./PageLayout.scss";
 
 interface PageLayoutProps {
-  title: any;
-  actions?: React.ReactNode[];
-  children: React.ReactNode;
-  breadCrumbItems: BreadcrumbProps["items"];
+  title: string;
+  breadCrumbItems?: BreadcrumbProps["items"];
 }
+type contextType = {
+  setButtons: React.Dispatch<React.SetStateAction<React.ReactNode[]>>;
+};
 
-const PageLayout: React.FC<PageLayoutProps> = ({
-  title,
-  actions,
-  children,
-  breadCrumbItems,
-}) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ title, breadCrumbItems }) => {
   breadCrumbItems = [{ title: "Main" }, { title: "Home" }];
+  const [buttons, setButtons] = useState<React.ReactNode[]>([]);
   return (
     <>
       <div className="layout">
@@ -25,14 +22,14 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 
         {/* Main Card */}
         <div className="layout__card">
-          <Card title={title} extra={<Space>{actions}</Space>}>
+          <Card title={title} extra={<Space>{buttons}</Space>}>
             {/* Card Body */}
 
             <Space
               className="layout__card__body"
               direction="vertical"
               size="middle">
-              <Outlet />
+              <Outlet context={{ setButtons } satisfies contextType} />
             </Space>
           </Card>
         </div>
@@ -42,3 +39,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 };
 
 export default PageLayout;
+
+export const useSetButtons = () => {
+  return useOutletContext<contextType>();
+};

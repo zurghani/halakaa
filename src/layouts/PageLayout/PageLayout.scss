@@ -1,26 +1,15 @@
 .layout {
+  &__card {
+    width: 100%;
+    margin-top: 10px;
 
-
-
-
-    &__card {
-        width: 100%;
-        border: 1px solid;
-        margin-top: 10px;
-
-
-        &__body {
-            width: 100%;
-            border: 1px solid;
-
-
-            
-
-            &__section {
-                display: flex;
-                border: 1px solid;
-
-            }
-        }
+    &__body {
+      width: 100%;
+      //   outline: 1px solid gray;
+      min-height: 60dvh;
+      &__section {
+        display: flex;
+      }
     }
+  }
 }
