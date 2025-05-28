@@ -9,7 +9,7 @@ const ParentGuard: React.FC = () => {
   const userRole = useSelector((state: AppStore) => state.user.role);
 
   if (userRole !== UserRole.Parent) {
-    return <Navigate to={Paths.AUTH.LOGIN} />;
+    return <Navigate to={Paths.HOME.ROOT} />;
   }
   return <Outlet />;
 };

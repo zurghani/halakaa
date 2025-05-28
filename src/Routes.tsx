@@ -1,18 +1,29 @@
 // npm packages
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+// store
+import { AppStore } from "./store";
+import { UserRole } from "./store/types";
 // components
+import Login from "./pages/login/Login";
+import Home from "./pages/home/Home";
+import ParentHome from "./pages/parent/ParentHome";
+import FindStudent from "./pages/student/Find.student";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
-import Login from "./pages/login/Login";
+// layouts
 import MainLayout from "./layouts/MainLayout";
+import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
-import Home from "./pages/home/Home";
 import ParentGuard from "./guard/ParentGuard";
-import ParentHome from "./pages/parent/ParentHome";
-import PageLayout from "./layouts/PageLayout/PageLayout";
-import FindStudent from "./pages/student/Find.student";
 
 const AppRoutes = () => {
   return (
@@ -22,14 +33,19 @@ const AppRoutes = () => {
         <Route element={<AuthenticationGuard />}>
           {/* Other Authenticated Routes */}
           <Route element={<MainLayout />}>
+            <Route path={Paths.HOME.ROOT} element={<HomeRedirect />} />
+            <Route path={Paths.HOME.MAIN} element={<HomeRedirect />} />
+
+            <Route path={Paths.HOME.ADMIN} element={<Home />} />
+            <Route path={Paths.HOME.TEACHER} element={<Home />} />
+
+            <Route element={<ParentGuard />}>
+              <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
+            </Route>
+
             <Route element={<PageLayout title="Find Student" />}>
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
             </Route>
-            <Route element={<ParentGuard />}>
-              <Route path={Paths.PARENT.ROOT} element={<ParentHome />} />
-            </Route>
-            <Route path={Paths.HOME.ROOT} element={<Home />} />
-            <Route path={Paths.HOME.MAIN} element={<Home />} />
           </Route>
         </Route>
         <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
@@ -39,7 +55,6 @@ const AppRoutes = () => {
     </Router>
   );
 };
-
 export default AppRoutes;
 
 export const Paths = {
@@ -49,6 +64,10 @@ export const Paths = {
   HOME: {
     ROOT: "/",
     MAIN: "/home",
+    TEACHER: "/home/teacher",
+    STUDENT: "/home/student",
+    PARENT: "/home/parent",
+    ADMIN: "/home/admin",
   },
   ERROR: {
     UNKNOWN: "/error",
@@ -80,4 +99,23 @@ export const Paths = {
     CREATE: "/user/create",
     FIND: "/user/find",
   },
+};
+
+const HomeRedirect = () => {
+  const userRole = useSelector((state: AppStore) => state.user.role);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let targetRoute = Paths.HOME.MAIN;
+    if (userRole === UserRole.Teacher) {
+      targetRoute = Paths.HOME.TEACHER;
+    } else if (userRole === UserRole.Parent) {
+      targetRoute = Paths.HOME.PARENT;
+    } else if (userRole === UserRole.Admin) {
+      targetRoute = Paths.HOME.ADMIN;
+    }
+    navigate(targetRoute, { replace: true });
+  }, [userRole, navigate]);
+
+  return <div>Redirecting to Home...</div>;
 };
