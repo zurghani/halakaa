@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { Button } from "antd";
 
 const FindStudent: React.FC = () => {
   const { setButtons } = useSetButtons();
-  React.useEffect(() => {
+  useEffect(() => {
     setButtons([
       <Button key="add" type="default">
         Print
