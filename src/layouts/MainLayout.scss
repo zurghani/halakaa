@@ -1,3 +1,5 @@
+@import "../_variables";
+
 .layout {
   display: flex;
   flex-direction: column;
@@ -8,5 +10,12 @@
     margin: 2rem 20%;
     min-height: 85dvh;
     outline: 1px solid white;
+  }
+}
+@media only screen and (max-width: $breakpoint-md) {
+  .layout {
+    &__content {
+      margin: 1rem 1rem;
+    }
   }
 }

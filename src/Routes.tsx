@@ -9,6 +9,8 @@ import MainLayout from "./layouts/MainLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import Home from "./pages/home/Home";
+import ParentGuard from "./guard/ParentGuard";
+import ParentHome from "./pages/parent/ParentHome";
 
 const AppRoutes = () => {
   return (
@@ -16,7 +18,11 @@ const AppRoutes = () => {
       <Routes>
         <Route path={Paths.AUTH.LOGIN} element={<Login />} />
         <Route element={<AuthenticationGuard />}>
+          {/* Other Authenticated Routes */}
           <Route element={<MainLayout />}>
+            <Route element={<ParentGuard />}>
+              <Route path={Paths.PARENT.ROOT} element={<ParentHome />} />
+            </Route>
             <Route path={Paths.HOME.ROOT} element={<Home />} />
             <Route path={Paths.HOME.MAIN} element={<Home />} />
           </Route>
@@ -54,6 +60,9 @@ export const Paths = {
     ROOT: "/teacher",
     CREATE: "/teacher/create",
     FIND: "/teacher/find",
+  },
+  PARENT: {
+    ROOT: "/parent",
   },
   CLASS: {
     ROOT: "/class",

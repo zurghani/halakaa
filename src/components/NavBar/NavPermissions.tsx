@@ -9,9 +9,9 @@ import {
 } from "@ant-design/icons";
 
 import { NavigateFunction } from "react-router-dom";
-import { UserRole } from "../../store/user.slice";
 import { TFunction } from "i18next";
 import { Paths } from "../../Routes";
+import { UserRole } from "../../store/types";
 
 type NavPermissionsType = {
   [key in UserRole | "non"]?: {

@@ -1,30 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User, UserRole } from "./types";
 
-export enum UserRole {
-  Admin = "admin",
-  Teacher = "teacher",
-  Parent = "parent",
-  Student = "student",
-}
-export enum SupportedLanguage {
-  English = "en",
-  Arabic = "ar",
-}
-interface UserState {
-  id: string | null;
-  name: string | null;
-  email: string | null;
-  phone: string | null;
-  langauge: SupportedLanguage | null;
-  role: UserRole | null;
-}
 
-const initialState: UserState = {
-  id: null,
+const initialState: User = {
+  uuid: null,
   name: null,
   email: null,
-  phone: null,
-  langauge: null,
   role: null,
 };
 // place holder

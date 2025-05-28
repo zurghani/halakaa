@@ -1,9 +1,22 @@
-.page {
+.login {
   min-height: 100vh;
-}
-.button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__title {
+  }
+
+  &__subtitle {
+    margin-top: 0rem !important;
+    margin-bottom: 1rem !important;
+  }
+  &__form {
+    width: 100%;
+    max-width: 18rem;
+  }
 }
