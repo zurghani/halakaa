@@ -6,7 +6,7 @@ const initialState: User = {
   uuid: null,
   name: null,
   email: null,
-  role: UserRole.Parent,
+  role: null,
 };
 // place holder
 // only an example, not an actual implementation

@@ -27,6 +27,7 @@ export type Student = {
     uuid?: User['uuid'];
     name: string | null;
     dateOfBirth?: string | null;
+    age?: number| null
     gender?: string | null;
     parentId?: Parent['uuid'] | null;
     attendance?: {

@@ -19,7 +19,7 @@ const ClassDetailsCard: React.FC = () => {
         <Col span={20}>{classInfo.description}</Col>
 
         <Col span={4}>{t("class.teacher")}:</Col>
-        <Col span={20}>{classInfo.teacher}</Col>
+        <Col span={20}>{classInfo.teacherId}</Col>
 
         {/* TODO: replace with the actual age group tag, once it is developed. */}
         <Col span={4}>{t("class.ageGroup")}:</Col>
@@ -28,14 +28,14 @@ const ClassDetailsCard: React.FC = () => {
         </Col>
 
         <Col span={4}>{t("class.startsAt")}:</Col>
-        <Col span={20}>{classInfo.startTime}</Col>
+        <Col span={20}>{classInfo.time.start}</Col>
 
         <Col span={4}>{t("class.endsAt")}:</Col>
-        <Col span={20}>{classInfo.endTime}</Col>
+        <Col span={20}>{classInfo.time.end}</Col>
         <Col span={4}>{t("class.classSize")}:</Col>
         <Col span={20}>
           <Badge
-            count={classInfo.classSize}
+            count={classInfo.students?.length}
             style={{ backgroundColor: "#E6F7FF", color: "#1890FF" }}
           />
           &nbsp; {t("class.students")}

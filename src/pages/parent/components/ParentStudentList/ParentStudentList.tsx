@@ -26,7 +26,7 @@ const ParentStudentList: React.FC = () => {
               icon={<UserOutlined />}
               variant="outlined"
               style={{ width: "100%", height: "100px" }}>
-              {student}
+              {student.name}
             </Button>
           </Col>
         );
