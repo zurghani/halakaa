@@ -24,6 +24,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
+import ViewStudent from "./pages/student/View.student";
 
 const AppRoutes = () => {
   return (
@@ -41,6 +42,10 @@ const AppRoutes = () => {
 
             <Route element={<ParentGuard />}>
               <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
+            </Route>
+
+            <Route element={<PageLayout title="View Student" />}>
+              <Route path={Paths.STUDENT.ROOT} element={<ViewStudent />} />
             </Route>
 
             <Route element={<PageLayout title="Find Student" />}>

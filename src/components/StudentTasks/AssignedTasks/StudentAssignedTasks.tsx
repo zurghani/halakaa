@@ -12,31 +12,6 @@ interface AssignedTasksProps {
   mode: "view" | "class";
 }
 
-const tasks = [
-  {
-    id: "1",
-    title: "Task 1",
-    type: TaskType.Memorization,
-    from: "البقرة (1)",
-    to: "البقرة (34)",
-    assignedBy: "Adam Ali",
-    assignedOn: "13/May/2023",
-    due: "20/May/2023",
-    active: true,
-  },
-  {
-    id: "2",
-    title: "Task 2",
-    type: TaskType.Revision,
-    from: "البقرة (1)",
-    to: "البقرة (34)",
-    assignedBy: "Adam Ali",
-    assignedOn: "16/May/2023",
-    due: "28/May/2023",
-    active: false,
-  },
-];
-
 const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
   const studentTasks = useSelector((state: AppStore) => state.tasks);
 
@@ -76,7 +51,12 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
   }));
   return (
     <>
-      <Collapse items={items} collapsible="icon" defaultActiveKey={["1"]} />
+      <Collapse
+        accordion
+        items={items}
+        collapsible="icon"
+        defaultActiveKey={["1"]}
+      />
     </>
   );
 };

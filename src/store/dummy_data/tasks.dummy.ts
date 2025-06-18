@@ -19,7 +19,7 @@ export const dummyTasks: TasksState = {
             dueDate: "20/May/2023",
 
         },
-            {
+        {
             id: "2",
             title: "Task 2",
             type: TaskType.Revision,
@@ -34,6 +34,23 @@ export const dummyTasks: TasksState = {
             assignedOn: "20/May/2023",
             dueDate: "29/May/2023",
 
-        }
+        },
+        {
+            id: "3",
+            title: "Task 3",
+            type: TaskType.Memorization,
+            status: TaskStatus.Completed,
+            ayahs: {
+                from: "البقرة (31)",
+                to: "البقرة (44)",
+            },
+            teacherId: "Adam Ali",
+            studentId: "Mohamed Ahmed",
+            classId: "24",
+            assignedOn: "20/May/2023",
+            dueDate: "29/May/2023",
+
+        },
+
     ]
 }
