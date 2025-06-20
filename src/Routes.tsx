@@ -25,7 +25,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-import FindClass from "./pages/class/Find.class";
+import FindClass from "./pages/class/find/Find.class";
 
 const AppRoutes = () => {
   return (

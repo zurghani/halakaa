@@ -36,6 +36,7 @@ const FindStudent: React.FC = () => {
     <Space direction="vertical" style={{ width: "100%" }}>
       <h2>Search By:</h2>
       <SearchForm SearchOptions={SearchOptions} />
+      {`${FindStudentResultDummyData.length} results found:`}
       {isMobile ? (
         <StudentList students={FindStudentResultDummyData} />
       ) : (

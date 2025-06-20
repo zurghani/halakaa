@@ -1,8 +1,13 @@
 import React, { use, useEffect, useState } from "react";
 import { Button, Space, Grid } from "antd";
-import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 import { useDispatch } from "react-redux";
-import { setCurrentPageTitle } from "../../store/ui.slice";
+import { setCurrentPageTitle } from "../../../store/ui.slice";
+import { SearchOptions } from "./search.options";
+import SearchForm from "./SearchForm.class";
+import { FindClassResultDummyData } from "./result/dummy.data";
+import ClassesTable from "./result/Class.table";
+import ClassList from "./result/Class.list";
 
 const { useBreakpoint } = Grid;
 
@@ -30,12 +35,13 @@ const FindClass: React.FC = () => {
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
       <h2>Search By:</h2>
-      {/* <SearchForm SearchOptions={SearchOptions} />
+      <SearchForm SearchOptions={SearchOptions} />
+      {`${FindClassResultDummyData.length} results found:`}
       {isMobile ? (
-        <StudentList students={FindStudentResultDummyData} />
+        <ClassList classes={FindClassResultDummyData} />
       ) : (
-        <StudentTable students={FindStudentResultDummyData} />
-      )} */}
+        <ClassesTable classes={FindClassResultDummyData} />
+      )}
     </Space>
   );
 };
