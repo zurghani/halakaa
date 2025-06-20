@@ -14,7 +14,7 @@ import { UserRole } from "./store/types";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
-import FindStudent from "./pages/student/Find.student";
+import FindStudent from "./pages/student/find/Find.student";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
