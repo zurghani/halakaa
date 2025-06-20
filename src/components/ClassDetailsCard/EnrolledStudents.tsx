@@ -43,11 +43,7 @@ const EnrolledStudents: React.FC = () => {
     {
       title: t("class.id"),
       dataIndex: "id",
-      sorter: (a, b) => {
-        const idA = Number(a.id ?? 0);
-        const idB = Number(b.id ?? 0);
-        return idA - idB;
-      },
+      sorter: (a, b) => Number(a.id) - Number(b.id),
       onFilter: (value, record) =>
         record.id ? record.id.includes(value as string) : false,
       width: "30%",
@@ -61,11 +57,10 @@ const EnrolledStudents: React.FC = () => {
           text: name,
           value: name,
         })),
+
       filterSearch: true,
-        onFilter: (value, record) =>
-          record.name
-            ? record.name.includes(value as string)
-            : false,
+onFilter: (value, record) =>
+        record.name ? record.name.includes(value as string) : false,
         width: "70%",
     },
   ];
