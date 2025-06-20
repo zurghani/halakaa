@@ -15,6 +15,7 @@ import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
 import FindStudent from "./pages/student/Find.student";
+import ClassView from "./pages/class/ClassView";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
@@ -45,6 +46,10 @@ const AppRoutes = () => {
 
             <Route element={<PageLayout title="Find Student" />}>
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
+            </Route>
+            
+            <Route element={<PageLayout title="Class Overview" />}>
+              <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
             </Route>
           </Route>
         </Route>
@@ -90,6 +95,7 @@ export const Paths = {
   },
   CLASS: {
     ROOT: "/class",
+    VIEW: "/class/view", //: "classId"
     CLASSROOM: "/classroom",
     CREATE: "/class/create",
     FIND: "/class/find",
