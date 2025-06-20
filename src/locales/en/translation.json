@@ -49,7 +49,9 @@
     "startsAt": "Starts at",
     "endsAt": "Ends at",
     "classSize": "Class Size",
-    "students": "Students"
+    "students": "Students",
+    "name": "Name",
+    "id": "ID"
   },
   "tags": {
     "absent": "Absent",
