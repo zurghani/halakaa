@@ -14,7 +14,7 @@ import { UserRole } from "./store/types";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
-import FindStudent from "./pages/student/Find.student";
+import FindStudent from "./pages/student/find/Find.student";
 import ClassView from "./pages/class/ClassView";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
@@ -47,7 +47,7 @@ const AppRoutes = () => {
             <Route element={<PageLayout title="Find Student" />}>
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
             </Route>
-            
+
             <Route element={<PageLayout title="Class Overview" />}>
               <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
             </Route>
