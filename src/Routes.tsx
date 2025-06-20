@@ -15,7 +15,7 @@ import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
 import FindStudent from "./pages/student/find/Find.student";
-import ClassView from "./pages/class/ClassView";
+import ClassView from "./pages/class/View.class";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
@@ -25,6 +25,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
+import FindClass from "./pages/class/find/Find.class";
 
 const AppRoutes = () => {
   return (
@@ -44,12 +45,11 @@ const AppRoutes = () => {
               <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
             </Route>
 
-            <Route element={<PageLayout title="Find Student" />}>
+            <Route element={<PageLayout />}>
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
-            </Route>
 
-            <Route element={<PageLayout title="Class Overview" />}>
               <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
+              <Route path={Paths.CLASS.FIND} element={<FindClass />} />
             </Route>
           </Route>
         </Route>
