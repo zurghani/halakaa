@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SearchOptionsType } from "./search.options";
-import { DatePicker, Input, Segmented } from "antd";
+import { DatePicker, Input, Segmented, Space } from "antd";
 import type { GetProps } from "antd";
 import dayjs from "dayjs";
 
@@ -26,7 +26,7 @@ const SearchForm = ({
     console.log("Search Type Changed:", SearchType);
   }, [SearchType]);
   return (
-    <>
+    <Space direction="vertical" style={{ width: "100%", marginBottom: "24px" }}>
       <Segmented<string>
         value={SearchType}
         options={Object.values(SearchOptions).map((option) => ({
@@ -50,7 +50,7 @@ const SearchForm = ({
           // style={{ width: 304 }}
         />
       )}
-    </>
+    </Space>
   );
 };
 
