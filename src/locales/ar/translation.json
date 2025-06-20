@@ -49,7 +49,9 @@
     "startsAt": "من",
     "endsAt": "إلى",
     "classSize": "حجم الفصل",
-    "students": "طلاب"
+    "students": "طلاب",
+    "name": "الاسم",
+    "id": "الرقم التعريفي"
   },
   "tags": {
     "absent": "غائب",
