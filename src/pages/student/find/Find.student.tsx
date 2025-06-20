@@ -5,6 +5,7 @@ import type { GetProps } from "antd";
 import dayjs from "dayjs";
 import { SearchOptions, SearchOptionsType } from "./search.options";
 import StudentTable from "./result/Student.table";
+import { FindStudentResultDummyData } from "./result/dummy.data";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
@@ -63,7 +64,7 @@ const FindStudent: React.FC = () => {
           // style={{ width: 304 }}
         />
       )}
-      <StudentTable />
+      <StudentTable students={FindStudentResultDummyData} />
     </Space>
   );
 };
