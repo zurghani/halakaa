@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { SearchOptions, SearchOptionsType } from "./search.options";
 import StudentTable from "./result/Student.table";
 import { FindStudentResultDummyData } from "./result/dummy.data";
+import StudentList from "./result/Student.list";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
@@ -65,6 +66,7 @@ const FindStudent: React.FC = () => {
         />
       )}
       <StudentTable students={FindStudentResultDummyData} />
+      <StudentList students={FindStudentResultDummyData} />
     </Space>
   );
 };
