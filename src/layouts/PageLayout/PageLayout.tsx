@@ -2,18 +2,23 @@ import { Breadcrumb, BreadcrumbProps, Card, Space } from "antd";
 import { Outlet, useOutletContext } from "react-router-dom";
 import React, { useState } from "react";
 import "./PageLayout.scss";
+import { current } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 interface PageLayoutProps {
-  title: string;
   breadCrumbItems?: BreadcrumbProps["items"];
 }
 type contextType = {
   setButtons: React.Dispatch<React.SetStateAction<React.ReactNode[]>>;
 };
 
-const PageLayout: React.FC<PageLayoutProps> = ({ title, breadCrumbItems }) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ breadCrumbItems }) => {
   breadCrumbItems = [{ title: "Main" }, { title: "Home" }];
   const [buttons, setButtons] = useState<React.ReactNode[]>([]);
+  const title = useSelector(
+    (state: { ui: { currentPage: { title: string } } }) =>
+      state.ui.currentPage.title
+  );
   return (
     <>
       <div className="layout">

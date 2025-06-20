@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { use, useEffect, useState } from "react";
 import { Button, Space, Grid } from "antd";
-import { setCurrentPageTitle } from "../../../store/ui.slice";
-import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import { SearchOptions } from "./search.options";
-import { FindStudentResultDummyData } from "./result/dummy.data";
-import StudentTable from "./result/Student.table";
-import StudentList from "./result/Student.list";
-import SearchForm from "./SearchForm.student";
+import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
+import { useDispatch } from "react-redux";
+import { setCurrentPageTitle } from "../../store/ui.slice";
 
 const { useBreakpoint } = Grid;
 
-const FindStudent: React.FC = () => {
+const FindClass: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("View Student"));
+    dispatch(setCurrentPageTitle("Find Class"));
   }, []);
   const screens = useBreakpoint();
   const isMobile = !screens.md;
@@ -35,14 +30,14 @@ const FindStudent: React.FC = () => {
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
       <h2>Search By:</h2>
-      <SearchForm SearchOptions={SearchOptions} />
+      {/* <SearchForm SearchOptions={SearchOptions} />
       {isMobile ? (
         <StudentList students={FindStudentResultDummyData} />
       ) : (
         <StudentTable students={FindStudentResultDummyData} />
-      )}
+      )} */}
     </Space>
   );
 };
 
-export default FindStudent;
+export default FindClass;
