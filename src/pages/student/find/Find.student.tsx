@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
-import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import { Button, Segmented, Input, Space, DatePicker } from "antd";
-import type { GetProps } from "antd";
 import dayjs from "dayjs";
-import { SearchOptions, SearchOptionsType } from "./search.options";
+import React, { useEffect } from "react";
+import { Button, Segmented, Input, Space, DatePicker, Grid } from "antd";
+import type { GetProps } from "antd";
 import StudentTable from "./result/Student.table";
-import { FindStudentResultDummyData } from "./result/dummy.data";
 import StudentList from "./result/Student.list";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
+import { SearchOptions, SearchOptionsType } from "./search.options";
+import { FindStudentResultDummyData } from "./result/dummy.data";
+
+const { useBreakpoint } = Grid;
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
@@ -19,6 +21,8 @@ const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
 };
 
 const FindStudent: React.FC = () => {
+  const screens = useBreakpoint();
+  const isMobile = !screens.md;
   const [count, setCount] = React.useState(0);
   const [SearchType, setSearchType] = React.useState<keyof SearchOptionsType>(
     SearchOptions.id.value
@@ -65,8 +69,11 @@ const FindStudent: React.FC = () => {
           // style={{ width: 304 }}
         />
       )}
-      <StudentTable students={FindStudentResultDummyData} />
-      <StudentList students={FindStudentResultDummyData} />
+      {isMobile ? (
+        <StudentList students={FindStudentResultDummyData} />
+      ) : (
+        <StudentTable students={FindStudentResultDummyData} />
+      )}
     </Space>
   );
 };

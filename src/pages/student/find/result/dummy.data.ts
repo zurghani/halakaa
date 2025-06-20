@@ -3,8 +3,8 @@ export type FindStudentResultType = {
     id: string;
     name: string;
     ageGroup: string;
-}[]
-export const FindStudentResultDummyData: FindStudentResultType = [
+}
+export const FindStudentResultDummyData: FindStudentResultType[] = [
     {
         key: "1",
         id: "001",

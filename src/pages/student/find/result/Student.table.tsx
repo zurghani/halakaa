@@ -2,7 +2,7 @@ import { Table, TableProps } from "antd";
 import { Tag } from "antd";
 import { FindStudentResultType } from "./dummy.data";
 
-const columns: TableProps["columns"] = [
+const columns: TableProps<FindStudentResultType>["columns"] = [
   {
     title: "ID",
     dataIndex: "id",
@@ -18,7 +18,7 @@ const columns: TableProps["columns"] = [
     title: "Age group",
     dataIndex: "ageGroup",
     key: "ageGroup",
-    render: (ageGroup) => <Tag color="green">{ageGroup}</Tag>,
+    render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
     filters: [
       { text: "5-10", value: "5-10" },
       { text: "11-15", value: "11-15" },
@@ -28,10 +28,19 @@ const columns: TableProps["columns"] = [
   },
 ];
 
-const StudentTable = ({ students }: { students: FindStudentResultType }) => {
+const StudentTable = ({ students }: { students: FindStudentResultType[] }) => {
   return (
     <>
-      <Table columns={columns} dataSource={students} />
+      <Table
+        columns={columns}
+        dataSource={students}
+        onRow={(record: FindStudentResultType) => ({
+          onClick: () => {
+            // handle row click here
+            console.log("Row clicked:", record);
+          },
+        })}
+      />
     </>
   );
 };
