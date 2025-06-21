@@ -94,4 +94,6 @@ export type Task = {
     notes?: string;
     assignedOn?: string;
     dueDate?: string;
+    completedOn?: string;
+    completedBy?: Teacher['uuid'];
 }

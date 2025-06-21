@@ -13,8 +13,11 @@
         }
 
         &__right {
-            
+            &__button {
+                display: none;
+            }
         }
     }
 
 }
+

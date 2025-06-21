@@ -1,5 +1,5 @@
 import { Button, Col, Collapse, CollapseProps, Row } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { TaskStatus, TaskType } from "../../../store/types";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
 import { CaretRightOutlined } from "@ant-design/icons";
@@ -24,9 +24,11 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
           <TaskTypeTag type={task.type} closeIcon={"hide"} />
         </div>
         <div className="task__label__right">
-          {task.status === TaskStatus.Assigned && (
-            <Button icon={<CaretRightOutlined />}>Finish/Edit Task</Button>
-          )}
+          <Button
+            className="task__label__right__button"
+            icon={<CaretRightOutlined />}>
+            Finish/Edit Task
+          </Button>
         </div>
       </div>
     ),
@@ -50,14 +52,14 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
     ),
   }));
   return (
-    <>
+    <div>
       <Collapse
         accordion
         items={items}
         collapsible="icon"
         defaultActiveKey={["1"]}
       />
-    </>
+    </div>
   );
 };
 

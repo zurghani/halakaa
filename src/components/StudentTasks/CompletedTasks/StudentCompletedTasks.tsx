@@ -1,4 +1,4 @@
-import { Table, TableProps } from "antd";
+import { Col, Row, Table, TableProps } from "antd";
 import React from "react";
 import { TaskStatus, TaskType } from "../../../store/types";
 import { useSelector } from "react-redux";
@@ -57,10 +57,48 @@ const StudentCompletedTasks: React.FC = () => {
       from: task.ayahs.from,
       to: task.ayahs.to,
       date: task.dueDate ?? "",
+      assignedOn: task.assignedOn,
+      assignedBy: task.teacherId,
+      completedBy: task.completedBy,
+      completedOn: task.completedOn,
+      notes: task.notes,
+      mistakes: task.mistakes,
     }));
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (task) => (
+            <Row gutter={[16, 8]}>
+              <Col span={6}>From:</Col>
+              <Col span={6}>{task.from}</Col>
+
+              <Col span={6}>To:</Col>
+              <Col span={6}>{task.to}</Col>
+
+              <Col span={6}>Assigned On:</Col>
+              <Col span={6}>{task.assignedOn}</Col>
+
+              <Col span={6}>Completed On:</Col>
+              <Col span={6}>{task.completedOn}</Col>
+
+              <Col span={6}>Assigned By:</Col>
+              <Col span={6}>{task.assignedBy}</Col>
+
+              <Col span={6}>Completed By:</Col>
+              <Col span={6}>{task.completedBy}</Col>
+
+              <Col span={6}>Notes:</Col>
+              <Col span={6}>{task.notes}</Col>
+
+              <Col span={6}>Mistakes:</Col>
+              <Col span={6}>{task.mistakes}</Col>
+            </Row>
+          ),
+        }}
+        dataSource={data}
+      />
     </>
   );
 };

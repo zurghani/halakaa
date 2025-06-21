@@ -17,6 +17,7 @@ export const dummyTasks: TasksState = {
             classId: "24",
             assignedOn: "13/May/2023",
             dueDate: "20/May/2023",
+            notes: "Well Done",
 
         },
         {
@@ -33,6 +34,10 @@ export const dummyTasks: TasksState = {
             classId: "24",
             assignedOn: "20/May/2023",
             dueDate: "29/May/2023",
+            notes: "Well Done",
+            mistakes: 1,
+            completedOn: "28/May/2023",
+            completedBy: "Mustafa Ahmed"
 
         },
         {
@@ -49,6 +54,10 @@ export const dummyTasks: TasksState = {
             classId: "24",
             assignedOn: "20/May/2023",
             dueDate: "29/May/2023",
+            notes: "Well Done, few corrections to be made.",
+            mistakes: 3,
+            completedOn: "27/May/2023",
+            completedBy: "Mustafa Ahmed"
 
         },
 
