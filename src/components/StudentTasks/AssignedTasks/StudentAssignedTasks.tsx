@@ -35,7 +35,10 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
     children: (
       <Row gutter={[16, 8]}>
         <Col span={4}>From:</Col>
-        <Col span={20}>{task.ayahs.from}</Col>
+        <Col span={16}>{task.ayahs.from}</Col>
+        <Col span={4}>
+          <Button icon={<CaretRightOutlined />}>Finish/Edit Task</Button>
+        </Col>
 
         <Col span={4}>To:</Col>
         <Col span={20}>{task.ayahs.to}</Col>

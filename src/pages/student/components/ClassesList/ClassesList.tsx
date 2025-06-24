@@ -159,7 +159,7 @@ const timeToMinutes = (timeStr: string) => {
   const [time, modifier] = timeStr.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
 
-  if (hours === 12) hours = 0; // 12am is 0 minutes
+  if (hours === 12) hours = 0;
   if (modifier === "PM") hours += 12;
 
   return hours * 60 + minutes;

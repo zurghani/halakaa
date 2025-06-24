@@ -21,27 +21,58 @@ const columns: TableProps["columns"] = [
     title: "Teacher",
     dataIndex: "teacher",
     key: "teacher",
+    filters: [
+      {
+        text: "Adam Ali",
+        value: "Adam Ali",
+      },
+      {
+        text: "Mohamed Ahmed",
+        value: "Mohamed Ahmed",
+      },
+    ],
+    onFilter: (value, record) => record.teacher.indexOf(value as string) === 0,
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.id - b.id,
   },
   {
     title: "Type",
     dataIndex: "type",
     key: "type",
     render: (type) => <TaskTypeTag type={type} closeIcon={"hide"} />,
+    filters: [
+      {
+        text: "Revision",
+        value: TaskType.Revision,
+      },
+      {
+        text: "Memorization",
+        value: TaskType.Memorization,
+      },
+      {
+        text: "Reciting",
+        value: TaskType.Reciting,
+      },
+    ],
+    onFilter: (value, record) => record.type.indexOf(value as string) === 0,
   },
   {
     title: "From",
     dataIndex: "from",
     key: "from",
+    sorter: (a, b) => a.id - b.id,
   },
   {
     title: "To",
     dataIndex: "to",
     key: "to",
+    sorter: (a, b) => a.id - b.id,
   },
   {
     title: "Date",
     dataIndex: "date",
     key: "date",
+    sorter: (a, b) => a.id - b.id,
   },
 ];
 
