@@ -1,23 +1,20 @@
-.task{
+.task {
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
-    &__label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-
-        &__left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        &__right {
-            &__button {
-                display: none;
-            }
-        }
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
+    &__right {
+      &__button {
+        // display: none;
+      }
+    }
+  }
 }
-
