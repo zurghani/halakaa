@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Col, Collapse, Row } from "antd";
+import { Button, Col, Collapse, Grid, Row } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { AppStore } from "../../../store";
 import { Task } from "../../../store/types";
 // TODO Add translation
 import { t } from "i18next";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
+
+const { useBreakpoint } = Grid;
 
 import "./StudentAssignedTasks.scss";
 
@@ -15,6 +17,8 @@ interface AssignedTasksProps {
 }
 
 const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
+  const screens = useBreakpoint();
+  const isMobile = !screens.md;
   const studentTasks = useSelector((state: AppStore) => state.tasks);
   const [activeKey, setActiveKey] = useState<string[]>([]);
   // TODO : add explanation for why we did we for loop here
@@ -36,7 +40,7 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
             <Button
               className="task__label__right__button"
               icon={<CaretRightOutlined />}>
-              Finish/Edit Task
+              {!isMobile && "Finish/Edit Task"}
             </Button>
           ) : null}
         </div>
@@ -64,24 +68,20 @@ const TaskInfo: React.FC<Task> = (task) => {
   return (
     <>
       <Row gutter={[16, 8]}>
-        <Col span={4}>From:</Col>
+        <Col span={8}>From:</Col>
         <Col span={16}>{task.ayahs.from}</Col>
-      </Row>
-      <Row gutter={[16, 8]}>
-        <Col span={4}>To:</Col>
-        <Col span={20}>{task.ayahs.to}</Col>
-      </Row>
-      <Row gutter={[16, 8]}>
-        <Col span={4}>Assigned By:</Col>
-        <Col span={20}>{task.teacherId}</Col>
-      </Row>
-      <Row gutter={[16, 8]}>
-        <Col span={4}>Assigned On:</Col>
-        <Col span={20}>{task.assignedOn}</Col>
-      </Row>
-      <Row gutter={[16, 8]}>
-        <Col span={4}>Due:</Col>
-        <Col span={20}>{task.dueDate}</Col>
+
+        <Col span={8}>To:</Col>
+        <Col span={16}>{task.ayahs.to}</Col>
+
+        <Col span={8}>Assigned By:</Col>
+        <Col span={16}>{task.teacherId}</Col>
+
+        <Col span={8}>Assigned On:</Col>
+        <Col span={16}>{task.assignedOn}</Col>
+
+        <Col span={8}>Due:</Col>
+        <Col span={16}>{task.dueDate}</Col>
       </Row>
     </>
   );
