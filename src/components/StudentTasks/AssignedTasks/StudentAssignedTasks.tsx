@@ -17,6 +17,7 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
   const studentTasks = useSelector((state: AppStore) => state.tasks);
   const [activeKey, setActiveKey] = useState<string[]>([]);
   // TODO : add explanation for why we did we for loop here
+  // For loop to create mapping of keys, ensures unique key as there are many collapses on the same page
   const keyMap = new Array(studentTasks.tasks.length);
   for (let i = 0; i < studentTasks.tasks.length; i++) {
     keyMap[i] = studentTasks.tasks[i].id.toString();
@@ -60,24 +61,27 @@ export default StudentAssignedTasks;
 
 const TaskInfo: React.FC<Task> = (task) => {
   return (
-    <Row gutter={[16, 8]}>
-      <Col span={4}>From:</Col>
-      <Col span={16}>{task.ayahs.from}</Col>
-      <Col span={4}>
-        {/* <Button icon={<CaretRightOutlined />}>Finish/Edit Task</Button> */}
-      </Col>
-
-      <Col span={4}>To:</Col>
-      <Col span={20}>{task.ayahs.to}</Col>
-
-      <Col span={4}>Assigned By:</Col>
-      <Col span={20}>{task.teacherId}</Col>
-
-      <Col span={4}>Assigned On:</Col>
-      <Col span={20}>{task.assignedOn}</Col>
-
-      <Col span={4}>Due:</Col>
-      <Col span={20}>{task.dueDate}</Col>
-    </Row>
+    <>
+      <Row gutter={[16, 8]}>
+        <Col span={4}>From:</Col>
+        <Col span={16}>{task.ayahs.from}</Col>
+      </Row>
+      <Row gutter={[16, 8]}>
+        <Col span={4}>To:</Col>
+        <Col span={20}>{task.ayahs.to}</Col>
+      </Row>
+      <Row gutter={[16, 8]}>
+        <Col span={4}>Assigned By:</Col>
+        <Col span={20}>{task.teacherId}</Col>
+      </Row>
+      <Row gutter={[16, 8]}>
+        <Col span={4}>Assigned On:</Col>
+        <Col span={20}>{task.assignedOn}</Col>
+      </Row>
+      <Row gutter={[16, 8]}>
+        <Col span={4}>Due:</Col>
+        <Col span={20}>{task.dueDate}</Col>
+      </Row>
+    </>
   );
 };
