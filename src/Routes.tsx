@@ -14,7 +14,8 @@ import { UserRole } from "./store/types";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
-import FindStudent from "./pages/student/Find.student";
+import FindStudent from "./pages/student/find/Find.student";
+import ClassView from "./pages/class/View.class";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
@@ -24,6 +25,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
+import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
 
 const AppRoutes = () => {
@@ -44,12 +46,12 @@ const AppRoutes = () => {
               <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
             </Route>
 
-            <Route element={<PageLayout title="View Student" />}>
+            <Route element={<PageLayout />}>
               <Route path={Paths.STUDENT.ROOT} element={<ViewStudent />} />
-            </Route>
-
-            <Route element={<PageLayout title="Find Student" />}>
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
+
+              <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
+              <Route path={Paths.CLASS.FIND} element={<FindClass />} />
             </Route>
           </Route>
         </Route>
@@ -95,6 +97,7 @@ export const Paths = {
   },
   CLASS: {
     ROOT: "/class",
+    VIEW: "/class/view", //: "classId"
     CLASSROOM: "/classroom",
     CREATE: "/class/create",
     FIND: "/class/find",

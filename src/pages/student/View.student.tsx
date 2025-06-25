@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StudentDetailsCard from "../../components/StudentDetailsCard/StudentDetailsCard";
 import { Collapse, CollapseProps } from "antd";
 import StudentAssignedTasks from "../../components/StudentTasks/AssignedTasks/StudentAssignedTasks";
 import StudentCompletedTasks from "../../components/StudentTasks/CompletedTasks/StudentCompletedTasks";
 import ClassesList from "./components/ClassesList/ClassesList";
 import AttendanceList from "./components/AttendanceList/AttendanceList";
+import { useDispatch } from "react-redux";
+import { setCurrentPageTitle } from "../../store/ui.slice";
 
 // Common items for both roles
 const collapseItems: CollapseProps["items"] = [
@@ -31,6 +33,10 @@ const collapseItems: CollapseProps["items"] = [
 ];
 
 const ViewStudent: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentPageTitle("View Student"));
+  }, []);
   return (
     <>
       <StudentDetailsCard />
