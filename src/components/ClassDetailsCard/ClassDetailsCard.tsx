@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import "./ClassDetailsCard.scss";
 
 const ClassDetailsCard: React.FC = () => {
-  const classInfo = useSelector((state: AppStore) => state.class);
+  const classInfo = useSelector((state: AppStore) => state.class)[0];
   const { t } = useTranslation();
 
   return (

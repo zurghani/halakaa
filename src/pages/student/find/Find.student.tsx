@@ -14,7 +14,7 @@ const { useBreakpoint } = Grid;
 const FindStudent: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("View Student"));
+    dispatch(setCurrentPageTitle("Find Student"));
   }, []);
   const screens = useBreakpoint();
   const isMobile = !screens.md;

@@ -80,16 +80,20 @@ export enum TaskStatus { Assigned = "assigned", Completed = "completed" }
 
 export type Task = {
     id: string;
+    title: string;
     type: TaskType;
     status: TaskStatus;
     studentId: Student['id'];
     teacherId: Teacher['uuid'];
     ayahs: {
-        from: Ayah;
-        to: Ayah;
+        from: string; //switched to string from Ayah for now
+        to: string; //switched to string from Ayah for now
     }
     classId: Classes['id'];
     mistakes?: number;
     notes?: string;
+    assignedOn?: string;
     dueDate?: string;
+    completedOn?: string;
+    completedBy?: Teacher['uuid'];
 }

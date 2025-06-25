@@ -6,6 +6,7 @@ import userReducer from "./user.slice";
 import studentReducer from "./student.slice";
 import classReducer from "./class.slice";
 import parentReducer from "./parent.slice";
+import tasksReducer from "./tasks.slice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
     student: studentReducer,
     class: classReducer,
     parent: parentReducer,
+    tasks: tasksReducer,
   },
 });
 

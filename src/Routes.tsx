@@ -26,6 +26,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
+import ViewStudent from "./pages/student/View.student";
 
 const AppRoutes = () => {
   return (
@@ -46,6 +47,7 @@ const AppRoutes = () => {
             </Route>
 
             <Route element={<PageLayout />}>
+              <Route path={Paths.STUDENT.ROOT} element={<ViewStudent />} />
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
               <Route path={Paths.CLASS.VIEW} element={<ClassView />} />

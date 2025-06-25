@@ -3,7 +3,7 @@ import { Tag } from "antd";
 
 import "./TaskTypeTage.scss";
 import { useTranslation } from "react-i18next";
-type TaskType = "memorization" | "revision" | "reciting";
+export type TaskType = "memorization" | "revision" | "reciting";
 
 interface TaskTypeTagProps {
   type: TaskType;
