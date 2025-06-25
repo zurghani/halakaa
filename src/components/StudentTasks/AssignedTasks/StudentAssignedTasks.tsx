@@ -4,6 +4,7 @@ import { Button, Col, Collapse, Row } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { AppStore } from "../../../store";
 import { Task } from "../../../store/types";
+// TODO Add translation
 import { t } from "i18next";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
 
