@@ -43,28 +43,28 @@ This is a modern web application for managing Quran schools, designed to support
 
 ### 1. Clone and install dependencies
 
-\`\`\`bash
+```bash
 git clone https://github.com/your-org/quran-school-app.git
 cd quran-school-app
 npm install
-\`\`\`
+```
 
 ### 2. Start the dev server
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 ## 🌍 i18n
 
 The app supports both Arabic and English. Text direction is automatically handled based on locale. To switch language:
 
-\`\`\`tsx
-import { useTranslation } from 'react-i18next';
+```tsx
+import { useTranslation } from "react-i18next";
 
 const { i18n } = useTranslation();
-i18n.changeLanguage('ar'); // or 'en'
-\`\`\`
+i18n.changeLanguage("ar"); // or 'en'
+```
 
 ---
 
