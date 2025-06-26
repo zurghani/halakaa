@@ -47,7 +47,7 @@ const AppRoutes = () => {
             </Route>
 
             <Route element={<PageLayout />}>
-              <Route path={Paths.STUDENT.ROOT} element={<ViewStudent />} />
+              <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
               <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
               <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
@@ -84,6 +84,7 @@ export const Paths = {
   DASHBOARD: "/dashboard",
   STUDENT: {
     ROOT: "/student",
+    VIEW: "/student/:id",
     CREATE: "/student/create",
     FIND: "/student/find",
   },
