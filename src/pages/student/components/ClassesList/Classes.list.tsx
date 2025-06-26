@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../../../store";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
-const ClassesListMobile: React.FC = () => {
+const ClassesList: React.FC = () => {
   const studentClasses = useSelector((state: AppStore) => state.class);
   const data = studentClasses.map((studentClass) => ({
     id: studentClass.id,
@@ -43,4 +43,4 @@ const ClassesListMobile: React.FC = () => {
   );
 };
 
-export default ClassesListMobile;
+export default ClassesList;

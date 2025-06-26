@@ -1,10 +1,8 @@
-import { Col, Row, Table, TableProps } from "antd";
 import React from "react";
-import { TaskStatus, TaskType } from "../../../store/types";
 import { useSelector } from "react-redux";
+import { Col, Row, Table, TableProps } from "antd";
+import { TaskStatus, TaskType } from "../../../store/types";
 import { AppStore } from "../../../store";
-
-import "./StudentCompletedTasks.scss";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
 
 // interface DataType {
@@ -76,7 +74,7 @@ const columns: TableProps["columns"] = [
   },
 ];
 
-const StudentCompletedTasks: React.FC = () => {
+const CompletedTasksTable: React.FC = () => {
   const studentTasks = useSelector((state: AppStore) => state.tasks);
 
   const data = studentTasks.tasks
@@ -134,4 +132,4 @@ const StudentCompletedTasks: React.FC = () => {
   );
 };
 
-export default StudentCompletedTasks;
+export default CompletedTasksTable;

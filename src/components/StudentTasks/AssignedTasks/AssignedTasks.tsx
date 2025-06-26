@@ -10,13 +10,13 @@ import TaskTypeTag from "../../Tags/TaskTypeTag";
 
 const { useBreakpoint } = Grid;
 
-import "./StudentAssignedTasks.scss";
+import "./AssignedTasks.scss";
 
 interface AssignedTasksProps {
   mode: "view" | "class";
 }
 
-const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
+const AssignedTasks: React.FC<AssignedTasksProps> = () => {
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const studentTasks = useSelector((state: AppStore) => state.tasks);
@@ -60,7 +60,7 @@ const StudentAssignedTasks: React.FC<AssignedTasksProps> = () => {
   );
 };
 
-export default StudentAssignedTasks;
+export default AssignedTasks;
 
 // TODO: fix the Rows. no More than 24
 

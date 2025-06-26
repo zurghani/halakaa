@@ -136,7 +136,7 @@ const columns: TableProps["columns"] = [
   },
 ];
 
-const ClassesList: React.FC = () => {
+const ClassesTable: React.FC = () => {
   const studentClasses = useSelector((state: AppStore) => state.class);
   const data = studentClasses.map((studentClass) => ({
     id: studentClass.id,
@@ -153,7 +153,7 @@ const ClassesList: React.FC = () => {
   );
 };
 
-export default ClassesList;
+export default ClassesTable;
 
 const timeToMinutes = (timeStr: string) => {
   const [time, modifier] = timeStr.split(" ");

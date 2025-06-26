@@ -53,7 +53,7 @@ const columns: TableProps["columns"] = [
   },
 ];
 
-const AttendanceList: React.FC = () => {
+const AttendanceTable: React.FC = () => {
   const attendance = useSelector((state: AppStore) => state.student.attendance);
 
   return (
@@ -63,4 +63,4 @@ const AttendanceList: React.FC = () => {
   );
 };
 
-export default AttendanceList;
+export default AttendanceTable;

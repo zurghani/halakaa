@@ -4,7 +4,7 @@ import { AppStore } from "../../../../store";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
 
-const AttendanceListMobile: React.FC = () => {
+const AttendanceList: React.FC = () => {
   const attendance = useSelector((state: AppStore) => state.student.attendance);
 
   return (
@@ -34,4 +34,4 @@ const AttendanceListMobile: React.FC = () => {
   );
 };
 
-export default AttendanceListMobile;
+export default AttendanceList;

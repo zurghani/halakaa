@@ -3,8 +3,9 @@ import { AppStore } from "../../../store";
 import { useSelector } from "react-redux";
 import { TaskStatus } from "../../../store/types";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
+import "./CompletedTasks.scss";
 
-const StudentCompletedTasksMobile: React.FC = () => {
+const CompletedTasksList: React.FC = () => {
   const studentTasks = useSelector((state: AppStore) => state.tasks);
 
   const data = studentTasks.tasks.filter(
@@ -56,10 +57,10 @@ const StudentCompletedTasksMobile: React.FC = () => {
     ),
   }));
   return (
-    <div>
+    <div className="outline">
       <Collapse accordion items={items} collapsible="icon" />
     </div>
   );
 };
 
-export default StudentCompletedTasksMobile;
+export default CompletedTasksList;
