@@ -1,54 +1,75 @@
-# React + TypeScript + Vite
+# 📚 Quran School Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a modern web application for managing Quran schools, designed to support multiple roles Teachers, Admins, Parents, and Students. The platform enables streamlined class tracking, student progress monitoring, attendance recording, and reporting—all through an intuitive, responsive interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React, Vite, TypeScript, Ant Design (AntD)
+- **State Management:** Redux Toolkit
+- **Routing:** React Router
+- **Localization:** i18n support (Arabic + English)
+- **Backend (WIP):** TBD
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🧑‍🏫 Supported Roles and Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. **Teacher**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- View assigned classes (`/my-classes`)
+- View students across all their classes (`/my-students`)
+- Search students or classes (`/find-student`, `/find-class`)
+- View class details (`/view-class/:id`)
+- Run Class (`TBD`)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 2. **Parent / Student**
+
+- View list of linked children/students on login
+- Navigate to student report dashboard
+- View Quran progress, success rate, attendance, class history
+- Print or download student reports
+
+### 3. **Admin** _(planned)_
+
+- Add/manage users, roles, classes, and tasks
+- Assign teachers to classes
+- Review overall system reports and data exports
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone and install dependencies
+
+\`\`\`bash
+git clone https://github.com/your-org/quran-school-app.git
+cd quran-school-app
+npm install
+\`\`\`
+
+### 2. Start the dev server
+
+\`\`\`bash
+npm run dev
+\`\`\`
+
+## 🌍 i18n
+
+The app supports both Arabic and English. Text direction is automatically handled based on locale. To switch language:
+
+\`\`\`tsx
+import { useTranslation } from 'react-i18next';
+
+const { i18n } = useTranslation();
+i18n.changeLanguage('ar'); // or 'en'
+\`\`\`
+
+---
+
+## 📌 TODOs
+
+....
+
+---
