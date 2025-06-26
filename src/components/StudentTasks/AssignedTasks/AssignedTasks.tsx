@@ -16,7 +16,7 @@ interface AssignedTasksProps {
   mode: "view" | "class";
 }
 
-const AssignedTasks: React.FC<AssignedTasksProps> = () => {
+const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const studentTasks = useSelector((state: AppStore) => state.tasks);
@@ -36,13 +36,15 @@ const AssignedTasks: React.FC<AssignedTasksProps> = () => {
           <TaskTypeTag type={task.type} closeIcon={"hide"} />
         </div>
         <div className="task__label__right">
-          {activeKey[0] == (i + 1).toString() ? (
-            <Button
-              className="task__label__right__button"
-              icon={<CaretRightOutlined />}>
-              {!isMobile && "Finish/Edit Task"}
-            </Button>
-          ) : null}
+          {activeKey[0] == (i + 1).toString()
+            ? mode === "class" && (
+                <Button
+                  className="task__label__right__button"
+                  icon={<CaretRightOutlined />}>
+                  {!isMobile && "Finish/Edit Task"}
+                </Button>
+              )
+            : null}
         </div>
       </div>
     ),

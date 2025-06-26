@@ -37,7 +37,7 @@ const ViewStudent: React.FC = () => {
     {
       key: "common-3",
       label: "To-Do",
-      children: <AssignedTasks mode={"class"} />,
+      children: <AssignedTasks mode="view" />,
     },
     {
       key: "common-4",
