@@ -44,8 +44,8 @@ This is a modern web application for managing Quran schools, designed to support
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/your-org/quran-school-app.git
-cd quran-school-app
+git clone https://github.com/zurghani/halakaa.git
+cd halakaa
 npm install
 ```
 
