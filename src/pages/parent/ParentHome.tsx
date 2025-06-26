@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import ParentStudentList from "./components/ParentStudentList/ParentStudentList";
+import ParentStudentList from "./components/ParentStudentList/ParentStudent.list";
 
 const ParentHome: React.FC = () => {
   return (
