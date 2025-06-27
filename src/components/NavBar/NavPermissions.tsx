@@ -131,6 +131,14 @@ export const NavPermissions = (
               </a>
             ),
           },
+          {
+            key: "teacher-view-students",
+            label: (
+              <a onClick={() => navigate(Paths.TEACHER.STUDENTS)}>
+                {t("navBar.my students")}
+              </a>
+            ),
+          },
         ],
       },
       {
@@ -142,6 +150,14 @@ export const NavPermissions = (
             label: (
               <a onClick={() => navigate(Paths.CLASS.FIND)}>
                 {t("navBar.find")}
+              </a>
+            ),
+          },
+          {
+            key: "teacher-view-classes",
+            label: (
+              <a onClick={() => navigate(Paths.TEACHER.CLASSES)}>
+                {t("navBar.my classes")}
               </a>
             ),
           },

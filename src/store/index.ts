@@ -7,6 +7,7 @@ import studentReducer from "./student.slice";
 import classReducer from "./class.slice";
 import parentReducer from "./parent.slice";
 import tasksReducer from "./tasks.slice";
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,

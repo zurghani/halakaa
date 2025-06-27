@@ -28,7 +28,9 @@
     "settings": "إعدادات",
     "logout": "الخروج",
     "create": "إنشاء",
-    "find": "بحث"
+    "find": "بحث",
+    "my classes": "فصولي الدراسية",
+    "my students": "طلابي"
   },
   "modal": {
     "day": "يوم",
@@ -61,6 +63,33 @@
     "revision": "مراجعة",
     "reciting": "تلاوة"
   },
+
+    "parent": {
+    "homeHeader": "اختر طالبًا للبدء"
+
+  },
+
+  "general": {
+    "name": "الاسم",
+    "id": "الرقم التعريفي",
+    "from": "من",
+    "to": "إلى",
+    "age": "العمر",
+    "attendance": "الحضور",
+    "classes": "الفصول",
+    "todo": "المهام",
+    "history": "السجل",
+    "date": "التاريخ",
+    "status": "الحالة",
+    "teacher": "المعلم",
+    "assignedBy": "تم التعيين بواسطة",
+    "assignedOn": "تاريخ التعيين",
+    "due": "تاريخ الاستحقاق",
+    "type": "النوع",
+    "success": "النجاح",
+    "ofTheQuran": "من القرآن"
+},
+
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",

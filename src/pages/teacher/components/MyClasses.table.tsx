@@ -1,7 +1,7 @@
-import { Table, TableProps, Tag } from "antd";
 import React from "react";
+import { Table, TableProps, Tag } from "antd";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
+import { AppStore } from "../../../store";
 import { useTranslation } from "react-i18next";
 
 // interface DataType {
@@ -13,15 +13,15 @@ import { useTranslation } from "react-i18next";
 //   date: string;
 // }
 
-const ClassesTable: React.FC = () => {
+const MyClassesTable: React.FC = () => {
   const { t } = useTranslation();
-  const studentClasses = useSelector((state: AppStore) => state.class);
-  const data = studentClasses.map((studentClass) => ({
-    id: studentClass.id,
-    teacherId: studentClass.teacherId,
-    ageGroup: studentClass.ageGroup,
-    start: studentClass.time.start,
-    end: studentClass.time.end,
+  const classes = useSelector((state: AppStore) => state.class);
+  const data = classes.map((teacherClass) => ({
+    id: teacherClass.id,
+    teacherId: teacherClass.teacherId,
+    ageGroup: teacherClass.ageGroup,
+    start: teacherClass.time.start,
+    end: teacherClass.time.end,
   }));
 
   const columns: TableProps["columns"] = [
@@ -156,7 +156,7 @@ const ClassesTable: React.FC = () => {
   );
 };
 
-export default ClassesTable;
+export default MyClassesTable;
 
 const timeToMinutes = (timeStr: string) => {
   const [time, modifier] = timeStr.split(" ");

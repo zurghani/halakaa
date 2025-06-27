@@ -11,12 +11,14 @@ import TaskTypeTag from "../../Tags/TaskTypeTag";
 const { useBreakpoint } = Grid;
 
 import "./AssignedTasks.scss";
+import { useTranslation } from "react-i18next";
 
 interface AssignedTasksProps {
   mode: "view" | "class";
 }
 
 const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
+  const { t } = useTranslation();
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const studentTasks = useSelector((state: AppStore) => state.tasks);
@@ -70,19 +72,19 @@ const TaskInfo: React.FC<Task> = (task) => {
   return (
     <>
       <Row gutter={[16, 8]}>
-        <Col span={8}>From:</Col>
+        <Col span={8}>{t("general.from")}</Col>
         <Col span={16}>{task.ayahs.from}</Col>
 
-        <Col span={8}>To:</Col>
+        <Col span={8}>{t("general.to")}</Col>
         <Col span={16}>{task.ayahs.to}</Col>
 
-        <Col span={8}>Assigned By:</Col>
+        <Col span={8}>{t("general.assignedBy")}</Col>
         <Col span={16}>{task.teacherId}</Col>
 
-        <Col span={8}>Assigned On:</Col>
+        <Col span={8}>{t("general.assignedOn")}</Col>
         <Col span={16}>{task.assignedOn}</Col>
 
-        <Col span={8}>Due:</Col>
+        <Col span={8}>{t("general.due")}</Col>
         <Col span={16}>{task.dueDate}</Col>
       </Row>
     </>
