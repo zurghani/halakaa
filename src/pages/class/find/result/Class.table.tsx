@@ -2,47 +2,49 @@ import { Table, TableProps } from "antd";
 import { Tag } from "antd";
 import { FindClassResultType } from "./dummy.data";
 import { useNavigate } from "react-router-dom";
-
-const columns: TableProps<FindClassResultType>["columns"] = [
-  {
-    title: "ID",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Teacher",
-    dataIndex: "teacher",
-    key: "teacher",
-    sorter: (a, b) => a.teacher.length - b.teacher.length,
-  },
-  {
-    title: "Age group",
-    dataIndex: "ageGroup",
-    key: "ageGroup",
-    render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
-    filters: [
-      { text: "5-10", value: "5-10" },
-      { text: "11-15", value: "11-15" },
-      { text: "16-20", value: "16-20" },
-    ],
-    onFilter: (value, record) => record.ageGroup.includes(value as string),
-  },
-  {
-    title: "Starts At",
-    dataIndex: "StartsAt",
-    key: "StartsAt",
-    sorter: (a, b) => a.teacher.length - b.teacher.length,
-  },
-  {
-    title: "Ends At",
-    dataIndex: "EndsAt",
-    key: "EndsAt",
-    sorter: (a, b) => a.teacher.length - b.teacher.length,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const columns: TableProps<FindClassResultType>["columns"] = [
+    {
+      title: t("general.id"),
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: t("general.teacher"),
+      dataIndex: "teacher",
+      key: "teacher",
+      sorter: (a, b) => a.teacher.length - b.teacher.length,
+    },
+    {
+      title: t("general.ageGroup"),
+      dataIndex: "ageGroup",
+      key: "ageGroup",
+      render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
+      filters: [
+        { text: "5-10", value: "5-10" },
+        { text: "11-15", value: "11-15" },
+        { text: "16-20", value: "16-20" },
+      ],
+      onFilter: (value, record) => record.ageGroup.includes(value as string),
+    },
+    {
+      title: t("general.startsAt"),
+      dataIndex: "StartsAt",
+      key: "StartsAt",
+      sorter: (a, b) => a.teacher.length - b.teacher.length,
+    },
+    {
+      title: t("general.endsAt"),
+      dataIndex: "EndsAt",
+      key: "EndsAt",
+      sorter: (a, b) => a.teacher.length - b.teacher.length,
+    },
+  ];
 
   return (
     <>

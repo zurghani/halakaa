@@ -28,7 +28,7 @@ const ViewStudent: React.FC = () => {
   const isMobile = !screens.lg;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("Student Report"));
+    dispatch(setCurrentPageTitle(t("titles.viewStudent")));
   }, []);
 
   useEffect(() => {

@@ -87,7 +87,25 @@
     "due": "تاريخ الاستحقاق",
     "type": "النوع",
     "success": "النجاح",
-    "ofTheQuran": "من القرآن"
+    "ofTheQuran": "من القرآن",
+    "searchBy": "البحث بواسطة:",
+    "dob": "تاريخ الميلاد",
+    "ageGroup": "الفئة العمرية",
+    "resultsFound": "النتائج التي تم العثور عليها:",
+    "startsAt": "يبدأ في",
+    "endsAt": "ينتهي في",
+    "classID": "معرّف الفصل",
+    "viewAll": "عرض الكل",
+    "enter": "دخول"
+    },
+
+"titles": {
+  "viewStudent": "تقرير الطالب",
+  "findStudent": "البحث عن طالب",
+  "findClass": "البحث عن فصل",
+  "viewClass": "عرض الفصل",
+  "myStudents": "الطلاب المخصصون لك:",
+  "myClasses": "الفصول المخصصة لك:"
 },
 
   "welcome": "مرحبًا",
