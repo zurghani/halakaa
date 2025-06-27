@@ -27,6 +27,8 @@ import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
+import ViewClasses from "./pages/teacher/teacher.classes";
+import ViewStudents from "./pages/teacher/teacher.students";
 
 const AppRoutes = () => {
   return (
@@ -52,6 +54,9 @@ const AppRoutes = () => {
 
               <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
               <Route path={Paths.CLASS.FIND} element={<FindClass />} />
+
+              <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
+              <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
             </Route>
           </Route>
         </Route>
@@ -92,6 +97,8 @@ export const Paths = {
     ROOT: "/teacher",
     CREATE: "/teacher/create",
     FIND: "/teacher/find",
+    CLASSES: "teacher/classes",
+    STUDENTS: "teacher/students",
   },
   PARENT: {
     ROOT: "/parent",

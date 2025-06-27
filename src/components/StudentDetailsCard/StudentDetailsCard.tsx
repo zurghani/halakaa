@@ -4,6 +4,7 @@ import { AppStore } from "../../store";
 import { Col, Progress, Row } from "antd";
 
 import "./StudentDetailsCard.scss";
+import { useTranslation } from "react-i18next";
 
 const StudentStat = ({
   percentage,
@@ -20,18 +21,19 @@ const StudentStat = ({
   );
 };
 const StudentDetailsCard: React.FC = () => {
+  const { t } = useTranslation();
   const student = useSelector((state: AppStore) => state.student);
   console.log(student);
   return (
     <>
       <Row gutter={[16, 8]} className="student-section__info">
-        <Col span={4}>ID:</Col>
+        <Col span={4}>{t("general.id")}</Col>
         <Col span={20}>{student.id}</Col>
 
-        <Col span={4}>Name:</Col>
+        <Col span={4}>{t("general.name")}</Col>
         <Col span={20}>{student.name}</Col>
 
-        <Col span={4}>Age:</Col>
+        <Col span={4}>{t("general.age")}</Col>
         <Col span={20}>{student.age}</Col>
         {/* NOT SUPPORTE WITH CURRENT STUDENT TYPE */}
         {/* <Col span={4}>Joined:</Col>
@@ -39,13 +41,19 @@ const StudentDetailsCard: React.FC = () => {
       </Row>
       <Row justify="space-between" align="middle">
         <Col span={6}>
-          <StudentStat percentage={75} legend="Of the Quran"></StudentStat>
+          <StudentStat
+            percentage={75}
+            legend={t("general.ofTheQuran")}></StudentStat>
         </Col>
         <Col span={6}>
-          <StudentStat percentage={50} legend="Success"></StudentStat>
+          <StudentStat
+            percentage={50}
+            legend={t("general.success")}></StudentStat>
         </Col>
         <Col span={6}>
-          <StudentStat percentage={25} legend="Attendance"></StudentStat>
+          <StudentStat
+            percentage={25}
+            legend={t("general.attendance")}></StudentStat>
         </Col>
       </Row>
     </>

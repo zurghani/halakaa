@@ -28,7 +28,9 @@
     "settings": "Settings",
     "logout": "Logout",
     "create": "Create",
-    "find": "Find"
+    "find": "Find",
+    "my classes": "My Classes",
+    "my students": "My Students"
   },
   "modal": {
     "day": "Day",
@@ -61,6 +63,34 @@
     "revision": "Revision",
     "reciting": "Reciting"
   },
+
+  "parent": {
+    "homeHeader": "Pick a student to start"
+  },
+
+  "general": {
+    "name": "Name",
+    "id": "ID",
+    "from": "From",
+    "to": "To",
+    "age": "Age",
+    "attendance": "Attendance",
+    "classes": "Classes",
+    "todo": "To-Do",
+    "history": "History",
+    "date": "Date",
+    "status": "Status",
+    "teacher": "Teacher",
+    "assignedBy": "Assigned By",
+    "assignedOn": "Assigned On",
+    "due": "Due",
+    "type": "Type",
+    "success": "Success",
+    "ofTheQuran": "Of The Quran"
+  },
+
+
+
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",

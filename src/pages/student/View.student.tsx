@@ -14,6 +14,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const { useBreakpoint } = Grid;
 
@@ -22,7 +23,7 @@ const { useBreakpoint } = Grid;
 const ViewStudent: React.FC = () => {
   const { setButtons } = useSetButtons();
   // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
-
+  const { t } = useTranslation();
   const screens = useBreakpoint();
   const isMobile = !screens.lg;
   const dispatch = useDispatch();
@@ -40,22 +41,22 @@ const ViewStudent: React.FC = () => {
   const collapseItems: CollapseProps["items"] = [
     {
       key: "common-1",
-      label: "Attendance",
+      label: t("general.attendance"),
       children: isMobile ? <AttendanceList /> : <AttendanceTable />,
     },
     {
       key: "common-2",
-      label: "Classes",
+      label: t("general.classes"),
       children: isMobile ? <ClassesList /> : <ClassesTable />,
     },
     {
       key: "common-3",
-      label: "To-Do",
+      label: t("general.todo"),
       children: <AssignedTasks mode="view" />,
     },
     {
       key: "common-4",
-      label: "History",
+      label: t("general.history"),
       children: isMobile ? <CompletedTasksList /> : <CompletedTasksTable />,
     },
   ];

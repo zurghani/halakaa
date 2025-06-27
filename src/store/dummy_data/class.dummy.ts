@@ -13,6 +13,11 @@ export const dummyClasses: Classes[] = [
     students: [
       { id: "10", name: "Sara" },
       { id: "11", name: "Omar" },
+      { id: "12", name: "Fatima" },
+      { id: "13", name: "Zayd" },
+      { id: "14", name: "Lina" },
+      { id: "15", name: "Bilal" },
+      { id: "16", name: "Maryam" },
     ],
   },
   {
