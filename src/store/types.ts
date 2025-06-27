@@ -27,7 +27,7 @@ export type Student = {
     uuid?: User['uuid'];
     name: string | null;
     dateOfBirth?: string | null;
-    age?: number| null
+    age?: number | null
     gender?: string | null;
     parentId?: Parent['uuid'] | null;
     attendance?: {
@@ -52,7 +52,7 @@ export type Classes = {
         end?: string;
     }
     ageGroup?: string;
-    students?: { id: Student['id']; name: Student['name'] }[];
+    students: { id: Student['id']; name: Student['name'] }[] | [];
 }
 export type Teacher = {
     classes: Classes['id'][];

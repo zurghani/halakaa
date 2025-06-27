@@ -1,12 +1,12 @@
-import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { Button, Grid } from "antd";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { useEffect } from "react";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { useDispatch } from "react-redux";
 import { PrinterOutlined } from "@ant-design/icons";
-import ClassesList from "./components/classes.list";
-import ClassesTable from "./components/classes.table";
+import MyClassesList from "./components/MyClasses.list";
+import MyClassesTable from "./components/MyClasses.table";
+import DownloadModal from "../../components/ExportModal/DownloadModal";
 
 const { useBreakpoint } = Grid;
 
@@ -25,7 +25,7 @@ const ViewClasses: React.FC = () => {
       <DownloadModal title={""} dataSelectorFunction={undefined} />,
     ]);
   }, []);
-  return isMobile ? <ClassesList /> : <ClassesTable />;
+  return isMobile ? <MyClassesList /> : <MyClassesTable />;
 };
 
 export default ViewClasses;

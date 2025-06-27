@@ -19,6 +19,8 @@ import ClassView from "./pages/class/View.class";
 import UnknownError from "./pages/error/UnknownError";
 import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
+import ViewClasses from "./pages/teacher/teacher.classes";
+import ViewStudents from "./pages/teacher/teacher.students";
 // layouts
 import MainLayout from "./layouts/MainLayout";
 import PageLayout from "./layouts/PageLayout/PageLayout";
@@ -27,8 +29,6 @@ import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
-import ViewClasses from "./pages/teacher/teacher.classes";
-import ViewStudents from "./pages/teacher/teacher.students";
 
 const AppRoutes = () => {
   return (

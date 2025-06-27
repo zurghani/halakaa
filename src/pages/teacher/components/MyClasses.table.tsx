@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 //   date: string;
 // }
 
-const ClassesTable: React.FC = () => {
+const MyClassesTable: React.FC = () => {
   const { t } = useTranslation();
   const classes = useSelector((state: AppStore) => state.class);
   const data = classes.map((teacherClass) => ({
@@ -156,7 +156,7 @@ const ClassesTable: React.FC = () => {
   );
 };
 
-export default ClassesTable;
+export default MyClassesTable;
 
 const timeToMinutes = (timeStr: string) => {
   const [time, modifier] = timeStr.split(" ");

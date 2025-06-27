@@ -2,10 +2,8 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../../store";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import AttendanceStatusTag from "../../../components/Tags/AttendanceStatusTag";
-import { useTranslation } from "react-i18next";
 
-const ClassesList: React.FC = () => {
+const MyClassesList: React.FC = () => {
   const classes = useSelector((state: AppStore) => state.class);
 
   return (
@@ -36,4 +34,4 @@ const ClassesList: React.FC = () => {
   );
 };
 
-export default ClassesList;
+export default MyClassesList;
