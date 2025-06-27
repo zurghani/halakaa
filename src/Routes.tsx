@@ -105,7 +105,7 @@ export const Paths = {
   },
   CLASS: {
     ROOT: "/class",
-    VIEW: "/class/view", //: "classId"
+    VIEW: "/class/:id", //: "classId"
     CLASSROOM: "/classroom",
     CREATE: "/class/create",
     FIND: "/class/find",

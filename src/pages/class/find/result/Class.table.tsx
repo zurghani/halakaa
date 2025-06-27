@@ -1,6 +1,7 @@
 import { Table, TableProps } from "antd";
 import { Tag } from "antd";
 import { FindClassResultType } from "./dummy.data";
+import { useNavigate } from "react-router-dom";
 
 const columns: TableProps<FindClassResultType>["columns"] = [
   {
@@ -41,6 +42,8 @@ const columns: TableProps<FindClassResultType>["columns"] = [
 ];
 
 const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Table
@@ -49,7 +52,7 @@ const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
         onRow={(record: FindClassResultType) => ({
           onClick: () => {
             // handle row click here
-            console.log("Row clicked:", record);
+            navigate(`/class/${record.id}`);
           },
         })}
       />
