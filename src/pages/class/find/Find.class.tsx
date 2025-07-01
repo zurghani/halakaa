@@ -8,14 +8,16 @@ import SearchForm from "./SearchForm.class";
 import { FindClassResultDummyData } from "./result/dummy.data";
 import ClassesTable from "./result/Class.table";
 import ClassList from "./result/Class.list";
+import { useTranslation } from "react-i18next";
 
 const { useBreakpoint } = Grid;
 
 const FindClass: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("Find Class"));
-  }, []);
+    dispatch(setCurrentPageTitle(t("titles.findClass")));
+  }, [t]);
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const [count, setCount] = useState(0);
@@ -34,9 +36,9 @@ const FindClass: React.FC = () => {
 
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
-      <h2>Search By:</h2>
+      <h2>{t("general.searchBy")}</h2>
       <SearchForm SearchOptions={SearchOptions} />
-      {`${FindClassResultDummyData.length} results found:`}
+      {`${t("general.resultsFound")} ${FindClassResultDummyData.length}`}
       {isMobile ? (
         <ClassList classes={FindClassResultDummyData} />
       ) : (

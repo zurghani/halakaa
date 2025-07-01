@@ -86,7 +86,27 @@
     "due": "Due",
     "type": "Type",
     "success": "Success",
-    "ofTheQuran": "Of The Quran"
+    "ofTheQuran": "Of The Quran",
+    "searchBy": "Search By:",
+    "dob": "Date of Birth",
+    "ageGroup":"Age Group",
+    "resultsFound": "Results Found:",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classID": "Class ID",
+    "viewAll": "View All",
+    "enter": "Enter"
+  },
+
+  "titles": {
+    "viewStudent": "Student Report",
+    "findStudent": "Find Student",
+    "findClass": "Find Class",
+    "viewClass": "View Class",
+    "myStudents": "Students assigned to you:",
+    "myClasses": "Classes assigned to you:"
+
+
   },
 
 

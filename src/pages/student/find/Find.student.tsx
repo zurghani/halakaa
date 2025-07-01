@@ -8,14 +8,16 @@ import { FindStudentResultDummyData } from "./result/dummy.data";
 import StudentTable from "./result/Student.table";
 import StudentList from "./result/Student.list";
 import SearchForm from "./SearchForm.student";
+import { useTranslation } from "react-i18next";
 
 const { useBreakpoint } = Grid;
 
 const FindStudent: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("Find Student"));
-  }, []);
+    dispatch(setCurrentPageTitle(t("titles.findStudent")));
+  }, [t]);
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const [count, setCount] = useState(0);
@@ -34,9 +36,9 @@ const FindStudent: React.FC = () => {
 
   return (
     <Space direction="vertical" style={{ width: "100%" }}>
-      <h2>Search By:</h2>
+      <h2>{t("general.searchBy")}</h2>
       <SearchForm SearchOptions={SearchOptions} />
-      {`${FindStudentResultDummyData.length} results found:`}
+      {`${t("general.resultsFound")} ${FindStudentResultDummyData.length}`}
       {isMobile ? (
         <StudentList students={FindStudentResultDummyData} />
       ) : (

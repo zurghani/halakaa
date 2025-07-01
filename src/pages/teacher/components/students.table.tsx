@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../store";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 // interface DataType {
 //   key: string;
@@ -14,6 +15,7 @@ import { useTranslation } from "react-i18next";
 // }
 
 const StudentsTable: React.FC = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const students = useSelector((state: AppStore) => state.class[0]);
@@ -84,7 +86,16 @@ const StudentsTable: React.FC = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey={(row) => `Row - ${row.id}`}
+        onRow={(row) => ({
+          onClick: () => {
+            navigate(`/student/${row.id}`);
+          },
+        })}
+      />
     </>
   );
 };

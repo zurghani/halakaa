@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../../store";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const StudentsList: React.FC = () => {
+  const navigate = useNavigate();
   const classes = useSelector((state: AppStore) => state.class[0]);
   const students = classes.students;
   return (
@@ -12,7 +14,9 @@ const StudentsList: React.FC = () => {
       dataSource={students}
       renderItem={(student) => (
         <List.Item
-          onClick={() => console.log(`Students: ${students}`)}
+          onClick={() => {
+            navigate(`/student/${student.id}`);
+          }}
           actions={[
             <a key="teacher-view-classes">
               <ArrowRightOutlined />

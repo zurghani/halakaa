@@ -3,6 +3,8 @@ import { Table, TableProps, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../store";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../../Routes";
 
 // interface DataType {
 //   key: string;
@@ -14,6 +16,8 @@ import { useTranslation } from "react-i18next";
 // }
 
 const MyClassesTable: React.FC = () => {
+  const navigate = useNavigate();
+
   const { t } = useTranslation();
   const classes = useSelector((state: AppStore) => state.class);
   const data = classes.map((teacherClass) => ({
@@ -151,7 +155,16 @@ const MyClassesTable: React.FC = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey={(row) => `Row - ${row.id}`}
+        onRow={(row) => ({
+          onClick: () => {
+            navigate(`/class/${row.id}`);
+          },
+        })}
+      />
     </>
   );
 };

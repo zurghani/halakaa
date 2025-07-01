@@ -5,12 +5,14 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../store/ui.slice";
+import { useTranslation } from "react-i18next";
 
 const ClassView: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentPageTitle("View Class"));
-  }, []);
+    dispatch(setCurrentPageTitle(t("titles.viewClass")));
+  }, [t]);
   const [count, setCount] = React.useState(0);
   const { setButtons } = useSetButtons();
   useEffect(() => {

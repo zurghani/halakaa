@@ -29,7 +29,7 @@
     "logout": "الخروج",
     "create": "إنشاء",
     "find": "بحث",
-    "my classes": "فصولي الدراسية",
+    "my classes": "فصولي",
     "my students": "طلابي"
   },
   "modal": {
@@ -63,12 +63,9 @@
     "revision": "مراجعة",
     "reciting": "تلاوة"
   },
-
-    "parent": {
+  "parent": {
     "homeHeader": "اختر طالبًا للبدء"
-
   },
-
   "general": {
     "name": "الاسم",
     "id": "الرقم التعريفي",
@@ -84,12 +81,28 @@
     "teacher": "المعلم",
     "assignedBy": "تم التعيين بواسطة",
     "assignedOn": "تاريخ التعيين",
-    "due": "تاريخ الاستحقاق",
+    "due": "ينجز عند",
     "type": "النوع",
     "success": "النجاح",
-    "ofTheQuran": "من القرآن"
-},
-
+    "ofTheQuran": "من القرآن",
+    "searchBy": "البحث بواسطة:",
+    "dob": "تاريخ الميلاد",
+    "ageGroup": "الفئة العمرية",
+    "resultsFound": "نتائج تم العثور عليها",
+    "startsAt": "من",
+    "endsAt": "إلى",
+    "classID": "معرّف الفصل",
+    "viewAll": "عرض الكل",
+    "enter": "دخول"
+  },
+  "titles": {
+    "viewStudent": "تقرير الطالب",
+    "findStudent": "البحث عن طالب",
+    "findClass": "البحث عن فصل",
+    "viewClass": "عرض الفصل",
+    "myStudents": "طلٌابي",
+    "myClasses": "فصولي"
+  },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",
   "thankYou": "شكرًا لك",
