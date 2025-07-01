@@ -2,11 +2,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UIState {
+  currentPage: {
+    title: string;
+  }
   isDarkMode: boolean;
   direction: "ltr" | "rtl";
 }
 
 const initialState: UIState = {
+  currentPage: {
+    title: "",
+  },
   isDarkMode: localStorage.getItem("isDarkMode") === "true",
   direction: (localStorage.getItem("direction") as "ltr" | "rtl") || "ltr",
 };
@@ -23,8 +29,11 @@ const uiSlice = createSlice({
       state.direction = action.payload;
       localStorage.setItem("direction", action.payload);
     },
+    setCurrentPageTitle(state, action: PayloadAction<string>) {
+      state.currentPage.title = action.payload;
+    },
   },
 });
 
-export const { toggleDarkMode, setDirection } = uiSlice.actions;
+export const { toggleDarkMode, setDirection, setCurrentPageTitle } = uiSlice.actions;
 export default uiSlice.reducer;

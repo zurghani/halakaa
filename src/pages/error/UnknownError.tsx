@@ -1,6 +1,7 @@
 import { Result, Button } from "antd";
 import "./errors.scss";
 import { useNavigate } from "react-router-dom";
+import { Paths } from "../../Routes";
 function UnknownError() {
   const navigate = useNavigate();
 
@@ -11,7 +12,10 @@ function UnknownError() {
       title="Something Went Wrong"
       subTitle="An unexpected error has occurred. Please try again later."
       extra={[
-        <Button key="navigate" type="primary" onClick={() => navigate("/home")}>
+        <Button
+          key="navigate"
+          type="primary"
+          onClick={() => navigate(Paths.HOME.ROOT)}>
           Reload
         </Button>,
       ]}

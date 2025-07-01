@@ -3,10 +3,117 @@
     "title": "Halaka",
     "description": "Quran classroom"
   },
+  "login": {
+    "title": "Al-Rahman School",
+    "subtitle": "Quran School Tracking System",
+    "username": "Username",
+    "password": "Password",
+    "validation": {
+      "usernameRequired": "Please input your Username!",
+      "usernameMin": "Username must be at least 3 characters long!",
+      "usernameMax": "Username cannot be longer than 20 characters!",
+      "usernamePattern": "Only letters, numbers, periods, underscores, and hyphens are allowed!",
+      "passwordRequired": "Please input your Password!",
+      "passwordMin": "Password must be at least 6 characters long!"
+    },
+    "loginButton": "Login"
+  },
+  "navBar": {
+    "student": "Student",
+    "teacher": "Teacher",
+    "class": "Class",
+    "user": "User",
+    "reports": "Reports",
+    "system settings": "System Settings",
+    "settings": "Settings",
+    "logout": "Logout",
+    "create": "Create",
+    "find": "Find",
+    "my classes": "My Classes",
+    "my students": "My Students"
+  },
+  "modal": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "all": "All",
+    "download": "Download",
+    "cancel": "Cancel",
+    "bodyText": "You will need excel to view CSV",
+    "selectFormat": "Select Format",
+    "title": "Download Reports for Student: "
+  },
+  "class": {
+    "classID": "Class ID",
+    "description": "Description",
+    "teacher": "Teacher",
+    "ageGroup": "Age Group",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classSize": "Class Size",
+    "students": "Students",
+    "name": "Name",
+    "id": "ID"
+  },
+  "tags": {
+    "absent": "Absent",
+    "present": "Present",
+    "late": "Late",
+    "memorization": "Memorization",
+    "revision": "Revision",
+    "reciting": "Reciting"
+  },
+
+  "parent": {
+    "homeHeader": "Pick a student to start"
+  },
+
+  "general": {
+    "name": "Name",
+    "id": "ID",
+    "from": "From",
+    "to": "To",
+    "age": "Age",
+    "attendance": "Attendance",
+    "classes": "Classes",
+    "todo": "To-Do",
+    "history": "History",
+    "date": "Date",
+    "status": "Status",
+    "teacher": "Teacher",
+    "assignedBy": "Assigned By",
+    "assignedOn": "Assigned On",
+    "due": "Due",
+    "type": "Type",
+    "success": "Success",
+    "ofTheQuran": "Of The Quran",
+    "searchBy": "Search By:",
+    "dob": "Date of Birth",
+    "ageGroup":"Age Group",
+    "resultsFound": "Results Found:",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classID": "Class ID",
+    "viewAll": "View All",
+    "enter": "Enter"
+  },
+
+  "titles": {
+    "viewStudent": "Student Report",
+    "findStudent": "Find Student",
+    "findClass": "Find Class",
+    "viewClass": "View Class",
+    "myStudents": "Students assigned to you:",
+    "myClasses": "Classes assigned to you:"
+
+
+  },
+
+
+
   "welcome": "Welcome",
   "goodbye": "Goodbye",
   "thankYou": "Thank you",
   "hello": "Hello",
-  "login": "Login",
   "logout": "Logout"
 }
