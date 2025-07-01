@@ -12,7 +12,7 @@ const ClassView: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPageTitle(t("titles.viewClass")));
-  }, []);
+  }, [t]);
   const [count, setCount] = React.useState(0);
   const { setButtons } = useSetButtons();
   useEffect(() => {

@@ -29,7 +29,7 @@ const ViewStudent: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPageTitle(t("titles.viewStudent")));
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     setButtons([

@@ -17,7 +17,7 @@ const FindStudent: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPageTitle(t("titles.findStudent")));
-  }, []);
+  }, [t]);
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const [count, setCount] = useState(0);

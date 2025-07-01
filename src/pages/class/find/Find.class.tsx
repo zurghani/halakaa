@@ -17,7 +17,7 @@ const FindClass: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPageTitle(t("titles.findClass")));
-  }, []);
+  }, [t]);
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const [count, setCount] = useState(0);

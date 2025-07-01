@@ -19,7 +19,7 @@ const ViewClasses: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPageTitle(t("titles.myClasses")));
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     setButtons([
