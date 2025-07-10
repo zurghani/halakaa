@@ -1,8 +1,5 @@
-import book from './books.js'
+import book from "./books.js";
 
-const resources = [
-    { route: '/book', handler: book },
-]
-
+const resources = [{ route: "/book", handler: book }];
 
 export default resources;
