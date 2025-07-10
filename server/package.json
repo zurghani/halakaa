@@ -2,9 +2,9 @@
   "name": "halakah",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@hono/node-server": "^1.15.0",
@@ -13,6 +13,9 @@
   "devDependencies": {
     "@types/node": "^20.11.17",
     "tsx": "^4.7.1",
-    "typescript": "^5.8.3"
-  }
+    "typescript": "^5.8.3",
+    "@types/bun": "latest"
+  },
+  "module": "src/index.ts",
+  "private": true
 }
