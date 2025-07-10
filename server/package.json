@@ -4,17 +4,24 @@
   "scripts": {
     "dev": "bun run src/index.ts",
     "start": "bun run src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "generateSql": "bunx drizzle-kit generate",
+    "db:push": "npx drizzle-kit push "
   },
   "dependencies": {
     "@hono/node-server": "^1.15.0",
-    "hono": "^4.8.4"
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.44.2",
+    "hono": "^4.8.4",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@types/node": "^20.11.17",
-    "tsx": "^4.7.1",
-    "typescript": "^5.8.3",
-    "@types/bun": "latest"
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   },
   "module": "src/index.ts",
   "private": true
