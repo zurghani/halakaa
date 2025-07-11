@@ -1,10 +1,8 @@
-// import * as studentsService from "./service";
+import * as studentsService from "./service";
+import type { Handler } from "hono";
 
-import { getAllStudents } from "./service";
-// import { Context } from "hono";
-
-export const listStudents = async (c: any) => {
-    const students = await getAllStudents();
+export const listStudents: Handler = async (c) => {
+    const students = await studentsService.getAllStudents();
     return c.json(students);
 };
 

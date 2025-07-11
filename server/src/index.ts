@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import resources from "./Routes";
+import routes from "./Routes";
 
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -18,6 +18,6 @@ serve(
     }
 );
 
-resources.forEach((resource) => {
+routes.forEach((resource) => {
     app.route(resource.route, resource.handler);
 });
