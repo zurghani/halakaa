@@ -235,3 +235,18 @@ export const attendanceRelations = relations(attendance, ({ one }) => ({
         references: [users.id],
     }),
 }));
+
+// Exporting the schema
+export const schema = {
+    users,
+    roles,
+    userRoles,
+    students,
+    classes,
+    studentClasses,
+    surah,
+    ayah,
+    taskTypes,
+    tasks,
+    attendance,
+};

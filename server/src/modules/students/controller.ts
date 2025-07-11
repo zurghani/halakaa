@@ -1,8 +1,11 @@
-// import * as bookService from "./service.ts";
+// import * as studentsService from "./service";
+
+import { getAllStudents } from "./service";
+// import { Context } from "hono";
 
 export const listStudents = async (c: any) => {
-    // const books = await bookService.getAllBooks();
-    return c.json({ message: "List Students" });
+    const students = await getAllStudents();
+    return c.json(students);
 };
 
 // export const getBook = async (c) => {
