@@ -8,6 +8,10 @@ const db = drizzle(process.env.DATABASE_URL!);
 
 const app = new Hono();
 
+routes.forEach((route) => {
+    app.route(route.route, route.handler);
+});
+
 serve(
     {
         fetch: app.fetch,
@@ -17,7 +21,3 @@ serve(
         console.log(`Server is running on http://localhost:${info.port}`);
     }
 );
-
-routes.forEach((resource) => {
-    app.route(resource.route, resource.handler);
-});
