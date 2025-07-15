@@ -1,6 +1,6 @@
 // import * as bookService from "./service.ts";
 
-export const listClasses = async (c: any) => {
+export const getAll = async (c: any) => {
     // const books = await bookService.getAllBooks();
     return c.json({ message: "List Classes" });
 };

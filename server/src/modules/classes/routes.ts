@@ -1,10 +1,9 @@
 import { Hono } from "hono";
 import * as classesController from "./controller";
+import { requireRoles } from "@/middleware/requireRole";
 
 const classes = new Hono();
-
-classes.get("/", classesController.listClasses); // GET /book
-// book.get("/:id", studentsController.getStudent); // GET /book/:id
-// book.post("/", studentsController.createStudent); // POST /book
+//example of role based access control
+classes.get("/", requireRoles(["admin", "teacher"]), classesController.getAll);
 
 export default classes;
