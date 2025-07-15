@@ -22,6 +22,7 @@ export const attendanceStatusEnum = pgEnum("attendance_status", [
     "absent",
     "late",
 ]);
+export const taskStatusEnum = pgEnum("task_status", ["assigned", "completed"]);
 
 // Tables
 export const roles = pgTable("roles", {
@@ -122,6 +123,7 @@ export const tasks = pgTable("tasks", {
     classId: integer("class_id").references(() => classes.id),
     teacherId: uuid("teacher_id").references(() => users.id),
     taskTypeId: integer("task_type_id").references(() => taskTypes.id),
+    status: taskStatusEnum("status").default("assigned"),
     dueDate: date("due_date"),
     startingAyahId: integer("starting_ayah_id").references(() => ayah.id),
     endingAyahId: integer("ending_ayah_id").references(() => ayah.id),
