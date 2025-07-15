@@ -9,6 +9,8 @@ import {
     time,
     pgEnum,
     primaryKey,
+    unique,
+    uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -68,16 +70,22 @@ export const classes = pgTable("classes", {
     createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const studentClasses = pgTable("student_classes", {
-    id: serial("id").primaryKey(),
-    classId: integer("class_id").references(() => classes.id, {
-        onDelete: "cascade",
-    }),
-    studentId: integer("student_id").references(() => students.id, {
-        onDelete: "cascade",
-    }),
-    createdAt: timestamp("created_at").defaultNow(),
-});
+export const studentClasses = pgTable(
+    "student_classes",
+    {
+        id: serial("id").primaryKey(),
+        classId: integer("class_id").references(() => classes.id, {
+            onDelete: "cascade",
+        }),
+        studentId: integer("student_id").references(() => students.id, {
+            onDelete: "cascade",
+        }),
+        createdAt: timestamp("created_at").defaultNow(),
+    },
+    (table) => [
+        uniqueIndex("unique_student_class").on(table.studentId, table.classId),
+    ]
+);
 
 export const surah = pgTable("surah", {
     id: serial("id").primaryKey(),
