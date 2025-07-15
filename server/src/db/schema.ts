@@ -9,7 +9,6 @@ import {
     time,
     pgEnum,
     primaryKey,
-    unique,
     uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -60,13 +59,21 @@ export const students = pgTable("students", {
     createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const ageGroup = pgTable("age_group", {
+    id: serial("id").primaryKey(),
+    description: text("description"),
+    from: integer("from"),
+    to: integer("to"),
+    createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const classes = pgTable("classes", {
     id: serial("id").primaryKey(),
     teacherId: uuid("teacher_id").references(() => users.id),
     startsAt: time("starts_at"),
     endsAt: time("ends_at"),
     description: text("description"),
-    ageGroup: integer("age_group"),
+    ageGroup: integer("age_group").references(() => ageGroup.id),
     createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -112,6 +119,7 @@ export const taskTypes = pgTable("task_types", {
 export const tasks = pgTable("tasks", {
     id: serial("id").primaryKey(),
     studentId: integer("student_id").references(() => students.id),
+    classId: integer("class_id").references(() => classes.id),
     teacherId: uuid("teacher_id").references(() => users.id),
     taskTypeId: integer("task_type_id").references(() => taskTypes.id),
     dueDate: date("due_date"),
@@ -126,6 +134,7 @@ export const attendance = pgTable("attendance", {
     id: serial("id").primaryKey(),
     studentId: integer("student_id").references(() => students.id),
     teacherId: uuid("teacher_id").references(() => users.id),
+    classId: integer("class_id").references(() => classes.id),
     date: date("date").notNull(),
     status: attendanceStatusEnum("status").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
@@ -172,10 +181,18 @@ export const studentsRelations = relations(students, ({ one, many }) => ({
     attendance: many(attendance),
 }));
 
+export const ageGroupRelations = relations(ageGroup, ({ many }) => ({
+    classes: many(classes),
+}));
+
 export const classesRelations = relations(classes, ({ one, many }) => ({
     teacher: one(users, {
         fields: [classes.teacherId],
         references: [users.id],
+    }),
+    ageGroupRef: one(ageGroup, {
+        fields: [classes.ageGroup],
+        references: [ageGroup.id],
     }),
     studentClasses: many(studentClasses),
 }));
@@ -213,6 +230,10 @@ export const tasksRelations = relations(tasks, ({ one }) => ({
         fields: [tasks.studentId],
         references: [students.id],
     }),
+    classRef: one(classes, {
+        fields: [tasks.classId],
+        references: [classes.id],
+    }),
     teacher: one(users, {
         fields: [tasks.teacherId],
         references: [users.id],
@@ -242,6 +263,10 @@ export const attendanceRelations = relations(attendance, ({ one }) => ({
         fields: [attendance.teacherId],
         references: [users.id],
     }),
+    classRef: one(classes, {
+        fields: [attendance.classId],
+        references: [classes.id],
+    }),
 }));
 
 // Exporting the schema
@@ -250,6 +275,7 @@ export const schema = {
     roles,
     userRoles,
     students,
+    ageGroup,
     classes,
     studentClasses,
     surah,
