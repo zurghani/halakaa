@@ -3,8 +3,17 @@ import * as studentsController from "./controller";
 
 const students = new Hono();
 
-students.get("/", studentsController.listStudents);
-students.get("/:id", studentsController.getStudent);
-students.post("/", studentsController.createStudent);
+/*
+GET    => READ
+POST   => CREATE
+DELETE => DELETE
+PUT    => UPDATE
+*/
+
+students.get("/", studentsController.getAll);
+students.get("/:id", studentsController.getById);
+students.post("/", studentsController.create);
+students.put("/:id", studentsController.update);
+students.delete("/:id", studentsController.remove);
 
 export default students;
