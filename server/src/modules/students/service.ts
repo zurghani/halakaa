@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { students } from "@/db/schema";
+import { studentClasses, students } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 // Types
@@ -27,6 +27,16 @@ export const getStudentById = async (
         .from(students)
         .where(eq(students.id, id));
     return student;
+};
+
+export const getStudentsByParentID = async (parentID: string): Promise<Student[]> => {
+    const result = await db.select().from(students).where(eq(students.parentId, parentID));
+    return result;
+};
+
+export const getStudentsByClassID = async (classID: number): Promise<Student[]> => {
+    const result = await db.select().from(studentClasses).innerJoin(students, eq(studentClasses.studentId, students.id)).where(eq(studentClasses.classId, classID))
+    return result.map((row) => row.students);
 };
 
 // Update
