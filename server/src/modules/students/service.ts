@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { studentClasses, students } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 // Types
 export type Student = typeof students.$inferSelect;
@@ -29,14 +29,24 @@ export const getStudentById = async (
     return student;
 };
 
-export const getStudentsByParentID = async (parentID: string): Promise<Student[]> => {
-    const result = await db.select().from(students).where(eq(students.parentId, parentID));
+// Read by filters
+export type getStudentsFilters = { parentId?: string; classId?: number };
+export const getStudentByFilters = async (
+    filters: getStudentsFilters
+): Promise<Student[]> => {
+    const conditions = [];
+    if (filters.parentId) {
+        conditions.push(eq(students.parentId, filters.parentId));
+    }
+    if (filters.classId) {
+        // conditions.push(eq(students, filters.classId));
+        console.log("Class ID filter is not implemented yet");
+    }
+    const result = await db
+        .select()
+        .from(students)
+        .where(conditions.length > 0 ? and(...conditions) : undefined);
     return result;
-};
-
-export const getStudentsByClassID = async (classID: number): Promise<Student[]> => {
-    const result = await db.select().from(studentClasses).innerJoin(students, eq(studentClasses.studentId, students.id)).where(eq(studentClasses.classId, classID))
-    return result.map((row) => row.students);
 };
 
 // Update

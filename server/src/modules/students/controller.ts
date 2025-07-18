@@ -2,6 +2,7 @@ import { requireRoles } from "@/middleware/requireRole";
 import * as studentsService from "./service";
 import type { Handler } from "hono";
 import type { Role } from "@/types";
+import { use } from "hono/jsx";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();
@@ -9,48 +10,23 @@ export const create: Handler = async (c) => {
     return c.json(result, 201);
 };
 export const getAll: Handler = async (c) => {
-    const parentID = c.req.query("parent_id");
-    const classID = Number(c.req.query("class_id"));
-    const user = c.get("user") as { id: string; roles: Role[] }
-    let students;
+    const user = c.get("user") as { id: string; roles: Role[] };
+    let parentId = c.req.query("parent_id");
+    let classId = Number(c.req.query("class_id"));
+    let students: studentsService.Student[] = [];
 
-    const hasRole = (role: Role) => user.roles.includes(role);
-
-    if (parentID){
-        if (hasRole("admin") || hasRole("parent")) {
-        students = await studentsService.getStudentsByParentID(parentID);
-        } else {
-            return c.json(
-                {
-                    message: "Forbidden: Requires one of roles: Admin, Parent",
-                },
-                403
-            );
-        }
-    } 
-    else if (classID) {
-        if (hasRole("admin") || hasRole("teacher")) {
-        students = await studentsService.getStudentsByClassID(Number(classID));
-        } else {
-            return c.json(
-                {
-                    message: "Forbidden: Requires one of roles: Admin, Teacher",
-                },
-                403
-            );
-        }
+    if (user.roles.includes("parent")) {
+        parentId = user.id;
+        students = await studentsService.getStudentByFilters({ parentId });
     }
-    else {
-        if (hasRole("admin") || hasRole("teacher")) {
-        students = await studentsService.getAllStudents();
-        } else {
-            return c.json(
-                {
-                    message: "Forbidden: Requires one of roles: Admin, Teacher",
-                },
-                403
-            );
-        }
+    if (user.roles.includes("teacher")) {
+        students = await studentsService.getStudentByFilters({ classId });
+    }
+    if (user.roles.includes("admin")) {
+        students = await studentsService.getStudentByFilters({
+            classId,
+            parentId,
+        });
     }
 
     return c.json(students);
