@@ -1,12 +1,7 @@
 // npm packages
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 // store
 import { AppStore } from "./store";
 import { UserRole } from "./store/types";
@@ -39,56 +34,26 @@ const AppRoutes = () => {
                 <Route element={<AuthenticationGuard />}>
                     {/* Other Authenticated Routes */}
                     <Route element={<MainLayout />}>
-                        <Route
-                            path={Paths.HOME.ROOT}
-                            element={<HomeRedirect />}
-                        />
-                        <Route
-                            path={Paths.HOME.MAIN}
-                            element={<HomeRedirect />}
-                        />
+                        <Route path={Paths.HOME.ROOT} element={<HomeRedirect />} />
+                        <Route path={Paths.HOME.MAIN} element={<HomeRedirect />} />
 
                         <Route path={Paths.HOME.ADMIN} element={<Home />} />
                         <Route path={Paths.HOME.TEACHER} element={<Home />} />
 
                         <Route element={<ParentGuard />}>
-                            <Route
-                                path={Paths.HOME.PARENT}
-                                element={<ParentHome />}
-                            />
+                            <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
                         </Route>
 
                         <Route element={<PageLayout />}>
-                            <Route
-                                path={Paths.STUDENT.VIEW}
-                                element={<ViewStudent />}
-                            />
-                            <Route
-                                path={Paths.STUDENT.FIND}
-                                element={<FindStudent />}
-                            />
+                            <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
+                            <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
-                            <Route
-                                path={Paths.CLASS.VIEW}
-                                element={<ClassView />}
-                            />
-                            <Route
-                                path={Paths.CLASS.FIND}
-                                element={<FindClass />}
-                            />
+                            <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
+                            <Route path={Paths.CLASS.FIND} element={<FindClass />} />
 
-                            <Route
-                                path={Paths.TEACHER.CLASSES}
-                                element={<ViewClasses />}
-                            />
-                            <Route
-                                path={Paths.TEACHER.STUDENTS}
-                                element={<ViewStudents />}
-                            />
-                            <Route
-                                path={Paths.TEACHER.RUNNING}
-                                element={<RunningClass />}
-                            />
+                            <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
+                            <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
+                            <Route path={Paths.TEACHER.RUNNING} element={<RunningClass />} />
                         </Route>
                     </Route>
                 </Route>
