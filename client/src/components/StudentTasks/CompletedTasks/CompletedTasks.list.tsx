@@ -8,9 +8,7 @@ import "./CompletedTasks.scss";
 const CompletedTasksList: React.FC = () => {
     const studentTasks = useSelector((state: AppStore) => state.tasks);
 
-    const data = studentTasks.tasks.filter(
-        (task) => task.status === TaskStatus.Completed
-    );
+    const data = studentTasks.tasks.filter((task) => task.status === TaskStatus.Completed);
     // TODO : add explanation for why we did we for loop here
     // For loop to create mapping of keys, ensures unique key as there are many collapses on the same page
     const keyMap = new Array(studentTasks.tasks.length);

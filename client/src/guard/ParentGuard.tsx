@@ -6,12 +6,12 @@ import { Paths } from "../Routes";
 import { UserRole } from "../store/types";
 
 const ParentGuard: React.FC = () => {
-  const userRole = useSelector((state: AppStore) => state.user.role);
+    const userRole = useSelector((state: AppStore) => state.user.role);
 
-  if (userRole !== UserRole.Parent) {
-    return <Navigate to={Paths.HOME.ROOT} />;
-  }
-  return <Outlet />;
+    if (userRole !== UserRole.Parent) {
+        return <Navigate to={Paths.HOME.ROOT} />;
+    }
+    return <Outlet />;
 };
 
 export default ParentGuard;

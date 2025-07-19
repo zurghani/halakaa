@@ -37,7 +37,14 @@ const EnrolledStudents: React.FC<EnrolledStudentsProps> = ({ selectable, onSelec
         },
     ];
 
-    return <Table<EnrolledStudentsType> rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={EnrolledStudentsData} />;
+    return (
+        <Table<EnrolledStudentsType>
+            rowKey="id"
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={EnrolledStudentsData}
+        />
+    );
 };
 
 export default EnrolledStudents;
