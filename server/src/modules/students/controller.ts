@@ -39,10 +39,7 @@ export const getById: Handler = async (c) => {
 export const update: Handler = async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
-    const updatedStudent = await studentsService.updateStudent(
-        parseInt(id),
-        body
-    );
+    const updatedStudent = await studentsService.updateStudent(parseInt(id), body);
     return c.json(updatedStudent);
 };
 export const remove: Handler = async (c) => {

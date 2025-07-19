@@ -13,9 +13,7 @@ export const requireRoles = (roles: Role[]): MiddlewareHandler => {
         if (!hasRole) {
             return c.json(
                 {
-                    message: `Forbidden: Requires one of roles [${roles.join(
-                        ", "
-                    )}]`,
+                    message: `Forbidden: Requires one of roles [${roles.join(", ")}]`,
                 },
                 403
             );
