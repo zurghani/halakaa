@@ -93,7 +93,8 @@
     "endsAt": "إلى",
     "classID": "معرّف الفصل",
     "viewAll": "عرض الكل",
-    "enter": "دخول"
+    "enter": "دخول",
+    "class": "فصل"
   },
   "titles": {
     "viewStudent": "تقرير الطالب",
@@ -101,7 +102,8 @@
     "findClass": "البحث عن فصل",
     "viewClass": "عرض الفصل",
     "myStudents": "طلٌابي",
-    "myClasses": "فصولي"
+    "myClasses": "فصولي",
+    "exitClass": "خروج من الحصة"
   },
   "welcome": "مرحبًا",
   "goodbye": "وداعًا",

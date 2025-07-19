@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useNavigate,
 } from "react-router-dom";
 // store
 import { AppStore } from "./store";
@@ -29,109 +29,142 @@ import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
+import RunningClass from "./pages/teacher/teacher.running.class";
 
 const AppRoutes = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path={Paths.AUTH.LOGIN} element={<Login />} />
-        <Route element={<AuthenticationGuard />}>
-          {/* Other Authenticated Routes */}
-          <Route element={<MainLayout />}>
-            <Route path={Paths.HOME.ROOT} element={<HomeRedirect />} />
-            <Route path={Paths.HOME.MAIN} element={<HomeRedirect />} />
+    return (
+        <Router>
+            <Routes>
+                <Route path={Paths.AUTH.LOGIN} element={<Login />} />
+                <Route element={<AuthenticationGuard />}>
+                    {/* Other Authenticated Routes */}
+                    <Route element={<MainLayout />}>
+                        <Route
+                            path={Paths.HOME.ROOT}
+                            element={<HomeRedirect />}
+                        />
+                        <Route
+                            path={Paths.HOME.MAIN}
+                            element={<HomeRedirect />}
+                        />
 
-            <Route path={Paths.HOME.ADMIN} element={<Home />} />
-            <Route path={Paths.HOME.TEACHER} element={<Home />} />
+                        <Route path={Paths.HOME.ADMIN} element={<Home />} />
+                        <Route path={Paths.HOME.TEACHER} element={<Home />} />
 
-            <Route element={<ParentGuard />}>
-              <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
-            </Route>
+                        <Route element={<ParentGuard />}>
+                            <Route
+                                path={Paths.HOME.PARENT}
+                                element={<ParentHome />}
+                            />
+                        </Route>
 
-            <Route element={<PageLayout />}>
-              <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
-              <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
+                        <Route element={<PageLayout />}>
+                            <Route
+                                path={Paths.STUDENT.VIEW}
+                                element={<ViewStudent />}
+                            />
+                            <Route
+                                path={Paths.STUDENT.FIND}
+                                element={<FindStudent />}
+                            />
 
-              <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
-              <Route path={Paths.CLASS.FIND} element={<FindClass />} />
+                            <Route
+                                path={Paths.CLASS.VIEW}
+                                element={<ClassView />}
+                            />
+                            <Route
+                                path={Paths.CLASS.FIND}
+                                element={<FindClass />}
+                            />
 
-              <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
-              <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
-            </Route>
-          </Route>
-        </Route>
-        <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
-        <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
-        <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
-      </Routes>
-    </Router>
-  );
+                            <Route
+                                path={Paths.TEACHER.CLASSES}
+                                element={<ViewClasses />}
+                            />
+                            <Route
+                                path={Paths.TEACHER.STUDENTS}
+                                element={<ViewStudents />}
+                            />
+                            <Route
+                                path={Paths.TEACHER.RUNNING}
+                                element={<RunningClass />}
+                            />
+                        </Route>
+                    </Route>
+                </Route>
+                <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
+                <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
+                <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
+            </Routes>
+        </Router>
+    );
 };
 export default AppRoutes;
 
 export const Paths = {
-  AUTH: {
-    LOGIN: "/login",
-  },
-  HOME: {
-    ROOT: "/",
-    MAIN: "/home",
-    TEACHER: "/home/teacher",
-    STUDENT: "/home/student",
-    PARENT: "/home/parent",
-    ADMIN: "/home/admin",
-  },
-  ERROR: {
-    UNKNOWN: "/error",
-    SERVER: "/500",
-    NOT_FOUND: "*",
-  },
-  DASHBOARD: "/dashboard",
-  STUDENT: {
-    ROOT: "/student",
-    VIEW: "/student/:id",
-    CREATE: "/student/create",
-    FIND: "/student/find",
-  },
-  TEACHER: {
-    ROOT: "/teacher",
-    CREATE: "/teacher/create",
-    FIND: "/teacher/find",
-    CLASSES: "teacher/classes",
-    STUDENTS: "teacher/students",
-  },
-  PARENT: {
-    ROOT: "/parent",
-  },
-  CLASS: {
-    ROOT: "/class",
-    VIEW: "/class/:id", //: "classId"
-    CLASSROOM: "/classroom",
-    CREATE: "/class/create",
-    FIND: "/class/find",
-  },
-  USER: {
-    ROOT: "/user",
-    CREATE: "/user/create",
-    FIND: "/user/find",
-  },
+    AUTH: {
+        LOGIN: "/login",
+    },
+    HOME: {
+        ROOT: "/",
+        MAIN: "/home",
+        TEACHER: "/home/teacher",
+        STUDENT: "/home/student",
+        PARENT: "/home/parent",
+        ADMIN: "/home/admin",
+    },
+    ERROR: {
+        UNKNOWN: "/error",
+        SERVER: "/500",
+        NOT_FOUND: "*",
+    },
+    DASHBOARD: "/dashboard",
+    STUDENT: {
+        ROOT: "/student",
+        VIEW: "/student/:id",
+        CREATE: "/student/create",
+        FIND: "/student/find",
+    },
+    TEACHER: {
+        ROOT: "/teacher",
+        CREATE: "/teacher/create",
+        FIND: "/teacher/find",
+        CLASSES: "/teacher/classes",
+        STUDENTS: "/teacher/students",
+        RUNNING: "/teacher/running",
+    },
+    PARENT: {
+        ROOT: "/parent",
+    },
+    CLASS: {
+        ROOT: "/class",
+        VIEW: "/class/:id", //: "classId"
+        CLASSROOM: "/classroom",
+        CREATE: "/class/create",
+        FIND: "/class/find",
+    },
+    USER: {
+        ROOT: "/user",
+        CREATE: "/user/create",
+        FIND: "/user/find",
+    },
 };
 
 const HomeRedirect = () => {
-  const userRole = useSelector((state: AppStore) => state.user.role);
-  const navigate = useNavigate();
+    const userRole = useSelector((state: AppStore) => state.user.role);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    let targetRoute = Paths.HOME.MAIN;
-    if (userRole === UserRole.Teacher) {
-      targetRoute = Paths.HOME.TEACHER;
-    } else if (userRole === UserRole.Parent) {
-      targetRoute = Paths.HOME.PARENT;
-    } else if (userRole === UserRole.Admin) {
-      targetRoute = Paths.HOME.ADMIN;
-    }
-    navigate(targetRoute, { replace: true });
-  }, [userRole, navigate]);
+    useEffect(() => {
+        let targetRoute = Paths.HOME.MAIN;
+        if (userRole === UserRole.Teacher) {
+            targetRoute = Paths.HOME.TEACHER;
+        } else if (userRole === UserRole.Parent) {
+            targetRoute = Paths.HOME.PARENT;
+        } else if (userRole === UserRole.Admin) {
+            targetRoute = Paths.HOME.ADMIN;
+        }
+        navigate(targetRoute, { replace: true });
+    }, [userRole, navigate]);
 
-  return <div>Redirecting to Home...</div>;
+    return <div>Redirecting to Home...</div>;
 };
