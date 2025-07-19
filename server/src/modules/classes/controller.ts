@@ -1,12 +1,12 @@
 import type { Handler } from "hono";
-import * as classService from "./service"
+import * as classService from "./service";
 import type { Role } from "@/types";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();
     const result = await classService.createClass(body);
     return c.json(result, 201);
-}
+};
 
 export const getAll: Handler = async (c) => {
     const user = c.get("user") as { id: string; roles: Role[] };
@@ -22,23 +22,18 @@ export const getAll: Handler = async (c) => {
     }
 
     return c.json(classes);
-
 };
-
 
 export const getById: Handler = async (c) => {
     const id = c.req.param("id");
     const quranClass = await classService.getClassById(parseInt(id));
-    return c.json(quranClass)
+    return c.json(quranClass);
 };
 
 export const update: Handler = async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
-    const updatedClass = await classService.updateClass(
-        parseInt(id),
-        body
-    );
+    const updatedClass = await classService.updateClass(parseInt(id), body);
     return c.json(updatedClass);
 };
 export const remove: Handler = async (c) => {

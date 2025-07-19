@@ -15,5 +15,4 @@ classes.post("/", requireRoles(["admin"]), classesController.create);
 classes.put("/:id", requireRoles(["admin"]), classesController.update);
 classes.delete("/:id", requireRoles(["admin"]), classesController.remove);
 
-
 export default classes;

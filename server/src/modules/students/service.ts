@@ -19,21 +19,14 @@ export const getAllStudents = async (): Promise<Student[]> => {
 };
 
 // Read one
-export const getStudentById = async (
-    id: number
-): Promise<Student | undefined> => {
-    const [student] = await db
-        .select()
-        .from(students)
-        .where(eq(students.id, id));
+export const getStudentById = async (id: number): Promise<Student | undefined> => {
+    const [student] = await db.select().from(students).where(eq(students.id, id));
     return student;
 };
 
 // Read by filters
 export type getStudentsFilters = { parentId?: string; classId?: number };
-export const getStudentByFilters = async (
-    filters: getStudentsFilters
-): Promise<Student[]> => {
+export const getStudentByFilters = async (filters: getStudentsFilters): Promise<Student[]> => {
     const conditions = [];
     if (filters.parentId) {
         conditions.push(eq(students.parentId, filters.parentId));
