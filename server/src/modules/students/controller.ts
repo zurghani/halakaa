@@ -1,8 +1,6 @@
-import { requireRoles } from "@/middleware/requireRole";
 import * as studentsService from "./service";
 import type { Handler } from "hono";
 import type { Role } from "@/types";
-import { use } from "hono/jsx";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();

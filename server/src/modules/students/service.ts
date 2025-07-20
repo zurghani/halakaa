@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { studentClasses, students } from "@/db/schema";
+import { students } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 
 // Types
