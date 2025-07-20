@@ -14,8 +14,8 @@ export const create: Handler = async (c) => {
 }
 
 export const getAll: Handler = async (c) => {
-    const classId = Number(c.req.query("class_id"));
-    const studentId = Number(c.req.query("student_id"));
+    const classId = Number(c.req.query("class_id")) || undefined;
+    const studentId = Number(c.req.query("student_id")) || undefined;
     
     let data: Student[] | Class[] = []
     if (classId) {
