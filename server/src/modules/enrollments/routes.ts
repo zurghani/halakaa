@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import * as enrollmentsController from "./controller"
+import * as enrollmentsController from "./controller";
 import { requireRoles } from "@/middleware/requireRole";
 
 const enrollments = new Hono();
