@@ -1,8 +1,5 @@
 import type { Handler } from "hono";
-import type { Role } from "@/types";
 import * as enrollmentsService from "./service";
-import type { Student } from "../students/service";
-import type { Class } from "../classes/service";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();
@@ -11,15 +8,13 @@ export const create: Handler = async (c) => {
 };
 
 export const getAll: Handler = async (c) => {
-    console.log("getAll enrollments called");
-    const classId = Number(c.req.query("class_id")) || undefined;
-    const studentId = Number(c.req.query("student_id")) || undefined;
-
-    let data: Student[] | Class[] = [];
+    const classId = Number(c.req.query("class_id"));
+    const studentId = Number(c.req.query("student_id"));
+    let data: enrollmentsService.Enrollment[] = [];
     if (classId) {
-        data = await enrollmentsService.getEnrollmentsByFilters({ classId });
+        data = await enrollmentsService.getEnrolledStudentsByClassId(classId);
     } else if (studentId) {
-        data = await enrollmentsService.getEnrollmentsByFilters({ studentId });
+        data = await enrollmentsService.getEnrolledClassesByStudentId(studentId);
     }
 
     return c.json(data);
