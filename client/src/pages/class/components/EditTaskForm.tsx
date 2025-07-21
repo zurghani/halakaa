@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    Button,
     Checkbox,
     DatePicker,
     Form,
@@ -23,7 +22,7 @@ const verseOptions = [
     { label: "Verse6", value: "verse6" },
 ];
 
-export type FieldType = {
+export type EditTaskFormFieldsType = {
     type?: TaskType[];
     from?: string;
     to?: string;
@@ -33,11 +32,11 @@ export type FieldType = {
     notes?: string;
 };
 
-interface Props {
+interface EditTaskFormProps {
     form: any;
-    onFinish: (values: FieldType) => void;
+    onFinish: (values: EditTaskFormFieldsType) => void;
 }
-const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
+const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
     const { t } = useTranslation();
     const [complete, setComplete] = useState(false);
 
@@ -64,7 +63,7 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                 to: undefined,
                 complete: false,
             }}>
-            <Form.Item<FieldType>
+            <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.type")}
                 name="type"
                 rules={[
@@ -74,14 +73,15 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
-                    mode="multiple"
+                    mode="tags"
+                    maxCount={1}
                     placeholder={t("editTaskModal.selectType")}
-                    tagRender={tagRender}
+                    tagRender={taskTypeTagsRenderer}
                     options={options}
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.from")}
                 name="from"
                 rules={[
@@ -96,7 +96,7 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.to")}
                 name="to"
                 rules={[
@@ -111,7 +111,7 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.due")}
                 name="due"
                 rules={[
@@ -125,7 +125,7 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     style={{ width: "100%" }}
                 />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.complete")}
                 name="complete"
                 valuePropName="checked">
@@ -134,13 +134,13 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
 
             {complete && (
                 <>
-                    <Form.Item<FieldType>
+                    <Form.Item<EditTaskFormFieldsType>
                         label={t("editTaskModal.mistakes")}
                         name="mistakes">
                         <InputNumber min={0} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item<FieldType>
+                    <Form.Item<EditTaskFormFieldsType>
                         label={t("editTaskModal.notes")}
                         name="notes">
                         <TextArea rows={4} />
@@ -152,8 +152,7 @@ const EditTaskForm: React.FC<Props> = ({ form, onFinish }) => {
 };
 export default EditTaskForm;
 
-const tagRender: TagRender = (props) => {
-    const { label, value, closable, onClose } = props;
+const taskTypeTagsRenderer: TagRender = ({ value, onClose }) => {
     const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -162,8 +161,9 @@ const tagRender: TagRender = (props) => {
         <TaskTypeTag
             key={value}
             type={value as TaskType}
-            closeIcon={closable ? "show" : "hide"}
+            closable
             onClose={onClose}
+            onMouseDown={onPreventMouseDown}
         />
     );
 };

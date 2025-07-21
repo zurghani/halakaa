@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import { PlusOutlined } from "@ant-design/icons";
-import EditTaskForm, { FieldType } from "./EditTaskForm";
+import EditTaskForm, { EditTaskFormFieldsType } from "./EditTaskForm";
 
 const EditTaskModal: React.FC = () => {
     const { t } = useTranslation();
@@ -20,7 +20,7 @@ const EditTaskModal: React.FC = () => {
         setOpen(false);
     };
 
-    const onFinish = (values: FieldType) => {
+    const onFinish = (values: EditTaskFormFieldsType) => {
         console.log("Form values:", values);
         setConfirmLoading(true);
         setTimeout(() => {
