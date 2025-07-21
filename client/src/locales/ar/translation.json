@@ -43,6 +43,27 @@
     "selectFormat": "حدد صيغة الملف",
     "title": "تنزيل التقارير للطالب: "
   },
+  "editTaskModal": {
+    "editCompleteTask": "إكمال / تعديل المهمة",
+    "type": "النوع",
+    "from": "من",
+    "to": "إلى",
+    "due": "تاريخ الاستحقاق",
+    "complete": "إنهاء",
+    "save": "حفظ",
+    "mistakes": "الأخطاء",
+    "notes": "ملاحظات",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "selectType": "اختر نوع المهمة",
+    "selectFrom": "اختر الآية التي تبدأ منها",
+    "selectTo": "اختر الآية التي تنتهي عندها",
+    "selectDue": "اختر التاريخ",
+    "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
+    "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
+    "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
+    "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+  },
   "class": {
     "classID": "معرف الفصل",
     "description": "وصف",
