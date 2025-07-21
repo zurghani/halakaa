@@ -8,11 +8,7 @@ interface TaskTypeTagProps extends TagProps {
     type: TaskType;
 }
 
-const TaskTypeTag: React.FC<TaskTypeTagProps> = ({
-    type,
-    closeIcon,
-    ...rest
-}) => {
+const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, ...rest }) => {
     const { t } = useTranslation();
     const statusConfig = {
         memorization: {
@@ -27,11 +23,7 @@ const TaskTypeTag: React.FC<TaskTypeTagProps> = ({
     };
     const { color } = statusConfig[type];
     return (
-        <Tag
-            closable={closeIcon === "show"}
-            color={color}
-            className="task-tag"
-            {...rest}>
+        <Tag closable color={color} className="task-tag" {...rest}>
             {t(`tags.${type}`)}
         </Tag>
     );
