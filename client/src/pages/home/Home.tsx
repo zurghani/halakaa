@@ -8,7 +8,6 @@ const Home: React.FC = () => {
         <div>
             <h1>{t("app.title")}</h1>
             <p>{t("app.description")}</p>
-            <EditTaskModal />
         </div>
     );
 };

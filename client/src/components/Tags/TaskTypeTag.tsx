@@ -9,6 +9,7 @@ interface TaskTypeTagProps extends TagProps {
 }
 
 const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, ...rest }) => {
+
     const { t } = useTranslation();
     const statusConfig = {
         memorization: {
@@ -24,6 +25,7 @@ const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, ...rest }) => {
     const { color } = statusConfig[type];
     return (
         <Tag closable color={color} className="task-tag" {...rest}>
+
             {t(`tags.${type}`)}
         </Tag>
     );

@@ -16,53 +16,53 @@ import { useTranslation } from "react-i18next";
 // }
 
 const AttendanceTable: React.FC = () => {
-  const { t } = useTranslation();
-  const attendance = useSelector((state: AppStore) => state.student.attendance);
+    const { t } = useTranslation();
+    const attendance = useSelector((state: AppStore) => state.student.attendance);
 
-  const columns: TableProps["columns"] = [
-    {
-      title: t("general.teacher"),
-      dataIndex: "teacherId",
-      key: "id",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.teacherId - b.teacherId,
-    },
-    {
-      title: t("general.date"),
-      dataIndex: "date",
-      key: "date",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.date - b.date,
-    },
-    {
-      title: t("general.status"),
-      dataIndex: "status",
-      key: "status",
-      render: (status) => <AttendanceStatusTag status={status} />,
-      filters: [
+    const columns: TableProps["columns"] = [
         {
-          text: "Present",
-          value: AttendanceStatus.Present,
+            title: t("general.teacher"),
+            dataIndex: "teacherId",
+            key: "id",
+            defaultSortOrder: "descend",
+            sorter: (a, b) => a.teacherId - b.teacherId,
         },
         {
-          text: "Late",
-          value: AttendanceStatus.Late,
+            title: t("general.date"),
+            dataIndex: "date",
+            key: "date",
+            defaultSortOrder: "descend",
+            sorter: (a, b) => a.date - b.date,
         },
-
         {
-          text: "Absent",
-          value: AttendanceStatus.Absent,
-        },
-      ],
-      onFilter: (value, record) => record.status.indexOf(value as string) === 0,
-    },
-  ];
+            title: t("general.status"),
+            dataIndex: "status",
+            key: "status",
+            render: (status) => <AttendanceStatusTag status={status} />,
+            filters: [
+                {
+                    text: "Present",
+                    value: AttendanceStatus.Present,
+                },
+                {
+                    text: "Late",
+                    value: AttendanceStatus.Late,
+                },
 
-  return (
-    <>
-      <Table columns={columns} dataSource={attendance} />
-    </>
-  );
+                {
+                    text: "Absent",
+                    value: AttendanceStatus.Absent,
+                },
+            ],
+            onFilter: (value, record) => record.status.indexOf(value as string) === 0,
+        },
+    ];
+
+    return (
+        <>
+            <Table columns={columns} dataSource={attendance} />
+        </>
+    );
 };
 
 export default AttendanceTable;

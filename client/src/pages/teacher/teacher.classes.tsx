@@ -12,22 +12,22 @@ import { useTranslation } from "react-i18next";
 const { useBreakpoint } = Grid;
 
 const ViewClasses: React.FC = () => {
-  const { t } = useTranslation();
-  const { setButtons } = useSetButtons();
-  const screens = useBreakpoint();
-  const isMobile = !screens.lg;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setCurrentPageTitle(t("titles.myClasses")));
-  }, [t]);
+    const { t } = useTranslation();
+    const { setButtons } = useSetButtons();
+    const screens = useBreakpoint();
+    const isMobile = !screens.lg;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setCurrentPageTitle(t("titles.myClasses")));
+    }, [t]);
 
-  useEffect(() => {
-    setButtons([
-      <Button icon={<PrinterOutlined />}></Button>,
-      <DownloadModal title={""} dataSelectorFunction={undefined} />,
-    ]);
-  }, []);
-  return isMobile ? <MyClassesList /> : <MyClassesTable />;
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />}></Button>,
+            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+        ]);
+    }, []);
+    return isMobile ? <MyClassesList /> : <MyClassesTable />;
 };
 
 export default ViewClasses;

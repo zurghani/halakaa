@@ -21,52 +21,52 @@ const { useBreakpoint } = Grid;
 // Common items for both roles
 
 const ViewStudent: React.FC = () => {
-  const { setButtons } = useSetButtons();
-  // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
-  const { t } = useTranslation();
-  const screens = useBreakpoint();
-  const isMobile = !screens.lg;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setCurrentPageTitle(t("titles.viewStudent")));
-  }, [t]);
+    const { setButtons } = useSetButtons();
+    // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
+    const { t } = useTranslation();
+    const screens = useBreakpoint();
+    const isMobile = !screens.lg;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setCurrentPageTitle(t("titles.viewStudent")));
+    }, [t]);
 
-  useEffect(() => {
-    setButtons([
-      <Button icon={<PrinterOutlined />}></Button>,
-      <DownloadModal title={""} dataSelectorFunction={undefined} />,
-    ]);
-  }, []);
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />}></Button>,
+            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+        ]);
+    }, []);
 
-  const collapseItems: CollapseProps["items"] = [
-    {
-      key: "common-1",
-      label: t("general.attendance"),
-      children: isMobile ? <AttendanceList /> : <AttendanceTable />,
-    },
-    {
-      key: "common-2",
-      label: t("general.classes"),
-      children: isMobile ? <ClassesList /> : <ClassesTable />,
-    },
-    {
-      key: "common-3",
-      label: t("general.todo"),
-      children: <AssignedTasks mode="view" />,
-    },
-    {
-      key: "common-4",
-      label: t("general.history"),
-      children: isMobile ? <CompletedTasksList /> : <CompletedTasksTable />,
-    },
-  ];
+    const collapseItems: CollapseProps["items"] = [
+        {
+            key: "common-1",
+            label: t("general.attendance"),
+            children: isMobile ? <AttendanceList /> : <AttendanceTable />,
+        },
+        {
+            key: "common-2",
+            label: t("general.classes"),
+            children: isMobile ? <ClassesList /> : <ClassesTable />,
+        },
+        {
+            key: "common-3",
+            label: t("general.todo"),
+            children: <AssignedTasks mode="view" />,
+        },
+        {
+            key: "common-4",
+            label: t("general.history"),
+            children: isMobile ? <CompletedTasksList /> : <CompletedTasksTable />,
+        },
+    ];
 
-  return (
-    <>
-      <StudentDetailsCard />
-      <Collapse items={collapseItems} />
-    </>
-  );
+    return (
+        <>
+            <StudentDetailsCard />
+            <Collapse items={collapseItems} />
+        </>
+    );
 };
 
 export default ViewStudent;
