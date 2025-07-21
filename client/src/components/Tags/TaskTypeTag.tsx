@@ -1,16 +1,15 @@
-import React from "react";
 import { Tag } from "antd";
-
-import "./TaskTypeTage.scss";
+import type { TagProps } from "antd/lib/tag";
 import { useTranslation } from "react-i18next";
+
 export type TaskType = "memorization" | "revision" | "reciting";
 
-interface TaskTypeTagProps {
+interface TaskTypeTagProps extends TagProps {
     type: TaskType;
-    closeIcon: "show" | "hide";
 }
 
-const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, closeIcon }) => {
+const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, ...rest }) => {
+
     const { t } = useTranslation();
     const statusConfig = {
         memorization: {
@@ -25,7 +24,8 @@ const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, closeIcon }) => {
     };
     const { color } = statusConfig[type];
     return (
-        <Tag closable={closeIcon === "show"} color={color} className="task-tag">
+        <Tag closable color={color} className="task-tag" {...rest}>
+
             {t(`tags.${type}`)}
         </Tag>
     );

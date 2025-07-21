@@ -63,6 +63,118 @@
         "revision": "Revision",
         "reciting": "Reciting"
     },
+    "loginButton": "Login"
+  },
+  "navBar": {
+    "student": "Student",
+    "teacher": "Teacher",
+    "class": "Class",
+    "user": "User",
+    "reports": "Reports",
+    "system settings": "System Settings",
+    "settings": "Settings",
+    "logout": "Logout",
+    "create": "Create",
+    "find": "Find",
+    "my classes": "My Classes",
+    "my students": "My Students"
+  },
+  "modal": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "all": "All",
+    "download": "Download",
+    "cancel": "Cancel",
+    "bodyText": "You will need excel to view CSV",
+    "selectFormat": "Select Format",
+    "title": "Download Reports for Student: "
+  },
+  "editTaskModal": {
+    "editCompleteTask": "Complete/Edit Task",
+    "type": "Type",
+    "from": "From",
+    "to": "To",
+    "due": "Due",
+    "complete": "Complete",
+    "save": "Save",
+    "mistakes": "Mistakes",
+    "notes": "Notes",
+    "cancel": "Cancel",
+    "create": "Create",
+    "selectType": "Select task type(s)",
+    "selectFrom": "Select starting verse",
+    "selectTo": "Select ending verse",
+    "selectDue": "Select date",
+    "selectTypeError": "Please select at least one type",
+    "selectFromError": "Please select a starting verse",
+    "selectToError": "Please select a ending verse",
+    "selectDueError": "Please select a due date"
+  },
+  "class": {
+    "classID": "Class ID",
+    "description": "Description",
+    "teacher": "Teacher",
+    "ageGroup": "Age Group",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classSize": "Class Size",
+    "students": "Students",
+    "name": "Name",
+    "id": "ID"
+  },
+  "tags": {
+    "absent": "Absent",
+    "present": "Present",
+    "late": "Late",
+    "memorization": "Memorization",
+    "revision": "Revision",
+    "reciting": "Reciting"
+  },
+
+  "parent": {
+    "homeHeader": "Pick a student to start"
+  },
+
+  "general": {
+    "name": "Name",
+    "id": "ID",
+    "from": "From",
+    "to": "To",
+    "age": "Age",
+    "attendance": "Attendance",
+    "classes": "Classes",
+    "todo": "To-Do",
+    "history": "History",
+    "date": "Date",
+    "status": "Status",
+    "teacher": "Teacher",
+    "assignedBy": "Assigned By",
+    "assignedOn": "Assigned On",
+    "due": "Due",
+    "type": "Type",
+    "success": "Success",
+    "ofTheQuran": "Of The Quran",
+    "searchBy": "Search By:",
+    "dob": "Date of Birth",
+    "ageGroup":"Age Group",
+    "resultsFound": "Results Found:",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "classID": "Class ID",
+    "viewAll": "View All",
+    "enter": "Enter"
+  },
+
+  "titles": {
+    "viewStudent": "Student Report",
+    "findStudent": "Find Student",
+    "findClass": "Find Class",
+    "viewClass": "View Class",
+    "myStudents": "Students assigned to you:",
+    "myClasses": "Classes assigned to you:"
+
+
 
     "parent": {
         "homeHeader": "Pick a student to start"

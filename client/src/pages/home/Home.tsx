@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import EditTaskModal from "../class/components/EditTaskModal";
 
 const Home: React.FC = () => {
     const { t } = useTranslation();

@@ -1,8 +1,6 @@
-import { requireRoles } from "@/middleware/requireRole";
 import * as studentsService from "./service";
 import type { Handler } from "hono";
 import type { Role } from "@/types";
-import { use } from "hono/jsx";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();
@@ -39,10 +37,7 @@ export const getById: Handler = async (c) => {
 export const update: Handler = async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
-    const updatedStudent = await studentsService.updateStudent(
-        parseInt(id),
-        body
-    );
+    const updatedStudent = await studentsService.updateStudent(parseInt(id), body);
     return c.json(updatedStudent);
 };
 export const remove: Handler = async (c) => {

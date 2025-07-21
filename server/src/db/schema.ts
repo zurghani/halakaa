@@ -17,11 +17,7 @@ import { relations } from "drizzle-orm";
 export const genderEnum = pgEnum("gender_enum", ["male", "female"]);
 export const originEnum = pgEnum("origin_enum", ["makki", "madani"]);
 export const languageEnum = pgEnum("language_enum", ["en", "ar"]);
-export const attendanceStatusEnum = pgEnum("attendance_status", [
-    "present",
-    "absent",
-    "late",
-]);
+export const attendanceStatusEnum = pgEnum("attendance_status", ["present", "absent", "late"]);
 export const taskStatusEnum = pgEnum("task_status", ["assigned", "completed"]);
 
 // Tables
@@ -90,9 +86,7 @@ export const studentClasses = pgTable(
         }),
         createdAt: timestamp("created_at").defaultNow(),
     },
-    (table) => [
-        uniqueIndex("unique_student_class").on(table.studentId, table.classId),
-    ]
+    (table) => [uniqueIndex("unique_student_class").on(table.studentId, table.classId)]
 );
 
 export const surah = pgTable("surah", {

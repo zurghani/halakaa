@@ -10,9 +10,7 @@ or change the role ["admin"] manually in the code
 */
 export const authMiddleware: MiddlewareHandler = async (c, next) => {
     const roleHeader = c.req.header("x-user-role");
-    const roles = roleHeader
-        ? roleHeader.split(",").map((r) => r.trim() as Role)
-        : ["admin"];
+    const roles = roleHeader ? roleHeader.split(",").map((r) => r.trim() as Role) : ["admin"];
 
     const user = {
         id: c.req.header("x-user-id") || "anonymous",
