@@ -43,6 +43,23 @@
     "selectFormat": "Select Format",
     "title": "Download Reports for Student: "
   },
+  "createTaskModal": {
+    "createTask": "Create Task",
+    "type": "Type",
+    "from": "From",
+    "to": "To",
+    "due": "Due",
+    "cancel": "Cancel",
+    "create": "Create",
+    "selectType": "Select task type(s)",
+    "selectFrom": "Select starting verse",
+    "selectTo": "Select ending verse",
+    "selectDue": "Select date",
+    "selectTypeError": "Please select at least one type",
+    "selectFromError": "Please select a starting verse",
+    "selectToError": "Please select a ending verse",
+    "selectDueError": "Please select a due date"
+  },
   "class": {
     "classID": "Class ID",
     "description": "Description",
