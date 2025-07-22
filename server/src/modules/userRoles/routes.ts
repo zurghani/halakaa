@@ -9,7 +9,7 @@ POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-userRoles.get("/", requireRoles(["admin", "teacher"]), userRolesController.getAll);
+userRoles.get("/", requireRoles(["admin"]), userRolesController.getAll);
 userRoles.post("/", requireRoles(["admin"]), userRolesController.create);
 userRoles.delete("/:id", requireRoles(["admin"]), userRolesController.remove);
 
