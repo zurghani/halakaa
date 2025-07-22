@@ -7,6 +7,7 @@
         "build": "tsc",
         "generateSql": "bunx drizzle-kit generate",
         "db:push": "npx drizzle-kit push ",
+        "db:seed": "npx tsx src/db/seed.ts",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
     },
     "dependencies": {
