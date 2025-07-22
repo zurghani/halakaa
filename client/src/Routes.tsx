@@ -50,10 +50,10 @@ const AppRoutes = () => {
 
                             <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
                             <Route path={Paths.CLASS.FIND} element={<FindClass />} />
+                            <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
 
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
-                            <Route path={Paths.TEACHER.RUNNING} element={<RunningClass />} />
                         </Route>
                     </Route>
                 </Route>
@@ -96,7 +96,6 @@ export const Paths = {
         FIND: "/teacher/find",
         CLASSES: "/teacher/classes",
         STUDENTS: "/teacher/students",
-        RUNNING: "/teacher/running",
     },
     PARENT: {
         ROOT: "/parent",
@@ -107,6 +106,7 @@ export const Paths = {
         CLASSROOM: "/classroom",
         CREATE: "/class/create",
         FIND: "/class/find",
+        RUNNING: "/class/running",
     },
     USER: {
         ROOT: "/user",
