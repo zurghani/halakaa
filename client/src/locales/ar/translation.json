@@ -64,6 +64,23 @@
     "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
     "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
   },
+    "createTaskModal": {
+    "createTask": "إنشاء مهمة",
+    "type": "أسبوع",
+    "from": "من",
+    "to": "إلى",
+    "due": "ينجز عند",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "selectType": "اختر نوع المهمة",
+    "selectFrom": "اختر الآية التي تبدأ منها",
+    "selectTo": "اختر الآية التي تنتهي عندها",
+    "selectDue": "اختر التاريخ",
+    "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
+    "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
+    "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
+    "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+  },
   "class": {
     "classID": "معرف الفصل",
     "description": "وصف",
