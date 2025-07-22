@@ -12,6 +12,7 @@ const { useBreakpoint } = Grid;
 
 import "./AssignedTasks.scss";
 import { useTranslation } from "react-i18next";
+import EditTaskModal from "../../../pages/class/components/EditTaskModal";
 
 interface AssignedTasksProps {
     mode: "view" | "class";
@@ -35,16 +36,17 @@ const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
             <div className="task__label">
                 <div className="task__label__left">
                     <div>{task.title}</div>
-                    <TaskTypeTag type={task.type} closeIcon={"hide"} />
+                    <TaskTypeTag type={task.type} closable={false} />
                 </div>
                 <div className="task__label__right">
                     {activeKey[0] == (i + 1).toString()
                         ? mode === "class" && (
-                              <Button
-                                  className="task__label__right__button"
-                                  icon={<CaretRightOutlined />}>
-                                  {!isMobile && "Finish/Edit Task"}
-                              </Button>
+                              //   <Button
+                              //       className="task__label__right__button"
+                              //       icon={<CaretRightOutlined />}>
+                              //       {!isMobile && "Finish/Edit Task"}
+                              //   </Button>
+                              <EditTaskModal />
                           )
                         : null}
                 </div>

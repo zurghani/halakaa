@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
-import { PlusOutlined } from "@ant-design/icons";
+import { CaretRightOutlined, PlusOutlined } from "@ant-design/icons";
 import EditTaskForm, { EditTaskFormFieldsType } from "./EditTaskForm";
 
 const EditTaskModal: React.FC = () => {
@@ -32,7 +32,7 @@ const EditTaskModal: React.FC = () => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
+            <Button onClick={showModal} icon={<CaretRightOutlined />}>
                 {t("editTaskModal.editCompleteTask")}
             </Button>
 
@@ -51,9 +51,7 @@ const EditTaskModal: React.FC = () => {
                         color="cyan"
                         loading={confirmLoading}
                         onClick={() => form.submit()}>
-                        {complete
-                            ? t("editTaskModal.complete")
-                            : t("editTaskModal.save")}
+                        {complete ? t("editTaskModal.complete") : t("editTaskModal.save")}
                     </Button>,
                 ]}>
                 <EditTaskForm form={form} onFinish={onFinish} />

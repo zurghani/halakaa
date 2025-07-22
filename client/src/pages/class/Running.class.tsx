@@ -5,11 +5,11 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
-import EnrolledStudents from "../class/EnrolledStudents/EnrolledStudents";
+import EnrolledStudents from "./EnrolledStudents/EnrolledStudents";
 import AssignedTasks from "../../components/StudentTasks/AssignedTasks/AssignedTasks";
 import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/CompletedTasks.table";
 import CompletedTasksList from "../../components/StudentTasks/CompletedTasks/CompletedTasks.list";
-import { EnrolledStudentsType } from "../class/EnrolledStudents/enrolled.students.dummy";
+import { EnrolledStudentsType } from "./EnrolledStudents/enrolled.students.dummy";
 
 const { useBreakpoint } = Grid;
 

@@ -24,7 +24,7 @@ import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
-import RunningClass from "./pages/teacher/teacher.running.class";
+import RunningClass from "./pages/class/Running.class";
 
 const AppRoutes = () => {
     return (
