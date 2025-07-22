@@ -59,7 +59,7 @@ const CompletedTasksTable: React.FC = () => {
             title: t("general.type"),
             dataIndex: "type",
             key: "type",
-            render: (type) => <TaskTypeTag type={type} closeIcon={"hide"} />,
+            render: (type) => <TaskTypeTag type={type} closable={false} />,
             filters: [
                 {
                     text: "Revision",

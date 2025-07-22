@@ -134,7 +134,8 @@
     "endsAt": "Ends at",
     "classID": "Class ID",
     "viewAll": "View All",
-    "enter": "Enter"
+    "enter": "Enter",
+    "class": "Class"
   },
 
   "titles": {
@@ -143,12 +144,11 @@
     "findClass": "Find Class",
     "viewClass": "View Class",
     "myStudents": "Students assigned to you:",
-    "myClasses": "Classes assigned to you:"
-
-
+    "myClasses": "Classes assigned to you:",
+    "exitClass": "Exit Class",
+    "assignedTasks": "Assigned Tasks",
+    "completedTasks": "Completed Tasks"
   },
-
-
 
   "welcome": "Welcome",
   "goodbye": "Goodbye",

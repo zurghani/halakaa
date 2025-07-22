@@ -20,7 +20,7 @@ const CompletedTasksList: React.FC = () => {
         label: (
             <>
                 <div>{task.title}</div>
-                <TaskTypeTag type={task.type} closeIcon={"hide"} />
+                <TaskTypeTag type={task.type} closable={false} />
                 <Tag>{task.completedOn}</Tag>
             </>
         ),

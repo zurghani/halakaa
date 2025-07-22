@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Button, Col, Collapse, Grid, Row } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { AppStore } from "../../../store";
-import { Task } from "../../../store/types";
+import { Task, TaskStatus } from "../../../store/types";
 // TODO Add translation
 import { t } from "i18next";
 import TaskTypeTag from "../../Tags/TaskTypeTag";
@@ -30,30 +30,25 @@ const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
     for (let i = 0; i < studentTasks.tasks.length; i++) {
         keyMap[i] = studentTasks.tasks[i].id.toString();
     }
-    const items = studentTasks.tasks.map((task, i) => ({
-        key: keyMap[i],
-        label: (
-            <div className="task__label">
-                <div className="task__label__left">
-                    <div>{task.title}</div>
-                    <TaskTypeTag type={task.type} closable={false} />
+    const items = studentTasks.tasks
+        .filter((task) => task.status === TaskStatus.Assigned)
+        .map((task, i) => ({
+            key: keyMap[i],
+            label: (
+                <div className="task__label">
+                    <div className="task__label__left">
+                        <div>{task.title}</div>
+                        <TaskTypeTag type={task.type} closable={false} />
+                    </div>
+                    <div className="task__label__right">
+                        {activeKey[0] == (i + 1).toString()
+                            ? mode === "class" && <EditTaskModal />
+                            : null}
+                    </div>
                 </div>
-                <div className="task__label__right">
-                    {activeKey[0] == (i + 1).toString()
-                        ? mode === "class" && (
-                              //   <Button
-                              //       className="task__label__right__button"
-                              //       icon={<CaretRightOutlined />}>
-                              //       {!isMobile && "Finish/Edit Task"}
-                              //   </Button>
-                              <EditTaskModal />
-                          )
-                        : null}
-                </div>
-            </div>
-        ),
-        children: <TaskInfo {...task} />,
-    }));
+            ),
+            children: <TaskInfo {...task} />,
+        }));
     return (
         <div>
             <Collapse
