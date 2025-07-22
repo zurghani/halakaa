@@ -8,13 +8,9 @@ export const create: Handler = async (c) => {
 };
 
 export const getAll: Handler = async (c) => {
-
-    let roles: roleService.Role[] = [];
-    roles = await roleService.getAllRoles();
-
+    const roles = await roleService.getAllRoles();
     return c.json(roles);
 };
-
 
 export const getById: Handler = async (c) => {
     const id = c.req.param("id");

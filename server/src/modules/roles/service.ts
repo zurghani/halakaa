@@ -1,10 +1,9 @@
 import { db } from "@/db";
 import { roles } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export type Role = typeof roles.$inferSelect;
 export type NewRole = typeof roles.$inferInsert;
-
 
 export const createRole = async (role: NewRole): Promise<Role> => {
     const [newRole] = await db.insert(roles).values(role).returning();
