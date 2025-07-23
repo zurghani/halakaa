@@ -1,3 +1,4 @@
+import { removeHarakat } from "@/utils/removeHarakat";
 import { db } from "."; // Your configured drizzle db instance
 import { surah, ayah } from "./schema"; // Your drizzle schema
 
@@ -121,7 +122,7 @@ await db.transaction(async (tx) => {
     ]);
 
     // Insert Ayahs
-    await tx.insert(ayah).values([
+    const ayahs = [
         { surahId: 1, number: 1, text: "بِسۡمِ اِ۬للَّهِ اِ۬لرَّحۡمَٰنِ اِ۬لرَّحِيمِ" },
         { surahId: 1, number: 2, text: "اِ۬لۡحَمۡدُ لِلَّهِ رَبِّ اِ۬لۡعَٰلَمِينَ" },
         { surahId: 1, number: 3, text: "اَ۬لرَّحۡمَٰنِ اِ۬لرَّحِيمِ" },
@@ -24542,7 +24543,13 @@ await db.transaction(async (tx) => {
         { surahId: 114, number: 4, text: "مِن شَرِّ اِ۬لۡوَسۡوَاسِ اِ۬لۡخَنَّاسِ" },
         { surahId: 114, number: 5, text: "اِ۬لَّذِي يُوَسۡوِسُ فِي صُدُورِ اِ۬لنّ۪اسِ" },
         { surahId: 114, number: 6, text: "مِنَ اَ۬لۡجِنَّةِ وَاَلنّ۪اسِ" },
-    ]);
+    ];
+    await tx.insert(ayah).values(
+        ayahs.map((a) => ({
+            ...a,
+            plainText: removeHarakat(a.text),
+        }))
+    );
 });
 
 console.log("✅ Seeding done.");
