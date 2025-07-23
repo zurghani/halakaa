@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button } from "antd";
+import { CaretRightOutlined, PrinterOutlined } from "@ant-design/icons";
+import { setCurrentPageTitle } from "../../store/ui.slice";
+import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
+import { Paths } from "../../Routes";
+import DownloadModal from "../../components/ExportModal/DownloadModal";
 import ClassDetailsCard from "../../components/ClassDetailsCard/ClassDetailsCard";
 import EnrolledStudents from "./EnrolledStudents/EnrolledStudents";
-import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
-import { Button } from "antd";
-import { useDispatch } from "react-redux";
-import { setCurrentPageTitle } from "../../store/ui.slice";
-import { useTranslation } from "react-i18next";
-import { CaretRightOutlined, PrinterOutlined } from "@ant-design/icons";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
-import { useNavigate } from "react-router-dom";
-import { Paths } from "../../Routes";
 
 const ClassView: React.FC = () => {
     const navigate = useNavigate();
@@ -18,7 +18,6 @@ const ClassView: React.FC = () => {
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.viewClass")));
     }, [t]);
-    const [count, setCount] = React.useState(0);
     const { setButtons } = useSetButtons();
     useEffect(() => {
         setButtons([
