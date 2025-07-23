@@ -147,7 +147,8 @@
     "myClasses": "Classes assigned to you:",
     "exitClass": "Exit Class",
     "assignedTasks": "Assigned Tasks",
-    "completedTasks": "Completed Tasks"
+    "completedTasks": "Completed Tasks",
+    "startClass": "Start/Resume Class"
   },
 
   "welcome": "Welcome",

@@ -99,6 +99,7 @@ const CompletedTasksTable: React.FC = () => {
         <>
             <Table
                 columns={columns}
+                pagination={false}
                 expandable={{
                     expandedRowRender: (task) => (
                         <Row gutter={[16, 8]}>

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-    Checkbox,
-    DatePicker,
-    Form,
-    InputNumber,
-    Select,
-    SelectProps,
-} from "antd";
+import { Checkbox, DatePicker, Form, InputNumber, Select, SelectProps } from "antd";
 import { useTranslation } from "react-i18next";
 import TaskTypeTag, { TaskType } from "../../../components/Tags/TaskTypeTag";
 import TextArea from "antd/es/input/TextArea";
@@ -73,7 +66,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
-                    mode="tags"
+                    mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectType")}
                     tagRender={taskTypeTagsRenderer}
@@ -91,6 +84,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    mode="multiple"
+                    maxCount={1}
                     placeholder={t("editTaskModal.selectFrom")}
                     options={verseOptions}
                 />
@@ -106,6 +101,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    mode="multiple"
+                    maxCount={1}
                     placeholder={t("editTaskModal.selectTo")}
                     options={verseOptions}
                 />
@@ -120,10 +117,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                         message: t("editTaskModal.selectDueError"),
                     },
                 ]}>
-                <DatePicker
-                    placeholder={t("editTaskModal.due")}
-                    style={{ width: "100%" }}
-                />
+                <DatePicker placeholder={t("editTaskModal.due")} style={{ width: "100%" }} />
             </Form.Item>
             <Form.Item<EditTaskFormFieldsType>
                 label={t("editTaskModal.complete")}

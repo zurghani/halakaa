@@ -6,8 +6,13 @@ import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { useTranslation } from "react-i18next";
+import { CaretRightOutlined, PrinterOutlined } from "@ant-design/icons";
+import DownloadModal from "../../components/ExportModal/DownloadModal";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../Routes";
 
 const ClassView: React.FC = () => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -17,14 +22,14 @@ const ClassView: React.FC = () => {
     const { setButtons } = useSetButtons();
     useEffect(() => {
         setButtons([
-            <Button key="add" type="default" onClick={() => setCount(count + 1)}>
-                +
-            </Button>,
-            <Button key="search" type="default" onClick={() => setCount(count - 1)}>
-                -
+            <Button icon={<PrinterOutlined />}></Button>,
+            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+            <Button onClick={() => navigate(Paths.CLASS.RUNNING)} icon={<CaretRightOutlined />}>
+                {t("titles.startClass")}
             </Button>,
         ]);
-    }, [count]);
+    }, []);
+
     return (
         <>
             <ClassDetailsCard />

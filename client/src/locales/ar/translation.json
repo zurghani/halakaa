@@ -142,12 +142,13 @@
     "myStudents": "طلٌابي",
     "myClasses": "فصولي",
     "exitClass": "الخروج من الصف",
-  "assignedTasks": "المهام الموكلة",
-  "completedTasks": "المهام المكتملة"
+    "assignedTasks": "المهام الموكلة",
+    "completedTasks": "المهام المكتملة",
+    "startClass": "بدء / استئناف الصف"
   },
-  "welcome": "مرحبًا",
-  "goodbye": "وداعًا",
-  "thankYou": "شكرًا لك",
-  "hello": "مرحبًا",
-  "logout": "تسجيل الخروج"
+    "welcome": "مرحبًا",
+    "goodbye": "وداعًا",
+    "thankYou": "شكرًا لك",
+    "hello": "مرحبًا",
+    "logout": "تسجيل الخروج"
 }

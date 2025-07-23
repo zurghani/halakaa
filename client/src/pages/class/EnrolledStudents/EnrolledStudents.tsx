@@ -39,6 +39,7 @@ const EnrolledStudents: React.FC<EnrolledStudentsProps> = ({ selectable, onSelec
 
     return (
         <Table<EnrolledStudentsType>
+            pagination={false}
             rowKey="id"
             rowSelection={rowSelection}
             columns={columns}

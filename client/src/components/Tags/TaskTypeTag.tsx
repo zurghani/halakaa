@@ -21,9 +21,16 @@ const TaskTypeTag: React.FC<TaskTypeTagProps> = ({ type, ...rest }) => {
             color: "blue",
         },
     };
-    const { color } = statusConfig[type];
+    const config = statusConfig[type];
+    if (!config) {
+        return (
+            <Tag color="default" className="task-tag" {...rest}>
+                {type}
+            </Tag>
+        );
+    }
     return (
-        <Tag closable color={color} className="task-tag" {...rest}>
+        <Tag closable color={config.color} className="task-tag" {...rest}>
             {t(`tags.${type}`)}
         </Tag>
     );

@@ -14,7 +14,7 @@ const verseOptions = [
     { label: "Verse6", value: "verse6" },
 ];
 
-export type FieldType = {
+export type CreateTaskFormFieldsType = {
     type?: TaskType[];
     from?: string;
     to?: string;
@@ -23,15 +23,15 @@ export type FieldType = {
 
 interface Props {
     form: any;
-    onFinish: (values: FieldType) => void;
+    onFinish: (values: CreateTaskFormFieldsType) => void;
 }
 const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
     const { t } = useTranslation();
 
     const options: SelectProps["options"] = [
-        { value: t("tags.memorization") },
-        { value: t("tags.revision") },
-        { value: t("tags.reciting") },
+        { value: "memorization", label: t("tags.memorization") },
+        { value: "revision", label: t("tags.revision") },
+        { value: "reciting", label: t("tags.reciting") },
     ];
     return (
         <Form
@@ -46,7 +46,7 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                 from: undefined,
                 to: undefined,
             }}>
-            <Form.Item<FieldType>
+            <Form.Item<CreateTaskFormFieldsType>
                 label={t("createTaskModal.type")}
                 name="type"
                 rules={[
@@ -57,13 +57,14 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                 ]}>
                 <Select
                     mode="multiple"
+                    maxCount={1}
                     placeholder={t("createTaskModal.selectType")}
-                    tagRender={tagRender}
+                    tagRender={taskTypeTagsRenderer}
                     options={options}
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<CreateTaskFormFieldsType>
                 label={t("createTaskModal.from")}
                 name="from"
                 rules={[
@@ -73,12 +74,14 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    mode="multiple"
+                    maxCount={1}
                     placeholder={t("createTaskModal.selectFrom")}
                     options={verseOptions}
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<CreateTaskFormFieldsType>
                 label={t("createTaskModal.to")}
                 name="to"
                 rules={[
@@ -88,12 +91,14 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    mode="multiple"
+                    maxCount={1}
                     placeholder={t("createTaskModal.selectTo")}
                     options={verseOptions}
                 />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<CreateTaskFormFieldsType>
                 label={t("createTaskModal.due")}
                 name="due"
                 rules={[
@@ -102,18 +107,14 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                         message: t("createTaskModal.selectDueError"),
                     },
                 ]}>
-                <DatePicker
-                    placeholder={t("createTaskModal.due")}
-                    style={{ width: "100%" }}
-                />
+                <DatePicker placeholder={t("createTaskModal.due")} style={{ width: "100%" }} />
             </Form.Item>
         </Form>
     );
 };
 export default CreateTaskForm;
 
-const tagRender: TagRender = (props) => {
-    const { label, value, closable, onClose } = props;
+const taskTypeTagsRenderer: TagRender = ({ value, onClose }) => {
     const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -122,8 +123,9 @@ const tagRender: TagRender = (props) => {
         <TaskTypeTag
             key={value}
             type={value as TaskType}
-            closeIcon={closable ? "show" : "hide"}
+            closable
             onClose={onClose}
+            onMouseDown={onPreventMouseDown}
         />
     );
 };
