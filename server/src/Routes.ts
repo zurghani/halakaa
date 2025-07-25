@@ -4,6 +4,7 @@ import students from "./modules/students/routes";
 import attendances from "./modules/attendances/routes";
 import userRoles from "./modules/userRoles/routes"
 import roles from "./modules/roles/routes"
+import taskTypes from "./modules/taskTypes/routes";
 
 const routes = [
     { route: "/students", handler: students },
@@ -12,6 +13,7 @@ const routes = [
     { route: "/attendances", handler: attendances },
     { route: "/user-roles", handler: userRoles },
     { route: "/roles", handler: roles },
+    { route: "/task-types", handler: taskTypes },
 ];
 
 export default routes;
