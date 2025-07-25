@@ -1,8 +1,12 @@
 import type { Handler } from "hono";
-import * as surahsService from "./service"
-
+import * as surahsService from "./service";
 
 export const getAll: Handler = async (c) => {
+    const subString = c.req.query("like");
+    if (subString) {
+        const surahs = await surahsService.getSurahLike(subString);
+        return c.json(surahs);
+    }
     const surahs = await surahsService.getAllSurahs();
     return c.json(surahs);
 };
