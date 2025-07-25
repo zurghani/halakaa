@@ -4,6 +4,7 @@ import students from "./modules/students/routes";
 import attendances from "./modules/attendances/routes";
 import userRoles from "./modules/userRoles/routes"
 import roles from "./modules/roles/routes"
+import tasks from "./modules/tasks/routes";
 import taskTypes from "./modules/taskTypes/routes";
 
 const routes = [
@@ -13,6 +14,7 @@ const routes = [
     { route: "/attendances", handler: attendances },
     { route: "/user-roles", handler: userRoles },
     { route: "/roles", handler: roles },
+    { route: "/tasks", handler: tasks },
     { route: "/task-types", handler: taskTypes },
 ];
 
