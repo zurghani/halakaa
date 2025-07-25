@@ -43,6 +43,44 @@
     "selectFormat": "حدد صيغة الملف",
     "title": "تنزيل التقارير للطالب: "
   },
+  "editTaskModal": {
+    "editCompleteTask": "إكمال / تعديل المهمة",
+    "type": "النوع",
+    "from": "من",
+    "to": "إلى",
+    "due": "تاريخ الاستحقاق",
+    "complete": "إنهاء",
+    "save": "حفظ",
+    "mistakes": "الأخطاء",
+    "notes": "ملاحظات",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "selectType": "اختر نوع المهمة",
+    "selectFrom": "اختر الآية التي تبدأ منها",
+    "selectTo": "اختر الآية التي تنتهي عندها",
+    "selectDue": "اختر التاريخ",
+    "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
+    "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
+    "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
+    "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+  },
+    "createTaskModal": {
+    "createTask": "إنشاء مهمة",
+    "type": "أسبوع",
+    "from": "من",
+    "to": "إلى",
+    "due": "ينجز عند",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "selectType": "اختر نوع المهمة",
+    "selectFrom": "اختر الآية التي تبدأ منها",
+    "selectTo": "اختر الآية التي تنتهي عندها",
+    "selectDue": "اختر التاريخ",
+    "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
+    "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
+    "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
+    "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+  },
   "class": {
     "classID": "معرف الفصل",
     "description": "وصف",
@@ -93,7 +131,8 @@
     "endsAt": "إلى",
     "classID": "معرّف الفصل",
     "viewAll": "عرض الكل",
-    "enter": "دخول"
+    "enter": "دخول",
+    "class": "صف"
   },
   "titles": {
     "viewStudent": "تقرير الطالب",
@@ -101,11 +140,15 @@
     "findClass": "البحث عن فصل",
     "viewClass": "عرض الفصل",
     "myStudents": "طلٌابي",
-    "myClasses": "فصولي"
+    "myClasses": "فصولي",
+    "exitClass": "الخروج من الصف",
+    "assignedTasks": "المهام الموكلة",
+    "completedTasks": "المهام المكتملة",
+    "startClass": "بدء / استئناف الصف"
   },
-  "welcome": "مرحبًا",
-  "goodbye": "وداعًا",
-  "thankYou": "شكرًا لك",
-  "hello": "مرحبًا",
-  "logout": "تسجيل الخروج"
+    "welcome": "مرحبًا",
+    "goodbye": "وداعًا",
+    "thankYou": "شكرًا لك",
+    "hello": "مرحبًا",
+    "logout": "تسجيل الخروج"
 }

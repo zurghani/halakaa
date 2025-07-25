@@ -101,6 +101,7 @@ export const ayah = pgTable("ayah", {
     surahId: integer("surah_id").references(() => surah.id),
     number: integer("number").notNull(),
     text: text("text"),
+    plainText: text("plain_text"),
     createdAt: timestamp("created_at").defaultNow(),
 });
 

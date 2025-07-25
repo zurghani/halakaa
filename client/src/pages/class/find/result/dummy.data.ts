@@ -5,7 +5,7 @@ export type FindClassResultType = {
     ageGroup: string;
     StartsAt: string;
     EndsAt: string;
-}
+};
 export const FindClassResultDummyData: FindClassResultType[] = [
     {
         key: "1",
