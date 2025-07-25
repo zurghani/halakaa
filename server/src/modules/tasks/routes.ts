@@ -9,8 +9,8 @@ POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-tasks.get("/", requireRoles(["admin", "teacher"]), tasksController.getAll);
-tasks.get("/:id", requireRoles(["admin", "teacher", "parent"]), tasksController.getById);
+tasks.get("/", tasksController.getAll);
+tasks.get("/:id", tasksController.getById);
 tasks.post("/", requireRoles(["teacher"]), tasksController.create);
 tasks.put("/:id", requireRoles(["teacher"]), tasksController.update);
 tasks.delete("/:id", requireRoles(["admin"]), tasksController.remove);

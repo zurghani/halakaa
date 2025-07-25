@@ -1,7 +1,8 @@
 import type { Handler } from "hono";
 import * as tasksService from "./service";
-import type { Role } from "@/types";
+import * as studentsService from "../students/service";
 
+import type { Role } from "@/types";
 
 export const create: Handler = async (c) => {
     const body = await c.req.json();
@@ -10,8 +11,15 @@ export const create: Handler = async (c) => {
 };
 // TODO: implement checking for teacher/parent correspondance to student id.
 export const getAll: Handler = async (c) => {
+    const user = c.get("user") as { id: string; roles: Role[] };
     const studentId = Number(c.req.query("student_id"));
-    const tasks = await tasksService.getTasksByStudentId(studentId)
+    if (user.roles.includes("parent")) {
+        const student = await studentsService.getStudentById(studentId);
+        if (student?.parentId !== user.id) {
+            return c.json({ error: "Unauthorized access to this student's tasks." }, 403);
+        }
+    }
+    const tasks = await tasksService.getTasksByStudentId(studentId);
     return c.json(tasks);
 };
 
@@ -26,7 +34,7 @@ export const update: Handler = async (c) => {
     const body = await c.req.json();
     const updatedTask = await tasksService.updateTask(parseInt(id), body);
     return c.json(updatedTask);
-}
+};
 
 export const remove: Handler = async (c) => {
     const id = c.req.param("id");
