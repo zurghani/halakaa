@@ -59,8 +59,8 @@ export const students = pgTable("students", {
 export const ageGroup = pgTable("age_group", {
     id: serial("id").primaryKey(),
     description: text("description"),
-    from: integer("from"),
-    to: integer("to"),
+    from: integer("from").notNull(),
+    to: integer("to").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
 });
 
