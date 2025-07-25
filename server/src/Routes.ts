@@ -6,6 +6,7 @@ import userRoles from "./modules/userRoles/routes";
 import roles from "./modules/roles/routes";
 import tasks from "./modules/tasks/routes";
 import taskTypes from "./modules/taskTypes/routes";
+import ayahs from "./modules/ayahs/routes";
 import surahs from "./modules/surahs/routes"
 import ageGroups from "./modules/ageGroups/routes";
 
@@ -18,6 +19,7 @@ const routes = [
     { route: "/roles", handler: roles },
     { route: "/tasks", handler: tasks },
     { route: "/task-types", handler: taskTypes },
+    { route: "/ayahs", handler: ayahs },
     { route: "/surahs", handler: surahs },
     { route: "/age-groups", handler: ageGroups },
 ];
