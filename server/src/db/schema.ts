@@ -139,7 +139,9 @@ export const attendance = pgTable("attendance", {
     date: date("date").notNull(),
     status: attendanceStatusEnum("status").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
-});
+    }, 
+    (table) => [uniqueIndex("unique_student_date").on(table.studentId, table.date)]
+);
 
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
