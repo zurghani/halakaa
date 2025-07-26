@@ -8,7 +8,6 @@ import {
     date,
     time,
     pgEnum,
-    primaryKey,
     uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -29,7 +28,7 @@ export const roles = pgTable("roles", {
 });
 
 export const users = pgTable("users", {
-    id: uuid("id").primaryKey(),
+    id: uuid("id").defaultRandom().primaryKey(),
     fullName: text("full_name").notNull(),
     email: text("email").unique(),
     phone: text("phone"),
