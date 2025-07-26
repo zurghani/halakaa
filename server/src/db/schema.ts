@@ -74,14 +74,14 @@ export const classes = pgTable("classes", {
     createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const studentClasses = pgTable(
-    "student_classes",
+export const enrollments = pgTable(
+    "enrollments",
     {
         id: serial("id").primaryKey(),
-        classId: integer("class_id").references(() => classes.id, {
+        classId: integer("class_id").notNull().references(() => classes.id, {
             onDelete: "cascade",
         }),
-        studentId: integer("student_id").references(() => students.id, {
+        studentId: integer("student_id").notNull().references(() => students.id, {
             onDelete: "cascade",
         }),
         createdAt: timestamp("created_at").defaultNow(),
@@ -173,7 +173,7 @@ export const studentsRelations = relations(students, ({ one, many }) => ({
         references: [users.id],
         relationName: "user",
     }),
-    studentClasses: many(studentClasses),
+    enrollments: many(enrollments),
     tasks: many(tasks),
     attendance: many(attendance),
 }));
@@ -191,16 +191,16 @@ export const classesRelations = relations(classes, ({ one, many }) => ({
         fields: [classes.ageGroup],
         references: [ageGroup.id],
     }),
-    studentClasses: many(studentClasses),
+    enrollments: many(enrollments),
 }));
 
-export const studentClassesRelations = relations(studentClasses, ({ one }) => ({
+export const enrollmentsRelations = relations(enrollments, ({ one }) => ({
     student: one(students, {
-        fields: [studentClasses.studentId],
+        fields: [enrollments.studentId],
         references: [students.id],
     }),
     class: one(classes, {
-        fields: [studentClasses.classId],
+        fields: [enrollments.classId],
         references: [classes.id],
     }),
 }));
@@ -274,7 +274,7 @@ export const schema = {
     students,
     ageGroup,
     classes,
-    studentClasses,
+    enrollments,
     surah,
     ayah,
     taskTypes,
