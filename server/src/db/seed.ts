@@ -1,8 +1,19 @@
 import { removeHarakat } from "@/utils/removeHarakat";
 import { db } from "."; // Your configured drizzle db instance
-import { surah, ayah } from "./schema"; // Your drizzle schema
+import { surah, ayah, users } from "./schema"; // Your drizzle schema
 
 await db.transaction(async (tx) => {
+    // Insert user
+    await tx.insert(users).values([
+        {
+            id: "0c2212e1-0d59-4931-bb69-9ae5355f5824",
+            fullName: "Zacharea",
+            email: "admin@admin.com",
+            phone: "2265047762",
+            language: "en",
+        },
+    ]);
+
     // Insert Surahs
     await tx.insert(surah).values([
         { origin: "makki", name: "الفاتحة" },
