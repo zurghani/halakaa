@@ -9,6 +9,7 @@ import taskTypes from "./modules/taskTypes/routes";
 import ayahs from "./modules/ayahs/routes";
 import surahs from "./modules/surahs/routes"
 import ageGroups from "./modules/ageGroups/routes";
+import users from "./modules/users/routes";
 
 const routes = [
     { route: "/students", handler: students },
@@ -22,6 +23,7 @@ const routes = [
     { route: "/ayahs", handler: ayahs },
     { route: "/surahs", handler: surahs },
     { route: "/age-groups", handler: ageGroups },
+    { route: "/users", handler: users },
 ];
 
 export default routes;
