@@ -10,8 +10,8 @@ export const create: Handler = async (c) => {
 
 export const getAll: Handler = async (c) => {
     const users = await usersService.getAllUsers();
-    return c.json(users)
-}
+    return c.json(users);
+};
 
 export const getById: Handler = async (c) => {
     const id = c.req.param("id");
@@ -20,6 +20,7 @@ export const getById: Handler = async (c) => {
 };
 
 export const getSelf: Handler = async (c) => {
+    //TODO: change to use the authenticated user from the context
     const self = c.get("user") as { id: string; roles: Role[] };
     const user = await usersService.getUserById(self.id);
     return c.json(user);
