@@ -24,8 +24,18 @@ export const getAll: Handler = async (c) => {
 };
 
 export const getById: Handler = async (c) => {
+    const user = c.get("user") as { id: string; roles: Role[] };
     const id = c.req.param("id");
     const task = await tasksService.getTaskById(parseInt(id));
+    if (!task) {
+        return c.json({ error: "Task not found." }, 404);
+    }
+    if (user.roles.includes("parent")) {
+        const student = await studentsService.getStudentById(task.studentId);
+        if (student?.parentId !== user.id) {
+            return c.json({ error: "Unauthorized access to this student's tasks." }, 403);
+        }
+    }
     return c.json(task);
 };
 

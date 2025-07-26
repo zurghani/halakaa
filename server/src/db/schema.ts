@@ -114,7 +114,7 @@ export const taskTypes = pgTable("task_types", {
 
 export const tasks = pgTable("tasks", {
     id: serial("id").primaryKey(),
-    studentId: integer("student_id").references(() => students.id),
+    studentId: integer("student_id").notNull().references(() => students.id),
     classId: integer("class_id").references(() => classes.id),
     teacherId: uuid("teacher_id").references(() => users.id),
     taskTypeId: integer("task_type_id").references(() => taskTypes.id),
