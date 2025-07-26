@@ -78,15 +78,19 @@ export const enrollments = pgTable(
     "enrollments",
     {
         id: serial("id").primaryKey(),
-        classId: integer("class_id").notNull().references(() => classes.id, {
-            onDelete: "cascade",
-        }),
-        studentId: integer("student_id").notNull().references(() => students.id, {
-            onDelete: "cascade",
-        }),
+        classId: integer("class_id")
+            .notNull()
+            .references(() => classes.id, {
+                onDelete: "cascade",
+            }),
+        studentId: integer("student_id")
+            .notNull()
+            .references(() => students.id, {
+                onDelete: "cascade",
+            }),
         createdAt: timestamp("created_at").defaultNow(),
     },
-    (table) => [uniqueIndex("unique_student_class").on(table.studentId, table.classId)]
+    (table) => [uniqueIndex("unique_enrollment").on(table.studentId, table.classId)]
 );
 
 export const surah = pgTable("surah", {
