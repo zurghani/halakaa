@@ -8,6 +8,8 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { AppStore } from "../../store";
 import { TaskStatus } from "../../store/types";
 import { EnrolledStudentsType } from "./EnrolledStudents/enrolled.students.dummy";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../Routes";
 import EnrolledStudents from "./EnrolledStudents/EnrolledStudents";
 import AssignedTasks from "../../components/StudentTasks/AssignedTasks/AssignedTasks";
 import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/CompletedTasks.table";
@@ -17,6 +19,7 @@ import CreateTaskModal from "./components/CreateTaskModal";
 const { useBreakpoint } = Grid;
 
 const RunningClass: React.FC = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const { setButtons } = useSetButtons();
@@ -41,8 +44,8 @@ const RunningClass: React.FC = () => {
     }, [t]);
     // Set Buttons
     useEffect(() => {
-        setButtons([<Button icon={<CloseOutlined />}>{t("titles.exitClass")}</Button>]);
-    }, []);
+        setButtons([<Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>{t("titles.exitClass")}</Button>]);
+    }, [t]);
 
     useEffect(() => {
         // update the store
