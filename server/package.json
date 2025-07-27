@@ -11,9 +11,11 @@
     },
     "dependencies": {
         "@hono/node-server": "^1.15.0",
+        "bcryptjs": "^3.0.2",
         "dotenv": "^17.2.0",
         "drizzle-orm": "^0.44.2",
         "hono": "^4.8.4",
+        "jose": "^6.0.12",
         "pg": "^8.16.3",
         "postgres": "^3.4.7",
         "prettier": "^3.6.2"

@@ -32,6 +32,7 @@ export const users = pgTable("users", {
     id: uuid("id").primaryKey(),
     fullName: text("full_name").notNull(),
     email: text("email").unique(),
+    password: text("password").notNull().default(""),
     phone: text("phone"),
     language: languageEnum("language").default("en"),
     createdAt: timestamp("created_at").defaultNow(),
