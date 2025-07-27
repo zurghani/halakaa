@@ -45,7 +45,7 @@ const RunningClass: React.FC = () => {
     // Set Buttons
     useEffect(() => {
         setButtons([<Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>{t("titles.exitClass")}</Button>]);
-    }, []);
+    }, [t]);
 
     useEffect(() => {
         // update the store
