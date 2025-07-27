@@ -43,6 +43,45 @@
     "selectFormat": "Select Format",
     "title": "Download Reports for Student: "
   },
+  "editTaskModal": {
+    "editCompleteTask": "Complete/Edit Task",
+    "type": "Type",
+    "from": "From",
+    "to": "To",
+    "due": "Due",
+    "complete": "Complete",
+    "save": "Save",
+    "mistakes": "Mistakes",
+    "notes": "Notes",
+    "cancel": "Cancel",
+    "create": "Create",
+    "selectType": "Select task type(s)",
+    "selectFrom": "Select starting verse",
+    "selectTo": "Select ending verse",
+    "selectDue": "Select date",
+    "selectTypeError": "Please select at least one type",
+    "selectFromError": "Please select a starting verse",
+    "selectToError": "Please select a ending verse",
+    "selectDueError": "Please select a due date"
+  },
+
+  "createTaskModal": {
+    "createTask": "Create Task",
+    "type": "Type",
+    "from": "From",
+    "to": "To",
+    "due": "Due",
+    "cancel": "Cancel",
+    "create": "Create",
+    "selectType": "Select task type(s)",
+    "selectFrom": "Select starting verse",
+    "selectTo": "Select ending verse",
+    "selectDue": "Select date",
+    "selectTypeError": "Please select at least one type",
+    "selectFromError": "Please select a starting verse",
+    "selectToError": "Please select a ending verse",
+    "selectDueError": "Please select a due date"
+  },
   "class": {
     "classID": "Class ID",
     "description": "Description",
@@ -95,7 +134,8 @@
     "endsAt": "Ends at",
     "classID": "Class ID",
     "viewAll": "View All",
-    "enter": "Enter"
+    "enter": "Enter",
+    "class": "Class"
   },
 
   "titles": {
@@ -104,12 +144,12 @@
     "findClass": "Find Class",
     "viewClass": "View Class",
     "myStudents": "Students assigned to you:",
-    "myClasses": "Classes assigned to you:"
-
-
+    "myClasses": "Classes assigned to you:",
+    "exitClass": "Exit Class",
+    "assignedTasks": "Assigned Tasks",
+    "completedTasks": "Completed Tasks",
+    "startClass": "Start/Resume Class"
   },
-
-
 
   "welcome": "Welcome",
   "goodbye": "Goodbye",

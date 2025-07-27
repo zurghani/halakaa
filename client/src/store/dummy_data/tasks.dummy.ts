@@ -2,7 +2,7 @@ import { TasksState } from "../tasks.slice";
 import { Task, TaskStatus, TaskType } from "../types";
 
 export const dummyTasks: TasksState = {
-    tasks:[
+    tasks: [
         {
             id: "1",
             title: "Task 1",
@@ -18,7 +18,6 @@ export const dummyTasks: TasksState = {
             assignedOn: "13/May/2023",
             dueDate: "20/May/2023",
             notes: "Well Done",
-
         },
         {
             id: "2",
@@ -37,8 +36,7 @@ export const dummyTasks: TasksState = {
             notes: "Well Done",
             mistakes: 1,
             completedOn: "28/May/2023",
-            completedBy: "Mustafa Ahmed"
-
+            completedBy: "Mustafa Ahmed",
         },
         {
             id: "3",
@@ -57,9 +55,7 @@ export const dummyTasks: TasksState = {
             notes: "Well Done, few corrections to be made.",
             mistakes: 3,
             completedOn: "27/May/2023",
-            completedBy: "Mustafa Ahmed"
-
+            completedBy: "Mustafa Ahmed",
         },
-
-    ]
-}
+    ],
+};
