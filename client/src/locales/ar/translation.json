@@ -132,7 +132,9 @@
     "classID": "معرّف الفصل",
     "viewAll": "عرض الكل",
     "enter": "دخول",
-    "class": "صف"
+    "class": "صف",
+    "create": "إنشاء",
+    "cancel": "إلغاء"
   },
   "titles": {
     "viewStudent": "تقرير الطالب",
@@ -144,7 +146,37 @@
     "exitClass": "الخروج من الصف",
     "assignedTasks": "المهام الموكلة",
     "completedTasks": "المهام المكتملة",
-    "startClass": "بدء / استئناف الصف"
+    "startClass": "بدء / استئناف الصف",
+    "createUser": "إنشاء مستخدم"
+  },
+  "forms": {
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "language": "اللغة",
+    "role": "الدور",
+    "selectLanguage":{
+      "arabic": "العربية",
+      "english": "الإنجليزية"
+    },
+    "selectRole": {
+      "admin": "مدير",
+      "teacher": "معلم",
+      "parent": "ولي الأمر",
+      "student": "طالب"
+    },
+    "required": {
+      "fullName": "الاسم الكامل مطلوب",
+      "email": "البريد الإلكتروني مطلوب",
+      "phone": "رقم الهاتف مطلوب",
+      "language": "الرجاء اختيار اللغة",
+      "role": "الرجاء اختيار الدور"
+    },
+    "invalid": {
+      "email": "البريد الإلكتروني غير صالح"
+    }
   },
     "welcome": "مرحبًا",
     "goodbye": "وداعًا",

@@ -135,7 +135,9 @@
     "classID": "Class ID",
     "viewAll": "View All",
     "enter": "Enter",
-    "class": "Class"
+    "class": "Class",
+    "create": "Create",
+    "cancel": "Cancel"
   },
 
   "titles": {
@@ -148,7 +150,37 @@
     "exitClass": "Exit Class",
     "assignedTasks": "Assigned Tasks",
     "completedTasks": "Completed Tasks",
-    "startClass": "Start/Resume Class"
+    "startClass": "Start/Resume Class",
+    "createUser": "Create User"
+  },
+  "forms":{
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "phone": "Phone",
+    "role": "Role",
+    "confirmPassword": "Confirm Password",
+    "language": "Language",
+    "selectLanguage": {
+      "english": "English",
+      "arabic": "Arabic"
+    },
+    "selectRole": {
+      "admin": "Admin",
+      "teacher": "Teacher",
+      "parent": "Parent",
+      "student": "Student"
+    },
+    "required": {
+      "fullName": "Please enter your Full Name",
+      "email": "Please enter your Email!",
+      "phone": "Please enter your Phone Number",
+      "landguage": "Please select a Language",
+      "role": "Please select a Role"
+    },
+    "invalid": {
+      "email": "Please enter a valid Email"
+    }
   },
 
   "welcome": "Welcome",
