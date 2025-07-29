@@ -54,6 +54,11 @@ const AppRoutes = () => {
 
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
+
+                            <Route
+                                path={Paths.STUDENT.CREATE}
+                                element={<div>Create Student Form</div>}
+                            />
                         </Route>
                     </Route>
                 </Route>
