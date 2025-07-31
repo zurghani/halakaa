@@ -134,7 +134,8 @@
     "enter": "دخول",
     "class": "صف",
     "create": "إنشاء",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "save": "حفظ"
   },
   "titles": {
     "viewStudent": "تقرير الطالب",
@@ -147,7 +148,8 @@
     "assignedTasks": "المهام الموكلة",
     "completedTasks": "المهام المكتملة",
     "startClass": "بدء / استئناف الصف",
-    "createUser": "إنشاء مستخدم"
+    "createUser": "إنشاء مستخدم",
+    "editUser": "تعديل مستخدم"
   },
   "forms": {
     "fullName": "الاسم الكامل",
@@ -157,6 +159,13 @@
     "confirmPassword": "تأكيد كلمة المرور",
     "language": "اللغة",
     "role": "الدور",
+    "children": "الأطفال",
+    "childrenTable": {
+      "id": "الرقم التعريفي",
+      "name": "الاسم",
+      "ageGroup": "الفئة العمرية",
+      "delete": "حذف"
+    },
     "selectLanguage":{
       "arabic": "العربية",
       "english": "الإنجليزية"

@@ -137,7 +137,8 @@
     "enter": "Enter",
     "class": "Class",
     "create": "Create",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "save": "Save"
   },
 
   "titles": {
@@ -151,7 +152,8 @@
     "assignedTasks": "Assigned Tasks",
     "completedTasks": "Completed Tasks",
     "startClass": "Start/Resume Class",
-    "createUser": "Create User"
+    "createUser": "Create User",
+    "editUser": "Edit User"
   },
   "forms":{
     "fullName": "Full Name",
@@ -161,6 +163,13 @@
     "role": "Role",
     "confirmPassword": "Confirm Password",
     "language": "Language",
+    "children": "Children",
+    "childrenTable": {
+      "id": "ID",
+      "name": "Name",
+      "ageGroup": "Age Group",
+      "delete": "Delete"
+    },
     "selectLanguage": {
       "english": "English",
       "arabic": "Arabic"

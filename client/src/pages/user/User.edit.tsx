@@ -7,8 +7,22 @@ import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
+import ChildrenTable from "./components/ChildrenTable";
 
-const UserCreatePage: React.FC = () => {
+const dummyUser = {
+    fullName: "Zacharea K",
+    email: "zachrea@gmail.com",
+    phone: "+1234567890",
+    language: "en",
+    role: "parent",
+    children: [
+        { id: "1", fullName: "Child 1", ageGroup: "5-7" },
+        { id: "2", fullName: "Child 2", ageGroup: "8-10" },
+        { id: "3", fullName: "Child 3", ageGroup: "11-13" },
+    ],
+};
+
+const UserEditPage: React.FC = () => {
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     const dispatch = useDispatch();
@@ -17,7 +31,7 @@ const UserCreatePage: React.FC = () => {
 
     // Set Page Title
     useEffect(() => {
-        dispatch(setCurrentPageTitle(t("titles.createUser")));
+        dispatch(setCurrentPageTitle(t("titles.editUser")));
     }, [t]);
     // Set Buttons
     useEffect(() => {
@@ -26,7 +40,7 @@ const UserCreatePage: React.FC = () => {
                 {t("general.cancel")}
             </Button>,
             <Button onClick={() => form.submit()} icon={<CaretLeftOutlined />}>
-                {t("general.create")}
+                {t("general.save")}
             </Button>,
         ]);
     }, [t]);
@@ -36,9 +50,10 @@ const UserCreatePage: React.FC = () => {
             layout="vertical"
             style={{ padding: "20px", maxWidth: "40rem" }}
             onFinish={(values) => {
-                console.log("Submitted values:", values);
+                console.log("Edited values:", values);
                 // Handle user creation logic here
-            }}>
+            }}
+            initialValues={dummyUser}>
             <Form.Item
                 name="fullName"
                 label={t("forms.fullName")}
@@ -83,7 +98,18 @@ const UserCreatePage: React.FC = () => {
                     ]}
                 />
             </Form.Item>
+            {dummyUser.role === "parent" && (
+                <Form.Item label={t("forms.children")}>
+                    <ChildrenTable
+                        childrenData={dummyUser.children}
+                        onDelete={(id) => {
+                            console.log("Delete child with id:", id);
+                            // Handle child deletion logic here
+                        }}
+                    />
+                </Form.Item>
+            )}
         </Form>
     );
 };
-export default UserCreatePage;
+export default UserEditPage;
