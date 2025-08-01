@@ -5,7 +5,7 @@
         "dev": "bun run src/index.ts",
         "start": "bun run src/index.ts",
         "build": "tsc",
-        "generateSql": "bunx drizzle-kit generate",
+        "db:gen": "bunx drizzle-kit generate",
         "db:push": "npx drizzle-kit push ",
         "db:seed": "npx tsx src/db/seed.ts",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
@@ -13,6 +13,7 @@
     "dependencies": {
         "@hono/node-server": "^1.15.0",
         "bcryptjs": "^3.0.2",
+        "better-auth": "^1.3.4",
         "dotenv": "^17.2.0",
         "drizzle-orm": "^0.44.2",
         "hono": "^4.8.4",
@@ -22,6 +23,7 @@
         "prettier": "^3.6.2"
     },
     "devDependencies": {
+        "@better-auth/cli": "^1.3.4",
         "@types/bun": "latest",
         "@types/node": "^20.11.17",
         "@types/pg": "^8.15.4",
