@@ -1,11 +1,19 @@
+import React from "react";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { UserListItem } from "../../types";
+import { rolesObject, UserListItem } from "../../types";
+import { generalTags } from "../../../../components/Tags/GeneralTag";
 
 interface UserListProps {
     users: UserListItem[];
 }
+
+const roleTages = generalTags(
+    rolesObject.map((role) => ({
+        label: role,
+    }))
+);
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
     const navigate = useNavigate();
@@ -28,7 +36,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                             <>
                                 {user.fullName}
                                 <Tag>{user.phone}</Tag>
-                                <Tag color="green">{user.role}</Tag>
+                                {roleTages[user.role]}
                             </>
                         }
                     />

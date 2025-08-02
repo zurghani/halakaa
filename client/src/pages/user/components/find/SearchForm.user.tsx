@@ -1,14 +1,12 @@
 import { GetProps, Input, Segmented, Space } from "antd";
 import { useState } from "react";
 import { UserRole } from "../../../../store/types";
-import { UserSearchOptionsType } from "../../types";
+import { rolesObject, UserSearchOptionsType } from "../../types";
 
 const { Search } = Input;
 type SearchProps = GetProps<typeof Input.Search>;
 
-const roles = [UserRole.All, UserRole.Admin, UserRole.Teacher, UserRole.Parent];
-
-type RoleType = (typeof roles)[number];
+type RoleType = (typeof rolesObject)[number];
 
 interface UserSearchFormProps {
     SearchOptions: UserSearchOptionsType;
@@ -30,7 +28,7 @@ const UserSearchForm: React.FC<UserSearchFormProps> = ({ SearchOptions }) => {
         <Space direction="vertical" style={{ width: "100%", marginBottom: "24px" }}>
             <Segmented<RoleType>
                 value={role}
-                options={roles.map((role) => ({
+                options={rolesObject.map((role) => ({
                     label: role.charAt(0).toUpperCase() + role.slice(1),
                     value: role,
                 }))}

@@ -1,3 +1,5 @@
+import { UserRole } from "../../store/types";
+
 export type User = {
     fullName: string;
     id?: string | undefined;
@@ -9,8 +11,10 @@ export type User = {
 
 export interface UserListItem extends User {
     key: string;
-    role: "admin" | "teacher" | "parent" | "student";
+    role: UserRole;
 }
+
+export const rolesObject = [UserRole.All, UserRole.Admin, UserRole.Teacher, UserRole.Parent];
 
 export interface UserFormProps {
     disabled?: boolean;
