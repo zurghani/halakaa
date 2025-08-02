@@ -28,6 +28,7 @@ import RunningClass from "./pages/class/Running.class";
 import UserCreatePage from "./pages/user/User.create";
 import UserEditPage from "./pages/user/User.edit";
 import UserFindPage from "./pages/user/find/User.find";
+import UserViewPage from "./pages/user/User.view";
 
 const AppRoutes = () => {
     return (
@@ -60,6 +61,8 @@ const AppRoutes = () => {
 
                             <Route path={Paths.USER.CREATE} element={<UserEditPage />} />
                             <Route path={Paths.USER.FIND} element={<UserFindPage />} />
+                            <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
+                            <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
                         </Route>
                     </Route>
                 </Route>
@@ -118,6 +121,8 @@ export const Paths = {
         ROOT: "/user",
         CREATE: "/user/create",
         FIND: "/user/find",
+        VIEW: "/user/:id",
+        EDIT: "/user/edit/:id",
     },
 };
 

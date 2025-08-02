@@ -135,7 +135,8 @@
         "class": "صف",
         "create": "إنشاء",
         "cancel": "إلغاء",
-        "save": "حفظ"
+        "save": "حفظ",
+        "edit": "تعديل"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",

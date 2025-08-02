@@ -23,8 +23,8 @@ const UserList = ({ users }: { users: FindUserResultType[] }) => {
                         title={
                             <>
                                 {user.name}
-                                <Tag> Phone : {user.phone}</Tag>
-                                <Tag color="green"> Role: {user.role}</Tag>
+                                <Tag>{user.phone}</Tag>
+                                <Tag color="green">{user.role}</Tag>
                             </>
                         }
                     />

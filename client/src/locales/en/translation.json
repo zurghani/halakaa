@@ -138,7 +138,8 @@
         "class": "Class",
         "create": "Create",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+        "edit": "Edit"
     },
 
     "titles": {
