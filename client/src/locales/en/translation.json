@@ -154,10 +154,13 @@
         "completedTasks": "Completed Tasks",
         "startClass": "Start/Resume Class",
         "createUser": "Create User",
-        "editUser": "Edit User"
+        "editUser": "Edit User",
+        "viewUser": "View User",
+        "findUser": "Find User"
     },
     "forms": {
         "fullName": "Full Name",
+        "name": "Name",
         "email": "Email",
         "password": "Password",
         "phone": "Phone",
@@ -165,6 +168,10 @@
         "confirmPassword": "Confirm Password",
         "language": "Language",
         "children": "Children",
+        "write": "Write",
+        "dob": "Date of Birth",
+        "gender": "Gender",
+        "parent": "Parent",
         "childrenTable": {
             "id": "ID",
             "name": "Name",
@@ -179,14 +186,22 @@
             "admin": "Admin",
             "teacher": "Teacher",
             "parent": "Parent",
-            "student": "Student"
+            "student": "Student",
+            "all": "All"
+        },
+        "selectGender": {
+            "male": "Male",
+            "female": "Female"
         },
         "required": {
             "fullName": "Please enter your Full Name",
             "email": "Please enter your Email!",
             "phone": "Please enter your Phone Number",
             "landguage": "Please select a Language",
-            "role": "Please select a Role"
+            "role": "Please select a Role",
+            "dob": "Please enter your Date of Birth",
+            "gender": "Please select your Gender",
+            "parent": "Please select a Parent"
         },
         "invalid": {
             "email": "Please enter a valid Email"

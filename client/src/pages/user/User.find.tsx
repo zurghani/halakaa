@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Grid, Space } from "antd";
@@ -14,15 +13,14 @@ import { UserSearchOptionsType } from "./types";
 
 const { useBreakpoint } = Grid;
 const UserSearchOptions: UserSearchOptionsType = {
-    name: { value: "name", label: "Name" },
-    email: { value: "email", label: "Email" },
-    phone: { value: "phone", label: "Phone" },
+    name: { value: "name", label: "name" },
+    email: { value: "email", label: "email" },
+    phone: { value: "phone", label: "phone" },
 };
 
 const UserFindPage: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     const screens = useBreakpoint();
     const isMobile = !screens.md;

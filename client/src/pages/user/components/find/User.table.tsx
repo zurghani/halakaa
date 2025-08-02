@@ -1,43 +1,42 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Table, TableProps } from "antd";
-import { FindUserResultType } from "./dummy.data";
+import { User } from "../../types";
 
-const UserTable = ({ users }: { users: FindUserResultType[] }) => {
+const UserTable = ({ users }: { users: User[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const columns: TableProps<FindUserResultType>["columns"] = [
+    const columns: TableProps<User>["columns"] = [
         {
-            title: "Phone",
+            title: t("forms.phone"),
             dataIndex: "phone",
             key: "phone",
         },
         {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
-            sorter: (a, b) => a.name.length - b.name.length,
+            title: t("forms.fullName"),
+            dataIndex: "fullName",
+            key: "fullName",
+            sorter: (a, b) => a.fullName.length - b.fullName.length,
         },
         {
-            title: "Email",
+            title: t("forms.email"),
             dataIndex: "email",
             key: "email",
-            sorter: (a, b) => a.email.length - b.email.length,
         },
         {
-            title: "Role",
+            title: t("forms.role"),
             dataIndex: "role",
             key: "role",
-            sorter: (a, b) => a.role.length - b.role.length,
         },
     ];
     return (
         <>
             <Table
+                pagination={false}
                 columns={columns}
                 dataSource={users}
-                onRow={(record: FindUserResultType) => ({
+                onRow={(record: User) => ({
                     onClick: () => {
                         // handle row click here
                         navigate(`/user/${record.id}`);

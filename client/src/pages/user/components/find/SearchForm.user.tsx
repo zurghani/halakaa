@@ -2,6 +2,7 @@ import { GetProps, Input, Segmented, Space } from "antd";
 import { useState } from "react";
 import { UserRole } from "../../../../store/types";
 import { rolesObject, UserSearchOptionsType } from "../../types";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 type SearchProps = GetProps<typeof Input.Search>;
@@ -17,7 +18,7 @@ const UserSearchForm: React.FC<UserSearchFormProps> = ({ SearchOptions }) => {
         SearchOptions.name.value
     );
     const [role, setRole] = useState<RoleType>(UserRole.All);
-
+    const { t } = useTranslation();
     const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
         console.log("Source:", info?.source);
         console.log("Value:", value);
@@ -29,7 +30,7 @@ const UserSearchForm: React.FC<UserSearchFormProps> = ({ SearchOptions }) => {
             <Segmented<RoleType>
                 value={role}
                 options={rolesObject.map((role) => ({
-                    label: role.charAt(0).toUpperCase() + role.slice(1),
+                    label: t(`forms.selectRole.${role}`),
                     value: role,
                 }))}
                 onChange={(value) => setRole(value as RoleType)}
@@ -37,7 +38,7 @@ const UserSearchForm: React.FC<UserSearchFormProps> = ({ SearchOptions }) => {
             <Segmented<string>
                 value={SearchType}
                 options={Object.values(SearchOptions).map((option) => ({
-                    label: option.label,
+                    label: t(`forms.${option.label}`),
                     value: option.value,
                 }))}
                 onChange={(value) => {
@@ -46,8 +47,8 @@ const UserSearchForm: React.FC<UserSearchFormProps> = ({ SearchOptions }) => {
             />
             <Search
                 type={SearchType === "phone" ? "tel" : "text"}
-                addonBefore={SearchOptions[SearchType].label}
-                placeholder={`Enter ${SearchOptions[SearchType].label}`}
+                addonBefore={t(`forms.${SearchOptions[SearchType].label}`)}
+                placeholder={`${t("forms.write")} ${t(`forms.${SearchOptions[SearchType].label}`)}`}
                 allowClear
                 onSearch={onSearch}
             />
