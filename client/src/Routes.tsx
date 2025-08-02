@@ -25,6 +25,8 @@ import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
 import RunningClass from "./pages/class/Running.class";
+import StudentCreatePage from "./pages/student/Student.create";
+import StudentEditPage from "./pages/student/Student.edit";
 
 const AppRoutes = () => {
     return (
@@ -45,6 +47,8 @@ const AppRoutes = () => {
                         </Route>
 
                         <Route element={<PageLayout />}>
+                            <Route path={Paths.STUDENT.CREATE} element={<StudentCreatePage />} />
+                            <Route path={Paths.STUDENT.EDIT} element={<StudentEditPage />} />
                             <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
                             <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
@@ -88,6 +92,7 @@ export const Paths = {
         ROOT: "/student",
         VIEW: "/student/:id",
         CREATE: "/student/create",
+        EDIT: "/student/edit/:id",
         FIND: "/student/find",
     },
     TEACHER: {
