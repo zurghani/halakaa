@@ -27,6 +27,7 @@ import ViewStudent from "./pages/student/View.student";
 import RunningClass from "./pages/class/Running.class";
 import UserCreatePage from "./pages/user/User.create";
 import UserEditPage from "./pages/user/User.edit";
+import UserFindPage from "./pages/user/find/User.find";
 
 const AppRoutes = () => {
     return (
@@ -58,6 +59,7 @@ const AppRoutes = () => {
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
 
                             <Route path={Paths.USER.CREATE} element={<UserEditPage />} />
+                            <Route path={Paths.USER.FIND} element={<UserFindPage />} />
                         </Route>
                     </Route>
                 </Route>
