@@ -1,9 +1,13 @@
 import { List, Tag } from "antd";
-import { FindUserResultType } from "./dummy.data";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { UserListItem } from "../../types";
 
-const UserList = ({ users }: { users: FindUserResultType[] }) => {
+interface UserListProps {
+    users: UserListItem[];
+}
+
+const UserList: React.FC<UserListProps> = ({ users }) => {
     const navigate = useNavigate();
     return (
         <List
@@ -22,7 +26,7 @@ const UserList = ({ users }: { users: FindUserResultType[] }) => {
                     <List.Item.Meta
                         title={
                             <>
-                                {user.name}
+                                {user.fullName}
                                 <Tag>{user.phone}</Tag>
                                 <Tag color="green">{user.role}</Tag>
                             </>

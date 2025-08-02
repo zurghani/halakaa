@@ -27,8 +27,8 @@ import ViewStudent from "./pages/student/View.student";
 import RunningClass from "./pages/class/Running.class";
 import UserCreatePage from "./pages/user/User.create";
 import UserEditPage from "./pages/user/User.edit";
-import UserFindPage from "./pages/user/find/User.find";
 import UserViewPage from "./pages/user/User.view";
+import UserFindPage from "./pages/user/User.find";
 
 const AppRoutes = () => {
     return (

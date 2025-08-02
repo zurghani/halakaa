@@ -3,16 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Grid, Space } from "antd";
-import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import { setCurrentPageTitle } from "../../../store/ui.slice";
+import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
+import { setCurrentPageTitle } from "../../store/ui.slice";
 import { DownloadOutlined, PrinterOutlined } from "@ant-design/icons";
-import UserSearchForm from "./SearchForm.user";
-import { UserSearchOptions } from "./user.search.options";
-import { FindUserResultDummyData } from "./dummy.data";
-import UserList from "./User.list";
-import UserTable from "./User.table";
+import UserSearchForm from "./components/find/SearchForm.user";
+import { FindUserResultDummyData } from "./components/find/dummy.data";
+import UserList from "./components/find/User.list";
+import UserTable from "./components/find/User.table";
+import { UserSearchOptionsType } from "./types";
 
 const { useBreakpoint } = Grid;
+const UserSearchOptions: UserSearchOptionsType = {
+    name: { value: "name", label: "Name" },
+    email: { value: "email", label: "Email" },
+    phone: { value: "phone", label: "Phone" },
+};
 
 const UserFindPage: React.FC = () => {
     const { t } = useTranslation();
