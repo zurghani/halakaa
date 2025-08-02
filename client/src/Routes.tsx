@@ -59,7 +59,7 @@ const AppRoutes = () => {
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
 
-                            <Route path={Paths.USER.CREATE} element={<UserEditPage />} />
+                            <Route path={Paths.USER.CREATE} element={<UserCreatePage />} />
                             <Route path={Paths.USER.FIND} element={<UserFindPage />} />
                             <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
                             <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
