@@ -31,7 +31,8 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-
+import TaskTypesEditPage from "./pages/settings/TaskTypes.edit";
+import TaskTypesViewPage from "./pages/settings/TaskTypes.view";
 
 const AppRoutes = () => {
     return (
@@ -68,6 +69,15 @@ const AppRoutes = () => {
                             <Route path={Paths.USER.FIND} element={<UserFindPage />} />
                             <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
                             <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
+
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.TASKTYPES.EDIT}
+                                element={<TaskTypesEditPage />}
+                            />
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
+                                element={<TaskTypesViewPage />}
+                            />
                         </Route>
                     </Route>
                 </Route>
@@ -129,6 +139,14 @@ export const Paths = {
         FIND: "/user/find",
         VIEW: "/user/:id",
         EDIT: "/user/edit/:id",
+    },
+    SETTINGS: {
+        ADMIN: {
+            TASKTYPES: {
+                VIEW: "/settings/task-types/view",
+                EDIT: "/settings/task-types/edit",
+            },
+        },
     },
 };
 
