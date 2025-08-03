@@ -23,7 +23,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
-import ViewStudent from "./pages/student/View.student";
+import ViewStudent from "./pages/student/student.view";
 import RunningClass from "./pages/class/Running.class";
 import StudentCreatePage from "./pages/student/Student.create";
 import StudentEditPage from "./pages/student/Student.edit";
