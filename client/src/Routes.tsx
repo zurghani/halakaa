@@ -31,7 +31,8 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-
+import ClassCreatePage from "./pages/class/Class.create";
+import ClassEditPage from "./pages/class/Class.edit";
 
 const AppRoutes = () => {
     return (
@@ -57,6 +58,8 @@ const AppRoutes = () => {
                             <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
                             <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
+                            <Route path={Paths.CLASS.CREATE} element={<ClassCreatePage />} />
+                            <Route path={Paths.CLASS.EDIT} element={<ClassEditPage />} />
                             <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
                             <Route path={Paths.CLASS.FIND} element={<FindClass />} />
                             <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
@@ -120,6 +123,7 @@ export const Paths = {
         VIEW: "/class/:id", //: "classId"
         CLASSROOM: "/classroom",
         CREATE: "/class/create",
+        EDIT: "/class/edit/:id",
         FIND: "/class/find",
         RUNNING: "/class/running",
     },
