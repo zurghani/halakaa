@@ -1,19 +1,21 @@
 import { removeHarakat } from "@/utils/removeHarakat";
 import { db } from "."; // Your configured drizzle db instance
-import { surah, ayah, users } from "./schema"; // Your drizzle schema
+import {
+    surah,
+    ayah,
+    users,
+    ageGroup,
+    roles,
+    userRoles,
+    classes,
+    taskTypes,
+    students,
+    enrollments,
+    tasks,
+    attendance,
+} from "./schema"; // Your drizzle schema
 
 await db.transaction(async (tx) => {
-    // Insert user
-    await tx.insert(users).values([
-        {
-            id: "0c2212e1-0d59-4931-bb69-9ae5355f5824",
-            fullName: "Zacharea",
-            email: "admin@admin.com",
-            phone: "2265047762",
-            language: "en",
-        },
-    ]);
-
     // Insert Surahs
     await tx.insert(surah).values([
         { origin: "makki", name: "الفاتحة" },
@@ -24561,6 +24563,168 @@ await db.transaction(async (tx) => {
             plainText: removeHarakat(a.text),
         }))
     );
+    // Insert user
+    await tx.insert(users).values([
+        {
+            id: "0c2212e1-0d59-4931-bb69-9ae5355f5824",
+            fullName: "Zacharea",
+            email: "admin@admin.com",
+            phone: "2265047762",
+            language: "en",
+        },
+        {
+            id: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            fullName: "Ahmed",
+            email: "ahmed@teacher.com",
+            phone: "26547344654",
+            language: "ar",
+        },
+        {
+            id: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+            fullName: "Mohamed",
+            email: "mohamed@parent.com",
+            phone: "22342534634",
+            language: "en",
+        },
+    ]);
+
+    await tx.insert(ageGroup).values([
+        { description: "5-7 years", from: 5, to: 7 },
+        { description: "8-10 years", from: 8, to: 10 },
+        { description: "11-13 years", from: 11, to: 13 },
+    ]);
+
+    await tx.insert(roles).values([
+        { name: "Admin", description: "Administrator" },
+        { name: "Teacher", description: "Teacher" },
+        { name: "Parent", description: "Parent" },
+    ]);
+
+    await tx.insert(userRoles).values([
+        { userId: "0c2212e1-0d59-4931-bb69-9ae5355f5824", roleId: 1 },
+        { userId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7", roleId: 2 },
+        { userId: "d6dca3a6-76e1-4300-8406-dea962c50f06", roleId: 3 },
+    ]);
+
+    await tx.insert(classes).values([
+        {
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            startsAt: "09:00 AM",
+            endsAt: "11:00 AM",
+            description: "Morning Class",
+            ageGroup: 1,
+        },
+        {
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            startsAt: "12:00 PM",
+            endsAt: "02:00 PM",
+            description: "Afternoon Class",
+            ageGroup: 2,
+        },
+        {
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            startsAt: "06:00 PM",
+            endsAt: "09:00 PM",
+            description: "Evening Class",
+            ageGroup: 3,
+        },
+    ]);
+
+    await tx.insert(taskTypes).values([
+        { name: "memorization", description: "memorizing" },
+        { name: "reciting", description: "reciting" },
+        { name: "revision", description: "revision" },
+    ]);
+
+    await tx.insert(students).values([
+        {
+            fullName: "Yusuf Ali",
+            gender: "male",
+            dateOfBirth: "2015-03-20",
+            parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+        },
+        {
+            fullName: "Fatima Sara",
+            gender: "female",
+            dateOfBirth: "2014-06-12",
+            parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+        },
+        {
+            fullName: "Zaid Khan",
+            gender: "male",
+            dateOfBirth: "2013-11-05",
+            parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+        },
+    ]);
+
+    await tx.insert(enrollments).values([
+        { classId: 1, studentId: 1 },
+        { classId: 2, studentId: 3 },
+        { classId: 2, studentId: 2 },
+    ]);
+
+    await tx.insert(tasks).values([
+        {
+            studentId: 1,
+            classId: 1,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            taskTypeId: 1,
+            status: "assigned",
+            dueDate: "2025-08-10",
+            startingAyahId: 1,
+            endingAyahId: 10,
+            notes: "Memorize the selected verses.",
+            mistakes: 0,
+        },
+        {
+            studentId: 2,
+            classId: 2,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            taskTypeId: 2,
+            status: "completed",
+            dueDate: "2025-08-09",
+            startingAyahId: 11,
+            endingAyahId: 20,
+            notes: "Practice reciting",
+            mistakes: 1,
+        },
+        {
+            studentId: 3,
+            classId: 3,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            taskTypeId: 3,
+            status: "assigned",
+            dueDate: "2025-08-08",
+            startingAyahId: 22,
+            endingAyahId: 33,
+            notes: "Revision is needed",
+            mistakes: 0,
+        },
+    ]);
+
+    await tx.insert(attendance).values([
+        {
+            studentId: 1,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            classId: 1,
+            date: "2025-08-01",
+            status: "present",
+        },
+        {
+            studentId: 2,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            classId: 2,
+            date: "2025-08-01",
+            status: "absent",
+        },
+        {
+            studentId: 3,
+            teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+            classId: 3,
+            date: "2025-08-01",
+            status: "late",
+        },
+    ]);
 });
 
 console.log("✅ Seeding done.");
