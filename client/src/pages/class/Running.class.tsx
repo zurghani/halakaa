@@ -44,7 +44,11 @@ const RunningClass: React.FC = () => {
     }, [t]);
     // Set Buttons
     useEffect(() => {
-        setButtons([<Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>{t("titles.exitClass")}</Button>]);
+        setButtons([
+            <Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
+                {t("titles.exitClass")}
+            </Button>,
+        ]);
     }, [t]);
 
     useEffect(() => {

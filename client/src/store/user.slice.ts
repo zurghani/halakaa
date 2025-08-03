@@ -5,7 +5,7 @@ const initialState: User = {
     uuid: null,
     name: null,
     email: null,
-    role: UserRole.Teacher,
+    role: UserRole.Admin,
 };
 // place holder
 // only an example, not an actual implementation

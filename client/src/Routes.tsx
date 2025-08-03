@@ -25,6 +25,10 @@ import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
 import RunningClass from "./pages/class/Running.class";
+import UserCreatePage from "./pages/user/User.create";
+import UserEditPage from "./pages/user/User.edit";
+import UserViewPage from "./pages/user/User.view";
+import UserFindPage from "./pages/user/User.find";
 
 const AppRoutes = () => {
     return (
@@ -54,6 +58,11 @@ const AppRoutes = () => {
 
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
+
+                            <Route path={Paths.USER.CREATE} element={<UserCreatePage />} />
+                            <Route path={Paths.USER.FIND} element={<UserFindPage />} />
+                            <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
+                            <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
                         </Route>
                     </Route>
                 </Route>
@@ -112,6 +121,8 @@ export const Paths = {
         ROOT: "/user",
         CREATE: "/user/create",
         FIND: "/user/find",
+        VIEW: "/user/:id",
+        EDIT: "/user/edit/:id",
     },
 };
 
