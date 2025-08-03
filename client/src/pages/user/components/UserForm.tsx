@@ -1,8 +1,14 @@
-import { Form, Input, Segmented, Select } from "antd";
-import { UserFormProps } from "../types";
+import { Form, FormInstance, Input, Segmented, Select } from "antd";
 import ChildrenTable from "./ChildrenTable";
 import { useTranslation } from "react-i18next";
+import { User } from "../types";
 
+export interface UserFormProps {
+    disabled?: boolean;
+    defaultValues?: User;
+    form: FormInstance;
+    onSubmit?: (data: any) => void;
+}
 export const UserForm: React.FC<UserFormProps> = ({
     disabled = false,
     defaultValues,
