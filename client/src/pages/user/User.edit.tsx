@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Button, Form } from "antd";
+import { Button, Form, Modal } from "antd";
 import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
@@ -32,10 +32,20 @@ const UserEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the user logic here
+        setIsModalOpen(true);
     };
+
+    const handleDone = () => {
+        setIsModalOpen(false);
+        navigate(Paths.USER.VIEW); //redirects to user list page
+    };
+
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.editUser")));
@@ -51,6 +61,28 @@ const UserEditPage: React.FC = () => {
             </Button>,
         ]);
     }, [t]);
-    return <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />;
+
+    return (
+        <>
+        <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
+        <Modal
+            open={isModalOpen}
+            footer={[
+            <Button key="done" type="primary" onClick={handleDone}>
+            {t("modal.done")}
+            </Button>
+            ]}
+            onCancel={handleDone} // to close modal with Esc key and navigate to user list
+            centered
+            closable={false}
+            maskClosable={false}
+            keyboard
+            title={t("modal.user.updateSuccess")}
+        >
+            {t("modal.doneText")}
+        </Modal>
+        </>
+    );
+
 };
 export default UserEditPage;

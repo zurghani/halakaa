@@ -25,10 +25,10 @@ const UserCreatePage: React.FC = () => {
         setIsModalOpen(true);
     };
 
-  const handleDone = () => {
-    setIsModalOpen(false);
-    navigate(Paths.USER.VIEW); //redirects to user list page
-  };
+    const handleDone = () => {
+        setIsModalOpen(false);
+        navigate(Paths.USER.VIEW); //redirects to user list page
+    };
 
     // Set Page Title
     useEffect(() => {
