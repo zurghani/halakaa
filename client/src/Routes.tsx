@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 // store
 import { AppStore } from "./store";
 import { UserRole } from "./store/types";
-// components
+// pages
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import ParentHome from "./pages/parent/ParentHome";
@@ -16,19 +16,22 @@ import ServerError from "./pages/error/ServerError";
 import NotFound from "./pages/error/NotFound";
 import ViewClasses from "./pages/teacher/teacher.classes";
 import ViewStudents from "./pages/teacher/teacher.students";
+import FindClass from "./pages/class/find/Find.class";
+import ViewStudent from "./pages/student/student.view";
+import RunningClass from "./pages/class/Running.class";
+import StudentCreatePage from "./pages/student/Student.create";
+import StudentEditPage from "./pages/student/Student.edit";
+import UserCreatePage from "./pages/user/User.create";
+import UserEditPage from "./pages/user/User.edit";
+import UserViewPage from "./pages/user/User.view";
+import UserFindPage from "./pages/user/User.find";
 // layouts
 import MainLayout from "./layouts/MainLayout";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-import FindClass from "./pages/class/find/Find.class";
-import ViewStudent from "./pages/student/View.student";
-import RunningClass from "./pages/class/Running.class";
-import UserCreatePage from "./pages/user/User.create";
-import UserEditPage from "./pages/user/User.edit";
-import UserViewPage from "./pages/user/User.view";
-import UserFindPage from "./pages/user/User.find";
+
 
 const AppRoutes = () => {
     return (
@@ -49,6 +52,8 @@ const AppRoutes = () => {
                         </Route>
 
                         <Route element={<PageLayout />}>
+                            <Route path={Paths.STUDENT.CREATE} element={<StudentCreatePage />} />
+                            <Route path={Paths.STUDENT.EDIT} element={<StudentEditPage />} />
                             <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
                             <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
@@ -97,6 +102,7 @@ export const Paths = {
         ROOT: "/student",
         VIEW: "/student/:id",
         CREATE: "/student/create",
+        EDIT: "/student/edit/:id",
         FIND: "/student/find",
     },
     TEACHER: {
