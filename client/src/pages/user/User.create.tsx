@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Form } from "antd";
+import { Button, Form, Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { Paths } from "../../Routes";
 import { setCurrentPageTitle } from "../../store/ui.slice";
@@ -17,10 +17,18 @@ const UserCreatePage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleSubmit = (values: any) => {
         console.log("Submitted:", values);
         // Create user here
+        setIsModalOpen(true);
     };
+
+  const handleDone = () => {
+    setIsModalOpen(false);
+    navigate(Paths.USER.VIEW); //redirects to user list page
+  };
 
     // Set Page Title
     useEffect(() => {
@@ -35,6 +43,26 @@ const UserCreatePage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.create")}</ActionButton>,
         ]);
     }, [t]);
-    return <UserForm form={form} onSubmit={handleSubmit} />;
+    return (
+    <>
+    <UserForm form={form} onSubmit={handleSubmit} />
+    <Modal
+        open={isModalOpen}
+        footer={[
+        <Button key="done" type="primary" onClick={handleDone}>
+        {t("modal.done")}
+        </Button>
+        ]}
+        onCancel={handleDone} // to close modal with Esc key and navigate to user list
+        centered
+        closable={false}
+        maskClosable={false}
+        keyboard
+        title={t("modal.user.createSuccess")}
+      >
+        {t("modal.doneText")}
+      </Modal>
+    </>
+     );
 };
 export default UserCreatePage;
