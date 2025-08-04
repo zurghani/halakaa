@@ -10,7 +10,7 @@ export type UpdateStudent = Partial<NewStudent>;
 // Create
 export const createStudent = async (student: NewStudent): Promise<Student> => {
     const [newStudent] = await db.insert(students).values(student).returning();
-    return newStudent;
+    return newStudent!;
 };
 
 // Read all

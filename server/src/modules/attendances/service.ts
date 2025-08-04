@@ -9,7 +9,7 @@ export type UpdateAttendance = Partial<NewAttendance>;
 // Create
 export const createAttendance = async (attendanceData: NewAttendance): Promise<Attendance> => {
     const [newAttendance] = await db.insert(attendance).values(attendanceData).returning();
-    return newAttendance;
+    return newAttendance!;
 };
 
 export type getAttendanceFilters = { classId?: number; studentId?: number };

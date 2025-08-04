@@ -8,7 +8,7 @@ export type UpdateClass = Partial<NewClass>;
 
 export const createClass = async (quranClass: NewClass): Promise<Class> => {
     const [newClass] = await db.insert(classes).values(quranClass).returning();
-    return newClass;
+    return newClass!;
 };
 
 export const getAllClasses = async (): Promise<Class[]> => {

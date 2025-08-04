@@ -28,4 +28,4 @@ lerna-debug.log*
 .DS_Store
 
 #build
-dist/
+dist
