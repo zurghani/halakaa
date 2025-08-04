@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Button, Form } from "antd";
+import { Button, Form, Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
@@ -26,10 +26,19 @@ const ClassEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the class logic here
+        setIsModalOpen(true);
     };
+
+    const handleDone = () => {
+        setIsModalOpen(false);
+        navigate(Paths.CLASS.FIND); //redirects to classes list page
+    };
+
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.editClass")));
@@ -43,6 +52,26 @@ const ClassEditPage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
-    return <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />;
+    return (
+        <>
+        <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />
+        <Modal
+            open={isModalOpen}
+            footer={[
+            <Button key="done" type="primary" onClick={handleDone}>
+            {t("modal.done")}
+            </Button>
+            ]}
+            onCancel={handleDone} // to close modal with Esc key
+            centered
+            closable={false}
+            maskClosable={false}
+            keyboard
+            title={t("modal.class.updateSuccess")}
+            >
+            {t("modal.doneText")}
+            </Modal>
+        </>
+    );
 };
 export default ClassEditPage;
