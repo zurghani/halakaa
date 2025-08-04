@@ -100,7 +100,28 @@ export const NavPermissions = (
                 ],
             },
             { name: "reports", icon: BarChartOutlined },
-            { name: "system settings", icon: SettingOutlined },
+            {
+                name: "system settings",
+                icon: SettingOutlined,
+                dropdown: [
+                    {
+                        key: "admin-task-types",
+                        label: (
+                            <a onClick={() => navigate(Paths.SETTINGS.ADMIN.TASKTYPES.VIEW)}>
+                                {t("navBar.taskTypes")}
+                            </a>
+                        ),
+                    },
+                    {
+                        key: "admin-age-groups",
+                        label: (
+                            <a onClick={() => navigate(Paths.SETTINGS.ADMIN.AGEGROUP.VIEW)}>
+                                {t("navBar.ageGroups")}
+                            </a>
+                        ),
+                    },
+                ],
+            },
         ],
         teacher: [
             {

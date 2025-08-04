@@ -30,7 +30,9 @@
         "create": "Create",
         "find": "Find",
         "my classes": "My Classes",
-        "my students": "My Students"
+        "my students": "My Students",
+        "taskTypes": "Task Types",
+        "ageGroups": "Age Groups"
     },
     "modal": {
         "day": "Day",
@@ -140,7 +142,8 @@
         "cancel": "Cancel",
         "save": "Save",
         "edit": "Edit",
-        "taskType": "Task Type"
+        "taskType": "Task Type",
+        "delete": "Delete"
     },
 
     "titles": {
@@ -162,7 +165,9 @@
         "taskTypes": "Task Types",
         "createClass": "Create Class",
         "editClass": "Edit Class",
-        "editEnrollments": "Edit Enrollments"
+        "editEnrollments": "Edit Enrollments",
+        "ageGroups": "Age Groups",
+        "editAgeGroups": "Edit Age Groups"
     },
     "forms": {
         "id": "ID",
