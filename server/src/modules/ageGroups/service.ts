@@ -7,7 +7,7 @@ export type NewAgeGroup = typeof ageGroup.$inferInsert;
 
 export const createAgeGroup = async (ageGroupNew: NewAgeGroup): Promise<AgeGroup> => {
     const [newAgeGroup] = await db.insert(ageGroup).values(ageGroupNew).returning();
-    return newAgeGroup;
+    return newAgeGroup!;
 };
 
 export const getAllAgeGroups = async (): Promise<AgeGroup[]> => {

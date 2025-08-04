@@ -7,7 +7,7 @@ export type NewTaskType =  typeof taskTypes.$inferInsert;
 
 export const createTaskType = async (taskType: NewTaskType): Promise<TaskType> => {
     const [newTaskType] = await db.insert(taskTypes).values(taskType).returning();
-    return newTaskType;
+    return newTaskType!;
 };
 
 

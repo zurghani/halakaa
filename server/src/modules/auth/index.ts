@@ -1,8 +1,8 @@
 import { db } from "@/db";
-import { betterAuth } from "better-auth";
+import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin } from "better-auth/plugins";
-import { admin as adminRole, parent, student } from "./permissions";
+import { admin as adminRole, parent, student, teacher } from "./permissions";
 import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
@@ -15,6 +15,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+
   plugins: [
     admin({
       ac,
@@ -22,10 +23,11 @@ export const auth = betterAuth({
         admin: adminRole,
         parent,
         student,
+        teacher
       },
       adminRoles: ["admin"],
       defaultRole: "student",
-    }),
+    })  as unknown as BetterAuthPlugin,
   ],
 });
 
@@ -34,3 +36,5 @@ export const authRoutes = new Hono<{ Bindings: AuthType }>({ strict: false });
 authRoutes.on(["POST", "GET"], "/*", (c) => {
   return auth.handler(c.req.raw);
 });
+
+export default auth;

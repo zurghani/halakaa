@@ -1,5 +1,5 @@
 {
-    "name": "halakah",
+    "name": "server",
     "type": "module",
     "scripts": {
         "dev": "bun run src/index.ts",
