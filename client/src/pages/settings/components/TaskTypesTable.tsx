@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { TaskType } from "../types";
 import TaskTypeTag from "../../../components/Tags/TaskTypeTag";
 import { PlusOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface TaskTypeTableProps {
     data: TaskType[];
@@ -18,21 +19,22 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
     onDelete,
     onCreate,
 }) => {
+    const { t } = useTranslation();
     const columns: ColumnsType<TaskType> = [
         {
-            title: "ID",
+            title: t("forms.id"),
             dataIndex: "id",
             key: "id",
         },
         {
-            title: "Name",
+            title: t("forms.name"),
             dataIndex: "name",
             key: "name",
-            render: (text) => <TaskTypeTag type={text} />,
+            render: (text) => <TaskTypeTag type={text} closable={false} />,
             sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
-            title: "Description",
+            title: t("forms.description"),
             dataIndex: "description",
             key: "description",
         },
@@ -40,7 +42,7 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
 
     if (editable) {
         columns.push({
-            title: "Delete",
+            title: t("forms.delete"),
             key: "delete",
             render: (_, record) => (
                 <Button danger size="small" onClick={() => onDelete?.(record.id)}>
@@ -54,9 +56,13 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
         <div>
             <Table rowKey="id" dataSource={data} columns={columns} pagination={false} />
             {editable && (
-                <div style={{ marginTop: 16, textAlign: "right" }}>
+                <div
+                    style={{
+                        marginTop: "2rem",
+                        textAlign: "center",
+                    }}>
                     <Button type="primary" onClick={onCreate} icon={<PlusOutlined />}>
-                        Task Type
+                        {t("general.taskType")}
                     </Button>
                 </div>
             )}

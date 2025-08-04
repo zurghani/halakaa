@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
-import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { TaskType } from "./types";
 import TaskTypeTable from "./components/TaskTypesTable";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -40,9 +41,9 @@ const TaskTypesEditPage: React.FC = () => {
             <Button key="cancel" onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
                 {t("general.cancel")}
             </Button>,
-            <Button key="save" onClick={handleSave} icon={<CaretLeftOutlined />}>
+            <ActionButton key="save" onClick={handleSave}>
                 {t("general.save")}
-            </Button>,
+            </ActionButton>,
         ]);
     }, [t, taskTypes]);
     return (

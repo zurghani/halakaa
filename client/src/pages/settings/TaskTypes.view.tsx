@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Button } from "antd";
-import { CaretLeftOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { TaskType } from "./types";
 import TaskTypeTable from "./components/TaskTypesTable";
 import DownloadModal from "../../components/ExportModal/DownloadModal";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -25,19 +24,16 @@ const TaskTypesViewPage: React.FC = () => {
 
     // Set Page Title
     useEffect(() => {
-        dispatch(setCurrentPageTitle(t("titles.viewTaskTypes")));
+        dispatch(setCurrentPageTitle(t("titles.taskTypes")));
     }, [t]);
 
     // Set Buttons
     useEffect(() => {
         setButtons([
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
-            <Button
-                key="edit"
-                onClick={() => navigate(Paths.SETTINGS.ADMIN.TASKTYPES.EDIT)}
-                icon={<CaretLeftOutlined />}>
+            <ActionButton key="edit" onClick={() => navigate(Paths.SETTINGS.ADMIN.TASKTYPES.EDIT)}>
                 {t("general.edit")}
-            </Button>,
+            </ActionButton>,
         ]);
     }, [t]);
     return <TaskTypeTable data={initialTasks} editable={false} />;

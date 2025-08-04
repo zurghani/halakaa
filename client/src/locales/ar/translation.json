@@ -136,7 +136,8 @@
         "create": "إنشاء",
         "cancel": "إلغاء",
         "save": "حفظ",
-        "edit": "تعديل"
+        "edit": "تعديل",
+        "taskType": "نوع المهمة"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",
@@ -152,15 +153,22 @@
         "createUser": "إنشاء مستخدم",
         "editUser": "تعديل مستخدم",
         "viewUser": "عرض مستخدم",
-        "findUser": "البحث عن مستخدم"
+        "findUser": "البحث عن مستخدم",
+        "editTaskTypes": "تعديل أنواع المهام",
+        "taskTypes": "أنواع المهام",
+        "createClass": "إنشاء فصل",
+        "editClass": "تعديل فصل",
+        "editEnrollments": "تعديل التسجيلات"
     },
     "forms": {
+        "id": "الرقم التعريفي",
         "fullName": "الاسم الكامل",
         "name": "الاسم",
         "email": "البريد الإلكتروني",
         "phone": "رقم الهاتف",
         "password": "كلمة المرور",
         "confirmPassword": "تأكيد كلمة المرور",
+        "description": "الوصف",
         "language": "اللغة",
         "role": "الدور",
         "children": "الأطفال",
@@ -168,6 +176,11 @@
         "dob": "تاريخ الميلاد",
         "gender": "الجنس",
         "parent": "ولي الأمر",
+        "delete": "حذف",
+        "from": "من",
+        "to": "إلى",
+        "teacher": "المعلم",
+        "ageGroup": "الفئة العمرية",
         "childrenTable": {
             "id": "الرقم التعريفي",
             "name": "الاسم",
