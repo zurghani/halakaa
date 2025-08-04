@@ -139,7 +139,8 @@
         "create": "Create",
         "cancel": "Cancel",
         "save": "Save",
-        "edit": "Edit"
+        "edit": "Edit",
+        "taskType": "Task Type"
     },
 
     "titles": {
@@ -156,9 +157,15 @@
         "createUser": "Create User",
         "editUser": "Edit User",
         "viewUser": "View User",
-        "findUser": "Find User"
+        "findUser": "Find User",
+        "editTaskTypes": "Edit Task Types",
+        "taskTypes": "Task Types",
+        "createClass": "Create Class",
+        "editClass": "Edit Class",
+        "editEnrollments": "Edit Enrollments"
     },
     "forms": {
+        "id": "ID",
         "fullName": "Full Name",
         "name": "Name",
         "email": "Email",
@@ -166,12 +173,18 @@
         "phone": "Phone",
         "role": "Role",
         "confirmPassword": "Confirm Password",
+        "description": "Description",
         "language": "Language",
         "children": "Children",
         "write": "Write",
         "dob": "Date of Birth",
         "gender": "Gender",
         "parent": "Parent",
+        "delete": "Delete",
+        "from": "From",
+        "to": "To",
+        "teacher": "Teacher",
+        "ageGroup": "Age Group",
         "childrenTable": {
             "id": "ID",
             "name": "Name",

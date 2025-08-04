@@ -25,14 +25,17 @@ import UserCreatePage from "./pages/user/User.create";
 import UserEditPage from "./pages/user/User.edit";
 import UserViewPage from "./pages/user/User.view";
 import UserFindPage from "./pages/user/User.find";
+import TaskTypesEditPage from "./pages/settings/TaskTypes.edit";
+import TaskTypesViewPage from "./pages/settings/TaskTypes.view";
+import ClassCreatePage from "./pages/class/Class.create";
+import ClassEditPage from "./pages/class/Class.edit";
 // layouts
 import MainLayout from "./layouts/MainLayout";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-import ClassCreatePage from "./pages/class/Class.create";
-import ClassEditPage from "./pages/class/Class.edit";
+
 
 const AppRoutes = () => {
     return (
@@ -71,6 +74,15 @@ const AppRoutes = () => {
                             <Route path={Paths.USER.FIND} element={<UserFindPage />} />
                             <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
                             <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
+
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.TASKTYPES.EDIT}
+                                element={<TaskTypesEditPage />}
+                            />
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
+                                element={<TaskTypesViewPage />}
+                            />
                         </Route>
                     </Route>
                 </Route>
@@ -133,6 +145,14 @@ export const Paths = {
         FIND: "/user/find",
         VIEW: "/user/:id",
         EDIT: "/user/edit/:id",
+    },
+    SETTINGS: {
+        ADMIN: {
+            TASKTYPES: {
+                VIEW: "/settings/task-types/view",
+                EDIT: "/settings/task-types/edit",
+            },
+        },
     },
 };
 
