@@ -13,7 +13,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({ children, onClick, .
     return (
         <Button
             onClick={onClick}
-            icon={i18n.language == "en" ? <CaretRightOutlined /> : <CaretLeftOutlined />}
+            icon={i18n.dir() == "ltr" ? <CaretRightOutlined /> : <CaretLeftOutlined />}
             {...rest}>
             {children}
         </Button>
