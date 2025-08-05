@@ -41,7 +41,7 @@ const app = new Hono<{ Variables: AuthType }>()
   .route("/task-types", taskTypes)
   .route("/ayahs", ayahs)
   .route("/surahs", surahs)
-  .route("/age-groups", ageGroups)
+  .route("/age-groups", ageGroups);
 
 export type AppType = typeof app;
 

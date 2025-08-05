@@ -7,6 +7,7 @@ import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
 import { languageEnum } from "src/db/schema";
+import Bun from "bun";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -15,6 +16,14 @@ export const auth = betterAuth({
   trustedOrigins: ["http://localhost:3000"],
   emailAndPassword: {
     enabled: true,
+    password: {
+      hash: async (pwd) => {
+        return Bun.password.hash(pwd);
+      },
+      verify: async (data) => {
+        return Bun.password.verify(data.password, data.password);
+      },
+    },
   },
   user: {
     additionalFields: {
