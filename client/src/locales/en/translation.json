@@ -41,7 +41,15 @@
         "cancel": "Cancel",
         "bodyText": "You will need excel to view CSV",
         "selectFormat": "Select Format",
-        "title": "Download Reports for Student: "
+        "title": "Download Reports for Student: ",
+        "student": {
+            "createSuccess": "Student Created Successfully!",
+            "updateSuccess": "Student Updated Successfully!",
+            "deleteConfirmation": "Are you sure you want to delete this student?",
+            "deleteSuccess": "Student Deleted Successfully!"
+        },
+        "done": "Done",
+        "doneText": "Press Done to close this modal."
     },
     "editTaskModal": {
         "editCompleteTask": "Complete/Edit Task",
