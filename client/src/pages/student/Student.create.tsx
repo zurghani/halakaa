@@ -8,7 +8,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
-import StudentCreateModal from "./components/StudedntCreateModal";
+import StudentCreateModal from "./components/StudentCreateModal";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();

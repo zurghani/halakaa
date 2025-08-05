@@ -15,7 +15,7 @@ const StudentCreateModal: React.FC<Props> = ({ isModalOpen, onClose }) => {
 
     const handleDone = () => {
         onClose(); // Close the modal
-        navigate(Paths.USER.VIEW); //redirects to student list page
+        navigate(Paths.STUDENT.FIND); //redirects to student list page
     };
 
     return (
