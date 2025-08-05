@@ -6,6 +6,7 @@ import { admin as adminRole, parent, student, teacher } from "./permissions";
 import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
+import { languageEnum } from "src/db/schema";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -15,7 +16,21 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-
+  user: {
+    additionalFields: {
+      phone: {
+        type: "string",
+        required: false,
+        input: true,
+      },
+      language: {
+        type: languageEnum.enumValues,
+        required: true,
+        defaultValue: "en",
+        input: true,
+      },
+    },
+  },
   plugins: [
     admin({
       ac,
@@ -23,11 +38,11 @@ export const auth = betterAuth({
         admin: adminRole,
         parent,
         student,
-        teacher
+        teacher,
       },
       adminRoles: ["admin"],
       defaultRole: "student",
-    })  as unknown as BetterAuthPlugin,
+    }) as unknown as BetterAuthPlugin,
   ],
 });
 
