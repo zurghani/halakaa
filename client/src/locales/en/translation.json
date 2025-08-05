@@ -41,7 +41,9 @@
         "cancel": "Cancel",
         "bodyText": "You will need excel to view CSV",
         "selectFormat": "Select Format",
-        "title": "Download Reports for Student: "
+        "title": "Download Reports for Student: ",
+        "done": "Done",
+        "doneText": "Press Done to close this modal."
     },
     "editTaskModal": {
         "editCompleteTask": "Complete/Edit Task",
@@ -62,7 +64,11 @@
         "selectTypeError": "Please select at least one type",
         "selectFromError": "Please select a starting verse",
         "selectToError": "Please select a ending verse",
-        "selectDueError": "Please select a due date"
+        "selectDueError": "Please select a due date",
+        "updateSuccess": "Task Updated Successfully!",
+        "confirmModal": "Task List Updated Successfully!",
+        "deleteConfirmation": "Are you sure you want to delete this task?",
+        "deleteSuccess": "Task Deleted Successfully!"
     },
 
     "createTaskModal": {
@@ -80,7 +86,8 @@
         "selectTypeError": "Please select at least one type",
         "selectFromError": "Please select a starting verse",
         "selectToError": "Please select a ending verse",
-        "selectDueError": "Please select a due date"
+        "selectDueError": "Please select a due date",
+        "createSuccess": "Task Created Successfully!"
     },
     "class": {
         "classID": "Class ID",

@@ -41,7 +41,9 @@
         "cancel": "إلغاء",
         "bodyText": "سوف تحتاج إلى برنامج Excel لعرض ملف CSV",
         "selectFormat": "حدد صيغة الملف",
-        "title": "تنزيل التقارير للطالب: "
+        "title": "تنزيل التقارير للطالب: ",
+        "done": "تم",
+        "doneText": "اضغط على تم لإغلاق هذه النافذة."
     },
     "editTaskModal": {
         "editCompleteTask": "إكمال / تعديل المهمة",
@@ -62,7 +64,11 @@
         "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
         "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
         "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
-        "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+        "selectDueError": "يرجى اختيار تاريخ الاستحقاق",
+        "updateSuccess": "تم تحديث المهمة بنجاح!",
+        "confirmModal": "تم تحديث قائمة المهام بنجاح!",
+        "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
+        "deleteSuccess": "تم حذف المهمة بنجاح!"
     },
     "createTaskModal": {
         "createTask": "إنشاء مهمة",
@@ -79,7 +85,8 @@
         "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
         "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
         "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
-        "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+        "selectDueError": "يرجى اختيار تاريخ الاستحقاق",
+        "createSuccess": "تم إنشاء مهمة جديدة بنجاح!"
     },
     "class": {
         "classID": "معرف الفصل",

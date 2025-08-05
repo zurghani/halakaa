@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
@@ -10,6 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { TaskType } from "./types";
 import TaskTypeTable from "./components/TaskTypesTable";
 import { ActionButton } from "../../components/Button/ActionButton";
+import TaskConfirmModal from "./components/TaskConfirmModal";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -24,10 +25,12 @@ const TaskTypesEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTasks);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSave = () => {
         console.log("Saving task types:", taskTypes);
         // TODO: Replace with API call
+        setIsModalOpen(true);
     };
 
     // Set Page Title
@@ -46,13 +49,17 @@ const TaskTypesEditPage: React.FC = () => {
             </ActionButton>,
         ]);
     }, [t, taskTypes]);
+
     return (
-        <TaskTypeTable
+        <>
+            <TaskTypeTable
             data={taskTypes}
             editable
             onDelete={(id) => setTaskTypes((prev) => prev.filter((t) => t.id !== id))}
             onCreate={() => setTaskTypes([...taskTypes, { id: 5, name: "", description: "" }])}
         />
-    );
+            <TaskConfirmModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </>
+        )
 };
 export default TaskTypesEditPage;

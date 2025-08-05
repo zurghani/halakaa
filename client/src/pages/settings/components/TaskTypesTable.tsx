@@ -46,7 +46,7 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
             key: "delete",
             render: (_, record) => (
                 <Button danger size="small" onClick={() => onDelete?.(record.id)}>
-                    Delete
+                    {t("forms.delete")}
                 </Button>
             ),
         });
