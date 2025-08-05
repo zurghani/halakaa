@@ -10,6 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ClassForm } from "./components/ClassForm";
 import { ActionButton } from "../../components/Button/ActionButton";
 import dayjs from "dayjs";
+import ClassEditModal from "./components/ClassEditModal";
 
 const dummyClass = {
     description: "Revision Class",
@@ -26,10 +27,14 @@ const ClassEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the class logic here
+        setIsModalOpen(true); 
     };
+    
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.editClass")));
@@ -43,6 +48,12 @@ const ClassEditPage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
-    return <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />;
+
+    return (
+    <>
+        <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />
+        <ClassEditModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
+    )
 };
 export default ClassEditPage;
