@@ -11,8 +11,8 @@ import DownloadModal from "../../components/ExportModal/DownloadModal";
 import ClassDetailsCard from "../../components/ClassDetailsCard/ClassDetailsCard";
 import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";
-import EnrollmentsTable from "./EnrolledStudents/EnrollmentsTable";
-import { enrollmentsDummy } from "./EnrolledStudents/enrolled.students.dummy";
+import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
+import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
 
 const ClassView: React.FC = () => {
     const navigate = useNavigate();

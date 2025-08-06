@@ -140,7 +140,8 @@
         "cancel": "Cancel",
         "save": "Save",
         "edit": "Edit",
-        "taskType": "Task Type"
+        "taskType": "Task Type",
+        "enrollment": "Enrollment"
     },
 
     "titles": {
@@ -162,7 +163,9 @@
         "taskTypes": "Task Types",
         "createClass": "Create Class",
         "editClass": "Edit Class",
-        "editEnrollments": "Edit Enrollments"
+        "editEnrollments": "Edit Enrollments",
+        "selectStudent": "Select Student",
+        "searchStudent": "Search Student"
     },
     "forms": {
         "id": "ID",

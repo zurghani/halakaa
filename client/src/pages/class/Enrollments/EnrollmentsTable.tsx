@@ -3,7 +3,6 @@ import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
 import { Enrollment } from "../types";
-import { PlusOutlined } from "@ant-design/icons";
 
 interface EnrollmentsTableProps {
     data: Enrollment[];
@@ -11,7 +10,6 @@ interface EnrollmentsTableProps {
     selectable?: boolean;
     onSelect?: (student: Enrollment | null) => void;
     onDelete?: (id: number) => void;
-    onCreate?: () => void;
 }
 
 const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
@@ -19,7 +17,6 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
     editable = false,
     selectable = false,
     onSelect,
-    onCreate,
     onDelete,
 }) => {
     const { t } = useTranslation();
@@ -70,17 +67,6 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
                 pagination={false}
                 rowSelection={rowSelection}
             />
-            {editable && (
-                <div
-                    style={{
-                        marginTop: "2rem",
-                        textAlign: "center",
-                    }}>
-                    <Button type="primary" onClick={onCreate} icon={<PlusOutlined />}>
-                        {t("general.ageGroup")}
-                    </Button>
-                </div>
-            )}
         </div>
     );
 };

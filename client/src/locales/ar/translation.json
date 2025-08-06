@@ -137,7 +137,8 @@
         "cancel": "إلغاء",
         "save": "حفظ",
         "edit": "تعديل",
-        "taskType": "نوع المهمة"
+        "taskType": "نوع المهمة",
+        "enrollment": "التسجيلات"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",
@@ -158,7 +159,9 @@
         "taskTypes": "أنواع المهام",
         "createClass": "إنشاء فصل",
         "editClass": "تعديل فصل",
-        "editEnrollments": "تعديل التسجيلات"
+        "editEnrollments": "تعديل التسجيلات",
+        "selectStudent": "اختيار طالب",
+        "searchStudent": "البحث عن طالب"
     },
     "forms": {
         "id": "الرقم التعريفي",

@@ -18,3 +18,13 @@ export type Enrollment = {
     studentName?: string | null | undefined; //TEMP ADDED UNTIL FIGURE OUT
     createdAt?: Date | null | undefined;
 }
+
+export type Student = {
+    fullName: string;
+    gender: "male" | "female";
+    id: number
+    createdAt?: Date | null | undefined;
+    parentId?: string | null | undefined;
+    userId?: string | null | undefined;
+    dateOfBirth?: string | null | undefined;
+}

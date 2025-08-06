@@ -3,14 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-import { Enrollment } from "./types";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
+import { Enrollment, Student } from "./types";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { Paths } from "../../Routes";
-import EnrollmentsTable from "./EnrolledStudents/EnrollmentsTable";
-import { enrollmentsDummy } from "./EnrolledStudents/enrolled.students.dummy";
+import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
+import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
+import StudentSelectModal from "./Enrollments/StudentSelectModal";
+
+const dummyStudents: Student[] = [
+    { id: 1, fullName: "Alice Johnson", gender: "female" },
+    { id: 2, fullName: "Bob Smith", gender: "male" },
+    { id: 3, fullName: "Clara Nguyen", gender: "female" },
+    { id: 4, fullName: "David Brown", gender: "male" },
+    { id: 5, fullName: "Eva Davis", gender: "female" },
+];
 
 const EnrollmentsEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -19,10 +28,25 @@ const EnrollmentsEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [enrollments, setEnrollments] = useState<Enrollment[]>(enrollmentsDummy);
+    const [selectStudentModalOpen, setSelectStudentModalOpen] = useState(false);
 
     const handleSave = () => {
         console.log("Saving enrollments:", enrollments);
         // TODO: Replace with API call
+    };
+
+    const handleStudentSelected = (student: Student) => {
+        const nextId = Math.max(0, ...enrollments.map((e) => e.id)) + 1;
+
+        const newEnrollment: Enrollment = {
+            id: nextId,
+            studentId: student.id,
+            studentName: student.fullName,
+            classId: 1,
+        };
+
+        setEnrollments((prev) => [...prev, newEnrollment]);
+        setSelectStudentModalOpen(false);
     };
 
     // Set Page Title
@@ -42,17 +66,31 @@ const EnrollmentsEditPage: React.FC = () => {
         ]);
     }, [t, enrollments]);
     return (
-        <EnrollmentsTable
-            data={enrollments}
-            editable
-            onDelete={(id) => setEnrollments((prev) => prev.filter((t) => t.id !== id))}
-            onCreate={() =>
-                setEnrollments([
-                    ...enrollments,
-                    { id: 5, classId: 1, studentId: 1, createdAt: new Date() },
-                ])
-            }
-        />
+        <>
+            <EnrollmentsTable
+                data={enrollments}
+                editable
+                onDelete={(id) => setEnrollments((prev) => prev.filter((t) => t.id !== id))}
+            />
+            <div
+                style={{
+                    marginTop: "2rem",
+                    textAlign: "center",
+                }}>
+                <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() => setSelectStudentModalOpen(true)}>
+                    {t("general.enrollment")}
+                </Button>
+            </div>
+            <StudentSelectModal
+                open={selectStudentModalOpen}
+                students={dummyStudents}
+                onCancel={() => setSelectStudentModalOpen(false)}
+                onSelect={handleStudentSelected}
+            />
+        </>
     );
 };
 export default EnrollmentsEditPage;

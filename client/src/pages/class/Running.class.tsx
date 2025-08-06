@@ -14,8 +14,8 @@ import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/Co
 import CompletedTasksList from "../../components/StudentTasks/CompletedTasks/CompletedTasks.list";
 import CreateTaskModal from "./components/CreateTaskModal";
 import { Enrollment } from "./types";
-import EnrollmentsTable from "./EnrolledStudents/EnrollmentsTable";
-import { enrollmentsDummy } from "./EnrolledStudents/enrolled.students.dummy";
+import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
+import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
 
 const { useBreakpoint } = Grid;
 
