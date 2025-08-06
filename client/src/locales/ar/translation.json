@@ -73,6 +73,7 @@
     },
     "createTaskModal": {
         "createTask": "إنشاء مهمة",
+        "createTaskType": "إنشاء نوع مهمة جديد",
         "type": "أسبوع",
         "from": "من",
         "to": "إلى",
@@ -224,7 +225,8 @@
         },
         "invalid": {
             "email": "البريد الإلكتروني غير صالح"
-        }
+        },
+        "fieldRequired": "هذا الحقل مطلوب"
     },
     "welcome": "مرحبًا",
     "goodbye": "وداعًا",

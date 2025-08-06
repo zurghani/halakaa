@@ -5,11 +5,11 @@ import { Button, Modal } from "antd";
 import { Paths } from "../../../Routes";
 
 type Props = {
-    isModalOpen: boolean;
+    isSaveModalOpen: boolean;
     onClose: () => void;
     };
 
-const TaskConfirmModal: React.FC<Props> = ({ isModalOpen, onClose }) => {
+const TaskConfirmModal: React.FC<Props> = ({ isSaveModalOpen, onClose }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -20,7 +20,7 @@ const TaskConfirmModal: React.FC<Props> = ({ isModalOpen, onClose }) => {
 
     return (
     <Modal
-        open={isModalOpen}
+        open={isSaveModalOpen}
         footer={[
         <Button key="done" type="primary" onClick={handleDone}>
         {t("modal.done")}

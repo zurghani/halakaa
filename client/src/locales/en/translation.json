@@ -74,6 +74,7 @@
 
     "createTaskModal": {
         "createTask": "Create Task",
+        "createTaskType": "Create new Task Type",
         "type": "Type",
         "from": "From",
         "to": "To",
@@ -228,7 +229,8 @@
         },
         "invalid": {
             "email": "Please enter a valid Email"
-        }
+        },
+        "fieldRequired": "This field is required"
     },
 
     "welcome": "Welcome",

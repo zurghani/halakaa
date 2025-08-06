@@ -12,6 +12,7 @@ import TaskTypeTable from "./components/TaskTypesTable";
 import { ActionButton } from "../../components/Button/ActionButton";
 import TaskConfirmModal from "./components/TaskConfirmModal";
 import TaskDeleteConfirmationModal from "./components/TaskDeleteConfirmationModal";
+import TaskCreateModal from "./components/TaskCreateModal";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -26,31 +27,40 @@ const TaskTypesEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTasks);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+    const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);                  // save modal state
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);  // delete confirmation modal state
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);              // create new task type modal state  
 
+    // Handle creating a new task type
+    const handleCreateTask = (newTask: TaskType) => {
+        setTaskTypes((prev) => [...prev, newTask]);
+        setIsCreateModalOpen(false);
+    };
+
+    // Handle saving task types
     const handleSave = () => {
         console.log("Saving task types:", taskTypes);
         // TODO: Replace with API call
-        setIsModalOpen(true);
+        setIsSaveModalOpen(true);
     };
 
+    // Handle delete task type
     const handleDeleteRequest = (id: number) => {
         setDeleteId(id);
-        setConfirmationModalOpen(true);
+        setIsConfirmationModalOpen(true);
     };
 
     const handleConfirmDelete = () => {
         if (deleteId !== null) {
             setTaskTypes((prev) => prev.filter((task) => task.id !== deleteId));
         }
-        setConfirmationModalOpen(false); 
+        setIsConfirmationModalOpen(false); 
         setDeleteId(null);
     };
 
     const handleCancelDelete = () => {
-        setConfirmationModalOpen(false);
+        setIsConfirmationModalOpen(false);
         setDeleteId(null);
     };
 
@@ -77,13 +87,18 @@ const TaskTypesEditPage: React.FC = () => {
             data={taskTypes}
             editable
             onDelete={handleDeleteRequest}
-            onCreate={() => setTaskTypes([...taskTypes, { id: 5, name: "", description: "" }])} 
+            onCreate={() => setIsCreateModalOpen(true)}
             />
-            <TaskConfirmModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <TaskConfirmModal isSaveModalOpen={isSaveModalOpen} onClose={() => setIsSaveModalOpen(false)} />
             <TaskDeleteConfirmationModal
-                confirmationModalOpen={confirmationModalOpen}
+                isConfirmationModalOpen={isConfirmationModalOpen}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
+            />
+            <TaskCreateModal
+                isCreateModalOpen={isCreateModalOpen}
+                onCreate={handleCreateTask}
+                onCancel={() => setIsCreateModalOpen(false)}
             />
         </>
         )

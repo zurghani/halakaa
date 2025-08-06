@@ -2,13 +2,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
 
+
 type Props = {
-    confirmationModalOpen: boolean;
+    isConfirmationModalOpen: boolean;
     onConfirm: () => void;
     onCancel: () => void;
     };
 
-const TaskDeleteConfirmationModal: React.FC<Props> = ({ confirmationModalOpen, onConfirm, onCancel }) => {
+const TaskDeleteConfirmationModal: React.FC<Props> = ({ isConfirmationModalOpen, onConfirm, onCancel }) => {
     const { t } = useTranslation();
 
     const handleCancel = () => {
@@ -17,15 +18,11 @@ const TaskDeleteConfirmationModal: React.FC<Props> = ({ confirmationModalOpen, o
 
     return (
     <Modal
-        open={confirmationModalOpen}
-        footer={[
-        <Button key="yes" type="primary" onClick={onConfirm}>
-        {t("general.yes")}
-        </Button>,
-        <Button key="no" onClick={onCancel}>
-        {t("general.no")}
-        </Button>
-        ]}
+        open={isConfirmationModalOpen}
+        okText={t("general.yes")}
+        okType="primary"
+        onOk={onConfirm}
+        cancelText={t("general.no")}
         onCancel={handleCancel}
         centered
         closable
