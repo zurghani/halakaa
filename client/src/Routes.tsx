@@ -35,7 +35,7 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-
+import EnrollmentsEditPage from "./pages/class/Enrollments.edit";
 
 const AppRoutes = () => {
     return (
@@ -66,6 +66,10 @@ const AppRoutes = () => {
                             <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
                             <Route path={Paths.CLASS.FIND} element={<FindClass />} />
                             <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
+                            <Route
+                                path={Paths.CLASS.ENROLLMENTS}
+                                element={<EnrollmentsEditPage />}
+                            />
 
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
@@ -138,6 +142,7 @@ export const Paths = {
         EDIT: "/class/edit/:id",
         FIND: "/class/find",
         RUNNING: "/class/running",
+        ENROLLMENTS: "/class/enrollments", // For editing enrollments
     },
     USER: {
         ROOT: "/user",

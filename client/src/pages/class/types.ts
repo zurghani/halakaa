@@ -10,3 +10,11 @@ export type Class = {
     description?: string | null | undefined;
     ageGroup?: number | null | undefined;
 }
+
+export type Enrollment = {
+    classId: number;
+    studentId: number;
+    id: number
+    studentName?: string | null | undefined; //TEMP ADDED UNTIL FIGURE OUT
+    createdAt?: Date | null | undefined;
+}
