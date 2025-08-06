@@ -68,7 +68,8 @@
         "updateSuccess": "Task Updated Successfully!",
         "confirmModal": "Task List Updated Successfully!",
         "deleteConfirmation": "Are you sure you want to delete this task?",
-        "deleteSuccess": "Task Deleted Successfully!"
+        "deleteSuccess": "Task Deleted Successfully!",
+        "deleteTaskType": "Delete Task Type"
     },
 
     "createTaskModal": {
@@ -147,7 +148,9 @@
         "cancel": "Cancel",
         "save": "Save",
         "edit": "Edit",
-        "taskType": "Task Type"
+        "taskType": "Task Type",
+        "yes": "Yes",
+        "no": "No"
     },
 
     "titles": {
