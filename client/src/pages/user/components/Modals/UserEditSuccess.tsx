@@ -6,11 +6,11 @@ import { Paths } from "../../../../Routes";
 import { CheckCircleOutlined } from "@ant-design/icons";
 
 type UserEditSuccessModalProps = {
-    isModalOpen: boolean;
+    isSuccessModalOpen: boolean;
     onClose: () => void;
 };
 
-const UserEditSuccessModal: React.FC<UserEditSuccessModalProps> = ({ isModalOpen, onClose }) => {
+const UserEditSuccessModal: React.FC<UserEditSuccessModalProps> = ({ isSuccessModalOpen, onClose }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -21,7 +21,7 @@ const UserEditSuccessModal: React.FC<UserEditSuccessModalProps> = ({ isModalOpen
 
     return (
         <Modal
-            open={isModalOpen}
+            open={isSuccessModalOpen}
             footer={[
                 <Button key="done" type="primary" onClick={handleDone}>
                     {t("modal.done")}
