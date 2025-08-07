@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
 import { UserRole } from "../../store/types";
+import UserEditSuccessModal from "./components/Modals/UserEditSuccess";
 
 const dummyUser: User = {
     id: "1",
@@ -32,10 +33,14 @@ const UserEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the user logic here
+        setIsModalOpen(true);
     };
+
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.editUser")));
@@ -51,6 +56,12 @@ const UserEditPage: React.FC = () => {
             </Button>,
         ]);
     }, [t]);
-    return <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />;
+
+    return (
+        <>
+            <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
+            <UserEditSuccessModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </>
+    );
 };
 export default UserEditPage;
