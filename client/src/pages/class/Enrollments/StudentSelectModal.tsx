@@ -3,14 +3,19 @@ import { Modal, Select } from "antd";
 import { Student } from "../types"; // Create if doesn't exist
 import { useTranslation } from "react-i18next";
 
-interface Props {
+interface SelectStudentModalProps {
     open: boolean;
     students: Student[];
     onCancel: () => void;
     onSelect: (student: Student) => void;
 }
 
-const StudentSelectModal: React.FC<Props> = ({ open, students, onCancel, onSelect }) => {
+const StudentSelectModal: React.FC<SelectStudentModalProps> = ({
+    open,
+    students,
+    onCancel,
+    onSelect,
+}) => {
     const { t } = useTranslation();
     return (
         <Modal

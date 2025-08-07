@@ -89,7 +89,7 @@ const RunningClass: React.FC = () => {
                 ) : (
                     <Col span={8}>
                         <EnrollmentsTable
-                            data={enrollmentsDummy}
+                            enrollments={enrollmentsDummy}
                             selectable
                             onSelect={setSelectedStudent}
                         />

@@ -68,7 +68,7 @@ const EnrollmentsEditPage: React.FC = () => {
     return (
         <>
             <EnrollmentsTable
-                data={enrollments}
+                enrollments={enrollments}
                 editable
                 onDelete={(id) => setEnrollments((prev) => prev.filter((t) => t.id !== id))}
             />

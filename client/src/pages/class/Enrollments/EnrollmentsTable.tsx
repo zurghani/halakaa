@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Enrollment } from "../types";
 
 interface EnrollmentsTableProps {
-    data: Enrollment[];
+    enrollments: Enrollment[];
     editable?: boolean;
     selectable?: boolean;
     onSelect?: (student: Enrollment | null) => void;
@@ -13,7 +13,7 @@ interface EnrollmentsTableProps {
 }
 
 const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
-    data,
+    enrollments: data,
     editable = false,
     selectable = false,
     onSelect,

@@ -51,7 +51,7 @@ const ClassView: React.FC = () => {
         <>
             <ClassDetailsCard />
             <br />
-            <EnrollmentsTable data={enrollmentsDummy} />
+            <EnrollmentsTable enrollments={enrollmentsDummy} />
         </>
     );
 };
