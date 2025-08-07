@@ -158,6 +158,7 @@
         "save": "Save",
         "edit": "Edit",
         "taskType": "Task Type",
+        "enrollment": "Enrollment"
         "delete": "Delete"
     },
 
@@ -181,6 +182,8 @@
         "createClass": "Create Class",
         "editClass": "Edit Class",
         "editEnrollments": "Edit Enrollments",
+        "selectStudent": "Select Student",
+        "searchStudent": "Search Student"
         "ageGroups": "Age Groups",
         "editAgeGroups": "Edit Age Groups"
     },

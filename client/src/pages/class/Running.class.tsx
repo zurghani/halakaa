@@ -7,14 +7,15 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { AppStore } from "../../store";
 import { TaskStatus } from "../../store/types";
-import { EnrolledStudentsType } from "./EnrolledStudents/enrolled.students.dummy";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../../Routes";
-import EnrolledStudents from "./EnrolledStudents/EnrolledStudents";
 import AssignedTasks from "../../components/StudentTasks/AssignedTasks/AssignedTasks";
 import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/CompletedTasks.table";
 import CompletedTasksList from "../../components/StudentTasks/CompletedTasks/CompletedTasks.list";
 import CreateTaskModal from "./components/CreateTaskModal";
+import { Enrollment } from "./types";
+import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
+import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
 
 const { useBreakpoint } = Grid;
 
@@ -37,7 +38,7 @@ const RunningClass: React.FC = () => {
             state.tasks.tasks.filter((task) => task.status === TaskStatus.Completed).length
     );
 
-    const [selectedStudent, setSelectedStudent] = useState<EnrolledStudentsType | null>(null);
+    const [selectedStudent, setSelectedStudent] = useState<Enrollment | null>(null);
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("general.class")));
@@ -87,12 +88,16 @@ const RunningClass: React.FC = () => {
                     <div>NEED TO IMPLEMENT MOBILE STUDENT SELECT</div>
                 ) : (
                     <Col span={8}>
-                        <EnrolledStudents selectable={true} onSelect={setSelectedStudent} />
+                        <EnrollmentsTable
+                            enrollments={enrollmentsDummy}
+                            selectable
+                            onSelect={setSelectedStudent}
+                        />
                     </Col>
                 )}
                 <Col span={isMobile ? 24 : 16}>
                     <div>
-                        {selectedStudent?.name} <Tag>{selectedStudent?.id}</Tag>
+                        {selectedStudent?.studentName} <Tag>{selectedStudent?.id}</Tag>
                     </div>
                     <Tabs defaultActiveKey="1" items={items} />
                     <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>

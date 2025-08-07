@@ -29,14 +29,16 @@ import TaskTypesEditPage from "./pages/settings/TaskTypes/TaskTypes.edit";
 import TaskTypesViewPage from "./pages/settings/TaskTypes/TaskTypes.view";
 import ClassCreatePage from "./pages/class/Class.create";
 import ClassEditPage from "./pages/class/Class.edit";
+import EnrollmentsEditPage from "./pages/class/Enrollments.edit";
+import AgeGroupEditPage from "./pages/settings/AgeGroup/AgeGroup.edit";
+import AgeGroupViewPage from "./pages/settings/AgeGroup/AgeGroup.view";
+
 // layouts
 import MainLayout from "./layouts/MainLayout";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-import AgeGroupEditPage from "./pages/settings/AgeGroup/AgeGroup.edit";
-import AgeGroupViewPage from "./pages/settings/AgeGroup/AgeGroup.view";
 
 const AppRoutes = () => {
     return (
@@ -67,6 +69,10 @@ const AppRoutes = () => {
                             <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
                             <Route path={Paths.CLASS.FIND} element={<FindClass />} />
                             <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
+                            <Route
+                                path={Paths.CLASS.ENROLLMENTS}
+                                element={<EnrollmentsEditPage />}
+                            />
 
                             <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
                             <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
@@ -148,6 +154,7 @@ export const Paths = {
         ENROLLMENTS: "/class/edit-enrollments/:id",
         FIND: "/class/find",
         RUNNING: "/class/running",
+        ENROLLMENTS: "/class/enrollments", // For editing enrollments
     },
     USER: {
         ROOT: "/user",

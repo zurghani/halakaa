@@ -155,6 +155,7 @@
         "save": "حفظ",
         "edit": "تعديل",
         "taskType": "نوع المهمة",
+        "enrollment": "التسجيلات"
         "delete": "حذف"
     },
     "titles": {
@@ -177,6 +178,8 @@
         "createClass": "إنشاء فصل",
         "editClass": "تعديل فصل",
         "editEnrollments": "تعديل التسجيلات",
+        "selectStudent": "اختيار طالب",
+        "searchStudent": "البحث عن طالب"
         "ageGroups": "الفئات العمرية",
         "editAgeGroups": "تعديل الفئات العمرية"
     },
