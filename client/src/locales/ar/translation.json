@@ -30,7 +30,9 @@
         "create": "إنشاء",
         "find": "بحث",
         "my classes": "فصولي",
-        "my students": "طلابي"
+        "my students": "طلابي",
+        "taskTypes": "أنواع المهام",
+        "ageGroups": "الفئات العمرية"
     },
     "modal": {
         "day": "يوم",
@@ -145,7 +147,8 @@
         "cancel": "إلغاء",
         "save": "حفظ",
         "edit": "تعديل",
-        "taskType": "نوع المهمة"
+        "taskType": "نوع المهمة",
+        "delete": "حذف"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",
@@ -166,7 +169,9 @@
         "taskTypes": "أنواع المهام",
         "createClass": "إنشاء فصل",
         "editClass": "تعديل فصل",
-        "editEnrollments": "تعديل التسجيلات"
+        "editEnrollments": "تعديل التسجيلات",
+        "ageGroups": "الفئات العمرية",
+        "editAgeGroups": "تعديل الفئات العمرية"
     },
     "forms": {
         "id": "الرقم التعريفي",

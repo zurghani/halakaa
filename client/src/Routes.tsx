@@ -25,8 +25,8 @@ import UserCreatePage from "./pages/user/User.create";
 import UserEditPage from "./pages/user/User.edit";
 import UserViewPage from "./pages/user/User.view";
 import UserFindPage from "./pages/user/User.find";
-import TaskTypesEditPage from "./pages/settings/TaskTypes.edit";
-import TaskTypesViewPage from "./pages/settings/TaskTypes.view";
+import TaskTypesEditPage from "./pages/settings/TaskTypes/TaskTypes.edit";
+import TaskTypesViewPage from "./pages/settings/TaskTypes/TaskTypes.view";
 import ClassCreatePage from "./pages/class/Class.create";
 import ClassEditPage from "./pages/class/Class.edit";
 // layouts
@@ -35,7 +35,8 @@ import PageLayout from "./layouts/PageLayout/PageLayout";
 // guards
 import AuthenticationGuard from "./guard/AuthenticationGuard";
 import ParentGuard from "./guard/ParentGuard";
-
+import AgeGroupEditPage from "./pages/settings/AgeGroup/AgeGroup.edit";
+import AgeGroupViewPage from "./pages/settings/AgeGroup/AgeGroup.view";
 
 const AppRoutes = () => {
     return (
@@ -82,6 +83,14 @@ const AppRoutes = () => {
                             <Route
                                 path={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
                                 element={<TaskTypesViewPage />}
+                            />
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.AGEGROUP.EDIT}
+                                element={<AgeGroupEditPage />}
+                            />
+                            <Route
+                                path={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+                                element={<AgeGroupViewPage />}
                             />
                         </Route>
                     </Route>
@@ -136,6 +145,7 @@ export const Paths = {
         CLASSROOM: "/classroom",
         CREATE: "/class/create",
         EDIT: "/class/edit/:id",
+        ENROLLMENTS: "/class/edit-enrollments/:id",
         FIND: "/class/find",
         RUNNING: "/class/running",
     },
@@ -151,6 +161,10 @@ export const Paths = {
             TASKTYPES: {
                 VIEW: "/settings/task-types/view",
                 EDIT: "/settings/task-types/edit",
+            },
+            AGEGROUP: {
+                VIEW: "/settings/age-groups/view",
+                EDIT: "/settings/age-groups/edit",
             },
         },
     },
