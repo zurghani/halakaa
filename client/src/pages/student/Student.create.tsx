@@ -8,7 +8,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
-import StudentCreateModal from "./components/StudentCreateModal";
+import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -42,8 +42,11 @@ const StudentCreatePage: React.FC = () => {
     return (
         <>
             <StudentForm form={form} onSubmit={handleSubmit} />
-            <StudentCreateModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <StudentCreateSuccessModal
+                isModalOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </>
-    )
+    );
 };
 export default StudentCreatePage;

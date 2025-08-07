@@ -10,7 +10,7 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import { Student } from "./types";
-import StudentEditModal from "./components/StudentEditModal";
+import StudentEditModal from "./components/Modals/StudentEditSuccess";
 
 const dummyStudent: Student = {
     fullName: "Zacharea K",
@@ -55,6 +55,6 @@ const StudentEditPage: React.FC = () => {
             <StudentForm form={form} onSubmit={handleSubmit} defaultValues={dummyStudent} />
             <StudentEditModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
-    )
+    );
 };
 export default StudentEditPage;
