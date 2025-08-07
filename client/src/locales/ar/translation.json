@@ -48,14 +48,13 @@
             "createSuccess": "تم إنشاء طالب جديد بنجاح!",
             "updateSuccess": "تم تحديث بيانات الطالب بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا الطالب؟",
-            "deleteSuccess": "تم حذف الطالب بنجاح!",
+            "deleteSuccess": "تم حذف الطالب بنجاح!"
         },
         "user": {
             "createSuccess": "تم إنشاء مستخدم جديد بنجاح!",
             "updateSuccess": "تم تحديث بيانات المستخدم بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا المستخدم؟",
             "deleteSuccess": "تم حذف المستخدم بنجاح!"
-
         },
         "done": "تم",
         "doneText": "اضغط على تم لإغلاق هذه النافذة."
@@ -155,7 +154,7 @@
         "save": "حفظ",
         "edit": "تعديل",
         "taskType": "نوع المهمة",
-        "enrollment": "التسجيلات"
+        "enrollment": "التسجيلات",
         "delete": "حذف"
     },
     "titles": {
@@ -179,7 +178,7 @@
         "editClass": "تعديل فصل",
         "editEnrollments": "تعديل التسجيلات",
         "selectStudent": "اختيار طالب",
-        "searchStudent": "البحث عن طالب"
+        "searchStudent": "البحث عن طالب",
         "ageGroups": "الفئات العمرية",
         "editAgeGroups": "تعديل الفئات العمرية"
     },

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
 import { Paths } from "../../../../Routes";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 type UserEditSuccessModalProps = {
     isModalOpen: boolean;
@@ -31,7 +32,12 @@ const UserEditSuccessModal: React.FC<UserEditSuccessModalProps> = ({ isModalOpen
             closable={false}
             maskClosable={false}
             keyboard
-            title={t("modal.user.updateSuccess")}>
+            title={
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <CheckCircleOutlined style={{ fontSize: 20, color: 'lightgreen' }} />
+                    {t("modal.user.updateSuccess")} 
+                </div>
+            }>
             {t("modal.doneText")}
         </Modal>
     );
