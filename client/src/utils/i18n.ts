@@ -4,8 +4,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import translationEN from "../locales/en/translation.json";
 import translationAR from "../locales/ar/translation.json";
-console.log(translationEN);
-i18n.use(LanguageDetector) // detect user language
+
+i18n.use(LanguageDetector)
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
         resources: {

@@ -30,7 +30,9 @@
         "create": "إنشاء",
         "find": "بحث",
         "my classes": "فصولي",
-        "my students": "طلابي"
+        "my students": "طلابي",
+        "taskTypes": "أنواع المهام",
+        "ageGroups": "الفئات العمرية"
     },
     "modal": {
         "day": "يوم",
@@ -47,6 +49,17 @@
             "updateSuccess": "تم تحديث بيانات الفصل بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا الفصل؟",
             "deleteSuccess": "تم حذف الفصل بنجاح!"
+        "student": {
+            "createSuccess": "تم إنشاء طالب جديد بنجاح!",
+            "updateSuccess": "تم تحديث بيانات الطالب بنجاح!",
+            "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا الطالب؟",
+            "deleteSuccess": "تم حذف الطالب بنجاح!"
+        },
+        "user": {
+            "createSuccess": "تم إنشاء مستخدم جديد بنجاح!",
+            "updateSuccess": "تم تحديث بيانات المستخدم بنجاح!",
+            "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا المستخدم؟",
+            "deleteSuccess": "تم حذف المستخدم بنجاح!"
         },
         "done": "تم",
         "doneText": "اضغط على تم لإغلاق هذه النافذة."
@@ -145,7 +158,9 @@
         "cancel": "إلغاء",
         "save": "حفظ",
         "edit": "تعديل",
-        "taskType": "نوع المهمة"
+        "taskType": "نوع المهمة",
+        "enrollment": "التسجيلات"
+        "delete": "حذف"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",
@@ -166,7 +181,11 @@
         "taskTypes": "أنواع المهام",
         "createClass": "إنشاء فصل",
         "editClass": "تعديل فصل",
-        "editEnrollments": "تعديل التسجيلات"
+        "editEnrollments": "تعديل التسجيلات",
+        "selectStudent": "اختيار طالب",
+        "searchStudent": "البحث عن طالب"
+        "ageGroups": "الفئات العمرية",
+        "editAgeGroups": "تعديل الفئات العمرية"
     },
     "forms": {
         "id": "الرقم التعريفي",
