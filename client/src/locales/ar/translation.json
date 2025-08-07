@@ -41,7 +41,15 @@
         "cancel": "إلغاء",
         "bodyText": "سوف تحتاج إلى برنامج Excel لعرض ملف CSV",
         "selectFormat": "حدد صيغة الملف",
-        "title": "تنزيل التقارير للطالب: "
+        "title": "تنزيل التقارير للطالب: ",
+        "user": {
+            "createSuccess": "تم إنشاء مستخدم جديد بنجاح!",
+            "updateSuccess": "تم تحديث بيانات المستخدم بنجاح!",
+            "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا المستخدم؟",
+            "deleteSuccess": "تم حذف المستخدم بنجاح!"
+        },
+        "done": "تم",
+        "doneText": "اضغط على تم لإغلاق هذه النافذة."
     },
     "editTaskModal": {
         "editCompleteTask": "إكمال / تعديل المهمة",
