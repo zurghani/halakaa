@@ -163,6 +163,7 @@
 
     "titles": {
         "viewStudent": "Student Report",
+        "editStudent": "Edit Student",
         "findStudent": "Find Student",
         "findClass": "Find Class",
         "viewClass": "View Class",

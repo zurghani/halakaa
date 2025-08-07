@@ -159,6 +159,7 @@
     },
     "titles": {
         "viewStudent": "تقرير الطالب",
+        "editStudent": "تعديل الطالب",
         "findStudent": "البحث عن طالب",
         "findClass": "البحث عن فصل",
         "viewClass": "عرض الفصل",
