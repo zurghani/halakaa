@@ -10,9 +10,9 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { TaskType } from "./types";
 import TaskTypeTable from "./components/TaskTypesTable";
 import { ActionButton } from "../../components/Button/ActionButton";
-import TaskConfirmModal from "./components/TaskConfirmModal";
-import TaskDeleteConfirmationModal from "./components/TaskDeleteConfirmationModal";
-import TaskCreateModal from "./components/TaskCreateModal";
+import TaskConfirmModal from "./components/Modals/TaskConfirmSaveSuccess";
+import TaskDeleteConfirmationModal from "./components/Modals/TaskDeleteConfirmation";
+import TaskCreateModal from "./components/Modals/TaskCreate";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -27,40 +27,40 @@ const TaskTypesEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTasks);
-    const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);                  // save modal state
-    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);  // delete confirmation modal state
+    const [isTaskCreateModalOpen, setIsTaskCreateModalOpen] = useState(false);                          // create new task type modal state  
+    const [isTaskConfirmSaveSuccessModalOpen, setIsTaskConfirmSaveSuccessModalOpen] = useState(false);  // save confirm sucess modal state
+    const [isTaskDeleteConfirmationModalOpen, setIsTaskDeleteConfirmationModalOpen] = useState(false);  // delete confirmation modal state
     const [deleteId, setDeleteId] = useState<number | null>(null);
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);              // create new task type modal state  
 
     // Handle creating a new task type
     const handleCreateTask = (newTask: TaskType) => {
         setTaskTypes((prev) => [...prev, newTask]);
-        setIsCreateModalOpen(false);
+        setIsTaskCreateModalOpen(false);
     };
 
     // Handle saving task types
     const handleSave = () => {
         console.log("Saving task types:", taskTypes);
         // TODO: Replace with API call
-        setIsSaveModalOpen(true);
+        setIsTaskConfirmSaveSuccessModalOpen(true);
     };
 
     // Handle delete task type
     const handleDeleteRequest = (id: number) => {
         setDeleteId(id);
-        setIsConfirmationModalOpen(true);
+        setIsTaskDeleteConfirmationModalOpen(true);
     };
 
     const handleConfirmDelete = () => {
         if (deleteId !== null) {
             setTaskTypes((prev) => prev.filter((task) => task.id !== deleteId));
         }
-        setIsConfirmationModalOpen(false); 
+        setIsTaskDeleteConfirmationModalOpen(false); 
         setDeleteId(null);
     };
 
     const handleCancelDelete = () => {
-        setIsConfirmationModalOpen(false);
+        setIsTaskDeleteConfirmationModalOpen(false);
         setDeleteId(null);
     };
 
@@ -87,18 +87,18 @@ const TaskTypesEditPage: React.FC = () => {
             data={taskTypes}
             editable
             onDelete={handleDeleteRequest}
-            onCreate={() => setIsCreateModalOpen(true)}
+            onCreate={() => setIsTaskCreateModalOpen(true)}
             />
-            <TaskConfirmModal isSaveModalOpen={isSaveModalOpen} onClose={() => setIsSaveModalOpen(false)} />
+            <TaskConfirmModal isTaskConfirmSaveSuccessModalOpen={isTaskConfirmSaveSuccessModalOpen} onClose={() => setIsTaskConfirmSaveSuccessModalOpen(false)} />
             <TaskDeleteConfirmationModal
-                isConfirmationModalOpen={isConfirmationModalOpen}
+                isTaskDeleteConfirmationModalOpen={isTaskDeleteConfirmationModalOpen}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
             />
             <TaskCreateModal
-                isCreateModalOpen={isCreateModalOpen}
+                isTaskCreateModalOpen={isTaskCreateModalOpen}
                 onCreate={handleCreateTask}
-                onCancel={() => setIsCreateModalOpen(false)}
+                onCancel={() => setIsTaskCreateModalOpen(false)}
             />
         </>
         )

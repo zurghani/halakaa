@@ -2,14 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
-import { Paths } from "../../../Routes";
+import { Paths } from "../../../../Routes";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
-type Props = {
-    isSaveModalOpen: boolean;
+type TaskConfirmSaveSuccessModalProps = {
+    isTaskConfirmSaveSuccessModalOpen: boolean;
     onClose: () => void;
     };
 
-const TaskConfirmModal: React.FC<Props> = ({ isSaveModalOpen, onClose }) => {
+const TaskSuccessSaveModal: React.FC<TaskConfirmSaveSuccessModalProps> = ({ isTaskConfirmSaveSuccessModalOpen, onClose }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -20,7 +21,7 @@ const TaskConfirmModal: React.FC<Props> = ({ isSaveModalOpen, onClose }) => {
 
     return (
     <Modal
-        open={isSaveModalOpen}
+        open={isTaskConfirmSaveSuccessModalOpen}
         footer={[
         <Button key="done" type="primary" onClick={handleDone}>
         {t("modal.done")}
@@ -31,10 +32,14 @@ const TaskConfirmModal: React.FC<Props> = ({ isSaveModalOpen, onClose }) => {
         closable={false}
         maskClosable={false}
         keyboard
-        title={t("editTaskModal.confirmModal")}
-      >
+        title={
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <CheckCircleOutlined style={{ fontSize: 20, color: 'lightgreen' }} />
+            {t("editTaskModal.confirmModal")}
+          </div>
+          }>
         {t("modal.doneText")}
       </Modal>
     );
 };
-export default TaskConfirmModal;
+export default TaskSuccessSaveModal;

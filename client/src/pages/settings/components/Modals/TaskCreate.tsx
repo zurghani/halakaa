@@ -1,15 +1,15 @@
 import React from "react";
 import { Modal, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
-import { TaskType } from "../types";
+import { TaskType } from "../../types";
 
-type Props = {
-  isCreateModalOpen: boolean;
+type TaskCreateModalProps = {
+  isTaskCreateModalOpen: boolean;
   onCreate: (task: TaskType) => void;
   onCancel: () => void;
 };
 
-const TaskCreateModal: React.FC<Props> = ({ isCreateModalOpen, onCreate, onCancel }) => {
+const TaskCreateModal: React.FC<TaskCreateModalProps> = ({ isTaskCreateModalOpen, onCreate, onCancel }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
@@ -30,7 +30,7 @@ const TaskCreateModal: React.FC<Props> = ({ isCreateModalOpen, onCreate, onCance
 
   return (
     <Modal
-      open={isCreateModalOpen}
+      open={isTaskCreateModalOpen}
       okText={t("general.save")}
       okType="primary"
       onOk={handleSave}
