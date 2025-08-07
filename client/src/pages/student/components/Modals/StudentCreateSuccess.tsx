@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
 import { Paths } from "../../../../Routes";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 type StudentCreateSuccessModalProps = {
     isModalOpen: boolean;
@@ -34,7 +35,12 @@ const StudentCreateSuccessModal: React.FC<StudentCreateSuccessModalProps> = ({
             closable={false}
             maskClosable={false}
             keyboard
-            title={t("modal.student.createSuccess")}>
+            title={
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <CheckCircleOutlined style={{ fontSize: 20, color: 'lightgreen' }} />
+                    {t("modal.user.createSuccess")} 
+                </div>
+            }>
             {t("modal.doneText")}
         </Modal>
     );
