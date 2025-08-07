@@ -10,7 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
 import { UserRole } from "../../store/types";
-import UserEditModal from "./components/UserEditModal";
+import UserEditSuccessModal from "./components/Modals/UserEditSuccess";
 
 const dummyUser: User = {
     id: "1",
@@ -56,12 +56,12 @@ const UserEditPage: React.FC = () => {
             </Button>,
         ]);
     }, [t]);
-    
+
     return (
-    <>
-        <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
-        <UserEditModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
-    )
+        <>
+            <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
+            <UserEditSuccessModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </>
+    );
 };
 export default UserEditPage;

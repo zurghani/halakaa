@@ -9,7 +9,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { UserForm } from "./components/UserForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
-import UserCreateModal from "./components/UserCreateModal";
+import UserCreateSuccessModal from "./components/Modals/UserCreateSuccess";
 
 const UserCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -43,8 +43,11 @@ const UserCreatePage: React.FC = () => {
     return (
         <>
             <UserForm form={form} onSubmit={handleSubmit} />
-            <UserCreateModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <UserCreateSuccessModal
+                isModalOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </>
-    )
+    );
 };
 export default UserCreatePage;
