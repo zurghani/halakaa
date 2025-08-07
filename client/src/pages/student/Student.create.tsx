@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
+import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -16,9 +17,12 @@ const StudentCreatePage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleSubmit = (values: any) => {
         console.log("Submitted:", values);
         // actually create the student
+        setIsModalOpen(true);
     };
     // Set Page Title
     useEffect(() => {
@@ -35,6 +39,14 @@ const StudentCreatePage: React.FC = () => {
             </Button>,
         ]);
     }, [t]);
-    return <StudentForm onSubmit={handleSubmit} form={form} />;
+    return (
+        <>
+            <StudentForm form={form} onSubmit={handleSubmit} />
+            <StudentCreateSuccessModal
+                isModalOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
+        </>
+    );
 };
 export default StudentCreatePage;
