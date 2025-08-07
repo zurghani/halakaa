@@ -10,7 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ClassForm } from "./components/ClassForm";
 import { ActionButton } from "../../components/Button/ActionButton";
 import dayjs from "dayjs";
-import ClassEditModal from "./components/ClassEditModal";
+import ClassEditModal from "./components/Modals/ClassEditSuccess";
 
 const dummyClass = {
     description: "Revision Class",
@@ -27,12 +27,12 @@ const ClassEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = React.useState(false);
 
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the class logic here
-        setIsModalOpen(true); 
+        setIsSuccessModalOpen(true); 
     };
     
     // Set Page Title
@@ -52,7 +52,7 @@ const ClassEditPage: React.FC = () => {
     return (
     <>
         <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />
-        <ClassEditModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <ClassEditModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
     </>
     )
 };

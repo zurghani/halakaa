@@ -9,7 +9,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { ClassForm } from "./components/ClassForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
-import ClassCreateModal from "./components/ClassCreateModal";
+import ClassCreateModal from "./components/Modals/ClassCreateSuccess";
 
 const ClassCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -18,12 +18,12 @@ const ClassCreatePage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const handleSubmit = (values: any) => {
         console.log("Submitted:", values);
         // Create class here
-        setIsModalOpen(true); 
+        setIsSuccessModalOpen(true); 
     };
 
     // Set Page Title
@@ -42,7 +42,7 @@ const ClassCreatePage: React.FC = () => {
     return (
     <>
         <ClassForm form={form} onSubmit={handleSubmit} />
-        <ClassCreateModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <ClassCreateModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
     </>
     )
 };
