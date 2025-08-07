@@ -30,7 +30,9 @@
         "create": "Create",
         "find": "Find",
         "my classes": "My Classes",
-        "my students": "My Students"
+        "my students": "My Students",
+        "taskTypes": "Task Types",
+        "ageGroups": "Age Groups"
     },
     "modal": {
         "day": "Day",
@@ -41,7 +43,22 @@
         "cancel": "Cancel",
         "bodyText": "You will need excel to view CSV",
         "selectFormat": "Select Format",
-        "title": "Download Reports for Student: "
+        "title": "Download Reports for Student: ",
+        "student": {
+            "createSuccess": "Student Created Successfully!",
+            "updateSuccess": "Student Updated Successfully!",
+            "deleteConfirmation": "Are you sure you want to delete this student?",
+            "deleteSuccess": "Student Deleted Successfully!"
+        },
+        "user": {
+            "createSuccess": "User Created Successfully!",
+            "updateSuccess": "User Updated Successfully!",
+            "deleteConfirmation": "Are you sure you want to delete this user?",
+            "deleteSuccess": "User Deleted Successfully!"
+
+        },
+        "done": "Done",
+        "doneText": "Press Done to close this modal."
     },
     "editTaskModal": {
         "editCompleteTask": "Complete/Edit Task",
@@ -142,6 +159,7 @@
         "edit": "Edit",
         "taskType": "Task Type",
         "enrollment": "Enrollment"
+        "delete": "Delete"
     },
 
     "titles": {
@@ -166,6 +184,8 @@
         "editEnrollments": "Edit Enrollments",
         "selectStudent": "Select Student",
         "searchStudent": "Search Student"
+        "ageGroups": "Age Groups",
+        "editAgeGroups": "Edit Age Groups"
     },
     "forms": {
         "id": "ID",
