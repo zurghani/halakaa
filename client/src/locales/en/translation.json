@@ -49,6 +49,7 @@
             "updateSuccess": "Class Updated Successfully!",
             "deleteConfirmation": "Are you sure you want to delete this class?",
             "deleteSuccess": "Class Deleted Successfully!"
+        },
         "student": {
             "createSuccess": "Student Created Successfully!",
             "updateSuccess": "Student Updated Successfully!",
@@ -83,11 +84,16 @@
         "selectTypeError": "Please select at least one type",
         "selectFromError": "Please select a starting verse",
         "selectToError": "Please select a ending verse",
-        "selectDueError": "Please select a due date"
+        "selectDueError": "Please select a due date",
+        "updateSuccess": "Task Updated Successfully!",
+        "confirmModal": "Task List Updated Successfully!",
+        "deleteConfirmation": "Are you sure you want to delete this task?",
+        "deleteSuccess": "Task Deleted Successfully!",
+        "deleteTaskType": "Delete Task Type"
     },
-
     "createTaskModal": {
         "createTask": "Create Task",
+        "createTaskType": "Create new Task Type",
         "type": "Type",
         "from": "From",
         "to": "To",
@@ -101,7 +107,8 @@
         "selectTypeError": "Please select at least one type",
         "selectFromError": "Please select a starting verse",
         "selectToError": "Please select a ending verse",
-        "selectDueError": "Please select a due date"
+        "selectDueError": "Please select a due date",
+        "createSuccess": "Task Created Successfully!"
     },
     "class": {
         "classID": "Class ID",
@@ -123,11 +130,9 @@
         "revision": "Revision",
         "reciting": "Reciting"
     },
-
     "parent": {
         "homeHeader": "Pick a student to start"
     },
-
     "general": {
         "name": "Name",
         "id": "ID",
@@ -162,10 +167,11 @@
         "save": "Save",
         "edit": "Edit",
         "taskType": "Task Type",
+        "yes": "Yes",
+        "no": "No",
         "enrollment": "Enrollment",
         "delete": "Delete"
     },
-
     "titles": {
         "viewStudent": "Student Report",
         "editStudent": "Edit Student",
@@ -246,9 +252,9 @@
         },
         "invalid": {
             "email": "Please enter a valid Email"
-        }
+        },
+        "fieldRequired": "This field is required"
     },
-
     "welcome": "Welcome",
     "goodbye": "Goodbye",
     "thankYou": "Thank you",

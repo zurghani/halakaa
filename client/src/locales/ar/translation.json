@@ -49,6 +49,7 @@
             "updateSuccess": "تم تحديث بيانات الفصل بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا الفصل؟",
             "deleteSuccess": "تم حذف الفصل بنجاح!"
+        },
         "student": {
             "createSuccess": "تم إنشاء طالب جديد بنجاح!",
             "updateSuccess": "تم تحديث بيانات الطالب بنجاح!",
@@ -83,10 +84,16 @@
         "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
         "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
         "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
-        "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+        "selectDueError": "يرجى اختيار تاريخ الاستحقاق",
+        "updateSuccess": "تم تحديث المهمة بنجاح!",
+        "confirmModal": "تم تحديث قائمة المهام بنجاح!",
+        "deleteConfirmation": "هل أنت متأكد من حذف هذه المهمة؟",
+        "deleteSuccess": "تم حذف المهمة بنجاح!",
+        "deleteTaskType": "حذف المهمة"
     },
     "createTaskModal": {
         "createTask": "إنشاء مهمة",
+        "createTaskType": "إنشاء نوع مهمة جديد",
         "type": "أسبوع",
         "from": "من",
         "to": "إلى",
@@ -100,7 +107,8 @@
         "selectTypeError": "يرجى اختيار نوع واحد على الأقل",
         "selectFromError": "يرجى اختيار الآية التي تبدأ منها",
         "selectToError": "يرجى اختيار الآية التي تنتهي عندها",
-        "selectDueError": "يرجى اختيار تاريخ الاستحقاق"
+        "selectDueError": "يرجى اختيار تاريخ الاستحقاق",
+        "createSuccess": "تم إنشاء مهمة جديدة بنجاح!"
     },
     "class": {
         "classID": "معرف الفصل",
@@ -159,6 +167,8 @@
         "save": "حفظ",
         "edit": "تعديل",
         "taskType": "نوع المهمة",
+        "yes": "نعم",
+        "no": "لا",
         "enrollment": "التسجيلات",
         "delete": "حذف"
     },
@@ -242,7 +252,8 @@
         },
         "invalid": {
             "email": "البريد الإلكتروني غير صالح"
-        }
+        },
+        "fieldRequired": "هذا الحقل مطلوب"
     },
     "welcome": "مرحبًا",
     "goodbye": "وداعًا",

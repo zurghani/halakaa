@@ -8,8 +8,11 @@ import { setCurrentPageTitle } from "../../../store/ui.slice";
 import { Paths } from "../../../Routes";
 import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 import { TaskType } from "../types";
-import { ActionButton } from "../../../components/Button/ActionButton";
 import TaskTypeTable from "./components/TaskTypesTable";
+import { ActionButton } from "../../../components/Button/ActionButton";
+import TaskConfirmModal from "../components/Modals/TasksSaveSuccess";
+import TaskDeleteModal from "../components/Modals/TaskDelete";
+import TaskCreateModal from "../components/Modals/TaskCreate";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -24,10 +27,38 @@ const TaskTypesEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTasks);
+    const [isTaskCreateModalOpen, setIsTaskCreateModalOpen] = useState(false);
+    const [isTasksSuccessModalOpen, setIsTasksSuccessModalOpen] = useState(false);
+    const [isTaskDeleteModalOpen, setIsTaskDeleteModalOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+
+    const handleCreateTask = (newTask: TaskType) => {
+        setTaskTypes((prev) => [...prev, newTask]);
+        setIsTaskCreateModalOpen(false);
+    };
 
     const handleSave = () => {
         console.log("Saving task types:", taskTypes);
         // TODO: Replace with API call
+        setIsTasksSuccessModalOpen(true);
+    };
+
+    const handleDeleteRequest = (id: number) => {
+        setDeleteId(id);
+        setIsTaskDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (deleteId !== null) {
+            setTaskTypes((prev) => prev.filter((task) => task.id !== deleteId));
+        }
+        setIsTaskDeleteModalOpen(false);
+        setDeleteId(null);
+    };
+
+    const handleCancelDelete = () => {
+        setIsTaskDeleteModalOpen(false);
+        setDeleteId(null);
     };
 
     // Set Page Title
@@ -46,13 +77,30 @@ const TaskTypesEditPage: React.FC = () => {
             </ActionButton>,
         ]);
     }, [t, taskTypes]);
+
     return (
-        <TaskTypeTable
-            data={taskTypes}
-            editable
-            onDelete={(id) => setTaskTypes((prev) => prev.filter((t) => t.id !== id))}
-            onCreate={() => setTaskTypes([...taskTypes, { id: 5, name: "", description: "" }])}
-        />
+        <>
+            <TaskTypeTable
+                data={taskTypes}
+                editable
+                onDelete={handleDeleteRequest}
+                onCreate={() => setIsTaskCreateModalOpen(true)}
+            />
+            <TaskConfirmModal
+                isOpen={isTasksSuccessModalOpen}
+                onClose={() => setIsTasksSuccessModalOpen(false)}
+            />
+            <TaskDeleteModal
+                isOpen={isTaskDeleteModalOpen}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+            />
+            <TaskCreateModal
+                isOpen={isTaskCreateModalOpen}
+                onCreate={handleCreateTask}
+                onCancel={() => setIsTaskCreateModalOpen(false)}
+            />
+        </>
     );
 };
 export default TaskTypesEditPage;
