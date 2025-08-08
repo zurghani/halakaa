@@ -64,7 +64,7 @@ const UserEditPage: React.FC = () => {
                 isOpen={isSuccessModalOpen} 
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.USER.VIEW}
-                title={t("modal.user.editSuccess")}
+                title={t("modal.user.updateSuccess")}
                 message={t("modal.doneMessage")}
             />
         </>

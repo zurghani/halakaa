@@ -10,7 +10,7 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import { Student } from "./types";
-import StudentEditModal from "./components/Modals/StudentEditSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
 
 const dummyStudent: Student = {
     fullName: "Zacharea K",
@@ -53,7 +53,13 @@ const StudentEditPage: React.FC = () => {
     return (
         <>
             <StudentForm form={form} onSubmit={handleSubmit} defaultValues={dummyStudent} />
-            <StudentEditModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
+            <SaveSuccessModal 
+                isOpen={isSuccessModalOpen} 
+                onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.STUDENT.VIEW}
+                title={t("modal.student.updateSuccess")}
+                message={t("modal.doneMessage")}
+            />
         </>
     );
 };
