@@ -10,7 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ClassForm } from "./components/ClassForm";
 import { ActionButton } from "../../components/Button/ActionButton";
 import dayjs from "dayjs";
-import ClassEditModal from "./components/Modals/ClassEditSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
 
 const dummyClass = {
     description: "Revision Class",
@@ -52,7 +52,13 @@ const ClassEditPage: React.FC = () => {
     return (
     <>
         <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />
-        <ClassEditModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
+        <SaveSuccessModal 
+                isOpen={isSuccessModalOpen} 
+                onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.CLASS.FIND}
+                title={t("modal.class.updateSuccess")}
+                message={t("modal.doneMessage")}
+            />
     </>
     )
 };
