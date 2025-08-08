@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
-import { Paths } from "../../../../Routes";
+import { Paths } from "../../../../../Routes";
 import { CheckCircleOutlined } from "@ant-design/icons";
 
 type TasksSaveSuccessModalProps = {

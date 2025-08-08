@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
-import { TaskType } from "../../types";
+import { TaskType } from "../../../types";
 
 type TaskCreateModalProps = {
     isOpen: boolean;
