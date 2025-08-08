@@ -44,6 +44,11 @@
         "bodyText": "سوف تحتاج إلى برنامج Excel لعرض ملف CSV",
         "selectFormat": "حدد صيغة الملف",
         "title": "تنزيل التقارير للطالب: ",
+        "class": {
+            "createSuccess": "تم إنشاء فصل جديد بنجاح!",
+            "updateSuccess": "تم تحديث بيانات الفصل بنجاح!",
+            "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا الفصل؟",
+            "deleteSuccess": "تم حذف الفصل بنجاح!"
         "student": {
             "createSuccess": "تم إنشاء طالب جديد بنجاح!",
             "updateSuccess": "تم تحديث بيانات الطالب بنجاح!",
