@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setCurrentPageTitle } from "../../store/ui.slice";
-import { Paths } from "../../Routes";
-import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
-import { TaskType } from "./types";
+import { setCurrentPageTitle } from "../../../store/ui.slice";
+import { Paths } from "../../../Routes";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
+import { TaskType } from "../types";
+import DownloadModal from "../../../components/ExportModal/DownloadModal";
+import { ActionButton } from "../../../components/Button/ActionButton";
 import TaskTypeTable from "./components/TaskTypesTable";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
-import { ActionButton } from "../../components/Button/ActionButton";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },

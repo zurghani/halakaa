@@ -1,10 +1,10 @@
 import React from "react";
 import { Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { TaskType } from "../types";
-import TaskTypeTag from "../../../components/Tags/TaskTypeTag";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { TaskType } from "../../types";
+import TaskTypeTag from "../../../../components/Tags/TaskTypeTag";
 
 interface TaskTypeTableProps {
     data: TaskType[];
@@ -46,7 +46,7 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
             key: "delete",
             render: (_, record) => (
                 <Button danger size="small" onClick={() => onDelete?.(record.id)}>
-                    {t("forms.delete")}
+                    {t("general.delete")}
                 </Button>
             ),
         });

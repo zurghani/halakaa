@@ -4,15 +4,15 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { setCurrentPageTitle } from "../../store/ui.slice";
-import { Paths } from "../../Routes";
-import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
-import { TaskType } from "./types";
+import { setCurrentPageTitle } from "../../../store/ui.slice";
+import { Paths } from "../../../Routes";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
+import { TaskType } from "../types";
 import TaskTypeTable from "./components/TaskTypesTable";
-import { ActionButton } from "../../components/Button/ActionButton";
-import TaskConfirmModal from "./components/Modals/TasksSaveSuccess";
-import TaskDeleteModal from "./components/Modals/TaskDelete";
-import TaskCreateModal from "./components/Modals/TaskCreate";
+import { ActionButton } from "../../../components/Button/ActionButton";
+import TaskConfirmModal from "../components/Modals/TasksSaveSuccess";
+import TaskDeleteModal from "../components/Modals/TaskDelete";
+import TaskCreateModal from "../components/Modals/TaskCreate";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
