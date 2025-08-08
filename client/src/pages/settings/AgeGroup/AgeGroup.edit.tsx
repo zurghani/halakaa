@@ -10,6 +10,7 @@ import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 import { AgeGroup } from "../types";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import AgeGroupTable from "./components/AgeGroupTable";
+import AgeGroupCreateModal from "./components/Modals/AgeGroupCreate";
 
 const initialAgeGroups: AgeGroup[] = [
     {
@@ -50,10 +51,16 @@ const AgeGroupEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [ageGroups, setAgeGroups] = useState<AgeGroup[]>(initialAgeGroups);
+    const [isAgeGroupCreateModalOpen, setIsAgeGroupCreateModalOpen] = useState(false);
 
     const handleSave = () => {
         console.log("Saving age groups:", ageGroups);
         // TODO: Replace with API call
+    };
+
+    const handleCreateAgeGroup = (newAgeGroup: AgeGroup) => {
+        setAgeGroups((prev) => [...prev, newAgeGroup]);
+        setIsAgeGroupCreateModalOpen(false);
     };
 
     // Set Page Title
@@ -73,14 +80,19 @@ const AgeGroupEditPage: React.FC = () => {
         ]);
     }, [t, ageGroups]);
     return (
+        <>
         <AgeGroupTable
             data={ageGroups}
             editable
             onDelete={(id) => setAgeGroups((prev) => prev.filter((t) => t.id !== id))}
-            onCreate={() =>
-                setAgeGroups([...ageGroups, { id: 5, from: 2, to: 3, description: "" }])
-            }
-        />
+            onCreate={() => setIsAgeGroupCreateModalOpen(true)}
+            />
+        <AgeGroupCreateModal
+            isOpen={isAgeGroupCreateModalOpen}
+            onCreate={handleCreateAgeGroup}
+            onCancel={() => setIsAgeGroupCreateModalOpen(false)}
+            />
+        </>
     );
 };
 export default AgeGroupEditPage;
