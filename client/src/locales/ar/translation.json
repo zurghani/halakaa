@@ -62,20 +62,22 @@
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا المستخدم؟",
             "deleteSuccess": "تم حذف المستخدم بنجاح!"
         },
-        "task": {
+        "taskType": {
             "createSuccess": "تم إنشاء نوع مهمة جديد بنجاح!",
             "updateSuccess": "تم تحديث المهمة بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا النوع من المهام؟",
-            "deleteSuccess": "تم حذف المهمة بنجاح!"
+            "deleteSuccess": "تم حذف المهمة بنجاح!",
+            "deleteTitle": "حذف نوع المهمة"
         },
         "ageGroup": {
             "createSuccess": "تم إنشاء فئة عمرية جديدة بنجاح!",
             "updateSuccess": "تم تحديث الفئة العمرية بنجاح!",
             "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذه الفئة العمرية؟",
-            "deleteSuccess": "تم حذف الفئة العمرية بنجاح!"
+            "deleteSuccess": "تم حذف الفئة العمرية بنجاح!",
+            "deleteTitle": "حذف الفئة العمرية"
         },
         "done": "تم",
-        "doneText": "اضغط على تم لإغلاق هذه النافذة."
+        "doneMessage": "اضغط على تم لإغلاق هذه النافذة."
     },
     "editTaskModal": {
         "editCompleteTask": "إكمال / تعديل المهمة",

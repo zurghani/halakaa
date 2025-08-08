@@ -9,9 +9,11 @@ type SaveSuccessModalProps = {
     isOpen: boolean;
     onClose: () => void;
     navigatePath?: any;
+    title: string;
+    message: string;
 };
 
-const SaveSuccessModal: React.FC<SaveSuccessModalProps> = ({ isOpen, onClose, navigatePath  }) => {
+const SaveSuccessModal: React.FC<SaveSuccessModalProps> = ({ isOpen, onClose, navigatePath, title, message }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -39,10 +41,10 @@ const SaveSuccessModal: React.FC<SaveSuccessModalProps> = ({ isOpen, onClose, na
             title={
                 <div className="modal__title">
                     <CheckCircleOutlined className="modal__title__success-icon" />
-                    {t("editModal.Success")}
+                    {title}
                 </div>
             }>
-            {t("modal.doneText")}
+            {message}
         </Modal>
     );
 };

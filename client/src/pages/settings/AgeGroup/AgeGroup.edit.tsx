@@ -120,13 +120,15 @@ const AgeGroupEditPage: React.FC = () => {
             isOpen={isSaveSuccessModalOpen}
             onClose={() => setIsSaveSuccessModalOpen(false)}
             navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+            title={t("modal.ageGroup.createSuccess")}
+            message={t("modal.doneMessage")}
             />
         <DeleteConfirmModal
             isOpen={isDeleteModalOpen}
             onConfirm={handleConfirmDelete}
             onCancel={handleCancelDelete}
-            title={t("editModal.deleteConfirmation")}
-            message={t("editModal.deleteConfirmation")}
+            title={t("modal.ageGroup.deleteTitle")}
+            message={t("modal.ageGroup.deleteConfirmation")}
             />
         </>
     );
