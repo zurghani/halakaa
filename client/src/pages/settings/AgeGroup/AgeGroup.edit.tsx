@@ -11,6 +11,7 @@ import { AgeGroup } from "../types";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import AgeGroupTable from "./components/AgeGroupTable";
 import AgeGroupCreateModal from "./components/Modals/AgeGroupCreate";
+import SaveSuccessModal from "../../../components/Modals/Success";
 
 const initialAgeGroups: AgeGroup[] = [
     {
@@ -52,10 +53,12 @@ const AgeGroupEditPage: React.FC = () => {
 
     const [ageGroups, setAgeGroups] = useState<AgeGroup[]>(initialAgeGroups);
     const [isAgeGroupCreateModalOpen, setIsAgeGroupCreateModalOpen] = useState(false);
+    const [isSaveSuccessModalOpen, setIsSaveSuccessModalOpen] = useState(false);
 
     const handleSave = () => {
         console.log("Saving age groups:", ageGroups);
         // TODO: Replace with API call
+        setIsSaveSuccessModalOpen(true);
     };
 
     const handleCreateAgeGroup = (newAgeGroup: AgeGroup) => {
@@ -91,6 +94,11 @@ const AgeGroupEditPage: React.FC = () => {
             isOpen={isAgeGroupCreateModalOpen}
             onCreate={handleCreateAgeGroup}
             onCancel={() => setIsAgeGroupCreateModalOpen(false)}
+            />
+        <SaveSuccessModal
+            isOpen={isSaveSuccessModalOpen}
+            onClose={() => setIsSaveSuccessModalOpen(false)}
+            navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
             />
         </>
     );
