@@ -4,6 +4,7 @@ import { AppStore } from "./store";
 import AppRoutes from "./Routes";
 import "./App.scss";
 
+
 function App() {
     const isDarkMode = useSelector((state: AppStore) => state.ui.isDarkMode);
     const direction = useSelector((state: AppStore) => state.ui.direction);

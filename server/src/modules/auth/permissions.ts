@@ -7,9 +7,9 @@ export const admin = ac.newRole({
   attendances: allActions,
   tasks: allActions,
   taskTypes: allActions,
+  ageGroups: allActions,
   ayahs: ["view"],
   surahs: ["view"],
-  ageGroups: ["view"],
 });
 
 export const teacher = ac.newRole({

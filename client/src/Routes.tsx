@@ -1,9 +1,7 @@
 // npm packages
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-// store
-import { AppStore } from "./store";
+// storeimport { AppStore } from "./store";
 import { UserRole } from "./store/types";
 // components
 import Login from "./pages/login/Login";
@@ -25,6 +23,7 @@ import ParentGuard from "./guard/ParentGuard";
 import FindClass from "./pages/class/find/Find.class";
 import ViewStudent from "./pages/student/View.student";
 import RunningClass from "./pages/class/Running.class";
+import { authClient } from "./lib/auth-client";
 
 const AppRoutes = () => {
     return (
@@ -116,11 +115,17 @@ export const Paths = {
 };
 
 const HomeRedirect = () => {
-    const userRole = useSelector((state: AppStore) => state.user.role);
+    const { data } = authClient.useSession();
+    // temp since no admin routes
+    const userRole = data?.user.role === "student" ? "parent" : data?.user.role;
+
     const navigate = useNavigate();
+
+    console.log(userRole)
 
     useEffect(() => {
         let targetRoute = Paths.HOME.MAIN;
+
         if (userRole === UserRole.Teacher) {
             targetRoute = Paths.HOME.TEACHER;
         } else if (userRole === UserRole.Parent) {
@@ -129,7 +134,7 @@ const HomeRedirect = () => {
             targetRoute = Paths.HOME.ADMIN;
         }
         navigate(targetRoute, { replace: true });
-    }, [userRole, navigate]);
+    }, [data, navigate]);
 
     return <div>Redirecting to Home...</div>;
 };

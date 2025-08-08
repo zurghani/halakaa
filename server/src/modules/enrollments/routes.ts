@@ -9,8 +9,8 @@ POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-enrollments.get("/", requireRoles(["admin", "teacher"]), enrollmentsController.getAll);
-enrollments.post("/", requireRoles(["admin"]), enrollmentsController.create);
-enrollments.delete("/:id", requireRoles(["admin"]), enrollmentsController.remove);
+enrollments.get("/", enrollmentsController.getAll);
+enrollments.post("/", enrollmentsController.create);
+enrollments.delete("/:id", enrollmentsController.remove);
 
 export default enrollments;

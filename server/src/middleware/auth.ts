@@ -1,23 +1,17 @@
 import type { MiddlewareHandler } from "hono";
-import type { Role } from "@/types";
-/*
-temporary for development purposes
-use headers to pass user information, example:
-x-user-role: parent
-x-user-id: 12345
----
-or change the role ["admin"] manually in the code
-*/
-export const authMiddleware: MiddlewareHandler = async (c, next) => {
-    const roleHeader = c.req.header("x-user-role");
-    const roles = roleHeader ? roleHeader.split(",").map((r) => r.trim() as Role) : ["admin"];
+import type { AuthType } from "@/types";
+import auth from "../modules/auth";
 
-    const user = {
-        id: c.req.header("x-user-id") || "anonymous",
-        roles,
-    };
-    console.log("Authenticated user:", user);
+export const authMiddleware: MiddlewareHandler<{ Variables: AuthType }> = async (c, next) => {
+  const session = await auth.api.getSession({ headers: c.req.raw.headers });
 
-    c.set("user", user);
-    await next();
+  if (!session) {
+    c.set("user", null);
+    c.set("session", null);
+    return next();
+  }
+
+  c.set("user", session.user);
+  c.set("session", session.session);
+  return next();
 };

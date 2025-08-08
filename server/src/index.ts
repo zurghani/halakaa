@@ -13,6 +13,7 @@ import surahs from "./modules/surahs/routes";
 import ageGroups from "./modules/ageGroups/routes";
 import type { AuthType } from "./types";
 import { authRoutes } from "./modules/auth";
+import { authMiddleware } from "./middleware/auth";
 
 const app = new Hono<{ Variables: AuthType }>()
   .use(
@@ -26,13 +27,16 @@ const app = new Hono<{ Variables: AuthType }>()
     })
   )
   .use(logger())
+  .use(authMiddleware)
   .get("/", (c) => {
     return c.json({
       health: "OK",
       messasge: "Halkah v1 API",
     });
-  })
-  .route("/auth", authRoutes)
+  });
+
+const routes = app
+  .route("/api/auth", authRoutes)
   .route("/students", students)
   .route("/classes", classes)
   .route("/enrollments", enrollments)
@@ -43,7 +47,7 @@ const app = new Hono<{ Variables: AuthType }>()
   .route("/surahs", surahs)
   .route("/age-groups", ageGroups);
 
-export type AppType = typeof app;
+export type AppType = typeof routes;
 
 export default {
   port: 4000,

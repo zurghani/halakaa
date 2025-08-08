@@ -6,22 +6,25 @@ import { admin as adminRole, parent, student, teacher } from "./permissions";
 import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
-import { languageEnum } from "src/db/schema";
-import Bun from "bun";
+import { languageEnum } from "../../db/schema";
+import { createAuthClient } from "better-auth/client";
+import { adminClient } from "better-auth/client/plugins";
+import "dotenv/config";
+import { password } from "bun";
 
-export const auth = betterAuth({
+const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
-  trustedOrigins: ["http://localhost:3000"],
+  trustedOrigins: [process.env.TRUSTED_ORIGIN || "http://localhost:3000"],
   emailAndPassword: {
     enabled: true,
     password: {
-      hash: async (pwd) => {
-        return Bun.password.hash(pwd);
+      verify: (data) => {
+        return password.verify(data.password, data.hash);
       },
-      verify: async (data) => {
-        return Bun.password.verify(data.password, data.password);
+      hash: (pwd) => {
+        return password.hash(pwd);
       },
     },
   },
@@ -51,14 +54,28 @@ export const auth = betterAuth({
       },
       adminRoles: ["admin"],
       defaultRole: "student",
-    }) as unknown as BetterAuthPlugin,
+    }),
   ],
 });
 
 export const authRoutes = new Hono<{ Bindings: AuthType }>({ strict: false });
 
-authRoutes.on(["POST", "GET"], "/*", (c) => {
+authRoutes.on(["POST", "GET"], "/*", async (c) => {
   return auth.handler(c.req.raw);
+});
+
+export const authClient = createAuthClient({
+  plugins: [
+    adminClient({
+      ac,
+      roles: {
+        admin: adminRole,
+        parent,
+        teacher,
+        student,
+      },
+    }),
+  ],
 });
 
 export default auth;
