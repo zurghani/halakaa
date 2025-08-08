@@ -55,7 +55,6 @@
             "updateSuccess": "User Updated Successfully!",
             "deleteConfirmation": "Are you sure you want to delete this user?",
             "deleteSuccess": "User Deleted Successfully!"
-
         },
         "done": "Done",
         "doneText": "Press Done to close this modal."
@@ -164,6 +163,7 @@
 
     "titles": {
         "viewStudent": "Student Report",
+        "editStudent": "Edit Student",
         "findStudent": "Find Student",
         "findClass": "Find Class",
         "viewClass": "View Class",

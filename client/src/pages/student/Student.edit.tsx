@@ -26,12 +26,12 @@ const StudentEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const handleSubmit = (values: any) => {
         console.log("Submitted:", values);
         // actually create the student
-        setIsModalOpen(true);
+        setIsSuccessModalOpen(true);
     };
 
     // Set Page Title
@@ -53,7 +53,7 @@ const StudentEditPage: React.FC = () => {
     return (
         <>
             <StudentForm form={form} onSubmit={handleSubmit} defaultValues={dummyStudent} />
-            <StudentEditModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <StudentEditModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
         </>
     );
 };
