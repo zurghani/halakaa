@@ -18,13 +18,14 @@ import { useTranslation } from "react-i18next";
 import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { Paths } from "../../Routes";
+import { UserRole } from "../../store/types";
 
 const { useBreakpoint } = Grid;
 
 // Common items for both roles
 
 const ViewStudent: React.FC = () => {
-    const userRole = useSelector((state: AppStore) => state.user.role) ;
+    const userRole = useSelector((state: AppStore) => state.user.role);
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
@@ -40,13 +41,11 @@ const ViewStudent: React.FC = () => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
-            ...(userRole === "admin"
-                ? [
-                      <ActionButton key="edit" onClick={() => navigate(Paths.STUDENT.EDIT)}>
-                          {t("titles.editStudent")}
-                      </ActionButton>
-                  ]
-                : []),
+            userRole === UserRole.Admin && (
+                <ActionButton key="edit" onClick={() => navigate(Paths.STUDENT.EDIT)}>
+                    {t("titles.editStudent")}
+                </ActionButton>
+            ),
         ]);
     }, [t]);
 
