@@ -12,6 +12,7 @@ import { ActionButton } from "../../../components/Button/ActionButton";
 import AgeGroupTable from "./components/AgeGroupTable";
 import AgeGroupCreateModal from "./components/Modals/AgeGroupCreate";
 import SaveSuccessModal from "../../../components/Modals/Success";
+import DeleteConfirmModal from "../../../components/Modals/Delete";
 
 const initialAgeGroups: AgeGroup[] = [
     {
@@ -54,6 +55,8 @@ const AgeGroupEditPage: React.FC = () => {
     const [ageGroups, setAgeGroups] = useState<AgeGroup[]>(initialAgeGroups);
     const [isAgeGroupCreateModalOpen, setIsAgeGroupCreateModalOpen] = useState(false);
     const [isSaveSuccessModalOpen, setIsSaveSuccessModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSave = () => {
         console.log("Saving age groups:", ageGroups);
@@ -64,6 +67,24 @@ const AgeGroupEditPage: React.FC = () => {
     const handleCreateAgeGroup = (newAgeGroup: AgeGroup) => {
         setAgeGroups((prev) => [...prev, newAgeGroup]);
         setIsAgeGroupCreateModalOpen(false);
+    };
+
+    const handleDeleteRequest = (id: number) => {
+        setDeleteId(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (deleteId !== null) {
+            setAgeGroups((prev) => prev.filter((group) => group.id !== deleteId));
+        }
+        setIsDeleteModalOpen(false);
+        setDeleteId(null);
+    };
+
+    const handleCancelDelete = () => {
+        setIsDeleteModalOpen(false);
+        setDeleteId(null);
     };
 
     // Set Page Title
@@ -87,7 +108,7 @@ const AgeGroupEditPage: React.FC = () => {
         <AgeGroupTable
             data={ageGroups}
             editable
-            onDelete={(id) => setAgeGroups((prev) => prev.filter((t) => t.id !== id))}
+            onDelete={handleDeleteRequest}
             onCreate={() => setIsAgeGroupCreateModalOpen(true)}
             />
         <AgeGroupCreateModal
@@ -99,6 +120,13 @@ const AgeGroupEditPage: React.FC = () => {
             isOpen={isSaveSuccessModalOpen}
             onClose={() => setIsSaveSuccessModalOpen(false)}
             navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+            />
+        <DeleteConfirmModal
+            isOpen={isDeleteModalOpen}
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+            title={t("editModal.deleteConfirmation")}
+            message={t("editModal.deleteConfirmation")}
             />
         </>
     );
