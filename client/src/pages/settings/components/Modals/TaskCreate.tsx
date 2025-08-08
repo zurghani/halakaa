@@ -4,63 +4,59 @@ import { useTranslation } from "react-i18next";
 import { TaskType } from "../../types";
 
 type TaskCreateModalProps = {
-  isTaskCreateModalOpen: boolean;
-  onCreate: (task: TaskType) => void;
-  onCancel: () => void;
+    isOpen: boolean;
+    onCreate: (task: TaskType) => void;
+    onCancel: () => void;
 };
 
-const TaskCreateModal: React.FC<TaskCreateModalProps> = ({ isTaskCreateModalOpen, onCreate, onCancel }) => {
-  const { t } = useTranslation();
-  const [form] = Form.useForm();
+const TaskCreateModal: React.FC<TaskCreateModalProps> = ({ isOpen, onCreate, onCancel }) => {
+    const { t } = useTranslation();
+    const [form] = Form.useForm();
 
-  const handleSave = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        const newTask: TaskType = {
-          id: 5, 
-          name: values.name,
-          description: values.description,
-        };
-        onCreate(newTask);
-        form.resetFields(); 
-      })
-      .catch(() => {});
-  };
+    const handleSave = () => {
+        form.validateFields()
+            .then((values) => {
+                const newTask: TaskType = {
+                    id: 5,
+                    name: values.name,
+                    description: values.description,
+                };
+                onCreate(newTask);
+                form.resetFields();
+            })
+            .catch(() => {});
+    };
 
-  return (
-    <Modal
-      open={isTaskCreateModalOpen}
-      okText={t("general.save")}
-      okType="primary"
-      onOk={handleSave}
-      cancelText={t("general.cancel")}
-      onCancel={() => {
-        form.resetFields();
-        onCancel();
-      }}
-      closable
-      title={t("createTaskModal.createTaskType")}
-      destroyOnClose
-    >
-      <Form form={form} layout="vertical">
-        <Form.Item
-          name="name"
-          label={t("forms.name")}
-          rules={[{ required: true, message: t("forms.fieldRequired") }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label={t("forms.description")}
-          rules={[{ required: true, message: t("forms.fieldRequired") }]}
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
+    return (
+        <Modal
+            open={isOpen}
+            okText={t("general.save")}
+            okType="primary"
+            onOk={handleSave}
+            cancelText={t("general.cancel")}
+            onCancel={() => {
+                form.resetFields();
+                onCancel();
+            }}
+            closable
+            title={t("createTaskModal.createTaskType")}
+            destroyOnClose>
+            <Form form={form} layout="vertical">
+                <Form.Item
+                    name="name"
+                    label={t("forms.name")}
+                    rules={[{ required: true, message: t("forms.fieldRequired") }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="description"
+                    label={t("forms.description")}
+                    rules={[{ required: true, message: t("forms.fieldRequired") }]}>
+                    <Input />
+                </Form.Item>
+            </Form>
+        </Modal>
+    );
 };
 
 export default TaskCreateModal;

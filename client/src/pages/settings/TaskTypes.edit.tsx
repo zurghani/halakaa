@@ -10,8 +10,8 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { TaskType } from "./types";
 import TaskTypeTable from "./components/TaskTypesTable";
 import { ActionButton } from "../../components/Button/ActionButton";
-import TaskConfirmModal from "./components/Modals/TaskConfirmSaveSuccess";
-import TaskDeleteConfirmationModal from "./components/Modals/TaskDeleteConfirmation";
+import TaskConfirmModal from "./components/Modals/TasksSaveSuccess";
+import TaskDeleteModal from "./components/Modals/TaskDelete";
 import TaskCreateModal from "./components/Modals/TaskCreate";
 
 const initialTasks: TaskType[] = [
@@ -27,40 +27,37 @@ const TaskTypesEditPage: React.FC = () => {
     const { t } = useTranslation();
 
     const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTasks);
-    const [isTaskCreateModalOpen, setIsTaskCreateModalOpen] = useState(false);                          // create new task type modal state  
-    const [isTaskConfirmSaveSuccessModalOpen, setIsTaskConfirmSaveSuccessModalOpen] = useState(false);  // save confirm sucess modal state
-    const [isTaskDeleteConfirmationModalOpen, setIsTaskDeleteConfirmationModalOpen] = useState(false);  // delete confirmation modal state
+    const [isTaskCreateModalOpen, setIsTaskCreateModalOpen] = useState(false);
+    const [isTasksSuccessModalOpen, setIsTasksSuccessModalOpen] = useState(false);
+    const [isTaskDeleteModalOpen, setIsTaskDeleteModalOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
-    // Handle creating a new task type
     const handleCreateTask = (newTask: TaskType) => {
         setTaskTypes((prev) => [...prev, newTask]);
         setIsTaskCreateModalOpen(false);
     };
 
-    // Handle saving task types
     const handleSave = () => {
         console.log("Saving task types:", taskTypes);
         // TODO: Replace with API call
-        setIsTaskConfirmSaveSuccessModalOpen(true);
+        setIsTasksSuccessModalOpen(true);
     };
 
-    // Handle delete task type
     const handleDeleteRequest = (id: number) => {
         setDeleteId(id);
-        setIsTaskDeleteConfirmationModalOpen(true);
+        setIsTaskDeleteModalOpen(true);
     };
 
     const handleConfirmDelete = () => {
         if (deleteId !== null) {
             setTaskTypes((prev) => prev.filter((task) => task.id !== deleteId));
         }
-        setIsTaskDeleteConfirmationModalOpen(false); 
+        setIsTaskDeleteModalOpen(false);
         setDeleteId(null);
     };
 
     const handleCancelDelete = () => {
-        setIsTaskDeleteConfirmationModalOpen(false);
+        setIsTaskDeleteModalOpen(false);
         setDeleteId(null);
     };
 
@@ -84,23 +81,26 @@ const TaskTypesEditPage: React.FC = () => {
     return (
         <>
             <TaskTypeTable
-            data={taskTypes}
-            editable
-            onDelete={handleDeleteRequest}
-            onCreate={() => setIsTaskCreateModalOpen(true)}
+                data={taskTypes}
+                editable
+                onDelete={handleDeleteRequest}
+                onCreate={() => setIsTaskCreateModalOpen(true)}
             />
-            <TaskConfirmModal isTaskConfirmSaveSuccessModalOpen={isTaskConfirmSaveSuccessModalOpen} onClose={() => setIsTaskConfirmSaveSuccessModalOpen(false)} />
-            <TaskDeleteConfirmationModal
-                isTaskDeleteConfirmationModalOpen={isTaskDeleteConfirmationModalOpen}
+            <TaskConfirmModal
+                isOpen={isTasksSuccessModalOpen}
+                onClose={() => setIsTasksSuccessModalOpen(false)}
+            />
+            <TaskDeleteModal
+                isOpen={isTaskDeleteModalOpen}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
             />
             <TaskCreateModal
-                isTaskCreateModalOpen={isTaskCreateModalOpen}
+                isOpen={isTaskCreateModalOpen}
                 onCreate={handleCreateTask}
                 onCancel={() => setIsTaskCreateModalOpen(false)}
             />
         </>
-        )
+    );
 };
 export default TaskTypesEditPage;
