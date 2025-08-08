@@ -3,16 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
 import { Paths } from "../../../../Routes";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 type StudentEditSuccessModalProps = {
-    isModalOpen: boolean;
+    isSuccessModalOpen: boolean;
     onClose: () => void;
 };
 
-const StudentEditSuccessModal: React.FC<StudentEditSuccessModalProps> = ({
-    isModalOpen,
-    onClose,
-}) => {
+const StudentEditSuccessModal: React.FC<StudentEditSuccessModalProps> = ({ isSuccessModalOpen, onClose }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -23,7 +21,7 @@ const StudentEditSuccessModal: React.FC<StudentEditSuccessModalProps> = ({
 
     return (
         <Modal
-            open={isModalOpen}
+            open={isSuccessModalOpen}
             footer={[
                 <Button key="done" type="primary" onClick={handleDone}>
                     {t("modal.done")}
@@ -34,7 +32,12 @@ const StudentEditSuccessModal: React.FC<StudentEditSuccessModalProps> = ({
             closable={false}
             maskClosable={false}
             keyboard
-            title={t("modal.student.updateSuccess")}>
+            title={
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <CheckCircleOutlined style={{ fontSize: 20, color: 'lightgreen' }} />
+                    {t("modal.student.updateSuccess")} 
+                </div>
+            }>
             {t("modal.doneText")}
         </Modal>
     );

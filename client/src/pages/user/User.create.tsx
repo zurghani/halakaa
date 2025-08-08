@@ -18,12 +18,12 @@ const UserCreatePage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const handleSubmit = (values: any) => {
         console.log("Submitted:", values);
         // Create user here
-        setIsModalOpen(true);
+        setIsSuccessModalOpen(true);
     };
 
     // Set Page Title
@@ -44,8 +44,8 @@ const UserCreatePage: React.FC = () => {
         <>
             <UserForm form={form} onSubmit={handleSubmit} />
             <UserCreateSuccessModal
-                isModalOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isSuccessModalOpen={isSuccessModalOpen}
+                onClose={() => setIsSuccessModalOpen(false)}
             />
         </>
     );

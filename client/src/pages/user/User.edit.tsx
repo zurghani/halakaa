@@ -33,12 +33,12 @@ const UserEditPage: React.FC = () => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const handleSubmit = (values: any) => {
         console.log("Editted:", values);
         // edit the user logic here
-        setIsModalOpen(true);
+        setIsSuccessModalOpen(true);
     };
 
     // Set Page Title
@@ -60,7 +60,7 @@ const UserEditPage: React.FC = () => {
     return (
         <>
             <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
-            <UserEditSuccessModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <UserEditSuccessModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
         </>
     );
 };

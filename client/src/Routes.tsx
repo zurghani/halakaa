@@ -154,7 +154,6 @@ export const Paths = {
         ENROLLMENTS: "/class/edit-enrollments/:id",
         FIND: "/class/find",
         RUNNING: "/class/running",
-        ENROLLMENTS: "/class/enrollments", // For editing enrollments
     },
     USER: {
         ROOT: "/user",
