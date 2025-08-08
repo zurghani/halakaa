@@ -72,8 +72,9 @@ export const UserForm: React.FC<UserFormProps> = ({
                 />
             </Form.Item>
             {showChildrenTable && (
-                <Form.Item label={t("forms.children")}>
+                <Form.Item name="children" label={t("forms.children")}>
                     <ChildrenTable
+                        editable={!disabled}
                         childrenData={defaultValues.children || []}
                         onDelete={(id) => {
                             console.log("Delete child with id:", id);
