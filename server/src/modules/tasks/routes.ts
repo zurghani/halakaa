@@ -11,8 +11,8 @@ PUT    => UPDATE
 */
 tasks.get("/", tasksController.getAll);
 tasks.get("/:id", tasksController.getById);
-tasks.post("/", requireRoles(["teacher"]), tasksController.create);
-tasks.put("/:id", requireRoles(["teacher"]), tasksController.update);
-tasks.delete("/:id", requireRoles(["admin"]), tasksController.remove);
+tasks.post("/", tasksController.create);
+tasks.put("/:id", tasksController.update);
+tasks.delete("/:id", tasksController.remove);
 
 export default tasks;
