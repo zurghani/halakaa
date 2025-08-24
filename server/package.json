@@ -5,10 +5,10 @@
         "dev": "bun run src/index.ts",
         "start": "bun run src/index.ts",
         "build": "tsc",
-        "db:push": "npx drizzle-kit push ",
-        "db:seed": "npx tsx src/db/reset.ts && npx tsx src/db/seed.ts",
-        "db:reset": "npx tsx src/db/reset.ts",
+        "db:reset": "bun tsx src/db/reset.ts",
         "db:gen": "bunx drizzle-kit generate",
+        "db:push": "bunx drizzle-kit push ",
+        "db:seed": "bun src/db/seed.ts",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
     },
     "dependencies": {

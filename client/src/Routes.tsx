@@ -182,7 +182,7 @@ const HomeRedirect = () => {
 
     const navigate = useNavigate();
 
-    console.log(userRole)
+    console.log(userRole);
 
     useEffect(() => {
         let targetRoute = Paths.HOME.MAIN;
