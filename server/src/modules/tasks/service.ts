@@ -8,7 +8,7 @@ export type UpdateTask = Partial<NewTask>
 
 export const createTask = async (task: NewTask): Promise<Task> => {
     const [newTask] = await db.insert(tasks).values(task).returning();
-    return newTask;
+    return newTask!;
 };
 
 

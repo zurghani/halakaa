@@ -9,9 +9,9 @@ POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-taskTypes.get("/", requireRoles(["admin", "teacher"]), taskTypesController.getAll);
-taskTypes.get("/:id", requireRoles(["admin", "teacher"]), taskTypesController.getById);
-taskTypes.post("/", requireRoles(["admin"]), taskTypesController.create);
-taskTypes.delete("/:id", requireRoles(["admin"]), taskTypesController.remove);
+taskTypes.get("/", taskTypesController.getAll);
+taskTypes.get("/:id", taskTypesController.getById);
+taskTypes.post("/",  taskTypesController.create);
+taskTypes.delete("/:id", taskTypesController.remove);
 
 export default taskTypes;

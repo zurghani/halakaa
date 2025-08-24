@@ -9,7 +9,7 @@ export type NewEnrollment = typeof enrollments.$inferInsert;
 // Create
 export const createEnrollment = async (enrollment: NewEnrollment): Promise<Enrollment> => {
     const [newEnrollment] = await db.insert(enrollments).values(enrollment).returning();
-    return newEnrollment;
+    return newEnrollment!;
 };
 
 export const getEnrolledClassesByStudentId = async (studentId: number): Promise<Enrollment[]> => {
