@@ -24586,7 +24586,7 @@ await db.transaction(async (tx) => {
 
   // Teacher User
   await tx.insert(user).values({
-    id: "tch_FuvrhODngDWZTAgCDE8GZVo",
+    id: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
     email: "teacher@email.com",
     name: "Teacher User",
     language: "en",
@@ -24594,9 +24594,9 @@ await db.transaction(async (tx) => {
   });
 
   await tx.insert(account).values({
-    id: "acc_tch_FuvrhODngDWZTAgCDE8GZVo",
-    accountId: "tch_FuvrhODngDWZTAgCDE8GZVo",
-    userId: "tch_FuvrhODngDWZTAgCDE8GZVo",
+    id: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+    accountId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+    userId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
     providerId: "credential",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -24605,7 +24605,7 @@ await db.transaction(async (tx) => {
 
   // Parent user
   await tx.insert(user).values({
-    id: "par_FuvrhODngDWZTAgCDE8GZVo",
+    id: "d6dca3a6-76e1-4300-8406-dea962c50f06",
     email: "parent@email.com",
     name: "Parent User",
     language: "en",
@@ -24613,9 +24613,9 @@ await db.transaction(async (tx) => {
   });
 
   await tx.insert(account).values({
-    id: "acc_par_FuvrhODngDWZTAgCDE8GZVo",
-    accountId: "par_FuvrhODngDWZTAgCDE8GZVo",
-    userId: "par_FuvrhODngDWZTAgCDE8GZVo",
+    id: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+    accountId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+    userId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
     providerId: "credential",
     createdAt: new Date(),
     updatedAt: new Date(),
