@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "antd";
-import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
 import { UserRole } from "../../store/types";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const dummyUser: User = {
     id: "1",
@@ -19,9 +20,9 @@ const dummyUser: User = {
     language: "en",
     role: UserRole.Parent,
     children: [
-        { id: "1", fullName: "Child 1", ageGroup: "5-7" },
-        { id: "2", fullName: "Child 2", ageGroup: "8-10" },
-        { id: "3", fullName: "Child 3", ageGroup: "11-13" },
+        { id: "1", fullName: "Child 1", ageGroup: "5 - 7" },
+        { id: "2", fullName: "Child 2", ageGroup: "8 - 10" },
+        { id: "3", fullName: "Child 3", ageGroup: "11 - 13" },
     ],
 };
 
@@ -42,11 +43,10 @@ const UserViewPage: React.FC = () => {
             <Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
                 {t("general.cancel")}
             </Button>,
-            <Button
-                onClick={() => navigate(`${Paths.USER.EDIT.replace(":id", dummyUser.id || "")}`)}
-                icon={<CaretLeftOutlined />}>
+            <ActionButton
+                onClick={() => navigate(`${Paths.USER.EDIT.replace(":id", dummyUser.id || "")}`)}>
                 {t("general.edit")}
-            </Button>,
+            </ActionButton>,
         ]);
     }, [t]);
     return <UserForm form={form} disabled defaultValues={dummyUser} />;

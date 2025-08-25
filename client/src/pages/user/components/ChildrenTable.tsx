@@ -1,5 +1,6 @@
 import { Button, Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
+import { useTags } from "../../../hooks/useTags";
 
 interface ChildrenType {
     id: string;
@@ -19,6 +20,7 @@ const ChildrenTable: React.FC<ChildrenTableProps> = ({
     onDelete,
     editable = false,
 }) => {
+    const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const columns: TableProps<ChildrenType>["columns"] = [
         {
@@ -35,6 +37,7 @@ const ChildrenTable: React.FC<ChildrenTableProps> = ({
             title: t("forms.childrenTable.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
+            render: (ageGroup: string) => ageGroupTags[ageGroup] || ageGroup,
         },
     ];
 

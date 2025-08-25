@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Table, TableProps } from "antd";
 import { User } from "../../types";
+import { useTags } from "../../../../hooks/useTags";
 
 const UserTable = ({ users }: { users: User[] }) => {
+    const { roleTags } = useTags({});
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ const UserTable = ({ users }: { users: User[] }) => {
             title: t("forms.role"),
             dataIndex: "role",
             key: "role",
+            render: (role: string) => roleTags[role] || role,
         },
     ];
     return (

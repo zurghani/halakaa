@@ -1,12 +1,13 @@
 import { Table, TableProps } from "antd";
-import { Tag } from "antd";
 import { FindClassResultType } from "./dummy.data";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useTags } from "../../../../hooks/useTags";
 
 const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { ageGroupTags } = useTags({});
 
     const columns: TableProps<FindClassResultType>["columns"] = [
         {
@@ -24,7 +25,7 @@ const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
             title: t("general.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
-            render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
+            render: (ageGroup: string) => ageGroupTags[ageGroup] || ageGroup,
             filters: [
                 { text: "5-10", value: "5-10" },
                 { text: "11-15", value: "11-15" },

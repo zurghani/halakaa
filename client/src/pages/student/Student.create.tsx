@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "antd";
-import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -34,9 +35,7 @@ const StudentCreatePage: React.FC = () => {
             <Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
                 {t("general.cancel")}
             </Button>,
-            <Button onClick={() => form.submit()} icon={<CaretLeftOutlined />}>
-                {t("general.create")}
-            </Button>,
+            <ActionButton onClick={() => form.submit()}>{t("general.create")}</ActionButton>,
         ]);
     }, [t]);
     return (

@@ -3,8 +3,10 @@ import { AppStore } from "../../../store";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useTags } from "../../../hooks/useTags";
 
 const StudentsList: React.FC = () => {
+    const { ageGroupTags } = useTags({});
     const navigate = useNavigate();
     const classes = useSelector((state: AppStore) => state.class[0]);
     const students = classes.students;
@@ -27,7 +29,7 @@ const StudentsList: React.FC = () => {
                             <>
                                 <Tag>{student.name}</Tag>
                                 <Tag>{student.id}</Tag>
-                                <Tag color="blue">{classes.ageGroup}</Tag>
+                                {ageGroupTags[classes.ageGroup || 0]}
                             </>
                         }
                     />
