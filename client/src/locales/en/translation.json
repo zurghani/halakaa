@@ -62,8 +62,22 @@
             "deleteConfirmation": "Are you sure you want to delete this user?",
             "deleteSuccess": "User Deleted Successfully!"
         },
+        "taskType": {
+            "createSuccess": "Task Type Created Successfully!",
+            "updateSuccess": "Task Updated Successfully!",
+            "deleteConfirmation": "Are you sure you want to delete this task type?",
+            "deleteSuccess": "Task Deleted Successfully!",
+            "deleteTitle": "Delete Task Type"
+        },
+        "ageGroup": {
+            "createSuccess": "Age Group Created Successfully!",
+            "updateSuccess": "Age Group Updated Successfully!",
+            "deleteConfirmation": "Are you sure you want to delete this age group?",
+            "deleteSuccess": "Age Group Deleted Successfully!",
+            "deleteTitle": "Delete Age Group"
+        },
         "done": "Done",
-        "doneText": "Press Done to close this modal."
+        "doneMessage": "Press Done to close this modal."
     },
     "editTaskModal": {
         "editCompleteTask": "Complete/Edit Task",

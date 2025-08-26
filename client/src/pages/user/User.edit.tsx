@@ -10,7 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
 import { UserRole } from "../../store/types";
-import UserEditSuccessModal from "./components/Modals/UserEditSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
 import { ActionButton } from "../../components/Button/ActionButton";
 
 const dummyUser: User = {
@@ -59,9 +59,12 @@ const UserEditPage: React.FC = () => {
     return (
         <>
             <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
-            <UserEditSuccessModal
-                isSuccessModalOpen={isSuccessModalOpen}
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.USER.VIEW}
+                title={t("modal.user.updateSuccess")}
+                message={t("modal.doneMessage")}
             />
         </>
     );

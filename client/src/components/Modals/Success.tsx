@@ -2,44 +2,50 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Modal } from "antd";
-import { Paths } from "../../../../Routes";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import "./modals.scss"; 
 
-type TasksSaveSuccessModalProps = {
+type SaveSuccessModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    navigatePath?: any;
+    title: string;
+    message: string;
 };
 
-const TasksSuccessSaveModal: React.FC<TasksSaveSuccessModalProps> = ({ isOpen, onClose }) => {
+const SaveSuccessModal: React.FC<SaveSuccessModalProps> = ({ isOpen, onClose, navigatePath, title, message }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
     const handleDone = () => {
         onClose(); // Close the modal
-        navigate(Paths.SETTINGS.ADMIN.TASKTYPES.VIEW); //redirects to tasks list page
+        navigatePath && navigate(navigatePath);
     };
 
     return (
         <Modal
+            className="modal"
             open={isOpen}
             footer={[
                 <Button key="done" type="primary" onClick={handleDone}>
                     {t("modal.done")}
                 </Button>,
             ]}
+            okText={t("modal.done")}
+            okType="primary"
             onCancel={handleDone} // to close modal with Esc key
             centered
             closable={false}
             maskClosable={false}
             keyboard
             title={
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <CheckCircleOutlined style={{ fontSize: 20, color: "lightgreen" }} />
-                    {t("editTaskModal.confirmModal")}
+                <div className="modal__title">
+                    <CheckCircleOutlined className="modal__title__success-icon" />
+                    {title}
                 </div>
             }>
-            {t("modal.doneText")}
+            {message}
         </Modal>
     );
 };
-export default TasksSuccessSaveModal;
+export default SaveSuccessModal;

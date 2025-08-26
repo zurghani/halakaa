@@ -10,9 +10,9 @@ import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 import { TaskType } from "../types";
 import TaskTypeTable from "./components/TaskTypesTable";
 import { ActionButton } from "../../../components/Button/ActionButton";
-import TaskConfirmModal from "../components/Modals/TasksSaveSuccess";
-import TaskDeleteModal from "../components/Modals/TaskDelete";
-import TaskCreateModal from "../components/Modals/TaskCreate";
+import SaveSuccessModal from "../../../components/Modals/Success";
+import DeleteConfirmModal from "../../../components/Modals/Delete";
+import TaskCreateModal from "./components/Modals/TaskCreate";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -86,14 +86,19 @@ const TaskTypesEditPage: React.FC = () => {
                 onDelete={handleDeleteRequest}
                 onCreate={() => setIsTaskCreateModalOpen(true)}
             />
-            <TaskConfirmModal
+            <SaveSuccessModal
                 isOpen={isTasksSuccessModalOpen}
                 onClose={() => setIsTasksSuccessModalOpen(false)}
+                navigatePath={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
+                title={t("modal.taskType.createSuccess")}
+                message={t("modal.doneMessage")}
             />
-            <TaskDeleteModal
+            <DeleteConfirmModal
                 isOpen={isTaskDeleteModalOpen}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
+                title={t("modal.taskType.deleteTitle")}
+                message={t("modal.taskType.deleteConfirmation")}
             />
             <TaskCreateModal
                 isOpen={isTaskCreateModalOpen}

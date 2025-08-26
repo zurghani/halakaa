@@ -9,7 +9,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { UserForm } from "./components/UserForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
-import UserCreateSuccessModal from "./components/Modals/UserCreateSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
 
 const UserCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -43,9 +43,12 @@ const UserCreatePage: React.FC = () => {
     return (
         <>
             <UserForm form={form} onSubmit={handleSubmit} />
-            <UserCreateSuccessModal
-                isSuccessModalOpen={isSuccessModalOpen}
+            <SaveSuccessModal 
+                isOpen={isSuccessModalOpen} 
                 onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.USER.VIEW}
+                title={t("modal.user.createSuccess")}
+                message={t("modal.doneMessage")}
             />
         </>
     );
