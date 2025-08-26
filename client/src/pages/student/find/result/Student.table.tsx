@@ -1,40 +1,14 @@
 import { Table, TableProps } from "antd";
 import { Tag } from "antd";
-import { FindStudentResultType } from "./dummy.data";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Student } from "../../../../types";
 
-const columns: TableProps<FindStudentResultType>["columns"] = [
-    {
-        title: "ID",
-        dataIndex: "id",
-        key: "id",
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        sorter: (a, b) => a.name.length - b.name.length,
-    },
-    {
-        title: "Age group",
-        dataIndex: "ageGroup",
-        key: "ageGroup",
-        render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
-        filters: [
-            { text: "5-10", value: "5-10" },
-            { text: "11-15", value: "11-15" },
-            { text: "16-20", value: "16-20" },
-        ],
-        onFilter: (value, record) => record.ageGroup.includes(value as string),
-    },
-];
-
-const StudentTable = ({ students }: { students: FindStudentResultType[] }) => {
+const StudentTable = ({ students }: { students: Student[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const columns: TableProps<FindStudentResultType>["columns"] = [
+    const columns: TableProps<Student>["columns"] = [
         {
             title: t("general.id"),
             dataIndex: "id",
@@ -42,13 +16,13 @@ const StudentTable = ({ students }: { students: FindStudentResultType[] }) => {
         },
         {
             title: t("general.name"),
-            dataIndex: "name",
+            dataIndex: "fullName",
             key: "name",
-            sorter: (a, b) => a.name.length - b.name.length,
+            sorter: (a, b) => a.fullName.length - b.fullName.length,
         },
         {
             title: t("general.ageGroup"),
-            dataIndex: "ageGroup",
+            dataIndex: "dateOfBirth",
             key: "ageGroup",
             render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
             filters: [
@@ -56,7 +30,8 @@ const StudentTable = ({ students }: { students: FindStudentResultType[] }) => {
                 { text: "11-15", value: "11-15" },
                 { text: "16-20", value: "16-20" },
             ],
-            onFilter: (value, record) => record.ageGroup.includes(value as string),
+            onFilter: (value, record) =>
+                record.dateOfBirth ? record.dateOfBirth.includes(value as string) : false,
         },
     ];
     return (
@@ -64,7 +39,7 @@ const StudentTable = ({ students }: { students: FindStudentResultType[] }) => {
             <Table
                 columns={columns}
                 dataSource={students}
-                onRow={(record: FindStudentResultType) => ({
+                onRow={(record: Student) => ({
                     onClick: () => {
                         // handle row click here
                         navigate(`/student/${record.id}`);

@@ -10,7 +10,10 @@ import {
     ayah,
 } from "../../server/src/db/schema";
 
-export type Student = typeof students.$inferSelect;
+export type Student = Omit<typeof students.$inferSelect, "createdAt" | "dateOfBirth"> & {
+    createdAt: string | null;
+    dateOfBirth: string | null;
+};
 export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
 

@@ -46,9 +46,9 @@ const FindStudent: React.FC = () => {
             <SearchForm SearchOptions={SearchOptions} />
             {`${t("general.resultsFound")} ${FindStudentResultDummyData.length}`}
             {isMobile ? (
-                <StudentList students={FindStudentResultDummyData} />
+                <StudentList students={students ?? []} />
             ) : (
-                <StudentTable students={FindStudentResultDummyData} />
+                <StudentTable students={students ?? []} />
             )}
         </Space>
     );
