@@ -9,6 +9,7 @@ import StudentTable from "./result/Student.table";
 import StudentList from "./result/Student.list";
 import SearchForm from "./SearchForm.student";
 import { useTranslation } from "react-i18next";
+import { useStudents } from "../../../queries/students";
 
 const { useBreakpoint } = Grid;
 
@@ -33,6 +34,11 @@ const FindStudent: React.FC = () => {
             </Button>,
         ]);
     }, [count]);
+
+    const { data, isLoading, error } = useStudents();
+    if (isLoading) return <div>Loading...</div>;
+    if (error instanceof Error) return <div>Error: {error.message}</div>;
+    console.log(data);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
