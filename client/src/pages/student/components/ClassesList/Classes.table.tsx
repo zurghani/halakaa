@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../../store";
 import { useTranslation } from "react-i18next";
+import { useTags } from "../../../../hooks/useTags";
 
 // interface DataType {
 //   key: string;
@@ -14,6 +15,7 @@ import { useTranslation } from "react-i18next";
 // }
 
 const ClassesTable: React.FC = () => {
+    const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const studentClasses = useSelector((state: AppStore) => state.class);
     const data = studentClasses.map((studentClass) => ({
@@ -75,7 +77,7 @@ const ClassesTable: React.FC = () => {
             title: t("class.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
-            render: (ageGroup) => <Tag color="blue">{ageGroup}</Tag>,
+            render: (ageGroup) => ageGroupTags[ageGroup],
             filters: [
                 {
                     text: "5 - 8",

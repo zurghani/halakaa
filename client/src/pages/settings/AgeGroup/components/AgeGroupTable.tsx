@@ -1,9 +1,10 @@
 import React from "react";
-import { Table, Button, Tag } from "antd";
+import { Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { AgeGroup } from "../../types";
+import { useTags } from "../../../../hooks/useTags";
 
 interface AgeGroupTableProps {
     data: AgeGroup[];
@@ -18,6 +19,8 @@ const AgeGroupTable: React.FC<AgeGroupTableProps> = ({
     onDelete,
     onCreate,
 }) => {
+    const { ageGroupTags } = useTags({});
+
     const { t } = useTranslation();
     const columns: ColumnsType<AgeGroup> = [
         {
@@ -28,7 +31,8 @@ const AgeGroupTable: React.FC<AgeGroupTableProps> = ({
         {
             title: t("forms.ageGroup"),
             key: "ageGroup",
-            render: (_, record) => <Tag color="blue">{`${record.from} - ${record.to}`}</Tag>,
+            render: (_, record) =>
+                ageGroupTags[`${record.from} - ${record.to}`] || `${record.from} - ${record.to}`,
             sorter: (a, b) => a.from - b.from,
         },
         {

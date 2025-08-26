@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Col, Row, Table, TableProps } from "antd";
 import { TaskStatus, TaskType } from "../../../store/types";
 import { AppStore } from "../../../store";
-import TaskTypeTag from "../../Tags/TaskTypeTag";
 import { useTranslation } from "react-i18next";
+import { useTags } from "../../../hooks/useTags";
 
 // interface DataType {
 //   key: string;
@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 // }
 
 const CompletedTasksTable: React.FC = () => {
+    const { taskTypeTags } = useTags({});
     const { t } = useTranslation();
     const studentTasks = useSelector((state: AppStore) => state.tasks);
 
@@ -59,7 +60,7 @@ const CompletedTasksTable: React.FC = () => {
             title: t("general.type"),
             dataIndex: "type",
             key: "type",
-            render: (type) => <TaskTypeTag type={type} closable={false} />,
+            render: (type) => taskTypeTags[type],
             filters: [
                 {
                     text: "Revision",

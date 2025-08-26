@@ -2,17 +2,17 @@ import { Hono } from "hono";
 import * as tasksController from "./controller";
 import { requireRoles } from "@/middleware/requireRole";
 
-const tasks = new Hono();
 /*
 GET    => READ
 POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-tasks.get("/", tasksController.getAll);
-tasks.get("/:id", tasksController.getById);
-tasks.post("/", requireRoles(["teacher"]), tasksController.create);
-tasks.put("/:id", requireRoles(["teacher"]), tasksController.update);
-tasks.delete("/:id", requireRoles(["admin"]), tasksController.remove);
+const tasks = new Hono()
+  .get("/", requireRoles({ tasks: ["view"] }), tasksController.getAll)
+  .get("/:id", requireRoles({ tasks: ["view"] }), tasksController.getById)
+  .post("/", requireRoles({ tasks: ["create"] }), tasksController.create)
+  .put("/:id", requireRoles({ tasks: ["update"] }), tasksController.update)
+  .delete("/:id", requireRoles({ tasks: ["delete"] }), tasksController.remove);
 
 export default tasks;

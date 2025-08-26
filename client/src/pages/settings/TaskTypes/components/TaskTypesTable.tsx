@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { TaskType } from "../../types";
-import TaskTypeTag from "../../../../components/Tags/TaskTypeTag";
+import { useTags } from "../../../../hooks/useTags";
 
 interface TaskTypeTableProps {
     data: TaskType[];
@@ -19,6 +19,8 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
     onDelete,
     onCreate,
 }) => {
+    const { taskTypeTags } = useTags({});
+
     const { t } = useTranslation();
     const columns: ColumnsType<TaskType> = [
         {
@@ -30,7 +32,7 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
             title: t("forms.name"),
             dataIndex: "name",
             key: "name",
-            render: (text) => <TaskTypeTag type={text} closable={false} />,
+            render: (text) => taskTypeTags[text] || text,
             sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {

@@ -17,26 +17,26 @@ import DeleteConfirmModal from "../../../components/Modals/Delete";
 const initialAgeGroups: AgeGroup[] = [
     {
         id: 1,
-        from: 4,
-        to: 6,
+        from: 2,
+        to: 4,
         description: "Pre-kindergarten and kindergarten",
     },
     {
         id: 2,
-        from: 6,
-        to: 8,
+        from: 5,
+        to: 7,
         description: "Early primary school",
     },
     {
         id: 3,
         from: 8,
-        to: 12,
+        to: 10,
         description: "Late primary school",
     },
     {
         id: 4,
-        from: 12,
-        to: 14,
+        from: 11,
+        to: 13,
         description: "Early secondary school",
     },
     {

@@ -2,8 +2,10 @@ import { List, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../../store";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useTags } from "../../../../hooks/useTags";
 
 const ClassesList: React.FC = () => {
+    const { ageGroupTags } = useTags({});
     const studentClasses = useSelector((state: AppStore) => state.class);
     const data = studentClasses.map((studentClass) => ({
         id: studentClass.id,
@@ -30,7 +32,8 @@ const ClassesList: React.FC = () => {
                             <>
                                 {currentClass.id}
                                 <Tag>{currentClass.teacherId}</Tag>
-                                <Tag>{currentClass.ageGroup}</Tag>
+                                {/* Put || 0 since ageGroup can be undefined */}
+                                {ageGroupTags[currentClass.ageGroup || 0]}
                                 <br />
                                 <Tag color="green">{currentClass.start}</Tag>
                                 <Tag color="purple">{currentClass.end}</Tag>

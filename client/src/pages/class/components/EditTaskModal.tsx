@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
-import { CaretRightOutlined, PlusOutlined } from "@ant-design/icons";
 import EditTaskForm, { EditTaskFormFieldsType } from "./EditTaskForm";
+import { ActionButton } from "../../../components/Button/ActionButton";
 
 const EditTaskModal: React.FC = () => {
     const { t } = useTranslation();
@@ -32,9 +32,7 @@ const EditTaskModal: React.FC = () => {
 
     return (
         <>
-            <Button onClick={showModal} icon={<CaretRightOutlined />}>
-                {t("editTaskModal.editCompleteTask")}
-            </Button>
+            <ActionButton onClick={showModal}>{t("editTaskModal.editCompleteTask")}</ActionButton>
 
             <Modal
                 title={t("editTaskModal.editCompleteTask")}

@@ -1,14 +1,15 @@
 import { Hono } from "hono";
 import * as ayahsController from "./controller";
+import { requireRoles } from "@/middleware/requireRole";
 
-const ayahs = new Hono();
 /*
 GET    => READ
 POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-ayahs.get("/", ayahsController.getAll);
-ayahs.get("/:id", ayahsController.getById);
+const ayahs = new Hono()
+  .get("/", requireRoles({ ayahs: ["view"] }), ayahsController.getAll)
+  .get("/:id", requireRoles({ ayahs: ["view"] }), ayahsController.getById);
 
 export default ayahs;

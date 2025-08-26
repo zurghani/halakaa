@@ -4,13 +4,15 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import { Button, Form } from "antd";
-import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import { Student } from "./types";
 import SaveSuccessModal from "../../components/Modals/Success";
+import StudentEditModal from "./components/Modals/StudentEditSuccess";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const dummyStudent: Student = {
     fullName: "Zacharea K",
@@ -44,9 +46,7 @@ const StudentEditPage: React.FC = () => {
             <Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
                 {t("general.cancel")}
             </Button>,
-            <Button onClick={() => form.submit()} icon={<CaretLeftOutlined />}>
-                {t("general.save")}
-            </Button>,
+            <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
 
@@ -58,7 +58,11 @@ const StudentEditPage: React.FC = () => {
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.STUDENT.VIEW}
                 title={t("modal.student.updateSuccess")}
-                message={t("modal.doneMessage")}
+                message={t("modal.doneMessage")}/>
+        
+            <StudentEditModal
+                isSuccessModalOpen={isSuccessModalOpen}
+                onClose={() => setIsSuccessModalOpen(false)}
             />
         </>
     );
