@@ -8,8 +8,10 @@ export const apiClient = hcWithType("http://localhost:4000", {
 
 // const d = await apiClient["age-groups"].$post();
 // const c = await apiClient["students"].$get();
+// const a = await apiClient["students"].$get();
 
-// const data = await c.json();
+// const data = await a.json();
+// data[0].
 
 // console.log(data);
 // try {

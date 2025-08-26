@@ -16,6 +16,7 @@ const { useBreakpoint } = Grid;
 const FindStudent: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.findStudent")));
     }, [t]);
@@ -35,10 +36,9 @@ const FindStudent: React.FC = () => {
         ]);
     }, [count]);
 
-    const { data, isLoading, error } = useStudents();
+    const { data: students, isLoading } = useStudents();
     if (isLoading) return <div>Loading...</div>;
-    if (error instanceof Error) return <div>Error: {error.message}</div>;
-    console.log(data);
+    console.log(students);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
