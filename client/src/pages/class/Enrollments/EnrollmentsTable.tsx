@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
@@ -20,12 +20,15 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
     onDelete,
 }) => {
     const { t } = useTranslation();
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
     const rowSelection = selectable
         ? {
               type: "radio" as const,
-              onChange: (_: React.Key[], selectedRows: Enrollment[]) => {
-                  const selected = selectedRows[0] || null;
-                  onSelect?.(selected);
+              selectedRowKeys,
+              onChange: (keys: React.Key[], selectedRows: Enrollment[]) => {
+                  setSelectedRowKeys(keys);
+                  onSelect?.(selectedRows[0] || null);
               },
           }
         : undefined;
@@ -35,7 +38,6 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
             title: t("class.id"),
             dataIndex: "classId",
             sorter: (a, b) => Number(a.id) - Number(b.id),
-            // onFilter: (value, record) => (record.id ? record.id.includes(value as string) : false),
             width: "30%",
         },
         {
@@ -66,6 +68,16 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
                 columns={columns}
                 pagination={false}
                 rowSelection={rowSelection}
+                onRow={(record) =>
+                    selectable
+                        ? {
+                              onClick: () => {
+                                  setSelectedRowKeys([record.id]);
+                                  onSelect?.(record);
+                              },
+                          }
+                        : {}
+                }
             />
         </div>
     );

@@ -1,9 +1,10 @@
-import { Table, TableProps, Tag } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../store";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Table, TableProps } from "antd";
+import { AppStore } from "../../../store";
+import { useTags } from "../../../hooks/useTags";
 
 // interface DataType {
 //   key: string;
@@ -15,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 // }
 
 const StudentsTable: React.FC = () => {
+    const { ageGroupTags } = useTags({});
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -56,7 +58,7 @@ const StudentsTable: React.FC = () => {
             title: t("class.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
-            render: (ageGroup) => <Tag color="blue">{ageGroup}</Tag>,
+            render: (ageGroup) => ageGroupTags[ageGroup],
             filters: [
                 {
                     text: "5 - 8",

@@ -13,7 +13,7 @@ import AttendanceList from "./components/AttendanceList/Attendance.list";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";

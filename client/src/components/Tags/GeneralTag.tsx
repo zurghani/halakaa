@@ -1,21 +1,21 @@
 import { Tag } from "antd";
 import type { TagProps } from "antd/lib/tag";
 
-interface GeneralTagProps {
+interface GeneralTagProps extends TagProps {
     label: string;
     onClick?: () => void;
 }
 const colorsArray = [
     "blue",
-    "volcano",
     "green",
-    "orange",
-    "gold",
-    "lime",
     "red",
-    "cyan",
     "magenta",
+    "gold",
+    "orange",
     "geekblue",
+    "lime",
+    "volcano",
+    "cyan",
     "purple",
 ];
 type GeneralTagReturn = { [key: string]: React.ReactNode };
@@ -28,7 +28,8 @@ export const generalTags = (tags: GeneralTagProps[]): GeneralTagReturn => {
                 key={tag.label}
                 color={colorsArray[index % colorsArray.length] as TagProps["color"]}
                 onClick={tag.onClick}
-                style={{ cursor: tag.onClick ? "pointer" : "default" }}>
+                style={{ cursor: tag.onClick ? "pointer" : "default" }}
+                closable={tag.closable}>
                 {tag.label}
             </Tag>
         );

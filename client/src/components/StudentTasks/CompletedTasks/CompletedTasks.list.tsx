@@ -2,10 +2,11 @@ import { Col, Collapse, Row, Tag } from "antd";
 import { AppStore } from "../../../store";
 import { useSelector } from "react-redux";
 import { TaskStatus } from "../../../store/types";
-import TaskTypeTag from "../../Tags/TaskTypeTag";
 import "./CompletedTasks.scss";
+import { useTags } from "../../../hooks/useTags";
 
 const CompletedTasksList: React.FC = () => {
+    const { taskTypeTags } = useTags({});
     const studentTasks = useSelector((state: AppStore) => state.tasks);
 
     const data = studentTasks.tasks.filter((task) => task.status === TaskStatus.Completed);
@@ -20,7 +21,7 @@ const CompletedTasksList: React.FC = () => {
         label: (
             <>
                 <div>{task.title}</div>
-                <TaskTypeTag type={task.type} closable={false} />
+                {taskTypeTags[task.type]}
                 <Tag>{task.completedOn}</Tag>
             </>
         ),

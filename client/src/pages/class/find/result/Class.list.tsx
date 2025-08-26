@@ -2,9 +2,11 @@ import { List, Tag } from "antd";
 import { FindClassResultType } from "./dummy.data";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useTags } from "../../../../hooks/useTags";
 
 const ClassList = ({ classes }: { classes: FindClassResultType[] }) => {
     const navigate = useNavigate();
+    const { ageGroupTags } = useTags({});
 
     return (
         <List
@@ -26,7 +28,7 @@ const ClassList = ({ classes }: { classes: FindClassResultType[] }) => {
                                 <Tag> ID : {currentClass.id}</Tag>
                                 Teacher: {currentClass.teacher}
                                 <br />
-                                <Tag color="green"> group: {currentClass.ageGroup}</Tag>
+                                {ageGroupTags[currentClass.ageGroup]}
                                 <Tag>{currentClass.StartsAt}</Tag>
                                 <Tag>{currentClass.EndsAt}</Tag>
                             </>
