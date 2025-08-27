@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "antd";
-import { CaretLeftOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
 import { UserRole } from "../../store/types";
-import UserEditSuccessModal from "./components/Modals/UserEditSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
+import { ActionButton } from "../../components/Button/ActionButton";
 
 const dummyUser: User = {
     id: "1",
@@ -51,16 +52,20 @@ const UserEditPage: React.FC = () => {
             <Button onClick={() => navigate(Paths.HOME.MAIN)} icon={<CloseOutlined />}>
                 {t("general.cancel")}
             </Button>,
-            <Button onClick={() => form.submit()} icon={<CaretLeftOutlined />}>
-                {t("general.save")}
-            </Button>,
+            <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
 
     return (
         <>
             <UserForm form={form} defaultValues={dummyUser} onSubmit={handleSubmit} />
-            <UserEditSuccessModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
+                onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.USER.VIEW}
+                title={t("modal.user.updateSuccess")}
+                message={t("modal.doneMessage")}
+            />
         </>
     );
 };

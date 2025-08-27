@@ -7,6 +7,7 @@ import studentReducer from "./student.slice";
 import classReducer from "./class.slice";
 import parentReducer from "./parent.slice";
 import tasksReducer from "./tasks.slice";
+import tagsReducer from "./tags.slice";
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         class: classReducer,
         parent: parentReducer,
         tasks: tasksReducer,
+        tags: tagsReducer,
     },
 });
 

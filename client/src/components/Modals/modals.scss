@@ -1,0 +1,17 @@
+.modal {
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        &__success-icon {
+            font-size: 20px;
+            color: lightgreen;
+        }  
+
+        &__delete-icon {
+            font-size: 20px;
+            color: red;
+        }
+    }
+}

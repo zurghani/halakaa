@@ -45,5 +45,6 @@ export const FindStudentResultDummyData: Student[] = [
         userId: "5",
         gender: "male",
         dateOfBirth: "2010-07-27",
+
     },
 ];

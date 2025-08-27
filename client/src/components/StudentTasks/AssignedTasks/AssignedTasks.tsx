@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Col, Collapse, Grid, Row } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
+import { Col, Collapse, Grid, Row } from "antd";
 import { AppStore } from "../../../store";
 import { Task, TaskStatus } from "../../../store/types";
 // TODO Add translation
 import { t } from "i18next";
-import TaskTypeTag from "../../Tags/TaskTypeTag";
 
 const { useBreakpoint } = Grid;
 
 import "./AssignedTasks.scss";
 import { useTranslation } from "react-i18next";
 import EditTaskModal from "../../../pages/class/components/EditTaskModal";
+import { useTags } from "../../../hooks/useTags";
 
 interface AssignedTasksProps {
     mode: "view" | "class";
 }
 
 const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
+    const { taskTypeTags } = useTags({});
     const { t } = useTranslation();
     const screens = useBreakpoint();
     const isMobile = !screens.lg;
@@ -38,7 +38,7 @@ const AssignedTasks: React.FC<AssignedTasksProps> = ({ mode = "view" }) => {
                 <div className="task__label">
                     <div className="task__label__left">
                         <div>{task.title}</div>
-                        <TaskTypeTag type={task.type} closable={false} />
+                        {taskTypeTags[task.type]}
                     </div>
                     <div className="task__label__right">
                         {activeKey[0] == (i + 1).toString()

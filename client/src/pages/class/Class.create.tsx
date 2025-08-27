@@ -9,7 +9,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { ClassForm } from "./components/ClassForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
-import ClassCreateModal from "./components/Modals/ClassCreateSuccess";
+import SaveSuccessModal from "../../components/Modals/Success";
 
 const ClassCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -42,7 +42,13 @@ const ClassCreatePage: React.FC = () => {
     return (
     <>
         <ClassForm form={form} onSubmit={handleSubmit} />
-        <ClassCreateModal isSuccessModalOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)} />
+        <SaveSuccessModal 
+                isOpen={isSuccessModalOpen} 
+                onClose={() => setIsSuccessModalOpen(false)}
+                navigatePath={Paths.CLASS.FIND}
+                title={t("modal.class.createSuccess")}
+                message={t("modal.doneMessage")}
+            />
     </>
     )
 };

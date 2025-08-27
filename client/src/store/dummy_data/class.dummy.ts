@@ -9,7 +9,7 @@ export const dummyClasses: Classes[] = [
             start: "9:00 AM",
             end: "11:00 AM",
         },
-        ageGroup: "7 - 9",
+        ageGroup: "8 - 10",
         students: [
             { id: "10", name: "Sara" },
             { id: "11", name: "Omar" },
@@ -28,7 +28,7 @@ export const dummyClasses: Classes[] = [
             start: "1:00 PM",
             end: "2:30 PM",
         },
-        ageGroup: "5 - 8",
+        ageGroup: "5 - 7",
         students: [
             { id: "12", name: "Fatima" },
             { id: "13", name: "Zayd" },
@@ -43,7 +43,7 @@ export const dummyClasses: Classes[] = [
             start: "2:00 PM",
             end: "4:00 PM",
         },
-        ageGroup: "8 - 12",
+        ageGroup: "11 - 13",
         students: [
             { id: "15", name: "Bilal" },
             { id: "16", name: "Maryam" },
@@ -57,7 +57,7 @@ export const dummyClasses: Classes[] = [
             start: "4:00 PM",
             end: "5:30 PM",
         },
-        ageGroup: "10 - 14",
+        ageGroup: "14 - 16",
         students: [
             { id: "17", name: "Hamza" },
             { id: "18", name: "Aisha" },
@@ -72,7 +72,7 @@ export const dummyClasses: Classes[] = [
             start: "6:00 PM",
             end: "8:00 PM",
         },
-        ageGroup: "6 - 10",
+        ageGroup: "2 - 4",
         students: [
             { id: "20", name: "Iman" },
             { id: "21", name: "Khalid" },

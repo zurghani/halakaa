@@ -2,9 +2,12 @@ import { Table, TableProps } from "antd";
 import { Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useTags } from "../../../../hooks/useTags";
 import { Student } from "../../../../types";
 
 const StudentTable = ({ students }: { students: Student[] }) => {
+
+    const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ const StudentTable = ({ students }: { students: Student[] }) => {
             title: t("general.ageGroup"),
             dataIndex: "dateOfBirth",
             key: "ageGroup",
-            render: (ageGroup: string) => <Tag color="green">{ageGroup}</Tag>,
+            render: (ageGroup: string) => ageGroupTags[ageGroup],
             filters: [
                 { text: "5-10", value: "5-10" },
                 { text: "11-15", value: "11-15" },

@@ -2,14 +2,17 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import "./modals.scss"; 
 
-type TaskDeleteModalProps = {
+type DeleteConfirmModalProps = {
     isOpen: boolean;
     onConfirm: () => void;
     onCancel: () => void;
+    title: string;
+    message: string;
 };
 
-const TaskDeleteModal: React.FC<TaskDeleteModalProps> = ({ isOpen, onConfirm, onCancel }) => {
+const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({ isOpen, onConfirm, onCancel, title, message}) => {
     const { t } = useTranslation();
 
     const handleCancel = () => {
@@ -18,6 +21,7 @@ const TaskDeleteModal: React.FC<TaskDeleteModalProps> = ({ isOpen, onConfirm, on
 
     return (
         <Modal
+            className="modal"
             open={isOpen}
             okText={t("general.yes")}
             okType="primary"
@@ -29,13 +33,13 @@ const TaskDeleteModal: React.FC<TaskDeleteModalProps> = ({ isOpen, onConfirm, on
             keyboard
             maskClosable={false}
             title={
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <ExclamationCircleOutlined style={{ fontSize: 20, color: "red" }} />
-                    {t("editTaskModal.deleteTaskType")}
+                <div className="modal__title">
+                    <ExclamationCircleOutlined className="modal__title__delete-icon" />
+                    {title}
                 </div>
             }>
-            {t("editTaskModal.deleteConfirmation")}
+                {message}
         </Modal>
     );
 };
-export default TaskDeleteModal;
+export default DeleteConfirmModal;
