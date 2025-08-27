@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 export const StudentForm: React.FC<StudentFormProps> = ({
     disabled = false,
-    defaultValues,
+    defaultValues = { gender: "male" },
     onSubmit,
     form,
 }) => {
@@ -38,6 +38,7 @@ export const StudentForm: React.FC<StudentFormProps> = ({
                 rules={[{ required: true, message: t("forms.required.gender") }]}>
                 <Segmented
                     disabled={disabled}
+                    defaultValue="male"
                     options={[
                         { value: "male", label: t("forms.selectGender.male") },
                         { value: "female", label: t("forms.selectGender.female") },
@@ -48,7 +49,7 @@ export const StudentForm: React.FC<StudentFormProps> = ({
             <Form.Item
                 name="parentId"
                 label={t("forms.parent")}
-                rules={[{ required: true, message: t("forms.required.parent") }]}>
+                rules={[{ required: false, message: t("forms.required.parent") }]}>
                 <Select
                     disabled={disabled}
                     showSearch

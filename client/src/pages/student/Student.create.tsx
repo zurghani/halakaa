@@ -9,6 +9,7 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
+import { NewStudent } from "../../types";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -19,8 +20,9 @@ const StudentCreatePage: React.FC = () => {
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-    const handleSubmit = (values: any) => {
+    const handleSubmit = (values: NewStudent) => {
         console.log("Submitted:", values);
+
         // actually create the student
         setIsSuccessModalOpen(true);
     };
