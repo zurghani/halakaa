@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { requireRoles } from "@/middleware/requireRole";
 import * as tasksService from "./service";
 import type { AuthType } from "@/types";
+import { validator } from "hono/validator";
 
 /*
 GET    => READ
@@ -39,7 +40,11 @@ const tasks = new Hono<{ Variables: AuthType }>()
     return c.json(result, 201);
   })
   
-  .put("/:id", requireRoles({ tasks: ["update"] }), async (c) => {
+  .put(
+    "/:id",
+    validator("json", (value) => value as tasksService.UpdateTask),
+    requireRoles({ tasks: ["update"] }),
+    async (c) => {
     const id = c.req.param("id");
     const body = await c.req.json();
     
@@ -50,7 +55,8 @@ const tasks = new Hono<{ Variables: AuthType }>()
     
     const updatedTask = await tasksService.updateTask(parseInt(id), body);
     return c.json(updatedTask);
-  })
+  }
+  )
   
   .delete("/:id", requireRoles({ tasks: ["delete"] }), async (c) => {
     const id = c.req.param("id");
