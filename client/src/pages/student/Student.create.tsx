@@ -29,9 +29,6 @@ const StudentCreatePage: React.FC = () => {
             onSuccess: () => {
                 setIsSuccessModalOpen(true);
             },
-            onError: (error) => {
-                console.error("Failed to create student:", error);
-            }
         });
     };
     // Set Page Title
