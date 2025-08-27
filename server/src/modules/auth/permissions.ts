@@ -13,7 +13,7 @@ export const admin = ac.newRole({
 });
 
 export const teacher = ac.newRole({
-  students: ["view", "create", "update"],
+  students: ["view"],
   classes: ["view"],
   enrollments: ["view", "create", "update"],
   attendances: ["view", "create", "update"],

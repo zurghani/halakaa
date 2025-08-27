@@ -9,7 +9,6 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import SaveSuccessModal from "../../components/Modals/Success";
-import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
 import { NewStudent } from "../../types";
 import { useCreateStudent } from "../../queries/students";
 import { ActionButton } from "../../components/Button/ActionButton";
@@ -49,8 +48,8 @@ const StudentCreatePage: React.FC = () => {
     return (
         <>
             <StudentForm form={form} onSubmit={handleSubmit} />
-            <SaveSuccessModal 
-                isOpen={isSuccessModalOpen} 
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.STUDENT.VIEW}
                 title={t("modal.student.createSuccess")}
