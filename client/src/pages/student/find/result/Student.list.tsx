@@ -1,11 +1,9 @@
 import { List, Tag } from "antd";
-import { FindStudentResultType } from "./dummy.data";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useTags } from "../../../../hooks/useTags";
+import { Student } from "../../../../types";
 
-const StudentList = ({ students }: { students: FindStudentResultType[] }) => {
-    const { ageGroupTags } = useTags({});
+const StudentList = ({ students }: { students: Student[] }) => {
     const navigate = useNavigate();
     return (
         <List
@@ -24,9 +22,9 @@ const StudentList = ({ students }: { students: FindStudentResultType[] }) => {
                     <List.Item.Meta
                         title={
                             <>
-                                {student.name}
+                                {student.fullName}
                                 <Tag> ID : {student.id}</Tag>
-                                {ageGroupTags[student.ageGroup]}
+                                <Tag color="green"> Date of Birth: {student.dateOfBirth}</Tag>
                             </>
                         }
                     />

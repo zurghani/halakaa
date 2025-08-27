@@ -9,12 +9,14 @@ import StudentTable from "./result/Student.table";
 import StudentList from "./result/Student.list";
 import SearchForm from "./SearchForm.student";
 import { useTranslation } from "react-i18next";
+import { useStudents } from "../../../queries/students";
 
 const { useBreakpoint } = Grid;
 
 const FindStudent: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.findStudent")));
     }, [t]);
@@ -34,15 +36,21 @@ const FindStudent: React.FC = () => {
         ]);
     }, [count]);
 
+    const { data: students, isLoading } = useStudents({
+        parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+    });
+    if (isLoading) return <div>Loading...</div>;
+    console.log(students);
+
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>
             <SearchForm SearchOptions={SearchOptions} />
             {`${t("general.resultsFound")} ${FindStudentResultDummyData.length}`}
             {isMobile ? (
-                <StudentList students={FindStudentResultDummyData} />
+                <StudentList students={students ?? []} />
             ) : (
-                <StudentTable students={FindStudentResultDummyData} />
+                <StudentTable students={students ?? []} />
             )}
         </Space>
     );

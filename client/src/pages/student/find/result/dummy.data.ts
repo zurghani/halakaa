@@ -1,26 +1,50 @@
-export type FindStudentResultType = {
-    key: string;
-    id: string;
-    name: string;
-    ageGroup: string;
-};
-export const FindStudentResultDummyData: FindStudentResultType[] = [
+import { Student } from "../../../../types";
+
+export const FindStudentResultDummyData: Student[] = [
     {
-        key: "1",
-        id: "001",
-        name: "Ali Ahmed",
-        ageGroup: "5 - 7",
+        id: 1,
+        fullName: "Ali Ahmed",
+        createdAt: null,
+        parentId: null,
+        userId: "1",
+        gender: "male",
+        dateOfBirth: "2010-05-15",
     },
     {
-        key: "2",
-        id: "002",
-        name: "Sara Khalid",
-        ageGroup: "11 - 13",
+        id: 2,
+        fullName: "Sara Mohamed",
+        createdAt: null,
+        parentId: null,
+        userId: "2",
+        gender: "female",
+        dateOfBirth: "2011-08-22",
     },
     {
-        key: "3",
-        id: "003",
-        name: "Omar Youssef",
-        ageGroup: "8 - 10",
+        id: 3,
+        fullName: "Omar Hussein",
+        createdAt: null,
+        parentId: null,
+        userId: "3",
+        gender: "male",
+        dateOfBirth: "2009-12-03",
+    },
+    {
+        id: 4,
+        fullName: "Layla Hassan",
+        createdAt: null,
+        parentId: null,
+        userId: "4",
+        gender: "female",
+        dateOfBirth: "2012-03-19",
+    },
+    {
+        id: 5,
+        fullName: "Yusuf Saleh",
+        createdAt: null,
+        parentId: null,
+        userId: "5",
+        gender: "male",
+        dateOfBirth: "2010-07-27",
+
     },
 ];

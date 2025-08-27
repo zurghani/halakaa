@@ -1,6 +1,7 @@
 import { Hono } from "hono";
-import * as enrollmentsController from "./controller";
 import { requireRoles } from "@/middleware/requireRole";
+import * as enrollmentsService from "./service";
+import type { AuthType } from "@/types";
 
 /*
 GET    => READ
@@ -8,9 +9,32 @@ POST   => CREATE
 DELETE => DELETE
 PUT    => UPDATE
 */
-const enrollments = new Hono()
-  .get("/", requireRoles({ enrollments: ["view"] }), enrollmentsController.getAll)
-  .post("/", requireRoles({ enrollments: ["create"] }), enrollmentsController.create)
-  .delete("/:id", requireRoles({ enrollments: ["delete"] }), enrollmentsController.remove);
+const enrollments = new Hono<{ Variables: AuthType }>()
+  .get("/", requireRoles({ enrollments: ["view"] }), async (c) => {
+    const classId = Number(c.req.query("class_id"));
+    const studentId = Number(c.req.query("student_id"));
+    let data: any[] = [];
+
+    if (classId) {
+      data = await enrollmentsService.getEnrolledStudentsByClassId(classId);
+    } else if (studentId) {
+      data = await enrollmentsService.getEnrolledClassesByStudentId(studentId);
+    }
+
+    return c.json(data || []);
+  })
+  .post("/", requireRoles({ enrollments: ["create"] }), async (c) => {
+    const body = await c.req.json();
+    const result = await enrollmentsService.createEnrollment(body);
+    return c.json(result, 201);
+  })
+  .delete("/:id", requireRoles({ enrollments: ["delete"] }), async (c) => {
+    const id = c.req.param("id");
+
+    await enrollmentsService.deleteEnrollment(parseInt(id));
+    return c.json({
+      message: `Enrollment ${id} deleted successfully`,
+    });
+  });
 
 export default enrollments;

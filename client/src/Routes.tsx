@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 // storeimport { AppStore } from "./store";
 import { UserRole } from "./store/types";
+import { ErrorHandlerProvider } from "./components/ErrorHandlerProvider";
 // pages
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
@@ -42,7 +43,8 @@ import { authClient } from "./lib/auth-client";
 const AppRoutes = () => {
     return (
         <Router>
-            <Routes>
+            <ErrorHandlerProvider>
+                <Routes>
                 <Route path={Paths.AUTH.LOGIN} element={<Login />} />
                 <Route element={<AuthenticationGuard />}>
                     {/* Other Authenticated Routes */}
@@ -103,7 +105,8 @@ const AppRoutes = () => {
                 <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
                 <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
                 <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
-            </Routes>
+                </Routes>
+            </ErrorHandlerProvider>
         </Router>
     );
 };
