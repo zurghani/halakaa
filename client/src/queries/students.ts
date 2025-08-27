@@ -38,10 +38,10 @@ export function useStudent(studentId: string) {
         enabled: !!studentId,
     });
 }
-export function useCreateStudent(newStudent: NewStudent) {
+export function useCreateStudent() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: async () => {
+        mutationFn: async (newStudent: NewStudent) => {
             const res = await apiClient["students"].$post({ json: newStudent });
             if (!res.ok) {
                 const error = new Error(await res.text());

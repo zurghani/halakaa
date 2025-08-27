@@ -10,6 +10,7 @@ import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import StudentCreateSuccessModal from "./components/Modals/StudentCreateSuccess";
 import { NewStudent } from "../../types";
+import { useCreateStudent } from "../../queries/students";
 
 const StudentCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -19,12 +20,19 @@ const StudentCreatePage: React.FC = () => {
     const [form] = Form.useForm();
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const createStudentMutation = useCreateStudent();
 
     const handleSubmit = (values: NewStudent) => {
         console.log("Submitted:", values);
 
-        // actually create the student
-        setIsSuccessModalOpen(true);
+        createStudentMutation.mutate(values, {
+            onSuccess: () => {
+                setIsSuccessModalOpen(true);
+            },
+            onError: (error) => {
+                console.error("Failed to create student:", error);
+            }
+        });
     };
     // Set Page Title
     useEffect(() => {
