@@ -9,7 +9,7 @@ export function useClasses(filters?: { teacherId?: string }) {
             const searchParams = new URLSearchParams();
             if (filters?.teacherId) searchParams.append("teacher_id", filters.teacherId);
 
-            const res = await apiClient["classes"].$get({
+            const res = await apiClient.classes.$get({
                 query: Object.fromEntries(searchParams.entries()),
             });
             if (!res.ok) {
@@ -26,7 +26,7 @@ export function useClass(classId: string) {
     return useQuery({
         queryKey: ["classes", classId],
         queryFn: async () => {
-            const res = await apiClient["classes"][":id"].$get({ param: { id: classId } });
+            const res = await apiClient.classes[":id"].$get({ param: { id: classId } });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;
@@ -42,7 +42,7 @@ export function useCreateClass() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (newClass: NewClass) => {
-            const res = await apiClient["classes"].$post({ json: newClass });
+            const res = await apiClient.classes.$post({ json: newClass });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;
@@ -76,7 +76,7 @@ export function useDeleteClass() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (classId: string) => {
-            const res = await apiClient["classes"][":id"].$delete({ param: { id: classId } });
+            const res = await apiClient.classes[":id"].$delete({ param: { id: classId } });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;

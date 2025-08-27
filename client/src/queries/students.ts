@@ -11,7 +11,7 @@ export function useStudents(filters?: { parentId?: string; classId?: number }) {
             if (filters?.parentId) searchParams.append("parent_id", filters.parentId);
             if (filters?.classId) searchParams.append("class_id", filters.classId.toString());
 
-            const res = await apiClient["students"].$get({
+            const res = await apiClient.students.$get({
                 query: Object.fromEntries(searchParams.entries()),
             });
             if (!res.ok) {
@@ -27,7 +27,7 @@ export function useStudent(studentId: string) {
     return useQuery({
         queryKey: ["students", studentId],
         queryFn: async () => {
-            const res = await apiClient["students"][":id"].$get({ param: { id: studentId } });
+            const res = await apiClient.students[":id"].$get({ param: { id: studentId } });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;
@@ -42,7 +42,7 @@ export function useCreateStudent() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (newStudent: NewStudent) => {
-            const res = await apiClient["students"].$post({ json: newStudent });
+            const res = await apiClient.students.$post({ json: newStudent });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;

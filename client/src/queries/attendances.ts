@@ -10,7 +10,7 @@ export function useAttendances(filters: { classId?: number; studentId?: number }
             if (filters.classId) searchParams.append("class_id", filters.classId.toString());
             if (filters.studentId) searchParams.append("student_id", filters.studentId.toString());
 
-            const res = await apiClient["attendances"].$get({
+            const res = await apiClient.attendances.$get({
                 query: Object.fromEntries(searchParams.entries()),
             });
             if (!res.ok) {
@@ -28,7 +28,7 @@ export function useCreateAttendance() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (newAttendance: NewAttendance) => {
-            const res = await apiClient["attendances"].$post({ json: newAttendance });
+            const res = await apiClient.attendances.$post({ json: newAttendance });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;
@@ -46,7 +46,7 @@ export function useDeleteAttendance() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (attendanceId: string) => {
-            const res = await apiClient["attendances"][":id"].$delete({ param: { id: attendanceId } });
+            const res = await apiClient.attendances[":id"].$delete({ param: { id: attendanceId } });
             if (!res.ok) {
                 const error = new Error(await res.text());
                 (error as any).status = res.status;
