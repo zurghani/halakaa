@@ -3,11 +3,11 @@ import { Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { TaskType } from "../../types";
 import { useTags } from "../../../../hooks/useTags";
+import { TaskType } from "../../../../types";
 
 interface TaskTypeTableProps {
-    data: TaskType[];
+    data: TaskType[] | [] | undefined;
     editable?: boolean;
     onDelete?: (id: number) => void;
     onCreate?: () => void;
