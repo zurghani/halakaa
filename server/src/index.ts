@@ -20,7 +20,7 @@ const app = new Hono<{ Variables: AuthType }>()
     cors({
       origin: "http://localhost:3000",
       allowHeaders: ["Content-Type", "Authorization"],
-      allowMethods: ["POST", "GET", "OPTIONS"],
+      allowMethods: ["POST", "GET", "OPTIONS", "PUT", "DELETE"],
       exposeHeaders: ["Content-Length"],
       maxAge: 600,
       credentials: true,

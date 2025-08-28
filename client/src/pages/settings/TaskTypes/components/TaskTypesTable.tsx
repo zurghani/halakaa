@@ -7,7 +7,7 @@ import { useTags } from "../../../../hooks/useTags";
 import { TaskType } from "../../../../types";
 
 interface TaskTypeTableProps {
-    data: TaskType[] | [] | undefined;
+    data: TaskType[] | undefined;
     editable?: boolean;
     onDelete?: (id: number) => void;
     onCreate?: () => void;

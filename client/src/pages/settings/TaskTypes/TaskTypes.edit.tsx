@@ -25,39 +25,35 @@ const TaskTypesEditPage: React.FC = () => {
     const createTaskTypeMutation = useCreateTaskType();
     const deleteTaskTypeMutation = useDeleteTaskType();
 
-    const [taskTypesList, setTaskTypesList] = useState<TaskType[]>([]);
-    const [changes, setChanges] = useState<
-        { action: "create" | "delete"; task: TaskType | NewTaskType }[]
-    >([]);
+    const [taskTypesList, setTaskTypesList] = useState<TaskType[]>(initialTaskTypes || []);
+    const [toBeCreatedTaskList, setToBeCreatedTaskList] = useState<TaskType[]>([]);
+    const [toBeDeletedTaskList, setToBeDeletedTaskList] = useState<number[]>([]);
+
     const [isTaskCreateModalOpen, setIsTaskCreateModalOpen] = useState(false);
     const [isTasksSuccessModalOpen, setIsTasksSuccessModalOpen] = useState(false);
     const [isTaskDeleteModalOpen, setIsTaskDeleteModalOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
-    useEffect(() => {
-        if (initialTaskTypes) {
-            setTaskTypesList(initialTaskTypes);
-            setChanges([]); // reset staged changes
-        }
-    }, [initialTaskTypes]);
-
     const handleCreateTask = (newTask: NewTaskType) => {
-        setTaskTypesList((prev) => [...prev, newTask]);
-        setChanges((prev) => [...prev, { action: "create", task: newTask }]);
+        const taskToBeAdded: TaskType = {
+            id: Math.floor(Math.random() * -1000), // Temporary negative ID for frontend
+            name: newTask.name,
+            description: newTask.description || "",
+        };
+        setToBeCreatedTaskList((prev) => [...prev, taskToBeAdded]);
         setIsTaskCreateModalOpen(false);
     };
 
     const handleSave = () => {
-        console.log("Saving task types:", taskTypesList);
-        changes.forEach((task) => {
-            if (task.action === "create") {
-                createTaskTypeMutation.mutate(task.task);
-            }
-            if (task.action === "delete") {
-                deleteTaskTypeMutation.mutate(task.task.id.toString());
-            }
+        console.log(toBeDeletedTaskList);
+        toBeCreatedTaskList.forEach((task) => {
+            createTaskTypeMutation.mutate({ name: task.name, description: task.description });
+        });
+        toBeDeletedTaskList.forEach((id) => {
+            deleteTaskTypeMutation.mutate(id.toString());
         });
         setIsTasksSuccessModalOpen(true);
+        navigate(Paths.SETTINGS.ADMIN.TASKTYPES.VIEW);
     };
 
     const handleDeleteRequest = (id: number) => {
@@ -67,24 +63,12 @@ const TaskTypesEditPage: React.FC = () => {
 
     const handleConfirmDelete = () => {
         if (deleteId !== null) {
-            const taskToDelete = taskTypesList.find((task) => task.id === deleteId);
-            setTaskTypesList((prev) => prev.filter((task) => task.id !== deleteId));
-
-            if (taskToDelete) {
-                setChanges((prev) => {
-                    const isTaskLocalCreate = prev.find(
-                        (task) => task.action === "create" && task.task.id === deleteId
-                    );
-
-                    if (isTaskLocalCreate) {
-                        return prev.filter(
-                            (c) => !(c.action === "create" && c.task.id === deleteId)
-                        );
-                    } else {
-                        return [...prev, { action: "delete", task: taskToDelete }];
-                    }
-                });
+            if (toBeCreatedTaskList.find((task) => task.id === deleteId)) {
+                setToBeCreatedTaskList((prev) => prev.filter((task) => task.id !== deleteId));
+            } else {
+                setToBeDeletedTaskList((prev) => [...prev, deleteId]);
             }
+            setTaskTypesList((prev) => prev.filter((task) => task.id !== deleteId));
         }
         setIsTaskDeleteModalOpen(false);
         setDeleteId(null);
@@ -110,12 +94,18 @@ const TaskTypesEditPage: React.FC = () => {
                 {t("general.save")}
             </ActionButton>,
         ]);
-    }, [t, taskTypesList]);
+    }, [t, toBeCreatedTaskList, toBeDeletedTaskList]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setTaskTypesList(initialTaskTypes || []);
+        }
+    }, [initialTaskTypes, isLoading]);
 
     return (
         <>
             <TaskTypeTable
-                data={taskTypesList}
+                data={[...(taskTypesList || []), ...toBeCreatedTaskList]}
                 editable
                 onDelete={handleDeleteRequest}
                 onCreate={() => setIsTaskCreateModalOpen(true)}
