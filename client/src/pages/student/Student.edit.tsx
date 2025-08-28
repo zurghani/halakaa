@@ -9,7 +9,7 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
-import { Student } from "./types";
+import { Student } from "../../types";
 import SaveSuccessModal from "../../components/Modals/Success";
 import { ActionButton } from "../../components/Button/ActionButton";
 

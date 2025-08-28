@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
 import { TaskType } from "../../../types";
+import { NewTaskType } from "../../../../../types";
 
 type TaskCreateModalProps = {
     isOpen: boolean;
@@ -16,8 +17,7 @@ const TaskCreateModal: React.FC<TaskCreateModalProps> = ({ isOpen, onCreate, onC
     const handleSave = () => {
         form.validateFields()
             .then((values) => {
-                const newTask: TaskType = {
-                    id: 5,
+                const newTask: NewTaskType = {
                     name: values.name,
                     description: values.description,
                 };

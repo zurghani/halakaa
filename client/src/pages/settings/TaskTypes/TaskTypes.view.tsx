@@ -9,6 +9,7 @@ import { TaskType } from "../types";
 import DownloadModal from "../../../components/ExportModal/DownloadModal";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import TaskTypeTable from "./components/TaskTypesTable";
+import { useTaskTypes } from "../../../queries/taskTypes";
 
 const initialTasks: TaskType[] = [
     { id: 1, name: "memorization", description: "New assignment" },
@@ -36,6 +37,11 @@ const TaskTypesViewPage: React.FC = () => {
             </ActionButton>,
         ]);
     }, [t]);
-    return <TaskTypeTable data={initialTasks} editable={false} />;
+
+    const { data: taskTypes, isLoading } = useTaskTypes();
+    if (isLoading) return <div>Loading...</div>;
+    console.log(taskTypes);
+
+    return <TaskTypeTable data={taskTypes} editable={false} />;
 };
 export default TaskTypesViewPage;

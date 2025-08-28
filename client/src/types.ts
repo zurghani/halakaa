@@ -35,7 +35,10 @@ export type Task = typeof tasks.$inferSelect;
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
 
-export type TaskType = typeof taskTypes.$inferSelect;
+// export type TaskType = typeof taskTypes.$inferSelect;
+export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
+    createdAt?: string | null;
+};
 export type NewTaskType = typeof taskTypes.$inferInsert;
 
 export type Surah = typeof surah.$inferSelect;
