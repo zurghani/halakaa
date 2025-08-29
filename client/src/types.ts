@@ -25,6 +25,7 @@ export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
 export type Class = typeof classes.$inferSelect;
+export type ClassWithAgeGroup = Omit<Class, "ageGroup"> & { ageGroup: string | "" };
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
 
