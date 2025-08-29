@@ -1,31 +1,19 @@
-import React from "react";
 import { Table, TableProps } from "antd";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../store";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../hooks/useTags";
+import { Class } from "../../../types";
 
-// interface DataType {
-//   key: string;
-//   teacher: string;
-//   type: TaskType;
-//   from: string;
-//   to: string;
-//   date: string;
-// }
-
-const MyClassesTable: React.FC = () => {
+const MyClassesTable = ({ classes }: { classes: Class[] }) => {
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
-    const classes = useSelector((state: AppStore) => state.class);
     const data = classes.map((teacherClass) => ({
         id: teacherClass.id,
         teacherId: teacherClass.teacherId,
         ageGroup: teacherClass.ageGroup,
-        start: teacherClass.time.start,
-        end: teacherClass.time.end,
+        start: teacherClass.startsAt,
+        end: teacherClass.endsAt,
     }));
 
     const columns: TableProps["columns"] = [
@@ -79,7 +67,7 @@ const MyClassesTable: React.FC = () => {
             title: t("class.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
-            render: (ageGroup) => ageGroupTags[ageGroup],
+            render: (ageGroup) => ageGroupTags[ageGroup || 0],
             filters: [
                 {
                     text: "5 - 8",
