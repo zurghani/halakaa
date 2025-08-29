@@ -68,7 +68,7 @@ const StudentEditPage: React.FC = () => {
     if (isLoading) return <div>Loading...</div>;
     return (
         <>
-            <StudentForm form={form} onSubmit={handleSubmit} defaultValues={formInitialValues} />
+            <StudentForm form={form} onSubmit={handleSubmit} initialValues={formInitialValues} />
             <SaveSuccessModal
                 isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}

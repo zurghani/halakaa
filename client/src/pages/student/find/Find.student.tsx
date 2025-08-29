@@ -36,9 +36,7 @@ const FindStudent: React.FC = () => {
         ]);
     }, [count]);
 
-    const { data: students, isLoading } = useStudents({
-        parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06",
-    });
+    const { data: students, isLoading } = useStudents();
     if (isLoading) return <div>Loading...</div>;
     console.log(students);
 

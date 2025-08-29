@@ -13,12 +13,13 @@ const StudentTable = ({ students }: { students: Student[] }) => {
             title: t("general.id"),
             dataIndex: "id",
             key: "id",
+            sorter: (a, b) => (a.id > b.id ? 1 : -1),
         },
         {
             title: t("general.name"),
             dataIndex: "fullName",
             key: "fullName",
-            sorter: (a, b) => a.fullName.length - b.fullName.length,
+            sorter: (a, b) => a.fullName.localeCompare(b.fullName),
         },
         {
             title: t("general.ageGroup"),
@@ -40,6 +41,7 @@ const StudentTable = ({ students }: { students: Student[] }) => {
                         navigate(`/student/${record.id}`);
                     },
                 })}
+                pagination={false}
             />
         </>
     );

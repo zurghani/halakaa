@@ -51,7 +51,7 @@ export function useUpdateStudent() {
         }) => {
             const res = await apiClient.students[":id"].$put({
                 param: { id: studentId },
-                json: updates, //dont know why its an error but it works
+                json: updates,
             });
             if (!res.ok) {
                 const error = new Error(await res.text());
