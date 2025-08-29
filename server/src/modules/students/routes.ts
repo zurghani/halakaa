@@ -13,10 +13,11 @@ PUT    => UPDATE
 const students = new Hono<{ Variables: AuthType }>()
   .get("/", requireRoles({ students: ["view"] }), async (c) => {
     const parentId = c.req.query("parent_id");
+    const teacherId = c.req.query("teacher_id");
     const classId = Number(c.req.query("class_id")) || undefined;
 
     if (parentId || classId) {
-      const students = await studentsService.getStudentByFilters({ parentId, classId });
+      const students = await studentsService.getStudentByFilters({ teacherId, parentId, classId });
       return c.json(students || []);
     }
 

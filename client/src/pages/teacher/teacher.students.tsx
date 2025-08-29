@@ -8,6 +8,7 @@ import { PrinterOutlined } from "@ant-design/icons";
 import StudentsTable from "./components/students.table";
 import StudentsList from "./components/students.list";
 import { useTranslation } from "react-i18next";
+import { useStudents } from "../../queries/students";
 
 const { useBreakpoint } = Grid;
 
@@ -27,7 +28,13 @@ const ViewStudents: React.FC = () => {
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
         ]);
     }, []);
-    return isMobile ? <StudentsList /> : <StudentsTable />;
+    const { data, isLoading } = useStudents({ teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7" });
+    if (isLoading) return <div>Loading...</div>;
+    return isMobile ? (
+        <StudentsList students={data ?? []} />
+    ) : (
+        <StudentsTable students={data ?? []} />
+    );
 };
 
 export default ViewStudents;

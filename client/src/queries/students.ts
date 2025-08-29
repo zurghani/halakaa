@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
 import { NewStudent, UpdateStudent } from "../types";
 
-export function useStudents(filters?: { parentId?: string; classId?: number }) {
+export function useStudents(filters?: { teacherId?: string; parentId?: string; classId?: number }) {
     return useQuery({
         queryKey: ["students", filters],
         queryFn: async () => {
