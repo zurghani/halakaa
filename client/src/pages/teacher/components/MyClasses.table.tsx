@@ -2,9 +2,9 @@ import { Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../hooks/useTags";
-import { Class } from "../../../types";
+import { ClassWithAgeGroup } from "../../../types";
 
-const MyClassesTable = ({ classes }: { classes: Class[] }) => {
+const MyClassesTable = ({ classes }: { classes: ClassWithAgeGroup[] }) => {
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
@@ -12,8 +12,22 @@ const MyClassesTable = ({ classes }: { classes: Class[] }) => {
         id: teacherClass.id,
         teacherId: teacherClass.teacherId,
         ageGroup: teacherClass.ageGroup,
-        start: teacherClass.startsAt,
-        end: teacherClass.endsAt,
+        start: (() => {
+            const date = new Date();
+            date.setHours(
+                parseInt(teacherClass?.startsAt?.split(" ")[0].split(":")[0] || "0"),
+                parseInt(teacherClass?.startsAt?.split(" ")[0].split(":")[1] || "0")
+            );
+            return date.toLocaleString([], { hour: "2-digit", minute: "2-digit", hour12: true });
+        })(),
+        end: (() => {
+            const date = new Date();
+            date.setHours(
+                parseInt(teacherClass?.endsAt?.split(" ")[0].split(":")[0] || "0"),
+                parseInt(teacherClass?.endsAt?.split(" ")[0].split(":")[1] || "0")
+            );
+            return date.toLocaleString([], { hour: "2-digit", minute: "2-digit", hour12: true });
+        })(),
     }));
 
     const columns: TableProps["columns"] = [
@@ -21,70 +35,15 @@ const MyClassesTable = ({ classes }: { classes: Class[] }) => {
             title: t("class.classID"),
             dataIndex: "id",
             key: "id",
-            filters: [
-                {
-                    text: "10001",
-                    value: "10001",
-                },
-                {
-                    text: "10003",
-                    value: "10003",
-                },
-
-                {
-                    text: "10005",
-                    value: "10005",
-                },
-            ],
-            onFilter: (value, record) => record.id.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
             sorter: (a, b) => a.id - b.id,
-        },
-        {
-            title: t("class.teacher"),
-            dataIndex: "teacherId",
-            key: "teacherId",
-            filters: [
-                {
-                    text: "20001",
-                    value: "20001",
-                },
-                {
-                    text: "20003",
-                    value: "20003",
-                },
-
-                {
-                    text: "20005",
-                    value: "20005",
-                },
-            ],
-            onFilter: (value, record) => record.teacherId.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => a.teacherId - b.teacherId,
         },
         {
             title: t("class.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
             render: (ageGroup) => ageGroupTags[ageGroup || 0],
-            filters: [
-                {
-                    text: "5 - 8",
-                    value: "5 - 8",
-                },
-                {
-                    text: "6 - 10",
-                    value: "6 - 10",
-                },
-
-                {
-                    text: "8 - 12",
-                    value: "8 - 12",
-                },
-            ],
+            filters: classes.map((_class) => ({ text: _class.ageGroup, value: _class.ageGroup })),
             onFilter: (value, record) => record.ageGroup.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
             sorter: (a, b) => {
                 const [aMin] = a.ageGroup.split(" - ").map(Number);
                 const [bMin] = b.ageGroup.split(" - ").map(Number);
@@ -95,47 +54,13 @@ const MyClassesTable = ({ classes }: { classes: Class[] }) => {
             title: t("class.startsAt"),
             dataIndex: "start",
             key: "start",
-            filters: [
-                {
-                    text: "9:00 AM",
-                    value: "9:00 AM",
-                },
-                {
-                    text: "1:00 PM",
-                    value: "1:00 PM",
-                },
-
-                {
-                    text: "6:00 PM",
-                    value: "6:00 PM",
-                },
-            ],
-            onFilter: (value, record) => record.start.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => timeToMinutes(a.start) - timeToMinutes(b.start),
+            sorter: (a, b) => (a.start > b.start ? 1 : -1),
         },
         {
             title: t("class.endsAt"),
             dataIndex: "end",
             key: "end",
-            filters: [
-                {
-                    text: "11:00 AM",
-                    value: "11:00 AM",
-                },
-                {
-                    text: "4:00 PM",
-                    value: "4:00 PM",
-                },
-
-                {
-                    text: "8:00 PM",
-                    value: "8:00 PM",
-                },
-            ],
-            onFilter: (value, record) => record.end.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => timeToMinutes(a.end) - timeToMinutes(b.end),
+            sorter: (a, b) => (a.end > b.end ? 1 : -1),
         },
     ];
 
@@ -150,6 +75,7 @@ const MyClassesTable = ({ classes }: { classes: Class[] }) => {
                         navigate(`/class/${row.id}`);
                     },
                 })}
+                pagination={false}
             />
         </>
     );
@@ -157,12 +83,12 @@ const MyClassesTable = ({ classes }: { classes: Class[] }) => {
 
 export default MyClassesTable;
 
-const timeToMinutes = (timeStr: string) => {
-    const [time, modifier] = timeStr.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
+// const timeToMinutes = (timeStr: string) => {
+//     const [time, modifier] = timeStr.split(" ");
+//     let [hours, minutes] = time.split(":").map(Number);
 
-    if (hours === 12) hours = 0;
-    if (modifier === "PM") hours += 12;
+//     if (hours === 12) hours = 0;
+//     if (modifier === "PM") hours += 12;
 
-    return hours * 60 + minutes;
-};
+//     return hours * 60 + minutes;
+// };

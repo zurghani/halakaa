@@ -10,6 +10,7 @@ import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { useTranslation } from "react-i18next";
 import { useClasses } from "../../queries/classes";
 import { useAgeGroups } from "../../queries/ageGroups";
+import { ClassWithAgeGroup } from "../../types";
 
 const { useBreakpoint } = Grid;
 
@@ -30,24 +31,27 @@ const ViewClasses: React.FC = () => {
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
         ]);
     }, []);
+
     const { data: classes, isLoading: classesLoading } = useClasses({
         teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7", //TODO: GET TEACHER ID FROM LOGGED IN USER
     });
     const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
+
     if (classesLoading || ageGroupsLoading) return <div>Loading...</div>;
-    console.log(ageGroups);
-    console.log(classes);
-    const classesWithAgeGroups = classes?.map((_class) => {
-        const ag = ageGroups?.find((ag) => ag.id === _class.ageGroup);
-        return {
-            ..._class,
-            ageGroup: ag ? `${ag.from} - ${ag.to}` : "",
-        };
-    });
+
+    const classesWithAgeGroups: ClassWithAgeGroup[] =
+        classes?.map((_class) => {
+            const ag = ageGroups?.find((ag) => ag.id === _class.ageGroup);
+            return {
+                ..._class,
+                ageGroup: ag ? `${ag.from} - ${ag.to}` : "",
+            };
+        }) || [];
+
     return isMobile ? (
-        <MyClassesList classes={classesWithAgeGroups ?? []} />
+        <MyClassesList classes={classesWithAgeGroups} />
     ) : (
-        <MyClassesTable classes={classesWithAgeGroups ?? []} />
+        <MyClassesTable classes={classesWithAgeGroups} />
     );
 };
 
