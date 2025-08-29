@@ -1,11 +1,18 @@
 // StudentForm.tsx
 import { DatePicker, Form, Input, Segmented, Select } from "antd";
-import { StudentFormProps } from "../types";
 import { useTranslation } from "react-i18next";
+import { StudentFormValues } from "../../../types";
+import { FormInstance } from "antd/lib";
+export interface StudentFormProps {
+    disabled?: boolean;
+    initialValues?: StudentFormValues;
+    form: FormInstance;
+    onSubmit?: (data: any) => void;
+}
 
 export const StudentForm: React.FC<StudentFormProps> = ({
     disabled = false,
-    defaultValues = { gender: "male" },
+    initialValues = { gender: "male" },
     onSubmit,
     form,
 }) => {
@@ -17,7 +24,7 @@ export const StudentForm: React.FC<StudentFormProps> = ({
             layout="vertical"
             style={{ padding: "20px", maxWidth: "40rem" }}
             onFinish={onSubmit}
-            initialValues={defaultValues}>
+            initialValues={initialValues}>
             <Form.Item
                 name="fullName"
                 label={t("forms.fullName")}

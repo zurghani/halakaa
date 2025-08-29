@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import dayjs from "dayjs";
 import { Button, Form } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
-import { Student } from "../../types";
 import SaveSuccessModal from "../../components/Modals/Success";
 import { ActionButton } from "../../components/Button/ActionButton";
-
-const dummyStudent: Student = {
-    fullName: "Zacharea K",
-    gender: "male",
-    dateOfBirth: dayjs("2000-01-01") as any,
-    parentId: "parent123",
-};
+import { useStudent, useUpdateStudent } from "../../queries/students";
+import dayjs from "dayjs";
+import { StudentFormValues } from "../../types";
 
 const StudentEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -26,13 +20,26 @@ const StudentEditPage: React.FC = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const [form] = Form.useForm();
+    const { id } = useParams<{ id: string }>();
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-
-    const handleSubmit = (values: any) => {
-        console.log("Submitted:", values);
-        // actually create the student
-        setIsSuccessModalOpen(true);
+    const updateStudentMutation = useUpdateStudent();
+    const handleSubmit = (values: StudentFormValues) => {
+        const student = {
+            studentId: id || "",
+            updates: {
+                fullName: values.fullName,
+                gender: values.gender,
+                parentId: values.parentId,
+                userId: values.userId,
+                dateOfBirth: values.dateOfBirth ? values.dateOfBirth.format("YYYY-MM-DD") : null,
+            },
+        };
+        updateStudentMutation.mutate(student, {
+            onSuccess: () => {
+                setIsSuccessModalOpen(true);
+            },
+        });
     };
 
     // Set Page Title
@@ -48,10 +55,20 @@ const StudentEditPage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
+    const { data: initialStudent, isLoading } = useStudent(id || "");
+    console.log(initialStudent);
 
+    const formInitialValues = initialStudent
+        ? {
+              ...initialStudent,
+              dateOfBirth: initialStudent?.dateOfBirth ? dayjs(initialStudent.dateOfBirth) : null,
+          }
+        : undefined;
+
+    if (isLoading) return <div>Loading...</div>;
     return (
         <>
-            <StudentForm form={form} onSubmit={handleSubmit} defaultValues={dummyStudent} />
+            <StudentForm form={form} onSubmit={handleSubmit} initialValues={formInitialValues} />
             <SaveSuccessModal
                 isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}

@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import {
     students,
     ageGroup,
@@ -13,6 +14,9 @@ import {
 export type Student = Omit<typeof students.$inferSelect, "createdAt" | "dateOfBirth"> & {
     createdAt: string | null;
     dateOfBirth: string | null;
+};
+export type StudentFormValues = Omit<Student, "dateOfBirth"> & {
+    dateOfBirth: Dayjs | null;
 };
 export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
