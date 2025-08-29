@@ -6,6 +6,7 @@ export const allActions = ["view", "create", "update", "delete"] as SubArray<
 
 const statement = {
   user: allActions,
+  users: allActions,
   students: allActions,
   classes: allActions,
   enrollments: allActions,

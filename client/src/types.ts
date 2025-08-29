@@ -1,5 +1,6 @@
 import { Dayjs } from "dayjs";
 import {
+    user,
     students,
     ageGroup,
     classes,
@@ -10,6 +11,10 @@ import {
     surah,
     ayah,
 } from "../../server/src/db/schema";
+
+export type User = typeof user.$inferSelect;
+export type NewUser = typeof user.$inferInsert;
+export type UpdateUser = Partial<NewUser>;
 
 export type Student = Omit<typeof students.$inferSelect, "createdAt" | "dateOfBirth"> & {
     createdAt: string | null;
