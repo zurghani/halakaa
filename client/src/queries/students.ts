@@ -1,7 +1,7 @@
 // src/queries/todos.ts
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
-import { NewStudent } from "../types";
+import { NewStudent, UpdateStudent } from "../types";
 
 export function useStudents(filters?: { parentId?: string; classId?: number }) {
     return useQuery({
@@ -38,6 +38,34 @@ export function useStudent(studentId: string) {
         enabled: !!studentId,
     });
 }
+
+export function useUpdateStudent() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async ({
+            studentId,
+            updates,
+        }: {
+            studentId: string;
+            updates: UpdateStudent;
+        }) => {
+            const res = await apiClient.students[":id"].$put({
+                param: { id: studentId },
+                json: updates, //dont know why its an error but it works
+            });
+            if (!res.ok) {
+                const error = new Error(await res.text());
+                (error as any).status = res.status;
+                throw error;
+            }
+            return await res.json();
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["students"] });
+        },
+    });
+}
+
 export function useCreateStudent() {
     const queryClient = useQueryClient();
     return useMutation({

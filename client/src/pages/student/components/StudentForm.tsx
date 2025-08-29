@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 export const StudentForm: React.FC<StudentFormProps> = ({
     disabled = false,
-    defaultValues = { gender: "male" },
+    defaultValues,
     onSubmit,
     form,
 }) => {

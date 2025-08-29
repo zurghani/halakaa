@@ -13,7 +13,7 @@ import AttendanceList from "./components/AttendanceList/Attendance.list";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";
@@ -31,6 +31,7 @@ const ViewStudent: React.FC = () => {
     // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
     const { t } = useTranslation();
     const screens = useBreakpoint();
+    const { id } = useParams<{ id: string }>();
     const isMobile = !screens.lg;
     const dispatch = useDispatch();
     useEffect(() => {
@@ -42,7 +43,9 @@ const ViewStudent: React.FC = () => {
             <Button icon={<PrinterOutlined />}></Button>,
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
             userRole === UserRole.Admin && (
-                <ActionButton key="edit" onClick={() => navigate(Paths.STUDENT.EDIT)}>
+                <ActionButton
+                    key="edit"
+                    onClick={() => navigate(Paths.STUDENT.EDIT.replace(":id", id || ""))}>
                     {t("titles.editStudent")}
                 </ActionButton>
             ),
