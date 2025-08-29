@@ -16,7 +16,7 @@ const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
-  trustedOrigins: [process.env.TRUSTED_ORIGIN || "http://localhost:3000"],
+  trustedOrigins: [process.env.TRUSTED_ORIGIN ?? "http://localhost:3000"],
   emailAndPassword: {
     enabled: true,
     password: {
@@ -45,15 +45,9 @@ const auth = betterAuth({
   },
   plugins: [
     admin({
-      ac,
       roles: {
         admin: adminRole,
-        parent,
-        student,
-        teacher,
       },
-      adminRoles: ["admin"],
-      defaultRole: "student",
     }),
   ],
 });
@@ -61,6 +55,8 @@ const auth = betterAuth({
 export const authRoutes = new Hono<{ Bindings: AuthType }>({ strict: false });
 
 authRoutes.on(["POST", "GET"], "/*", async (c) => {
+  const s = await auth.api.getSession({ headers: c.req.raw.headers });
+  console.log("ADMIN TEST – server sees:", s?.user?.id, s?.user?.role);
   return auth.handler(c.req.raw);
 });
 

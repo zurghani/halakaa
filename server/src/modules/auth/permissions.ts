@@ -1,6 +1,7 @@
 import { ac, allActions } from "./access-controller";
 
 export const admin = ac.newRole({
+  user: allActions,
   students: allActions,
   classes: allActions,
   enrollments: allActions,

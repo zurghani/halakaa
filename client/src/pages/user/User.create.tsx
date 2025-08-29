@@ -10,6 +10,7 @@ import { UserForm } from "./components/UserForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
 import SaveSuccessModal from "../../components/Modals/Success";
+import { authClient } from "../../lib/auth-client";
 
 const UserCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -20,10 +21,27 @@ const UserCreatePage: React.FC = () => {
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-    const handleSubmit = (values: any) => {
+    const handleSubmit = async (values: any) => {
+        const s = await authClient.getSession();
+
+        console.log("session?", s?.data?.user?.id, s?.data?.user?.role); // must log "admin"
         console.log("Submitted:", values);
-        // Create user here
-        setIsSuccessModalOpen(true);
+        try {
+            // Create user using authClient
+            const result = await authClient.admin.createUser({
+                name: values.fullName,
+                email: values.email,
+
+                password: "1234", // You may want to generate a random password or handle this differently
+            });
+
+            if (result.data) {
+                setIsSuccessModalOpen(true);
+            }
+        } catch (error) {
+            console.error("Error creating user:", error);
+            // Handle error appropriately
+        }
     };
 
     // Set Page Title
@@ -43,8 +61,8 @@ const UserCreatePage: React.FC = () => {
     return (
         <>
             <UserForm form={form} onSubmit={handleSubmit} />
-            <SaveSuccessModal 
-                isOpen={isSuccessModalOpen} 
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.USER.VIEW}
                 title={t("modal.user.createSuccess")}
