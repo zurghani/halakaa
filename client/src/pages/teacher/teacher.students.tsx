@@ -28,7 +28,7 @@ const ViewStudents: React.FC = () => {
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
         ]);
     }, []);
-    const { data, isLoading } = useStudents({ teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7" });
+    const { data, isLoading } = useStudents({ teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7" }); //TODO: GET TEACHER ID FROM AUTH USER
     if (isLoading) return <div>Loading...</div>;
     return isMobile ? (
         <StudentsList students={data ?? []} />
