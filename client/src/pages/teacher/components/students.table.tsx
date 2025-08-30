@@ -48,8 +48,7 @@ const StudentsTable = ({ students }: { students: Student[] }) => {
             title: t("general.dob"),
             dataIndex: "dateOfBirth",
             key: "dateOfBirth",
-            render: (dob: string | null) => (dob ? new Date(dob).toLocaleDateString() : "-"),
-            sorter: (a, b) => new Date(a.dateOfBirth).getTime() - new Date(b.dateOfBirth).getTime(),
+            sorter: (a, b) => (a.dateOfBirth > b.dateOfBirth ? 1 : -1),
         },
     ];
 
