@@ -45,66 +45,69 @@ const AppRoutes = () => {
         <Router>
             <ErrorHandlerProvider>
                 <Routes>
-                <Route path={Paths.AUTH.LOGIN} element={<Login />} />
-                <Route element={<AuthenticationGuard />}>
-                    {/* Other Authenticated Routes */}
-                    <Route element={<MainLayout />}>
-                        <Route path={Paths.HOME.ROOT} element={<HomeRedirect />} />
-                        <Route path={Paths.HOME.MAIN} element={<HomeRedirect />} />
+                    <Route path={Paths.AUTH.LOGIN} element={<Login />} />
+                    <Route element={<AuthenticationGuard />}>
+                        {/* Other Authenticated Routes */}
+                        <Route element={<MainLayout />}>
+                            <Route path={Paths.HOME.ROOT} element={<HomeRedirect />} />
+                            <Route path={Paths.HOME.MAIN} element={<HomeRedirect />} />
 
-                        <Route path={Paths.HOME.ADMIN} element={<Home />} />
-                        <Route path={Paths.HOME.TEACHER} element={<Home />} />
+                            <Route path={Paths.HOME.ADMIN} element={<Home />} />
+                            <Route path={Paths.HOME.TEACHER} element={<Home />} />
 
-                        <Route element={<ParentGuard />}>
-                            <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
-                        </Route>
+                            <Route element={<ParentGuard />}>
+                                <Route path={Paths.HOME.PARENT} element={<ParentHome />} />
+                            </Route>
 
-                        <Route element={<PageLayout />}>
-                            <Route path={Paths.STUDENT.CREATE} element={<StudentCreatePage />} />
-                            <Route path={Paths.STUDENT.EDIT} element={<StudentEditPage />} />
-                            <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
-                            <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
+                            <Route element={<PageLayout />}>
+                                <Route
+                                    path={Paths.STUDENT.CREATE}
+                                    element={<StudentCreatePage />}
+                                />
+                                <Route path={Paths.STUDENT.EDIT} element={<StudentEditPage />} />
+                                <Route path={Paths.STUDENT.VIEW} element={<ViewStudent />} />
+                                <Route path={Paths.STUDENT.FIND} element={<FindStudent />} />
 
-                            <Route path={Paths.CLASS.CREATE} element={<ClassCreatePage />} />
-                            <Route path={Paths.CLASS.EDIT} element={<ClassEditPage />} />
-                            <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
-                            <Route path={Paths.CLASS.FIND} element={<FindClass />} />
-                            <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
-                            <Route
-                                path={Paths.CLASS.ENROLLMENTS}
-                                element={<EnrollmentsEditPage />}
-                            />
+                                <Route path={Paths.CLASS.CREATE} element={<ClassCreatePage />} />
+                                <Route path={Paths.CLASS.EDIT} element={<ClassEditPage />} />
+                                <Route path={Paths.CLASS.VIEW} element={<ClassView />} />
+                                <Route path={Paths.CLASS.FIND} element={<FindClass />} />
+                                <Route path={Paths.CLASS.RUNNING} element={<RunningClass />} />
+                                <Route
+                                    path={Paths.CLASS.ENROLLMENTS}
+                                    element={<EnrollmentsEditPage />}
+                                />
 
-                            <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
-                            <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
+                                <Route path={Paths.TEACHER.CLASSES} element={<ViewClasses />} />
+                                <Route path={Paths.TEACHER.STUDENTS} element={<ViewStudents />} />
 
-                            <Route path={Paths.USER.CREATE} element={<UserCreatePage />} />
-                            <Route path={Paths.USER.FIND} element={<UserFindPage />} />
-                            <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
-                            <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
+                                <Route path={Paths.USER.CREATE} element={<UserCreatePage />} />
+                                <Route path={Paths.USER.FIND} element={<UserFindPage />} />
+                                <Route path={Paths.USER.VIEW} element={<UserViewPage />} />
+                                <Route path={Paths.USER.EDIT} element={<UserEditPage />} />
 
-                            <Route
-                                path={Paths.SETTINGS.ADMIN.TASKTYPES.EDIT}
-                                element={<TaskTypesEditPage />}
-                            />
-                            <Route
-                                path={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
-                                element={<TaskTypesViewPage />}
-                            />
-                            <Route
-                                path={Paths.SETTINGS.ADMIN.AGEGROUP.EDIT}
-                                element={<AgeGroupEditPage />}
-                            />
-                            <Route
-                                path={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
-                                element={<AgeGroupViewPage />}
-                            />
+                                <Route
+                                    path={Paths.SETTINGS.ADMIN.TASKTYPES.EDIT}
+                                    element={<TaskTypesEditPage />}
+                                />
+                                <Route
+                                    path={Paths.SETTINGS.ADMIN.TASKTYPES.VIEW}
+                                    element={<TaskTypesViewPage />}
+                                />
+                                <Route
+                                    path={Paths.SETTINGS.ADMIN.AGEGROUP.EDIT}
+                                    element={<AgeGroupEditPage />}
+                                />
+                                <Route
+                                    path={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+                                    element={<AgeGroupViewPage />}
+                                />
+                            </Route>
                         </Route>
                     </Route>
-                </Route>
-                <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
-                <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
-                <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
+                    <Route path={Paths.ERROR.SERVER} element={<ServerError />} />
+                    <Route path={Paths.ERROR.UNKNOWN} element={<UnknownError />} />
+                    <Route path={Paths.ERROR.NOT_FOUND} element={<NotFound />} />
                 </Routes>
             </ErrorHandlerProvider>
         </Router>
@@ -184,8 +187,6 @@ const HomeRedirect = () => {
     const userRole = data?.user.role === "student" ? "parent" : data?.user.role;
 
     const navigate = useNavigate();
-
-    console.log(userRole);
 
     useEffect(() => {
         let targetRoute = Paths.HOME.MAIN;

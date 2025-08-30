@@ -2,11 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import ParentStudentList from "./components/ParentStudentList/ParentStudent.list";
 import { useStudents } from "../../queries/students";
+import { authClient } from "../../lib/auth-client";
 
 const ParentHome: React.FC = () => {
     const { t } = useTranslation();
+    const { data: auth } = authClient.useSession();
     const { data: students, isLoading } = useStudents({
-        parentId: "d6dca3a6-76e1-4300-8406-dea962c50f06", //TODO: LOAD PARENT ID FROM USER.
+        parentId: auth?.user.id,
     });
     if (isLoading) {
         return <div>Loading...</div>;
