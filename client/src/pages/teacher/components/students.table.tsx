@@ -1,10 +1,7 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Table, TableProps } from "antd";
-import { AppStore } from "../../../store";
-import { useTags } from "../../../hooks/useTags";
+import { Student } from "../../../types";
 
 // interface DataType {
 //   key: string;
@@ -15,17 +12,10 @@ import { useTags } from "../../../hooks/useTags";
 //   date: string;
 // }
 
-const StudentsTable: React.FC = () => {
-    const { ageGroupTags } = useTags({});
+const StudentsTable = ({ students }: { students: Student[] }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-
-    const students = useSelector((state: AppStore) => state.class[0]);
-    const data = students.students.map((student) => ({
-        id: student.id,
-        studentName: student.name,
-        ageGroup: students.ageGroup,
-    }));
+    console.log(students);
 
     const columns: TableProps["columns"] = [
         {
@@ -38,8 +28,8 @@ const StudentsTable: React.FC = () => {
         },
         {
             title: t("class.name"),
-            dataIndex: "studentName",
-            key: "studentName",
+            dataIndex: "fullName",
+            key: "fullName",
             filters: [
                 {
                     text: "Sara",
@@ -55,32 +45,10 @@ const StudentsTable: React.FC = () => {
             sorter: (a, b) => a.studentName - b.studentName,
         },
         {
-            title: t("class.ageGroup"),
-            dataIndex: "ageGroup",
-            key: "ageGroup",
-            render: (ageGroup) => ageGroupTags[ageGroup],
-            filters: [
-                {
-                    text: "5 - 8",
-                    value: "5 - 8",
-                },
-                {
-                    text: "6 - 10",
-                    value: "6 - 10",
-                },
-
-                {
-                    text: "8 - 12",
-                    value: "8 - 12",
-                },
-            ],
-            onFilter: (value, record) => record.ageGroup.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => {
-                const [aMin] = a.ageGroup.split(" - ").map(Number);
-                const [bMin] = b.ageGroup.split(" - ").map(Number);
-                return aMin - bMin;
-            },
+            title: t("general.dob"),
+            dataIndex: "dateOfBirth",
+            key: "dateOfBirth",
+            sorter: (a, b) => (a.dateOfBirth > b.dateOfBirth ? 1 : -1),
         },
     ];
 
@@ -88,7 +56,7 @@ const StudentsTable: React.FC = () => {
         <>
             <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={students ?? []}
                 rowKey={(row) => `Row - ${row.id}`}
                 onRow={(row) => ({
                     onClick: () => {

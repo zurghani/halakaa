@@ -8,6 +8,8 @@ import { PrinterOutlined } from "@ant-design/icons";
 import StudentsTable from "./components/students.table";
 import StudentsList from "./components/students.list";
 import { useTranslation } from "react-i18next";
+import { useStudents } from "../../queries/students";
+import { authClient } from "../../lib/auth-client";
 
 const { useBreakpoint } = Grid;
 
@@ -21,13 +23,21 @@ const ViewStudents: React.FC = () => {
         dispatch(setCurrentPageTitle(t("titles.myStudents")));
     }, [t]);
 
+    const { data: auth } = authClient.useSession();
+
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
         ]);
     }, []);
-    return isMobile ? <StudentsList /> : <StudentsTable />;
+    const { data, isLoading } = useStudents({ teacherId: auth?.user.id });
+    if (isLoading) return <div>Loading...</div>;
+    return isMobile ? (
+        <StudentsList students={data ?? []} />
+    ) : (
+        <StudentsTable students={data ?? []} />
+    );
 };
 
 export default ViewStudents;

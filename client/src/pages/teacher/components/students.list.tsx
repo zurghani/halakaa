@@ -1,15 +1,10 @@
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../store";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useTags } from "../../../hooks/useTags";
+import { Student } from "../../../types";
 
-const StudentsList: React.FC = () => {
-    const { ageGroupTags } = useTags({});
+const StudentsList = ({ students }: { students: Student[] }) => {
     const navigate = useNavigate();
-    const classes = useSelector((state: AppStore) => state.class[0]);
-    const students = classes.students;
     return (
         <List
             itemLayout="horizontal"
@@ -27,9 +22,9 @@ const StudentsList: React.FC = () => {
                     <List.Item.Meta
                         title={
                             <>
-                                <Tag>{student.name}</Tag>
                                 <Tag>{student.id}</Tag>
-                                {ageGroupTags[classes.ageGroup || 0]}
+                                <Tag>{student.fullName}</Tag>
+                                <Tag color="blue">{student.dateOfBirth}</Tag>
                             </>
                         }
                     />
