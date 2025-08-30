@@ -21,8 +21,11 @@ const students = new Hono<{ Variables: AuthType }>()
       return c.json(students || []);
     }
 
-    const students = await studentsService.getAllStudents();
-    return c.json(students || []);
+    if (c.get("user")?.role === "admin") {
+      const students = await studentsService.getAllStudents();
+      return c.json(students || []);
+    }
+    return c.json([]);
   })
 
   .get("/:id", requireRoles({ students: ["view"] }), async (c) => {

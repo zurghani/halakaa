@@ -17,7 +17,6 @@ const StudentStat = ({ percentage, legend }: { percentage: number; legend: strin
 const StudentDetailsCard: React.FC = () => {
     const { t } = useTranslation();
     const student = useSelector((state: AppStore) => state.student);
-    console.log(student);
     return (
         <>
             <Row gutter={[16, 8]} className="student-section__info">

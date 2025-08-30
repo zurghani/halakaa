@@ -37,32 +37,33 @@ export const getStudentByFilters = async (filters: getStudentsFilters): Promise<
     createdAt: students.createdAt,
   };
 
-  console.log("I am here");
-  console.log("Filters:", filters);
-
   const conditions = [];
 
-  if (filters.parentId) {
+  if (filters.parentId && filters.parentId !== "") {
     conditions.push(eq(students.parentId, filters.parentId));
   }
-  if (filters.classId) {
+  if (filters.classId && filters.classId !== 0) {
     conditions.push(eq(enrollments.classId, filters.classId));
   }
-  if (filters.teacherId) {
+  if (filters.teacherId && filters.teacherId !== "") {
     conditions.push(eq(classes.teacherId, filters.teacherId));
   }
 
-  if (filters.teacherId || filters.classId) {
-    let query = db
-      .select(selectFields)
-      .from(students)
-      .innerJoin(enrollments, eq(enrollments.studentId, students.id))
-      .innerJoin(classes, eq(classes.id, enrollments.classId));
+  if (conditions.length) {
+    if (filters.teacherId || filters.classId) {
+      let query = db
+        .select(selectFields)
+        .from(students)
+        .innerJoin(enrollments, eq(enrollments.studentId, students.id))
+        .innerJoin(classes, eq(classes.id, enrollments.classId));
 
-    return conditions.length > 0 ? await query.where(and(...conditions)) : [];
+      return conditions.length > 0 ? await query.where(and(...conditions)) : [];
+    } else {
+      let query = db.select(selectFields).from(students);
+      return conditions.length > 0 ? await query.where(and(...conditions)) : [];
+    }
   } else {
-    let query = db.select(selectFields).from(students);
-    return conditions.length > 0 ? await query.where(and(...conditions)) : await query;
+    return [];
   }
 };
 
