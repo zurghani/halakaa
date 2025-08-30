@@ -10,6 +10,7 @@ export function useStudents(filters?: { teacherId?: string; parentId?: string; c
             const searchParams = new URLSearchParams();
             if (filters?.parentId) searchParams.append("parent_id", filters.parentId);
             if (filters?.classId) searchParams.append("class_id", filters.classId.toString());
+            if (filters?.teacherId) searchParams.append("teacher_id", filters.teacherId);
 
             const res = await apiClient.students.$get({
                 query: Object.fromEntries(searchParams.entries()),

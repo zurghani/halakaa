@@ -9,6 +9,7 @@ import StudentsTable from "./components/students.table";
 import StudentsList from "./components/students.list";
 import { useTranslation } from "react-i18next";
 import { useStudents } from "../../queries/students";
+import { authClient } from "../../lib/auth-client";
 
 const { useBreakpoint } = Grid;
 
@@ -22,13 +23,15 @@ const ViewStudents: React.FC = () => {
         dispatch(setCurrentPageTitle(t("titles.myStudents")));
     }, [t]);
 
+    const { data: auth } = authClient.useSession();
+
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
             <DownloadModal title={""} dataSelectorFunction={undefined} />,
         ]);
     }, []);
-    const { data, isLoading } = useStudents({ teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7" }); //TODO: GET TEACHER ID FROM AUTH USER
+    const { data, isLoading } = useStudents({ teacherId: auth?.user.id });
     if (isLoading) return <div>Loading...</div>;
     return isMobile ? (
         <StudentsList students={data ?? []} />

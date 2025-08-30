@@ -16,7 +16,7 @@ const students = new Hono<{ Variables: AuthType }>()
     const teacherId = c.req.query("teacher_id");
     const classId = Number(c.req.query("class_id")) || undefined;
 
-    if (parentId || classId) {
+    if (parentId || classId || teacherId) {
       const students = await studentsService.getStudentByFilters({ teacherId, parentId, classId });
       return c.json(students || []);
     }

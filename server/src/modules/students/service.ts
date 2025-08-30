@@ -27,24 +27,21 @@ export const getStudentById = async (id: number): Promise<Student | undefined> =
 // Read by filters
 export type getStudentsFilters = { teacherId?: string; parentId?: string; classId?: number };
 export const getStudentByFilters = async (filters: getStudentsFilters): Promise<Student[]> => {
-  const conditions = [];
-  let base = db
-    .select({
-      id: students.id,
-      fullName: students.fullName,
-      parentId: students.parentId,
-      userId: students.userId,
-      gender: students.gender,
-      dateOfBirth: students.dateOfBirth,
-      createdAt: students.createdAt,
-    })
-    .from(students) as any; //I get errors without 'as any'
+  const selectFields = {
+    id: students.id,
+    fullName: students.fullName,
+    parentId: students.parentId,
+    userId: students.userId,
+    gender: students.gender,
+    dateOfBirth: students.dateOfBirth,
+    createdAt: students.createdAt,
+  };
 
-  if (filters.teacherId || filters.classId) {
-    base = base
-      .innerJoin(enrollments, eq(enrollments.studentId, students.id))
-      .innerJoin(classes, eq(classes.id, enrollments.classId));
-  }
+  console.log("I am here");
+  console.log("Filters:", filters);
+
+  const conditions = [];
+
   if (filters.parentId) {
     conditions.push(eq(students.parentId, filters.parentId));
   }
@@ -54,9 +51,19 @@ export const getStudentByFilters = async (filters: getStudentsFilters): Promise<
   if (filters.teacherId) {
     conditions.push(eq(classes.teacherId, filters.teacherId));
   }
-  const query = conditions.length > 0 ? base.where(and(...conditions)) : base;
 
-  return await query;
+  if (filters.teacherId || filters.classId) {
+    let query = db
+      .select(selectFields)
+      .from(students)
+      .innerJoin(enrollments, eq(enrollments.studentId, students.id))
+      .innerJoin(classes, eq(classes.id, enrollments.classId));
+
+    return conditions.length > 0 ? await query.where(and(...conditions)) : [];
+  } else {
+    let query = db.select(selectFields).from(students);
+    return conditions.length > 0 ? await query.where(and(...conditions)) : await query;
+  }
 };
 
 // Update
