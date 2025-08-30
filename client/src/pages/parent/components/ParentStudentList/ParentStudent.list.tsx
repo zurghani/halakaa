@@ -1,11 +1,11 @@
 import { Button, Col, Empty, Row } from "antd";
-import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../../store";
 import { useNavigate } from "react-router-dom";
+import { Student } from "../../../../types";
 
-const ParentStudentList: React.FC = () => {
+const ParentStudentList = ({ students }: { students: Student[] }) => {
     const parent = useSelector((state: AppStore) => state.parent);
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const ParentStudentList: React.FC = () => {
     }
     return (
         <Row gutter={[16, 8]} align="middle" justify="center">
-            {parent.students.map((student, index) => {
+            {students.map((student, index) => {
                 const key = `col-${index}`;
                 return (
                     <Col
@@ -29,7 +29,7 @@ const ParentStudentList: React.FC = () => {
                             icon={<UserOutlined />}
                             variant="outlined"
                             style={{ width: "100%", height: "100px" }}>
-                            {student.name}
+                            {student.fullName}
                         </Button>
                     </Col>
                 );
