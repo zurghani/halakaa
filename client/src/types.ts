@@ -28,12 +28,25 @@ export type Attendance = typeof attendance.$inferSelect;
 export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
-export type Class = typeof classes.$inferSelect;
+export type Class = Omit<typeof classes.$inferSelect, "createdAt"> & {
+    createdAt: string | null;
+};
+
+export type ClassFormValues = Omit<Class, "startsAt" | "endsAt"> & {
+    startsAt: Dayjs | null;
+    endsAt: Dayjs | null;
+};
+
 export type ClassWithAgeGroup = Omit<Class, "ageGroup"> & { ageGroup: string | "" };
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
 
-export type Enrollment = typeof enrollments.$inferSelect;
+export type Enrollment = Omit<typeof enrollments.$inferSelect, "createdAt"> & {
+    createdAt: string | null;
+};
+export type EnrollmentWithStudent = Enrollment & {
+    student: Student | null;
+};
 export type NewEnrollment = typeof enrollments.$inferInsert;
 
 export type Task = typeof tasks.$inferSelect;

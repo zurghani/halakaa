@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
-import { Enrollment } from "../types";
+import { EnrollmentWithStudent } from "../../../types";
 
 interface EnrollmentsTableProps {
-    enrollments: Enrollment[];
+    enrollments: EnrollmentWithStudent[];
     editable?: boolean;
     selectable?: boolean;
-    onSelect?: (student: Enrollment | null) => void;
+    onSelect?: (student: EnrollmentWithStudent | null) => void;
     onDelete?: (id: number) => void;
+    onCreate?: () => void;
 }
 
 const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
@@ -18,6 +19,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
     selectable = false,
     onSelect,
     onDelete,
+    onCreate,
 }) => {
     const { t } = useTranslation();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -26,23 +28,26 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
         ? {
               type: "radio" as const,
               selectedRowKeys,
-              onChange: (keys: React.Key[], selectedRows: Enrollment[]) => {
+              onChange: (keys: React.Key[], selectedRows: EnrollmentWithStudent[]) => {
                   setSelectedRowKeys(keys);
                   onSelect?.(selectedRows[0] || null);
               },
           }
         : undefined;
 
-    const columns: TableColumnsType<Enrollment> = [
+    const columns: TableColumnsType<EnrollmentWithStudent> = [
         {
-            title: t("class.id"),
-            dataIndex: "classId",
+            title: t("general.enrollment"),
+            dataIndex: "id",
+            key: "id",
             sorter: (a, b) => Number(a.id) - Number(b.id),
             width: "30%",
         },
         {
             title: t("class.name"),
-            dataIndex: "studentName",
+            dataIndex: "student",
+            key: "student",
+            render: (student) => student?.fullName,
             sorter: (a, b) => ((a.studentId || "") > (b.studentId || "") ? 1 : -1),
             width: "70%",
         },
@@ -62,7 +67,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 
     return (
         <div>
-            <Table<Enrollment>
+            <Table<EnrollmentWithStudent>
                 rowKey="id"
                 dataSource={data}
                 columns={columns}
