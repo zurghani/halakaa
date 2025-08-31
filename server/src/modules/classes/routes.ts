@@ -13,19 +13,29 @@ PUT    => UPDATE
 const classes = new Hono<{ Variables: AuthType }>()
   .get("/", requireRoles({ classes: ["view"] }), async (c) => {
     const user = c.get("user");
-    let teacherId = c.req.query("teacher_id");
+    const teacherId = c.req.query("teacher_id");
+    const studentId = c.req.query("student_id");
     let classes: any[] = [];
 
-    // Better Auth provides user.role (singular) not roles (plural)
-    if (user?.role === "teacher") {
-      teacherId = user.id;
-      classes = await classesService.getClassByFilters({ teacherId });
-    } else if (user?.role === "admin") {
+    // If student_id is provided, fetch classes for that student
+    if (studentId) {
+      classes = await classesService.getClassByFilters({ studentId: Number(studentId) });
+    }
+    // If teacher, fetch classes for that teacher
+    else if (user?.role === "teacher") {
+      classes = await classesService.getClassByFilters({ teacherId: user.id });
+    }
+    // If admin, fetch by teacherId if provided, else all classes
+    else if (user?.role === "admin") {
       if (teacherId) {
-        classes = await classesService.getClassByFilters({ teacherId });
+        classes = await classesService.getClassByFilters({ teacherId: teacherId });
       } else {
         classes = await classesService.getAllClasses();
       }
+    }
+    // If parent and studentId is provided, fetch classes for that student
+    else if (user?.role === "parent" && studentId) {
+      classes = await classesService.getClassByFilters({ studentId: Number(studentId) });
     }
 
     return c.json(classes || []);

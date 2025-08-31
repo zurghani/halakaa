@@ -1,27 +1,20 @@
 import { Col, Collapse, Row, Tag } from "antd";
-import { AppStore } from "../../../store";
-import { useSelector } from "react-redux";
-import { TaskStatus } from "../../../store/types";
 import "./CompletedTasks.scss";
 import { useTags } from "../../../hooks/useTags";
+import { TaskWithTaskTypeAndAyahReference } from "../../../types";
 
-const CompletedTasksList: React.FC = () => {
+const CompletedTasksList = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
     const { taskTypeTags } = useTags({});
-    const studentTasks = useSelector((state: AppStore) => state.tasks);
 
-    const data = studentTasks.tasks.filter((task) => task.status === TaskStatus.Completed);
     // TODO : add explanation for why we did we for loop here
     // For loop to create mapping of keys, ensures unique key as there are many collapses on the same page
-    const keyMap = new Array(studentTasks.tasks.length);
-    for (let i = 0; i < studentTasks.tasks.length; i++) {
-        keyMap[i] = studentTasks.tasks[i].id.toString();
-    }
-    const items = studentTasks.tasks.map((task, i) => ({
-        key: keyMap[i],
+
+    const items = tasks.map((task, i) => ({
+        key: `completed-${task.id}`,
         label: (
             <>
-                <div>{task.title}</div>
-                {taskTypeTags[task.type]}
+                <Tag>{task.id}</Tag>
+                {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
                 <Tag>{task.completedOn}</Tag>
             </>
         ),
@@ -29,16 +22,24 @@ const CompletedTasksList: React.FC = () => {
             <>
                 <Row gutter={[16, 8]}>
                     <Col span={12}>From:</Col>
-                    <Col span={12}>{task.ayahs.from}</Col>
+                    <Col span={12}>
+                        {task.startingAyah
+                            ? `(${task.startingAyah.number}) ${task.startingAyah.surahName}`
+                            : "-"}
+                    </Col>
 
                     <Col span={12}>To:</Col>
-                    <Col span={12}>{task.ayahs.to}</Col>
+                    <Col span={12}>
+                        {task.endingAyah
+                            ? `(${task.endingAyah.number}) ${task.endingAyah.surahName}`
+                            : "-"}
+                    </Col>
 
                     <Col span={12}>Assigned By:</Col>
-                    <Col span={12}>{task.teacherId}</Col>
+                    <Col span={12}>{task.assignedBy}</Col>
 
                     <Col span={12}>Assigned On:</Col>
-                    <Col span={12}>{task.assignedOn}</Col>
+                    <Col span={12}>{task.createdAt}</Col>
 
                     <Col span={12}>Completed On:</Col>
                     <Col span={12}>{task.completedOn}</Col>

@@ -159,10 +159,12 @@ export const tasks = pgTable("tasks", {
     .notNull()
     .references(() => students.id),
   classId: integer("class_id").references(() => classes.id),
-  teacherId: text("teacher_id").references(() => user.id),
+  assignedBy: text("assigned_by").references(() => user.id),
   taskTypeId: integer("task_type_id").references(() => taskTypes.id),
   status: taskStatusEnum("status").default("assigned"),
   dueDate: date("due_date"),
+  completedOn: date("completed_on"),
+  completedBy: text("completed_by").references(() => user.id),
   startingAyahId: integer("starting_ayah_id").references(() => ayah.id),
   endingAyahId: integer("ending_ayah_id").references(() => ayah.id),
   notes: text("notes"),
@@ -262,8 +264,12 @@ export const tasksRelations = relations(tasks, ({ one }) => ({
     fields: [tasks.classId],
     references: [classes.id],
   }),
-  teacher: one(user, {
-    fields: [tasks.teacherId],
+  assignedBy: one(user, {
+    fields: [tasks.assignedBy],
+    references: [user.id],
+  }),
+  completedBy: one(user, {
+    fields: [tasks.completedBy],
     references: [user.id],
   }),
   taskType: one(taskTypes, {

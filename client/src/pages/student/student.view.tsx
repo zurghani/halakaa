@@ -19,6 +19,13 @@ import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { Paths } from "../../Routes";
 import { UserRole } from "../../store/types";
+import { useStudent } from "../../queries/students";
+import { useAttendances } from "../../queries/attendances";
+import { useClasses } from "../../queries/classes";
+import { useTasks } from "../../queries/tasks";
+import { AyahReference, TaskStatus, TaskWithTaskTypeAndAyahReference } from "../../types";
+import { useTaskTypes } from "../../queries/taskTypes";
+import { useAyahReferences } from "../../queries/ayahs";
 
 const { useBreakpoint } = Grid;
 
@@ -28,7 +35,6 @@ const ViewStudent: React.FC = () => {
     const userRole = useSelector((state: AppStore) => state.user.role);
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
-    // const { id } = useParams(); // MIGHT USE IN FUTURE GET STUDENT ID FROM URL
     const { t } = useTranslation();
     const screens = useBreakpoint();
     const { id } = useParams<{ id: string }>();
@@ -51,33 +57,97 @@ const ViewStudent: React.FC = () => {
             ),
         ]);
     }, [t]);
+    const { data: attendanceData, isLoading: attendanceLoading } = useAttendances({
+        studentId: id,
+    });
+    const { data: student, isLoading: studentLoading } = useStudent(id ?? "");
+    const { data: classes, isLoading: classesLoading } = useClasses({ studentId: id });
+    const { data: tasks, isLoading: tasksLoading } = useTasks({ studentId: id });
+    const { data: taskTypes, isLoading: taskTypesLoading } = useTaskTypes();
+
+    const ayahIds = tasks
+        ? Array.from(
+              new Set(
+                  tasks
+                      .flatMap((t) => [t.startingAyahId, t.endingAyahId])
+                      .filter((id): id is number => typeof id === "number" && !isNaN(id))
+              )
+          )
+        : [];
+    const { data: ayahRefs, isLoading: ayahRefsLoading } = useAyahReferences(ayahIds);
+    console.log("AYAH REFS", ayahRefs, ayahIds);
+    const ayahRefMap: Record<number, AyahReference> = ayahRefs
+        ? Object.fromEntries(ayahRefs.map((a) => [a.ayahId, a]))
+        : {};
+
+    const tasksWithTaskTypesAndAyahs: TaskWithTaskTypeAndAyahReference[] | undefined = tasks?.map(
+        (task) => ({
+            ...task,
+            taskType: taskTypes?.find((type) => type.id === task.taskTypeId) ?? null,
+            startingAyah: task.startingAyahId ? (ayahRefMap[task.startingAyahId] ?? null) : null,
+            endingAyah: task.endingAyahId ? (ayahRefMap[task.endingAyahId] ?? null) : null,
+        })
+    );
+    const completedTasks = tasksWithTaskTypesAndAyahs?.filter(
+        (task) => task.status === TaskStatus.Completed
+    );
+    const assignedTasks = tasksWithTaskTypesAndAyahs?.filter(
+        (task) => task.status === TaskStatus.Assigned
+    );
+    // console.log("TASKS", tasksWithTaskTypesAndAyahs, ayahRefMap);
 
     const collapseItems: CollapseProps["items"] = [
         {
             key: "common-1",
             label: t("general.attendance"),
-            children: isMobile ? <AttendanceList /> : <AttendanceTable />,
+            children: isMobile ? (
+                <AttendanceList attendance={attendanceData || []} />
+            ) : (
+                <AttendanceTable attendance={attendanceData || []} />
+            ),
         },
         {
             key: "common-2",
             label: t("general.classes"),
-            children: isMobile ? <ClassesList /> : <ClassesTable />,
+            children: isMobile ? (
+                <ClassesList classes={classes || []} />
+            ) : (
+                <ClassesTable classes={classes || []} />
+            ),
         },
         {
             key: "common-3",
             label: t("general.todo"),
-            children: <AssignedTasks mode="view" />,
+            children: <AssignedTasks mode="view" tasks={assignedTasks || []} />,
         },
         {
             key: "common-4",
             label: t("general.history"),
-            children: isMobile ? <CompletedTasksList /> : <CompletedTasksTable />,
+            children: isMobile ? (
+                <CompletedTasksList tasks={completedTasks || []} />
+            ) : (
+                <CompletedTasksTable tasks={completedTasks || []} />
+            ),
         },
     ];
 
+    if (
+        studentLoading ||
+        attendanceLoading ||
+        classesLoading ||
+        tasksLoading ||
+        taskTypesLoading ||
+        ayahRefsLoading
+    ) {
+        return <div>Loading...</div>;
+    }
+    if (!student) {
+        return <div>Student not found</div>;
+    }
+
     return (
         <>
-            <StudentDetailsCard />
+            <StudentDetailsCard student={student} />
             <Collapse items={collapseItems} />
         </>
     );

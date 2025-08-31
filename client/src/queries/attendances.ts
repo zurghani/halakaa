@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
 import { NewAttendance } from "../types";
 
-export function useAttendances(filters: { classId?: number; studentId?: number }) {
+export function useAttendances(filters: { classId?: number; studentId?: string }) {
     return useQuery({
         queryKey: ["attendances", filters],
         queryFn: async () => {

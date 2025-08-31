@@ -1,99 +1,57 @@
-import React from "react";
-import { useSelector } from "react-redux";
 import { Col, Row, Table, TableProps } from "antd";
-import { TaskStatus, TaskType } from "../../../store/types";
-import { AppStore } from "../../../store";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../hooks/useTags";
+import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import { useTaskTypes } from "../../../queries/taskTypes";
 
-// interface DataType {
-//   key: string;
-//   teacher: string;
-//   type: TaskType;
-//   from: string;
-//   to: string;
-//   date: string;
-// }
-
-const CompletedTasksTable: React.FC = () => {
+const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
     const { taskTypeTags } = useTags({});
     const { t } = useTranslation();
-    const studentTasks = useSelector((state: AppStore) => state.tasks);
-
-    const data = studentTasks.tasks
-        .filter((task) => task.status === TaskStatus.Completed)
-        .map((task) => ({
-            key: `completed - ${task.id}`,
-            teacher: task.teacherId ?? "",
-            type: task.type,
-            from: task.ayahs.from,
-            to: task.ayahs.to,
-            date: task.dueDate ?? "",
-            assignedOn: task.assignedOn,
-            assignedBy: task.teacherId,
-            completedBy: task.completedBy,
-            completedOn: task.completedOn,
-            notes: task.notes,
-            mistakes: task.mistakes,
-        }));
-
+    const { data: taskTypes } = useTaskTypes();
+    const tableData: TableProps["dataSource"] = tasks.map((task) => ({
+        ...task,
+        key: task.id,
+    }));
     const columns: TableProps["columns"] = [
         {
             title: t("general.teacher"),
-            dataIndex: "teacher",
-            key: "teacher",
-            filters: [
-                {
-                    text: "Adam Ali",
-                    value: "Adam Ali",
-                },
-                {
-                    text: "Mohamed Ahmed",
-                    value: "Mohamed Ahmed",
-                },
-            ],
-            onFilter: (value, record) => record.teacher.indexOf(value as string) === 0,
+            dataIndex: "assignedBy",
+            key: "assignedBy",
+
             defaultSortOrder: "descend",
-            sorter: (a, b) => a.id - b.id,
+            sorter: (a, b) => (a.assignedBy > b.assignedBy ? 1 : -1),
         },
         {
             title: t("general.type"),
-            dataIndex: "type",
-            key: "type",
-            render: (type) => taskTypeTags[type],
-            filters: [
-                {
-                    text: "Revision",
-                    value: TaskType.Revision,
-                },
-                {
-                    text: "Memorization",
-                    value: TaskType.Memorization,
-                },
-                {
-                    text: "Reciting",
-                    value: TaskType.Reciting,
-                },
-            ],
+            dataIndex: "taskType",
+            key: "taskType",
+            render: (taskType) => taskTypeTags[taskType.name] || taskType.name,
+            filters:
+                taskTypes?.map((type) => ({
+                    text: type.name,
+                    value: type.id,
+                })) ?? [],
             onFilter: (value, record) => record.type.indexOf(value as string) === 0,
         },
         {
             title: t("general.from"),
-            dataIndex: "from",
-            key: "from",
-            sorter: (a, b) => a.id - b.id,
+            dataIndex: "startingAyah",
+            key: "startingAyah",
+            render: (ayahRef) => (ayahRef ? `(${ayahRef.number}) ${ayahRef.surahName}` : "-"),
+            sorter: (a, b) => a.ayahId - b.ayahId,
         },
         {
             title: t("general.to"),
-            dataIndex: "to",
-            key: "to",
-            sorter: (a, b) => a.id - b.id,
+            dataIndex: "endingAyah",
+            key: "endingAyah",
+            render: (ayahRef) => (ayahRef ? `(${ayahRef.number}) ${ayahRef.surahName}` : "-"),
+            sorter: (a, b) => a.ayahId - b.ayahId,
         },
         {
             title: t("general.date"),
-            dataIndex: "date",
-            key: "date",
-            sorter: (a, b) => a.id - b.id,
+            dataIndex: "createdAt",
+            key: "createdAt",
+            sorter: (a, b) => (a.createdAt > b.createdAt ? 1 : -1),
         },
     ];
     return (
@@ -130,7 +88,7 @@ const CompletedTasksTable: React.FC = () => {
                         </Row>
                     ),
                 }}
-                dataSource={data}
+                dataSource={tableData}
             />
         </>
     );

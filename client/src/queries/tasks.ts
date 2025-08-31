@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
 import { NewTask, UpdateTask } from "../types";
 
-export function useTasks(filters?: { studentId?: number }) {
+export function useTasks(filters?: { studentId?: string }) {
     return useQuery({
         queryKey: ["tasks", filters],
         queryFn: async () => {

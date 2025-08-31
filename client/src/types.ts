@@ -24,7 +24,9 @@ export type UpdateStudent = Partial<NewStudent>;
 export type AgeGroup = typeof ageGroup.$inferSelect;
 export type NewAgeGroup = typeof ageGroup.$inferInsert;
 
-export type Attendance = typeof attendance.$inferSelect;
+export type Attendance = Omit<typeof attendance.$inferSelect, "createdAt"> & {
+    createdAt: string | null;
+};
 export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
@@ -36,7 +38,9 @@ export type UpdateClass = Partial<NewClass>;
 export type Enrollment = typeof enrollments.$inferSelect;
 export type NewEnrollment = typeof enrollments.$inferInsert;
 
-export type Task = typeof tasks.$inferSelect;
+export type Task = Omit<typeof tasks.$inferSelect, "createdAt"> & {
+    createdAt?: string | null;
+};
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
 
@@ -44,8 +48,38 @@ export type UpdateTask = Partial<NewTask>;
 export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
     createdAt?: string | null;
 };
+export type TaskWithTaskTypeAndAyahs = Task & {
+    taskType: TaskType | null;
+    startingAyah: Ayah | null;
+    endingAyah: Ayah | null;
+};
+export type TaskWithTaskTypeAndAyahReference = Task & {
+    taskType: TaskType | null;
+    startingAyah: AyahReference | null;
+    endingAyah: AyahReference | null;
+};
+export type TaskWithTaskTypeAndSurahs = Task & {
+    taskType: TaskType | null;
+    startingAyah: Ayah | null;
+    endingAyah: Ayah | null;
+};
+
 export type NewTaskType = typeof taskTypes.$inferInsert;
 
 export type Surah = typeof surah.$inferSelect;
 
-export type Ayah = typeof ayah.$inferSelect;
+export type Ayah = Omit<typeof ayah.$inferSelect, "createdAt"> & {
+    createdAt?: string | null;
+};
+
+export interface AyahReference {
+    ayahId: number;
+    number: number;
+    surahId: number;
+    surahName: string;
+}
+
+export enum TaskStatus {
+    Assigned = "assigned",
+    Completed = "completed",
+}
