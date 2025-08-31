@@ -7,65 +7,58 @@ import { CloseOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import { Paths } from "../../../Routes";
 import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import { AgeGroup } from "../types";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import AgeGroupTable from "./components/AgeGroupTable";
 import AgeGroupCreateModal from "./components/Modals/AgeGroupCreate";
 import SaveSuccessModal from "../../../components/Modals/Success";
 import DeleteConfirmModal from "../../../components/Modals/Delete";
+import { useAgeGroups, useCreateAgeGroup, useDeleteAgeGroup } from "../../../queries/ageGroups";
+import { AgeGroup, NewAgeGroup } from "../../../types";
 
-const initialAgeGroups: AgeGroup[] = [
-    {
-        id: 1,
-        from: 2,
-        to: 4,
-        description: "Pre-kindergarten and kindergarten",
-    },
-    {
-        id: 2,
-        from: 5,
-        to: 7,
-        description: "Early primary school",
-    },
-    {
-        id: 3,
-        from: 8,
-        to: 10,
-        description: "Late primary school",
-    },
-    {
-        id: 4,
-        from: 11,
-        to: 13,
-        description: "Early secondary school",
-    },
-    {
-        id: 5,
-        from: 14,
-        to: 16,
-        description: "Mid secondary school",
-    },
-];
 const AgeGroupEditPage: React.FC = () => {
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const [ageGroups, setAgeGroups] = useState<AgeGroup[]>(initialAgeGroups);
+    const { data: initialAgeGroups, isLoading } = useAgeGroups();
+    const createAgeGroupMutation = useCreateAgeGroup();
+    const deleteAgeGroupMutation = useDeleteAgeGroup();
+
+    const [ageGroups, setAgeGroups] = useState<AgeGroup[]>(initialAgeGroups || []);
+    const [toBeCreatedAgeGroupList, setToBeCreatedAgeGroupList] = useState<AgeGroup[]>([]);
+    const [toBeDeletedAgeGroupList, setToBeDeletedAgeGroupList] = useState<number[]>([]);
+
     const [isAgeGroupCreateModalOpen, setIsAgeGroupCreateModalOpen] = useState(false);
     const [isSaveSuccessModalOpen, setIsSaveSuccessModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSave = () => {
-        console.log("Saving age groups:", ageGroups);
-        // TODO: Replace with API call
+        console.log("CREATED", toBeCreatedAgeGroupList);
+        console.log("DELETIONS", toBeDeletedAgeGroupList);
+        toBeCreatedAgeGroupList.forEach((ageGroup) => {
+            createAgeGroupMutation.mutate({
+                from: ageGroup.from,
+                to: ageGroup.to,
+                description: ageGroup.description,
+            });
+        });
+        toBeDeletedAgeGroupList.forEach((id) => {
+            deleteAgeGroupMutation.mutate(id.toString());
+        });
         setIsSaveSuccessModalOpen(true);
+        navigate(Paths.SETTINGS.ADMIN.AGEGROUP.VIEW);
     };
 
-    const handleCreateAgeGroup = (newAgeGroup: AgeGroup) => {
-        setAgeGroups((prev) => [...prev, newAgeGroup]);
+    const handleCreateAgeGroup = (newAgeGroup: NewAgeGroup) => {
+        const ageGroupToBeAdded: AgeGroup = {
+            id: Math.floor(Math.random() * -1000), // Temporary negative ID for frontend
+            from: newAgeGroup.from,
+            to: newAgeGroup.to,
+            description: newAgeGroup.description || "",
+        };
+        setToBeCreatedAgeGroupList((prev) => [...prev, ageGroupToBeAdded]);
         setIsAgeGroupCreateModalOpen(false);
     };
 
@@ -76,7 +69,14 @@ const AgeGroupEditPage: React.FC = () => {
 
     const handleConfirmDelete = () => {
         if (deleteId !== null) {
-            setAgeGroups((prev) => prev.filter((group) => group.id !== deleteId));
+            if (toBeCreatedAgeGroupList.find((ageGroup) => ageGroup.id === deleteId)) {
+                setToBeCreatedAgeGroupList((prev) =>
+                    prev.filter((ageGroup) => ageGroup.id !== deleteId)
+                );
+            } else {
+                setToBeDeletedAgeGroupList((prev) => [...prev, deleteId]);
+            }
+            setAgeGroups((prev) => prev.filter((ageGroup) => ageGroup.id !== deleteId));
         }
         setIsDeleteModalOpen(false);
         setDeleteId(null);
@@ -102,33 +102,39 @@ const AgeGroupEditPage: React.FC = () => {
                 {t("general.save")}
             </ActionButton>,
         ]);
-    }, [t, ageGroups]);
+    }, [t, toBeCreatedAgeGroupList, toBeDeletedAgeGroupList]);
+    useEffect(() => {
+        if (!isLoading) {
+            setAgeGroups(initialAgeGroups || []);
+        }
+    }, [initialAgeGroups, isLoading]);
+
     return (
         <>
-        <AgeGroupTable
-            data={ageGroups}
-            editable
-            onDelete={handleDeleteRequest}
-            onCreate={() => setIsAgeGroupCreateModalOpen(true)}
+            <AgeGroupTable
+                data={[...(ageGroups || []), ...toBeCreatedAgeGroupList]}
+                editable
+                onDelete={handleDeleteRequest}
+                onCreate={() => setIsAgeGroupCreateModalOpen(true)}
             />
-        <AgeGroupCreateModal
-            isOpen={isAgeGroupCreateModalOpen}
-            onCreate={handleCreateAgeGroup}
-            onCancel={() => setIsAgeGroupCreateModalOpen(false)}
+            <SaveSuccessModal
+                isOpen={isSaveSuccessModalOpen}
+                onClose={() => setIsSaveSuccessModalOpen(false)}
+                navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+                title={t("modal.ageGroup.createSuccess")}
+                message={t("modal.doneMessage")}
             />
-        <SaveSuccessModal
-            isOpen={isSaveSuccessModalOpen}
-            onClose={() => setIsSaveSuccessModalOpen(false)}
-            navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
-            title={t("modal.ageGroup.createSuccess")}
-            message={t("modal.doneMessage")}
+            <DeleteConfirmModal
+                isOpen={isDeleteModalOpen}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                title={t("modal.ageGroup.deleteTitle")}
+                message={t("modal.ageGroup.deleteConfirmation")}
             />
-        <DeleteConfirmModal
-            isOpen={isDeleteModalOpen}
-            onConfirm={handleConfirmDelete}
-            onCancel={handleCancelDelete}
-            title={t("modal.ageGroup.deleteTitle")}
-            message={t("modal.ageGroup.deleteConfirmation")}
+            <AgeGroupCreateModal
+                isOpen={isAgeGroupCreateModalOpen}
+                onCreate={handleCreateAgeGroup}
+                onCancel={() => setIsAgeGroupCreateModalOpen(false)}
             />
         </>
     );

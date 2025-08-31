@@ -1,23 +1,26 @@
 import React from "react";
 import { Modal, Form, Input, InputNumber, Row, Col } from "antd";
 import { useTranslation } from "react-i18next";
-import { AgeGroup } from "../../../types";
+import { NewAgeGroup } from "../../../../../types";
 
 type AgeGroupCreateModalProps = {
     isOpen: boolean;
-    onCreate: (task: AgeGroup) => void;
+    onCreate: (task: NewAgeGroup) => void;
     onCancel: () => void;
 };
 
-const AgeGroupCreateModal: React.FC<AgeGroupCreateModalProps> = ({ isOpen, onCreate, onCancel }) => {
+const AgeGroupCreateModal: React.FC<AgeGroupCreateModalProps> = ({
+    isOpen,
+    onCreate,
+    onCancel,
+}) => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
 
     const handleSave = () => {
         form.validateFields()
             .then((values) => {
-                const newAgeGroup: AgeGroup = {
-                    id: 6,
+                const newAgeGroup: NewAgeGroup = {
                     from: values.from,
                     to: values.to,
                     description: values.description,
@@ -42,17 +45,17 @@ const AgeGroupCreateModal: React.FC<AgeGroupCreateModalProps> = ({ isOpen, onCre
             closable
             title={t("createAgeGroupModal.createAgeGroup")}
             destroyOnClose>
-            <Form form={form} layout="vertical" >
+            <Form form={form} layout="vertical">
                 <Row>
                     <Col span={6}>
                         <Form.Item
                             name="from"
                             label={t("forms.from")}
                             rules={[{ required: true, message: t("forms.fieldRequired") }]}>
-                            <InputNumber  />
+                            <InputNumber />
                         </Form.Item>
                     </Col>
-                    <Col span={2} style={{ display: 'flex', alignItems: 'center'}}>
+                    <Col span={2} style={{ display: "flex", alignItems: "center" }}>
                         -
                     </Col>
                     <Col span={6}>
@@ -60,7 +63,7 @@ const AgeGroupCreateModal: React.FC<AgeGroupCreateModalProps> = ({ isOpen, onCre
                             name="to"
                             label={t("forms.to")}
                             rules={[{ required: true, message: t("forms.fieldRequired") }]}>
-                            <InputNumber  />
+                            <InputNumber />
                         </Form.Item>
                     </Col>
                 </Row>

@@ -21,7 +21,9 @@ export type StudentFormValues = Omit<Student, "dateOfBirth"> & {
 export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
 
-export type AgeGroup = typeof ageGroup.$inferSelect;
+export type AgeGroup = Omit<typeof ageGroup.$inferSelect, "createdAt"> & {
+    createdAt?: string | null;
+};
 export type NewAgeGroup = typeof ageGroup.$inferInsert;
 
 export type Attendance = typeof attendance.$inferSelect;
