@@ -45,7 +45,7 @@ const TaskTypesEditPage: React.FC = () => {
     };
 
     const handleSave = () => {
-        console.log(toBeDeletedTaskList);
+        console.log(toBeCreatedTaskList);
         toBeCreatedTaskList.forEach((task) => {
             createTaskTypeMutation.mutate({ name: task.name, description: task.description });
         });

@@ -5,43 +5,11 @@ import { useTranslation } from "react-i18next";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import { Paths } from "../../../Routes";
 import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import { AgeGroup } from "../types";
 import DownloadModal from "../../../components/ExportModal/DownloadModal";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import AgeGroupTable from "./components/AgeGroupTable";
+import { useAgeGroups } from "../../../queries/ageGroups";
 
-const ageGroups: AgeGroup[] = [
-    {
-        id: 1,
-        from: 2,
-        to: 4,
-        description: "Pre-kindergarten and kindergarten",
-    },
-    {
-        id: 2,
-        from: 5,
-        to: 7,
-        description: "Early primary school",
-    },
-    {
-        id: 3,
-        from: 8,
-        to: 10,
-        description: "Late primary school",
-    },
-    {
-        id: 4,
-        from: 11,
-        to: 13,
-        description: "Early secondary school",
-    },
-    {
-        id: 5,
-        from: 14,
-        to: 16,
-        description: "Mid secondary school",
-    },
-];
 const AgeGroupViewPage: React.FC = () => {
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
@@ -62,6 +30,8 @@ const AgeGroupViewPage: React.FC = () => {
             </ActionButton>,
         ]);
     }, [t]);
-    return <AgeGroupTable data={ageGroups} editable={false} />;
+    const { data: ageGroups, isLoading } = useAgeGroups();
+    if (isLoading) return <div>Loading...</div>;
+    return <AgeGroupTable data={ageGroups || []} editable={false} />;
 };
 export default AgeGroupViewPage;
