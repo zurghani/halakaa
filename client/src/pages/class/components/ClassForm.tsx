@@ -61,7 +61,7 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                 </Col>
             </Row>
             <Form.Item
-                name="teacherId"
+                name="teacher" // dont know how to display teacher name
                 label={t("forms.teacher")}
                 rules={[{ required: true, message: t("forms.required.teacher") }]}>
                 <Select

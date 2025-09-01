@@ -3,8 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
-import { Enrollment, Student } from "./types";
+import { CloseOutlined } from "@ant-design/icons";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { ActionButton } from "../../components/Button/ActionButton";
@@ -17,9 +16,10 @@ import {
     useDeleteEnrollment,
     useEnrollments,
 } from "../../queries/enrollments";
-import { EnrollmentWithStudent, NewEnrollment } from "../../types";
+import { EnrollmentWithStudents, Student } from "../../types";
 import SaveSuccessModal from "../../components/Modals/Success";
 import DeleteConfirmModal from "../../components/Modals/Delete";
+import dayjs from "dayjs";
 
 const EnrollmentsEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -32,19 +32,14 @@ const EnrollmentsEditPage: React.FC = () => {
     const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
         classId: classId,
     });
-    const enrollmentsWithStudents: EnrollmentWithStudent[] | undefined = enrollments?.map(
-        (enrollment) => ({
-            ...enrollment,
-            student: students?.find((student) => student.id === enrollment.studentId) ?? null,
-        })
-    );
+
     const createEnrollmentMutation = useCreateEnrollment();
     const deleteEnrollmentMutation = useDeleteEnrollment();
 
-    const [enrollmentsData, setEnrollmentsData] = useState<EnrollmentWithStudent[]>(
-        enrollmentsWithStudents || []
+    const [enrollmentsData, setEnrollmentsData] = useState<EnrollmentWithStudents[]>(
+        enrollments || []
     );
-    const [toBeCreatedEnrollments, setToBeCreatedEnrollments] = useState<EnrollmentWithStudent[]>(
+    const [toBeCreatedEnrollments, setToBeCreatedEnrollments] = useState<EnrollmentWithStudents[]>(
         []
     );
     const [toBeDeletedEnrollments, setToBeDeletedEnrollments] = useState<Number[]>([]);
@@ -55,12 +50,31 @@ const EnrollmentsEditPage: React.FC = () => {
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSave = () => {
-        console.log("Saving enrollments:", enrollments);
-        // TODO: Replace with API call
+        const classIdNum = parseInt(classId ?? "");
+        if (isNaN(classIdNum)) {
+            console.error("Invalid class ID");
+            return;
+        }
+
+        toBeCreatedEnrollments.forEach((enrollment) => {
+            createEnrollmentMutation.mutate({
+                studentId: enrollment.student.id,
+                classId: classIdNum,
+            });
+        });
+        toBeDeletedEnrollments.forEach((id) => {
+            deleteEnrollmentMutation.mutate(id.toString());
+        });
+        setIsSaveSuccessModalOpen(true);
     };
 
-    const handleCreateEnrollment = (newEnrollment: EnrollmentWithStudent) => {
-        setToBeCreatedEnrollments((prev) => [...prev, newEnrollment]);
+    const handleCreateEnrollments = (students: Student[]) => {
+        const newEnrollments: EnrollmentWithStudents[] = students.map((student) => ({
+            id: Math.floor(Math.random() * -1000), // Temporary negative ID for new enrollments
+            student: { id: student.id, name: student.fullName },
+            createdAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        }));
+        setToBeCreatedEnrollments((prev) => [...prev, ...newEnrollments]);
         setSelectStudentModalOpen(false);
     };
 
@@ -107,7 +121,7 @@ const EnrollmentsEditPage: React.FC = () => {
     }, [t, toBeCreatedEnrollments, toBeDeletedEnrollments]);
     useEffect(() => {
         if (!enrollmentsLoading && !studentsLoading) {
-            setEnrollmentsData(enrollmentsWithStudents || []);
+            setEnrollmentsData(enrollments || []);
         }
     }, [enrollments, students, enrollmentsLoading, studentsLoading]);
     return (
@@ -121,7 +135,7 @@ const EnrollmentsEditPage: React.FC = () => {
             <SaveSuccessModal
                 isOpen={isSaveSuccessModalOpen}
                 onClose={() => setIsSaveSuccessModalOpen(false)}
-                navigatePath={Paths.SETTINGS.ADMIN.AGEGROUP.VIEW}
+                navigatePath={Paths.CLASS.VIEW.replace(":id", classId ?? "")}
                 title={t("modal.enrollments.createSuccess")}
                 message={t("modal.doneMessage")}
             />
@@ -134,22 +148,10 @@ const EnrollmentsEditPage: React.FC = () => {
             />
             <StudentSelectModal
                 open={selectStudentModalOpen}
-                students={dummyStudents}
                 onCancel={() => setSelectStudentModalOpen(false)}
-                onSelect={handleStudentSelected}
+                onCreate={handleCreateEnrollments}
+                onSelect={() => {}}
             />
-            <div
-                style={{
-                    marginTop: "2rem",
-                    textAlign: "center",
-                }}>
-                <Button
-                    type="primary"
-                    icon={<PlusOutlined />}
-                    onClick={() => setSelectStudentModalOpen(true)}>
-                    {t("general.enrollment")}
-                </Button>
-            </div>
         </>
     );
 };

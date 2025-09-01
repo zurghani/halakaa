@@ -3,6 +3,8 @@ import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
 import { EnrollmentWithStudents } from "../../../types";
+import { enrollments } from "server/src/db/schema";
+import { PlusOutlined } from "@ant-design/icons";
 
 interface EnrollmentsTableProps {
     enrollments: EnrollmentWithStudents[];
@@ -23,7 +25,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 }) => {
     const { t } = useTranslation();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
+    console.log("DATA", enrollments);
     const rowSelection = selectable
         ? {
               type: "radio" as const,
@@ -47,7 +49,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
             title: t("class.name"),
             dataIndex: "student",
             key: "student",
-            render: (student) => student?.name || "",
+            render: (student) => student?.name,
             sorter: (a, b) => ((a.student.id || "") > (b.student.id || "") ? 1 : -1),
             width: "70%",
         },
@@ -84,6 +86,17 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
                         : {}
                 }
             />
+            {editable && (
+                <div
+                    style={{
+                        marginTop: "2rem",
+                        textAlign: "center",
+                    }}>
+                    <Button type="primary" icon={<PlusOutlined />} onClick={onCreate}>
+                        {t("general.enrollment")}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };
