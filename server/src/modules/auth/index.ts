@@ -2,8 +2,6 @@ import { db } from "@/db";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin } from "better-auth/plugins";
-import { admin as adminRole, parent, student, teacher } from "./permissions";
-import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
 import { languageEnum } from "../../db/schema";
@@ -45,9 +43,8 @@ const auth = betterAuth({
   },
   plugins: [
     admin({
-      roles: {
-        admin: adminRole,
-      },
+      adminRoles: ["admin"],
+      defaultRole: "student",
     }),
   ],
 });
@@ -62,15 +59,7 @@ authRoutes.on(["POST", "GET"], "/*", async (c) => {
 
 export const authClient = createAuthClient({
   plugins: [
-    adminClient({
-      ac,
-      roles: {
-        admin: adminRole,
-        parent,
-        teacher,
-        student,
-      },
-    }),
+    adminClient(),
   ],
 });
 

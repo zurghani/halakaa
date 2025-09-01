@@ -32,6 +32,10 @@ const UserFindPage: React.FC = () => {
     const fetchUsers = async (searchParams?: any) => {
         setLoading(true);
         try {
+            // Check current session and permissions
+            const session = await authClient.getSession();
+            console.log("Current session:", session?.data?.user?.id, session?.data?.user?.role);
+            
             const result = await authClient.admin.listUsers({
                 query: {
                     // limit: 50,
@@ -47,6 +51,7 @@ const UserFindPage: React.FC = () => {
             }
         } catch (error) {
             console.error("Error fetching users:", error);
+            console.error("Full error details:", error);
         } finally {
             setLoading(false);
         }
