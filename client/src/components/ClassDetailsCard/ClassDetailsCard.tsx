@@ -1,11 +1,17 @@
 import { Badge, Col, Row, Tag } from "antd";
 import { useTranslation } from "react-i18next";
 import "./ClassDetailsCard.scss";
-import { Class } from "../../types";
+import { ClassWithTeacherInfo } from "../../types";
 import { useAgeGroup } from "../../queries/ageGroups";
 import dayjs from "dayjs";
 
-const ClassDetailsCard = ({ data, classSize }: { data: Class; classSize?: number }) => {
+const ClassDetailsCard = ({
+    data,
+    classSize,
+}: {
+    data: ClassWithTeacherInfo;
+    classSize?: number;
+}) => {
     const { t } = useTranslation();
     const ageGroupId = typeof data.ageGroup === "number" ? data.ageGroup.toString() : data.ageGroup;
     const { data: ageGroup, isLoading } = useAgeGroup(ageGroupId ?? "");
@@ -20,7 +26,7 @@ const ClassDetailsCard = ({ data, classSize }: { data: Class; classSize?: number
                 <Col span={20}>{data.description}</Col>
 
                 <Col span={4}>{t("class.teacher")}:</Col>
-                <Col span={20}>{data.teacherId}</Col>
+                <Col span={20}>{data.teacher?.name}</Col>
 
                 {/* TODO: replace with the actual age group tag, once it is developed. */}
                 <Col span={4}>{t("class.ageGroup")}:</Col>
