@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useTags } from "../../../hooks/useTags";
 import { TaskWithTaskTypeAndAyahReference } from "../../../types";
 import { useTaskTypes } from "../../../queries/taskTypes";
+import dayjs from "dayjs";
 
 const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
     const { taskTypeTags } = useTags({});
@@ -17,7 +18,7 @@ const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReferenc
             title: t("general.teacher"),
             dataIndex: "assignedBy",
             key: "assignedBy",
-
+            render: (assignedBy) => assignedBy?.name || "-",
             defaultSortOrder: "descend",
             sorter: (a, b) => (a.assignedBy > b.assignedBy ? 1 : -1),
         },
@@ -37,20 +38,23 @@ const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReferenc
             title: t("general.from"),
             dataIndex: "startingAyah",
             key: "startingAyah",
-            render: (ayahRef) => (ayahRef ? `(${ayahRef.number}) ${ayahRef.surahName}` : "-"),
+            render: (startingAyah) =>
+                startingAyah ? `(${startingAyah.number}) ${startingAyah.surahName}` : "-",
             sorter: (a, b) => a.ayahId - b.ayahId,
         },
         {
             title: t("general.to"),
             dataIndex: "endingAyah",
             key: "endingAyah",
-            render: (ayahRef) => (ayahRef ? `(${ayahRef.number}) ${ayahRef.surahName}` : "-"),
+            render: (endingAyah) =>
+                endingAyah ? `(${endingAyah.number}) ${endingAyah.surahName}` : "-",
             sorter: (a, b) => a.ayahId - b.ayahId,
         },
         {
             title: t("general.date"),
             dataIndex: "createdAt",
             key: "createdAt",
+            render: (createdAt) => dayjs(createdAt).format("YYYY-MM-DD"),
             sorter: (a, b) => (a.createdAt > b.createdAt ? 1 : -1),
         },
     ];
@@ -63,22 +67,28 @@ const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReferenc
                     expandedRowRender: (task) => (
                         <Row gutter={[16, 8]}>
                             <Col span={6}>From:</Col>
-                            <Col span={6}>{task.from}</Col>
+                            <Col
+                                span={
+                                    6
+                                }>{`(${task.startingAyah.number}) ${task.startingAyah.surahName}`}</Col>
 
                             <Col span={6}>To:</Col>
-                            <Col span={6}>{task.to}</Col>
+                            <Col
+                                span={
+                                    6
+                                }>{`(${task.endingAyah.number}) ${task.endingAyah.surahName}`}</Col>
 
                             <Col span={6}>Assigned On:</Col>
-                            <Col span={6}>{task.assignedOn}</Col>
+                            <Col span={6}>{dayjs(task.createdAt).format("YYYY-MM-DD")}</Col>
 
                             <Col span={6}>Completed On:</Col>
-                            <Col span={6}>{task.completedOn}</Col>
+                            <Col span={6}>{dayjs(task.completedOn).format("YYYY-MM-DD")}</Col>
 
                             <Col span={6}>Assigned By:</Col>
-                            <Col span={6}>{task.assignedBy}</Col>
+                            <Col span={6}>{task.assignedBy.name}</Col>
 
                             <Col span={6}>Completed By:</Col>
-                            <Col span={6}>{task.completedBy}</Col>
+                            <Col span={6}>{task.completedBy.name}</Col>
 
                             <Col span={6}>Notes:</Col>
                             <Col span={6}>{task.notes}</Col>

@@ -23,9 +23,7 @@ import { useStudent } from "../../queries/students";
 import { useAttendances } from "../../queries/attendances";
 import { useClasses } from "../../queries/classes";
 import { useTasks } from "../../queries/tasks";
-import { AyahReference, TaskStatus, TaskWithTaskTypeAndAyahReference } from "../../types";
-import { useTaskTypes } from "../../queries/taskTypes";
-import { useAyahReferences } from "../../queries/ayahs";
+import { TaskStatus } from "../../types";
 
 const { useBreakpoint } = Grid;
 
@@ -63,37 +61,9 @@ const ViewStudent: React.FC = () => {
     const { data: student, isLoading: studentLoading } = useStudent(id ?? "");
     const { data: classes, isLoading: classesLoading } = useClasses({ studentId: id });
     const { data: tasks, isLoading: tasksLoading } = useTasks({ studentId: id });
-    const { data: taskTypes, isLoading: taskTypesLoading } = useTaskTypes();
 
-    const ayahIds = tasks
-        ? Array.from(
-              new Set(
-                  tasks
-                      .flatMap((t) => [t.startingAyahId, t.endingAyahId])
-                      .filter((id): id is number => typeof id === "number" && !isNaN(id))
-              )
-          )
-        : [];
-    const { data: ayahRefs, isLoading: ayahRefsLoading } = useAyahReferences(ayahIds);
-    console.log("AYAH REFS", ayahRefs, ayahIds);
-    const ayahRefMap: Record<number, AyahReference> = ayahRefs
-        ? Object.fromEntries(ayahRefs.map((a) => [a.ayahId, a]))
-        : {};
-
-    const tasksWithTaskTypesAndAyahs: TaskWithTaskTypeAndAyahReference[] | undefined = tasks?.map(
-        (task) => ({
-            ...task,
-            taskType: taskTypes?.find((type) => type.id === task.taskTypeId) ?? null,
-            startingAyah: task.startingAyahId ? (ayahRefMap[task.startingAyahId] ?? null) : null,
-            endingAyah: task.endingAyahId ? (ayahRefMap[task.endingAyahId] ?? null) : null,
-        })
-    );
-    const completedTasks = tasksWithTaskTypesAndAyahs?.filter(
-        (task) => task.status === TaskStatus.Completed
-    );
-    const assignedTasks = tasksWithTaskTypesAndAyahs?.filter(
-        (task) => task.status === TaskStatus.Assigned
-    );
+    const completedTasks = tasks?.filter((task) => task.status === TaskStatus.Completed);
+    const assignedTasks = tasks?.filter((task) => task.status === TaskStatus.Assigned);
     // console.log("TASKS", tasksWithTaskTypesAndAyahs, ayahRefMap);
 
     const collapseItems: CollapseProps["items"] = [
@@ -118,7 +88,7 @@ const ViewStudent: React.FC = () => {
         {
             key: "common-3",
             label: t("general.todo"),
-            children: <AssignedTasks mode="view" tasks={assignedTasks || []} />,
+            children: <AssignedTasks mode="view" tasks={assignedTasks ?? []} />,
         },
         {
             key: "common-4",
@@ -131,14 +101,7 @@ const ViewStudent: React.FC = () => {
         },
     ];
 
-    if (
-        studentLoading ||
-        attendanceLoading ||
-        classesLoading ||
-        tasksLoading ||
-        taskTypesLoading ||
-        ayahRefsLoading
-    ) {
+    if (studentLoading || attendanceLoading || classesLoading || tasksLoading) {
         return <div>Loading...</div>;
     }
     if (!student) {

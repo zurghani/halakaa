@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import EditTaskModal from "../../../pages/class/components/EditTaskModal";
 import { useTags } from "../../../hooks/useTags";
 import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import dayjs from "dayjs";
 
 interface AssignedTasksProps {
     mode: "view" | "class";
@@ -82,13 +83,13 @@ const TaskInfo: React.FC<TaskWithTaskTypeAndAyahReference> = (task) => {
                 </Col>
 
                 <Col span={8}>{t("general.assignedBy")}</Col>
-                <Col span={16}>{task.assignedBy}</Col>
+                <Col span={16}>{task.assignedBy?.name}</Col>
 
                 <Col span={8}>{t("general.assignedOn")}</Col>
-                <Col span={16}>{task.createdAt}</Col>
+                <Col span={16}>{dayjs(task.createdAt).format("YYYY-MM-DD")}</Col>
 
                 <Col span={8}>{t("general.due")}</Col>
-                <Col span={16}>{task.dueDate}</Col>
+                <Col span={16}>{dayjs(task.dueDate).format("YYYY-MM-DD")}</Col>
             </Row>
         </>
     );

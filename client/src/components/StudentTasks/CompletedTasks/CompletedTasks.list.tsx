@@ -2,12 +2,10 @@ import { Col, Collapse, Row, Tag } from "antd";
 import "./CompletedTasks.scss";
 import { useTags } from "../../../hooks/useTags";
 import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import dayjs from "dayjs";
 
 const CompletedTasksList = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
     const { taskTypeTags } = useTags({});
-
-    // TODO : add explanation for why we did we for loop here
-    // For loop to create mapping of keys, ensures unique key as there are many collapses on the same page
 
     const items = tasks.map((task, i) => ({
         key: `completed-${task.id}`,
@@ -36,16 +34,16 @@ const CompletedTasksList = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference
                     </Col>
 
                     <Col span={12}>Assigned By:</Col>
-                    <Col span={12}>{task.assignedBy}</Col>
+                    <Col span={12}>{task.assignedBy?.name}</Col>
 
                     <Col span={12}>Assigned On:</Col>
-                    <Col span={12}>{task.createdAt}</Col>
+                    <Col span={12}>{dayjs(task.createdAt).format("YYYY-MM-DD")}</Col>
 
                     <Col span={12}>Completed On:</Col>
-                    <Col span={12}>{task.completedOn}</Col>
+                    <Col span={12}>{dayjs(task.completedOn).format("YYYY-MM-DD")}</Col>
 
                     <Col span={12}>Completed By:</Col>
-                    <Col span={12}>{task.completedBy}</Col>
+                    <Col span={12}>{task.completedBy?.name}</Col>
 
                     <Col span={12}>Notes:</Col>
                     <Col span={12}>{task.notes}</Col>
