@@ -12,9 +12,7 @@ import ClassDetailsCard from "../../components/ClassDetailsCard/ClassDetailsCard
 import { ActionButton } from "../../components/Button/ActionButton";
 import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
 import { authClient } from "../../lib/auth-client";
-import { useStudents } from "../../queries/students";
 import { useEnrollments } from "../../queries/enrollments";
-import { EnrollmentWithStudent } from "../../types";
 import { useClass } from "../../queries/classes";
 
 const ClassView: React.FC = () => {
@@ -23,7 +21,7 @@ const ClassView: React.FC = () => {
     const dispatch = useDispatch();
     const { data: auth } = authClient.useSession();
     const { id } = useParams();
-    const classId = id ?? undefined;
+    const classId = id ?? "";
 
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.viewClass")));
@@ -55,19 +53,12 @@ const ClassView: React.FC = () => {
                   ]),
         ]);
     }, []);
-    const { data: classData, isLoading: classLoading } = useClass(classId ?? "");
-    const { data: students, isLoading: studentsLoading } = useStudents({ classId: classId });
+    const { data: classData, isLoading: classLoading } = useClass(classId);
     const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
         classId: classId,
     });
     const classSize = enrollments?.length;
-    const enrollmentsWithStudents: EnrollmentWithStudent[] | undefined = enrollments?.map(
-        (enrollment) => ({
-            ...enrollment,
-            student: students?.find((student) => student.id === enrollment.studentId) ?? null,
-        })
-    );
-    if (studentsLoading || enrollmentsLoading || classLoading) {
+    if (enrollmentsLoading || classLoading) {
         return <div>Loading...</div>;
     }
 
@@ -79,7 +70,7 @@ const ClassView: React.FC = () => {
         <>
             <ClassDetailsCard data={classData} classSize={classSize} />
             <br />
-            <EnrollmentsTable enrollments={enrollmentsWithStudents || []} />
+            <EnrollmentsTable enrollments={enrollments || []} />
         </>
     );
 };

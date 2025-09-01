@@ -44,8 +44,8 @@ export type UpdateClass = Partial<NewClass>;
 export type Enrollment = Omit<typeof enrollments.$inferSelect, "createdAt"> & {
     createdAt: string | null;
 };
-export type EnrollmentWithStudent = Enrollment & {
-    student: Student | null;
+export type EnrollmentWithStudents = Omit<Enrollment, "studentId" | "classId"> & {
+    student: { id: number; name: string };
 };
 export type NewEnrollment = typeof enrollments.$inferInsert;
 

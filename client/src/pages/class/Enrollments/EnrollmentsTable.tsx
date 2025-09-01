@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
-import { EnrollmentWithStudent } from "../../../types";
+import { EnrollmentWithStudents } from "../../../types";
 
 interface EnrollmentsTableProps {
-    enrollments: EnrollmentWithStudent[];
+    enrollments: EnrollmentWithStudents[];
     editable?: boolean;
     selectable?: boolean;
-    onSelect?: (student: EnrollmentWithStudent | null) => void;
+    onSelect?: (student: EnrollmentWithStudents | null) => void;
     onDelete?: (id: number) => void;
     onCreate?: () => void;
 }
@@ -28,14 +28,14 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
         ? {
               type: "radio" as const,
               selectedRowKeys,
-              onChange: (keys: React.Key[], selectedRows: EnrollmentWithStudent[]) => {
+              onChange: (keys: React.Key[], selectedRows: EnrollmentWithStudents[]) => {
                   setSelectedRowKeys(keys);
                   onSelect?.(selectedRows[0] || null);
               },
           }
         : undefined;
 
-    const columns: TableColumnsType<EnrollmentWithStudent> = [
+    const columns: TableColumnsType<EnrollmentWithStudents> = [
         {
             title: t("general.enrollment"),
             dataIndex: "id",
@@ -47,8 +47,8 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
             title: t("class.name"),
             dataIndex: "student",
             key: "student",
-            render: (student) => student?.fullName,
-            sorter: (a, b) => ((a.studentId || "") > (b.studentId || "") ? 1 : -1),
+            render: (student) => student?.name || "",
+            sorter: (a, b) => ((a.student.id || "") > (b.student.id || "") ? 1 : -1),
             width: "70%",
         },
     ];
@@ -67,7 +67,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 
     return (
         <div>
-            <Table<EnrollmentWithStudent>
+            <Table<EnrollmentWithStudents>
                 rowKey="id"
                 dataSource={data}
                 columns={columns}
