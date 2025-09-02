@@ -62,6 +62,9 @@ export const ClassForm: React.FC<ClassFormProps> = ({
             </Row>
             <Form.Item
                 name="teacher" // dont know how to display teacher name
+                getValueProps={(value) => ({
+                    value: value ? value.name : [],
+                })}
                 label={t("forms.teacher")}
                 rules={[{ required: true, message: t("forms.required.teacher") }]}>
                 <Select
@@ -69,6 +72,7 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
+                    //TODO fetch teachers from api
                     options={[
                         { label: "Mohamed", value: "001" },
                         { label: "Ahmed", value: "002" },

@@ -25,7 +25,6 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 }) => {
     const { t } = useTranslation();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    console.log("DATA", enrollments);
     const rowSelection = selectable
         ? {
               type: "radio" as const,

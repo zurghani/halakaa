@@ -55,7 +55,7 @@ const EnrollmentsEditPage: React.FC = () => {
             console.error("Invalid class ID");
             return;
         }
-
+        // TODO : what about transactions ?
         toBeCreatedEnrollments.forEach((enrollment) => {
             createEnrollmentMutation.mutate({
                 studentId: enrollment.student.id,
