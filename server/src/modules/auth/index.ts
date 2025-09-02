@@ -2,8 +2,6 @@ import { db } from "@/db";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin } from "better-auth/plugins";
-import { admin as adminRole, parent, student, teacher } from "./permissions";
-import { ac } from "./access-controller";
 import { Hono } from "hono";
 import type { AuthType } from "@/types";
 import { languageEnum } from "../../db/schema";
@@ -11,12 +9,14 @@ import { createAuthClient } from "better-auth/client";
 import { adminClient } from "better-auth/client/plugins";
 import "dotenv/config";
 import { password } from "bun";
+import { admin as adminRole, parent, student, teacher } from "./permissions";
+import { ac } from "./access-controller";
 
 const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
-  trustedOrigins: [process.env.TRUSTED_ORIGIN || "http://localhost:3000"],
+  trustedOrigins: [process.env.TRUSTED_ORIGIN ?? "http://localhost:3000"],
   emailAndPassword: {
     enabled: true,
     password: {
@@ -61,6 +61,8 @@ const auth = betterAuth({
 export const authRoutes = new Hono<{ Bindings: AuthType }>({ strict: false });
 
 authRoutes.on(["POST", "GET"], "/*", async (c) => {
+  const s = await auth.api.getSession({ headers: c.req.raw.headers });
+  console.log("ADMIN TEST – server sees:", s?.user?.id, s?.user?.role);
   return auth.handler(c.req.raw);
 });
 

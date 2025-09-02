@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Table, TableProps } from "antd";
-import { User } from "../../types";
 import { useTags } from "../../../../hooks/useTags";
+import { User } from "../../../../types";
 
 const UserTable = ({ users }: { users: User[] }) => {
     const { roleTags } = useTags({});
@@ -17,9 +17,9 @@ const UserTable = ({ users }: { users: User[] }) => {
         },
         {
             title: t("forms.fullName"),
-            dataIndex: "fullName",
-            key: "fullName",
-            sorter: (a, b) => a.fullName.length - b.fullName.length,
+            dataIndex: "name",
+            key: "name",
+            sorter: (a, b) => a.name.length - b.name.length,
         },
         {
             title: t("forms.email"),
