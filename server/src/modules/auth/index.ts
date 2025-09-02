@@ -9,6 +9,8 @@ import { createAuthClient } from "better-auth/client";
 import { adminClient } from "better-auth/client/plugins";
 import "dotenv/config";
 import { password } from "bun";
+import { admin as adminRole, parent, student, teacher } from "./permissions";
+import { ac } from "./access-controller";
 
 const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -43,6 +45,13 @@ const auth = betterAuth({
   },
   plugins: [
     admin({
+      ac,
+      roles: {
+        admin: adminRole,
+        parent,
+        student,
+        teacher,
+      },
       adminRoles: ["admin"],
       defaultRole: "student",
     }),
@@ -59,7 +68,15 @@ authRoutes.on(["POST", "GET"], "/*", async (c) => {
 
 export const authClient = createAuthClient({
   plugins: [
-    adminClient(),
+    adminClient({
+      ac,
+      roles: {
+        admin: adminRole,
+        parent,
+        teacher,
+        student,
+      },
+    }),
   ],
 });
 

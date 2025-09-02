@@ -1,8 +1,9 @@
+// roles.ts
+import { adminAc } from "better-auth/plugins/admin/access"; // <-- path fix
 import { ac, allActions } from "./access-controller";
 
 export const admin = ac.newRole({
-  user: allActions,
-  users: allActions,
+  ...adminAc.statements,
   students: allActions,
   classes: allActions,
   enrollments: allActions,

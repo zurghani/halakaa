@@ -31,8 +31,8 @@ const UserCreatePage: React.FC = () => {
             const result = await authClient.admin.createUser({
                 name: values.fullName,
                 email: values.email,
-
                 password: "1234", // You may want to generate a random password or handle this differently
+                role: values.role
             });
 
             if (result.data) {
