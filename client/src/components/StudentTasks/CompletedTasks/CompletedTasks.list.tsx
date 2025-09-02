@@ -1,10 +1,10 @@
 import { Col, Collapse, Row, Tag } from "antd";
 import "./CompletedTasks.scss";
 import { useTags } from "../../../hooks/useTags";
-import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import { TaskExpanded } from "../../../types";
 import dayjs from "dayjs";
 
-const CompletedTasksList = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
+const CompletedTasksList = ({ tasks }: { tasks: TaskExpanded[] }) => {
     const { taskTypeTags } = useTags({});
 
     const items = tasks.map((task, i) => ({

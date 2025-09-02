@@ -9,12 +9,12 @@ import "./AssignedTasks.scss";
 import { useTranslation } from "react-i18next";
 import EditTaskModal from "../../../pages/class/components/EditTaskModal";
 import { useTags } from "../../../hooks/useTags";
-import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import { TaskExpanded } from "../../../types";
 import dayjs from "dayjs";
 
 interface AssignedTasksProps {
     mode: "view" | "class";
-    tasks: TaskWithTaskTypeAndAyahReference[];
+    tasks: TaskExpanded[];
 }
 
 const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
@@ -23,14 +23,9 @@ const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
     const screens = useBreakpoint();
     const isMobile = !screens.lg;
     const [activeKey, setActiveKey] = useState<string[]>([]);
-    // TODO : add explanation for why we did we for loop here
-    // For loop to create mapping of keys, ensures unique key as there are many collapses on the same page
-    const keyMap = new Array(tasks.length);
-    for (let i = 0; i < tasks.length; i++) {
-        keyMap[i] = tasks[i].id.toString();
-    }
+
     const items = tasks.map((task, i) => ({
-        key: keyMap[i],
+        key: task.createdAt?.toString() ?? "_" + i,
         label: (
             <div className="task__label">
                 <div className="task__label__left">
@@ -64,7 +59,7 @@ export default AssignedTasks;
 
 // TODO: fix the Rows. no More than 24
 
-const TaskInfo: React.FC<TaskWithTaskTypeAndAyahReference> = (task) => {
+const TaskInfo: React.FC<TaskExpanded> = (task) => {
     return (
         <>
             <Row gutter={[16, 8]}>

@@ -49,7 +49,7 @@ export type UpdateTask = Partial<NewTask>;
 export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
     createdAt?: dayjs.Dayjs | string | null;
 };
-export type TaskWithTaskTypeAndAyahReference = Omit<Task, "assignedBy" | "completedBy"> & {
+export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     taskType: {

@@ -1,17 +1,17 @@
 import { Col, Row, Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../hooks/useTags";
-import { TaskWithTaskTypeAndAyahReference } from "../../../types";
+import { TaskExpanded } from "../../../types";
 import { useTaskTypes } from "../../../queries/taskTypes";
 import dayjs from "dayjs";
 
-const CompletedTasksTable = ({ tasks }: { tasks: TaskWithTaskTypeAndAyahReference[] }) => {
+const CompletedTasksTable = ({ tasks }: { tasks: TaskExpanded[] }) => {
     const { taskTypeTags } = useTags({});
     const { t } = useTranslation();
     const { data: taskTypes } = useTaskTypes();
     const tableData: TableProps["dataSource"] = tasks.map((task) => ({
         ...task,
-        key: task.id,
+        key: task.createdAt?.toString(),
     }));
     const columns: TableProps["columns"] = [
         {

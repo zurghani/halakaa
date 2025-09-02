@@ -5,7 +5,7 @@ import { getAyahReferences } from "../ayahs/service";
 import { alias } from "drizzle-orm/pg-core";
 
 export type Task = typeof tasks.$inferSelect;
-export type TaskWithTaskTypeAndAyahReference = Omit<Task, "assignedBy" | "completedBy"> & {
+export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
   assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
   completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
   taskType: {
@@ -33,9 +33,7 @@ export const createTask = async (task: NewTask): Promise<Task> => {
   return newTask!;
 };
 
-export const getTasksByStudentId = async (
-  studentId: number
-): Promise<TaskWithTaskTypeAndAyahReference[]> => {
+export const getTasksByStudentId = async (studentId: number): Promise<TaskExpanded[]> => {
   const assignedByUser = alias(user, "assignedByUser");
   const completedByUser = alias(user, "completedByUser");
 
@@ -76,6 +74,7 @@ export const getTasksByStudentId = async (
     ...new Set(data.flatMap((t) => [t.startingAyahId, t.endingAyahId].filter(Boolean)) as number[]),
   ];
 
+  //TODO: optimize this
   const ayahRefs = ayahIds.length ? await getAyahReferences(ayahIds) : [];
 
   const ayahMap = new Map(ayahRefs.map((ref) => [ref.ayahId, ref]));
@@ -87,6 +86,7 @@ export const getTasksByStudentId = async (
     endingAyah: t.endingAyahId ? (ayahMap.get(t.endingAyahId) ?? null) : null,
   }));
 };
+
 export const getTaskById = async (id: number): Promise<Task | undefined> => {
   const [task] = await db.select().from(tasks).where(eq(tasks.id, id));
   return task;
