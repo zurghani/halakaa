@@ -1,24 +1,31 @@
 import { List, Tag } from "antd";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
+
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useTags } from "../../../../hooks/useTags";
+import { Class } from "../../../../types";
+import { useAgeGroups } from "../../../../queries/ageGroups";
+import dayjs from "dayjs";
 
-const ClassesList: React.FC = () => {
+const ClassesList = ({ classes }: { classes: Class[] }) => {
     const { ageGroupTags } = useTags({});
-    const studentClasses = useSelector((state: AppStore) => state.class);
-    const data = studentClasses.map((studentClass) => ({
-        id: studentClass.id,
-        teacherId: studentClass.teacherId,
-        ageGroup: studentClass.ageGroup,
-        start: studentClass.time.start,
-        end: studentClass.time.end,
-    }));
+    const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
+    const classesWithAgeGroups = classes?.map((_class) => {
+        const ageGroupObj = ageGroups?.find((ag) => ag.id === _class.ageGroup);
+        const ageGroup = ageGroupObj ? `${ageGroupObj.from}-${ageGroupObj.to}` : "";
+        return {
+            ..._class,
+            ageGroup: ageGroup,
+            startsAt: dayjs(_class.startsAt, "HH:mm").format("h:mm A"),
+            endsAt: dayjs(_class.endsAt, "HH:mm").format("h:mm A"),
+            key: `class:${_class.id}`,
+        };
+    });
+    if (ageGroupsLoading) return <div>Loading...</div>;
 
     return (
         <List
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={classesWithAgeGroups}
             renderItem={(currentClass) => (
                 <List.Item
                     onClick={() => console.log(`Class: ${currentClass.id}`)}
@@ -30,13 +37,12 @@ const ClassesList: React.FC = () => {
                     <List.Item.Meta
                         title={
                             <>
-                                {currentClass.id}
+                                <Tag>{currentClass.id}</Tag>
                                 <Tag>{currentClass.teacherId}</Tag>
-                                {/* Put || 0 since ageGroup can be undefined */}
-                                {ageGroupTags[currentClass.ageGroup || 0]}
+                                {ageGroupTags[currentClass.ageGroup] || currentClass.ageGroup}
                                 <br />
-                                <Tag color="green">{currentClass.start}</Tag>
-                                <Tag color="purple">{currentClass.end}</Tag>
+                                <Tag color="blue">{currentClass.startsAt}</Tag>
+                                <Tag color="red">{currentClass.endsAt}</Tag>
                             </>
                         }
                     />

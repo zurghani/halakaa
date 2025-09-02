@@ -3,8 +3,8 @@ import { Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { AgeGroup } from "../../types";
 import { useTags } from "../../../../hooks/useTags";
+import { AgeGroup } from "../../../../types";
 
 interface AgeGroupTableProps {
     data: AgeGroup[];

@@ -12,7 +12,7 @@ export const requireRoles = (permission: AppPermission): MiddlewareHandler => {
 
     const { data, error } = await authClient.admin.hasPermission({
       userId: user.id,
-      permission,
+      permission
     });
 
     if (error || !data.success) {

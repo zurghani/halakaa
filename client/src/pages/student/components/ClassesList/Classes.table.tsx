@@ -1,100 +1,50 @@
-import { Table, TableProps, Tag } from "antd";
-import React from "react";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
+import { Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../../hooks/useTags";
+import { Class } from "../../../../types";
+import { useAgeGroups } from "../../../../queries/ageGroups";
+import dayjs from "dayjs";
 
-// interface DataType {
-//   key: string;
-//   teacher: string;
-//   type: TaskType;
-//   from: string;
-//   to: string;
-//   date: string;
-// }
-
-const ClassesTable: React.FC = () => {
+const ClassesTable = ({ classes }: { classes: Class[] }) => {
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
-    const studentClasses = useSelector((state: AppStore) => state.class);
-    const data = studentClasses.map((studentClass) => ({
-        id: studentClass.id,
-        teacherId: studentClass.teacherId,
-        ageGroup: studentClass.ageGroup,
-        start: studentClass.time.start,
-        end: studentClass.time.end,
-    }));
-
+    const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
+    const classesWithAgeGroups = classes?.map((_class) => {
+        const ageGroupObj = ageGroups?.find((ag) => ag.id === _class.ageGroup);
+        const ageGroup = ageGroupObj ? `${ageGroupObj.from}-${ageGroupObj.to}` : "";
+        return {
+            ..._class,
+            ageGroup: ageGroup,
+            startsAt: dayjs(_class.startsAt, "HH:mm").format("h:mm A"),
+            endsAt: dayjs(_class.endsAt, "HH:mm").format("h:mm A"),
+            key: `class:${_class.id}`,
+        };
+    });
     const columns: TableProps["columns"] = [
         {
             title: t("class.classID"),
             dataIndex: "id",
             key: "id",
-            filters: [
-                {
-                    text: "10001",
-                    value: "10001",
-                },
-                {
-                    text: "10003",
-                    value: "10003",
-                },
 
-                {
-                    text: "10005",
-                    value: "10005",
-                },
-            ],
-            onFilter: (value, record) => record.id.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
             sorter: (a, b) => a.id - b.id,
         },
         {
             title: t("class.teacher"),
             dataIndex: "teacherId",
             key: "teacherId",
-            filters: [
-                {
-                    text: "20001",
-                    value: "20001",
-                },
-                {
-                    text: "20003",
-                    value: "20003",
-                },
-
-                {
-                    text: "20005",
-                    value: "20005",
-                },
-            ],
-            onFilter: (value, record) => record.teacherId.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => a.teacherId - b.teacherId,
+            sorter: (a, b) => (a.teacherId > b.teacherId ? 1 : -1),
         },
         {
             title: t("class.ageGroup"),
             dataIndex: "ageGroup",
             key: "ageGroup",
-            render: (ageGroup) => ageGroupTags[ageGroup],
-            filters: [
-                {
-                    text: "5 - 8",
-                    value: "5 - 8",
-                },
-                {
-                    text: "6 - 10",
-                    value: "6 - 10",
-                },
-
-                {
-                    text: "8 - 12",
-                    value: "8 - 12",
-                },
-            ],
+            render: (ageGroup) => ageGroupTags[ageGroup] || ageGroup,
+            filters:
+                ageGroups?.map((ag) => ({
+                    text: `${ag.from}-${ag.to}`,
+                    value: `${ag.from}-${ag.to}`,
+                })) ?? [],
             onFilter: (value, record) => record.ageGroup.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
             sorter: (a, b) => {
                 const [aMin] = a.ageGroup.split(" - ").map(Number);
                 const [bMin] = b.ageGroup.split(" - ").map(Number);
@@ -103,67 +53,37 @@ const ClassesTable: React.FC = () => {
         },
         {
             title: t("class.startsAt"),
-            dataIndex: "start",
-            key: "start",
-            filters: [
-                {
-                    text: "9:00 AM",
-                    value: "9:00 AM",
-                },
-                {
-                    text: "1:00 PM",
-                    value: "1:00 PM",
-                },
-
-                {
-                    text: "6:00 PM",
-                    value: "6:00 PM",
-                },
-            ],
-            onFilter: (value, record) => record.start.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => timeToMinutes(a.start) - timeToMinutes(b.start),
+            dataIndex: "startsAt",
+            key: "startsAt",
+            sorter: (a, b) => (a.startsAt > b.startsAt ? 1 : -1),
         },
         {
             title: t("class.endsAt"),
-            dataIndex: "end",
-            key: "end",
-            filters: [
-                {
-                    text: "11:00 AM",
-                    value: "11:00 AM",
-                },
-                {
-                    text: "4:00 PM",
-                    value: "4:00 PM",
-                },
-
-                {
-                    text: "8:00 PM",
-                    value: "8:00 PM",
-                },
-            ],
-            onFilter: (value, record) => record.end.indexOf(value as string) === 0,
-            defaultSortOrder: "descend",
-            sorter: (a, b) => timeToMinutes(a.end) - timeToMinutes(b.end),
+            dataIndex: "endsAt",
+            key: "endsAt",
+            sorter: (a, b) => a.endsAt.valueOf() - b.endsAt.valueOf(),
         },
     ];
 
+    if (ageGroupsLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={classesWithAgeGroups} pagination={false} />
         </>
     );
 };
 
 export default ClassesTable;
 
-const timeToMinutes = (timeStr: string) => {
-    const [time, modifier] = timeStr.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
+// const timeToMinutes = (timeStr: string) => {
+//     const [time, modifier] = timeStr.split(" ");
+//     let [hours, minutes] = time.split(":").map(Number);
 
-    if (hours === 12) hours = 0;
-    if (modifier === "PM") hours += 12;
+//     if (hours === 12) hours = 0;
+//     if (modifier === "PM") hours += 12;
 
-    return hours * 60 + minutes;
-};
+//     return hours * 60 + minutes;
+// };

@@ -72,7 +72,7 @@
         "ageGroup": {
             "createSuccess": "Age Group Created Successfully!",
             "updateSuccess": "Age Group Updated Successfully!",
-            "deleteConfirmation": "Are you sure you want to delete this age group?",
+            "deleteConfirmation": "Are you sure you want to delete this age group? Delete will fail if any classes are assigned to this age group.",
             "deleteSuccess": "Age Group Deleted Successfully!",
             "deleteTitle": "Delete Age Group"
         },

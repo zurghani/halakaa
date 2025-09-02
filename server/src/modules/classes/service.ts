@@ -1,7 +1,6 @@
 import { db } from "@/db";
-import { classes, user } from "@/db/schema";
+import { classes, enrollments,user } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
-import { start } from "repl";
 
 export type Class = typeof classes.$inferSelect;
 export type ClassWithTeacherInfo = Omit<Class, "teacherId"> & {
@@ -19,17 +18,40 @@ export const getAllClasses = async (): Promise<Class[]> => {
   return await db.select().from(classes);
 };
 
-export type getClassFilters = { teacherId?: string };
+export type getClassFilters = { teacherId?: string; studentId?: number };
 export const getClassByFilters = async (filters: getClassFilters): Promise<Class[]> => {
+  const selectFields = {
+    id: classes.id,
+    createdAt: classes.createdAt,
+    teacherId: classes.teacherId,
+    startsAt: classes.startsAt,
+    endsAt: classes.endsAt,
+    description: classes.description,
+    ageGroup: classes.ageGroup,
+  };
   const conditions = [];
-  if (filters.teacherId) {
+
+  if (filters.teacherId && filters.teacherId !== "") {
     conditions.push(eq(classes.teacherId, filters.teacherId));
   }
-  const result = await db
-    .select()
-    .from(classes)
-    .where(conditions.length > 0 ? and(...conditions) : undefined);
-  return result;
+  if (filters.studentId) {
+    conditions.push(eq(enrollments.studentId, filters.studentId));
+  }
+  if (conditions.length) {
+    if (filters.studentId) {
+      const query = db
+        .select(selectFields)
+        .from(classes)
+        .innerJoin(enrollments, eq(enrollments.classId, classes.id))
+        .where(eq(enrollments.studentId, filters.studentId));
+      return await query;
+    } else {
+      let query = db.select(selectFields).from(classes);
+      return conditions.length > 0 ? await query.where(and(...conditions)) : [];
+    }
+  } else {
+    return [];
+  }
 };
 
 export const getClassById = async (id: number): Promise<ClassWithTeacherInfo | undefined> => {

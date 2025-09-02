@@ -2,11 +2,11 @@ import React from "react";
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { UserListItem } from "../../types";
 import { useTags } from "../../../../hooks/useTags";
+import { User } from "../../../../types";
 
 interface UserListProps {
-    users: UserListItem[];
+    users: User[];
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
@@ -29,9 +29,9 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                     <List.Item.Meta
                         title={
                             <>
-                                {user.fullName}
+                                {user.name}
                                 <Tag>{user.phone}</Tag>
-                                {roleTags[user.role]}
+                                {roleTags[user.role || ""]}
                             </>
                         }
                     />
