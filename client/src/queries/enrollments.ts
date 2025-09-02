@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
 import { NewEnrollment } from "../types";
 
-export function useEnrollments(filters: { classId?: number; studentId?: number }) {
+export function useEnrollments(filters: { classId?: string; studentId?: number }) {
     return useQuery({
         queryKey: ["enrollments", filters],
         queryFn: async () => {

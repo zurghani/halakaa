@@ -12,6 +12,7 @@ import {
     ayah,
 } from "../../server/src/db/schema";
 
+//student
 export type User = typeof user.$inferSelect;
 export type NewUser = typeof user.$inferInsert;
 export type UpdateUser = Partial<NewUser>;
@@ -26,32 +27,52 @@ export type StudentFormValues = Omit<Student, "dateOfBirth"> & {
 export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
 
+//AgeGroup
 export type AgeGroup = Omit<typeof ageGroup.$inferSelect, "createdAt"> & {
     createdAt?: string | null;
 };
 export type NewAgeGroup = typeof ageGroup.$inferInsert;
 
+//Attendance
 export type Attendance = Omit<typeof attendance.$inferSelect, "createdAt"> & {
     createdAt: string | null;
 };
 export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
-export type Class = typeof classes.$inferSelect;
+//class
+export type Class = Omit<typeof classes.$inferSelect, "createdAt"> & {
+    createdAt: string | null;
+};
+export type ClassWithTeacherInfo = Omit<Class, "teacherId" | "createdAt"> & {
+    teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
+    createdAt: string | null;
+};
+export type ClassFormValues = Omit<Class, "startsAt" | "endsAt"> & {
+    startsAt: Dayjs | null;
+    endsAt: Dayjs | null;
+};
 export type ClassWithAgeGroup = Omit<Class, "ageGroup"> & { ageGroup: string | "" };
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
 
-export type Enrollment = typeof enrollments.$inferSelect;
+//enrollment
+export type Enrollment = Omit<typeof enrollments.$inferSelect, "createdAt"> & {
+    createdAt: string | null;
+};
+export type EnrollmentWithStudents = Omit<Enrollment, "studentId" | "classId"> & {
+    student: { id: number; name: string };
+};
 export type NewEnrollment = typeof enrollments.$inferInsert;
 
+//task
 export type Task = Omit<typeof tasks.$inferSelect, "createdAt"> & {
     createdAt: string | null;
 };
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
 
-// export type TaskType = typeof taskTypes.$inferSelect;
+//taskType
 export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
     createdAt?: dayjs.Dayjs | string | null;
 };
@@ -78,6 +99,7 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
 
 export type NewTaskType = typeof taskTypes.$inferInsert;
 
+//Quran
 export type Surah = typeof surah.$inferSelect;
 
 export type Ayah = Omit<typeof ayah.$inferSelect, "createdAt"> & {

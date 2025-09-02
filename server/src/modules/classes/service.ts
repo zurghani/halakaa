@@ -1,8 +1,11 @@
 import { db } from "@/db";
-import { classes, enrollments } from "@/db/schema";
+import { classes, enrollments,user } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 
 export type Class = typeof classes.$inferSelect;
+export type ClassWithTeacherInfo = Omit<Class, "teacherId"> & {
+  teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
+};
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
 
@@ -51,8 +54,23 @@ export const getClassByFilters = async (filters: getClassFilters): Promise<Class
   }
 };
 
-export const getClassById = async (id: number): Promise<Class | undefined> => {
-  const [quranClass] = await db.select().from(classes).where(eq(classes.id, id));
+export const getClassById = async (id: number): Promise<ClassWithTeacherInfo | undefined> => {
+  const [quranClass] = await db
+    .select({
+      id: classes.id,
+      startsAt: classes.startsAt,
+      endsAt: classes.endsAt,
+      description: classes.description,
+      ageGroup: classes.ageGroup,
+      teacher: {
+        id: user.id,
+        name: user.name,
+      },
+      createdAt: classes.createdAt,
+    })
+    .from(classes)
+    .innerJoin(user, eq(classes.teacherId, user.id))
+    .where(eq(classes.id, id));
   return quranClass;
 };
 

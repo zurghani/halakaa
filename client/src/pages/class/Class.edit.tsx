@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "antd";
@@ -9,16 +9,10 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ClassForm } from "./components/ClassForm";
 import { ActionButton } from "../../components/Button/ActionButton";
-import dayjs from "dayjs";
 import SaveSuccessModal from "../../components/Modals/Success";
-
-const dummyClass = {
-    description: "Revision Class",
-    startsAt: dayjs("2025-08-03T09:00:00"), // 9:00 AM
-    endsAt: dayjs("2025-08-03T10:30:00"), // 10:30 AM
-    teacher: ["002"], // AntD expects array in mode="tags"
-    ageGroup: ["6-8"], // same here
-};
+import { useClass, useUpdateClass } from "../../queries/classes";
+import { ClassFormValues } from "../../types";
+import dayjs from "dayjs";
 
 const ClassEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -26,15 +20,29 @@ const ClassEditPage: React.FC = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const [form] = Form.useForm();
+    const { id: classId } = useParams<{ id: string }>();
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = React.useState(false);
+    const updateClassMutation = useUpdateClass();
 
-    const handleSubmit = (values: any) => {
-        console.log("Editted:", values);
-        // edit the class logic here
-        setIsSuccessModalOpen(true); 
+    const handleSubmit = (values: ClassFormValues) => {
+        const _class = {
+            classId: classId || "",
+            updates: {
+                description: values.description,
+                startsAt: values.startsAt ? values.startsAt.format("HH:mm:ss") : null,
+                endsAt: values.endsAt ? values.endsAt.format("HH:mm:ss") : null,
+                ageGroup: values.ageGroup,
+                teacherId: values.teacherId,
+            },
+        };
+        updateClassMutation.mutate(_class, {
+            onSuccess: () => {
+                setIsSuccessModalOpen(true);
+            },
+        });
     };
-    
+
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.editClass")));
@@ -48,18 +56,27 @@ const ClassEditPage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
+    const { data: initialClass, isLoading } = useClass(classId || "");
 
+    const formInitialValues = initialClass
+        ? {
+              ...initialClass,
+              startsAt: initialClass.startsAt ? dayjs(initialClass.startsAt, "HH:mm:ss") : null,
+              endsAt: initialClass.endsAt ? dayjs(initialClass.endsAt, "HH:mm:ss") : null,
+          }
+        : undefined;
+    if (isLoading) return <div>Loading...</div>;
     return (
-    <>
-        <ClassForm form={form} defaultValues={dummyClass} onSubmit={handleSubmit} />
-        <SaveSuccessModal 
-                isOpen={isSuccessModalOpen} 
+        <>
+            <ClassForm form={form} defaultValues={formInitialValues} onSubmit={handleSubmit} />
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.CLASS.FIND}
                 title={t("modal.class.updateSuccess")}
                 message={t("modal.doneMessage")}
             />
-    </>
-    )
+        </>
+    );
 };
 export default ClassEditPage;
