@@ -2,12 +2,18 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../lib/api-client";
 import { NewClass, UpdateClass } from "../types";
 
-export function useClasses(filters?: { teacherId?: string }) {
+export function useClasses(filters?: {
+    teacherId?: string;
+    teacherName?: string;
+    classId?: number;
+}) {
     return useQuery({
         queryKey: ["classes", filters],
         queryFn: async () => {
             const searchParams = new URLSearchParams();
             if (filters?.teacherId) searchParams.append("teacher_id", filters.teacherId);
+            if (filters?.teacherName) searchParams.append("teacher_name", filters.teacherName);
+            if (filters?.classId) searchParams.append("class_id", filters.classId.toString());
 
             const res = await apiClient.classes.$get({
                 query: Object.fromEntries(searchParams.entries()),

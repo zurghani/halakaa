@@ -1,15 +1,16 @@
 import { Table, TableProps } from "antd";
-import { FindClassResultType } from "./dummy.data";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../../hooks/useTags";
+import dayjs from "dayjs";
+import { Class } from "../../../../types";
 
-const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
+const ClassesTable = ({ classes }: { classes: Class[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
 
-    const columns: TableProps<FindClassResultType>["columns"] = [
+    const columns: TableProps<Class>["columns"] = [
         {
             title: t("general.id"),
             dataIndex: "id",
@@ -17,9 +18,10 @@ const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
         },
         {
             title: t("general.teacher"),
-            dataIndex: "teacher",
-            key: "teacher",
-            sorter: (a, b) => a.teacher.length - b.teacher.length,
+            dataIndex: "teacherId",
+            key: "teacherId",
+            sorter: (a, b) =>
+                a.teacherId && b.teacherId ? (a.teacherId > b.teacherId ? 1 : -1) : 0,
         },
         {
             title: t("general.ageGroup"),
@@ -31,19 +33,27 @@ const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
                 { text: "11-15", value: "11-15" },
                 { text: "16-20", value: "16-20" },
             ],
-            onFilter: (value, record) => record.ageGroup.includes(value as string),
+            onFilter: (value, record) => record.ageGroup === value,
         },
         {
             title: t("general.startsAt"),
-            dataIndex: "StartsAt",
-            key: "StartsAt",
-            sorter: (a, b) => a.teacher.length - b.teacher.length,
+            dataIndex: "startsAt",
+            key: "startsAt",
+            render: (startsAt: string) => dayjs(startsAt, ["HH:mm:ss", "HH:mm"]).format("h:mm A"),
+
+            sorter: (a, b) =>
+                dayjs(a.startsAt, ["HH:mm:ss", "HH:mm"]).unix() -
+                dayjs(b.startsAt, ["HH:mm:ss", "HH:mm"]).unix(),
         },
         {
             title: t("general.endsAt"),
-            dataIndex: "EndsAt",
-            key: "EndsAt",
-            sorter: (a, b) => a.teacher.length - b.teacher.length,
+            dataIndex: "endsAt",
+            key: "endsAt",
+            render: (endsAt: string) => dayjs(endsAt, ["HH:mm:ss", "HH:mm"]).format("h:mm A"),
+
+            sorter: (a, b) =>
+                dayjs(a.startsAt, ["HH:mm:ss", "HH:mm"]).unix() -
+                dayjs(b.startsAt, ["HH:mm:ss", "HH:mm"]).unix(),
         },
     ];
 
@@ -52,7 +62,7 @@ const ClassesTable = ({ classes }: { classes: FindClassResultType[] }) => {
             <Table
                 columns={columns}
                 dataSource={classes}
-                onRow={(record: FindClassResultType) => ({
+                onRow={(record: Class) => ({
                     onClick: () => {
                         // handle row click here
                         navigate(`/class/${record.id}`);
