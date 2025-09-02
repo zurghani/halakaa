@@ -1,10 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../store";
 import { Col, Progress, Row } from "antd";
 
 import "./StudentDetailsCard.scss";
 import { useTranslation } from "react-i18next";
+import { Student } from "../../types";
 
 const StudentStat = ({ percentage, legend }: { percentage: number; legend: string }) => {
     return (
@@ -14,9 +12,8 @@ const StudentStat = ({ percentage, legend }: { percentage: number; legend: strin
         </div>
     );
 };
-const StudentDetailsCard: React.FC = () => {
+const StudentDetailsCard = ({ student }: { student: Student }) => {
     const { t } = useTranslation();
-    const student = useSelector((state: AppStore) => state.student);
     return (
         <>
             <Row gutter={[16, 8]} className="student-section__info">
@@ -24,10 +21,10 @@ const StudentDetailsCard: React.FC = () => {
                 <Col span={20}>{student.id}</Col>
 
                 <Col span={4}>{t("general.name")}</Col>
-                <Col span={20}>{student.name}</Col>
+                <Col span={20}>{student.fullName}</Col>
 
-                <Col span={4}>{t("general.age")}</Col>
-                <Col span={20}>{student.age}</Col>
+                <Col span={4}>{t("general.dob")}</Col>
+                <Col span={20}>{student.dateOfBirth}</Col>
                 {/* NOT SUPPORTE WITH CURRENT STUDENT TYPE */}
                 {/* <Col span={4}>Joined:</Col>
         <Col span={20}>{student.joinDate}</Col> */}

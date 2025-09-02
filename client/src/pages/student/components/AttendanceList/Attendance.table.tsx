@@ -1,10 +1,8 @@
-import { Table, TableProps, Tag } from "antd";
-import React from "react";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
+import { Table, TableProps } from "antd";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
 import { AttendanceStatus } from "../../../../store/types";
 import { useTranslation } from "react-i18next";
+import { Attendance } from "../../../../types";
 
 // interface DataType {
 //   key: string;
@@ -15,15 +13,14 @@ import { useTranslation } from "react-i18next";
 //   date: string;
 // }
 
-const AttendanceTable: React.FC = () => {
+const AttendanceTable = ({ attendance }: { attendance: Attendance[] }) => {
     const { t } = useTranslation();
-    const attendance = useSelector((state: AppStore) => state.student.attendance);
 
     const columns: TableProps["columns"] = [
         {
             title: t("general.teacher"),
             dataIndex: "teacherId",
-            key: "id",
+            key: "teacherId",
             defaultSortOrder: "descend",
             sorter: (a, b) => a.teacherId - b.teacherId,
         },

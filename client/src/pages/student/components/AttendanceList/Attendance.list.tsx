@@ -1,12 +1,9 @@
 import { List, Tag } from "antd";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
+import { Attendance } from "../../../../types";
 
-const AttendanceList: React.FC = () => {
-    const attendance = useSelector((state: AppStore) => state.student.attendance);
-
+const AttendanceList = ({ attendance }: { attendance: Attendance[] }) => {
     return (
         <List
             itemLayout="horizontal"
