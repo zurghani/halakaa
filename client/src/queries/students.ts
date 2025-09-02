@@ -84,3 +84,27 @@ export function useCreateStudent() {
         },
     });
 }
+
+export function useSearchStudents(filters?: { id?: string; name?: string; dob?: string }) {
+    return useQuery({
+        queryKey: ["students", filters],
+        queryFn: async () => {
+            const searchParams = new URLSearchParams();
+            if (filters?.id) searchParams.append("id", filters.id.toString());
+            if (filters?.name) searchParams.append("name", filters.name);
+            if (filters?.dob) searchParams.append("dob", filters.dob);
+
+            const res = await apiClient.students.search.$get({
+                query: Object.fromEntries(searchParams.entries()),
+            });
+
+            if (!res.ok) {
+                const error = new Error(await res.text());
+                (error as any).status = res.status;
+                throw error;
+            }
+
+            return await res.json();
+        },
+    });
+}

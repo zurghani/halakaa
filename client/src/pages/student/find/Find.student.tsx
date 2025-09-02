@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Space, Grid } from "antd";
+import { Space, Grid } from "antd";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
-import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 import { SearchOptions } from "./search.options";
-import { FindStudentResultDummyData } from "./result/dummy.data";
 import StudentTable from "./result/Student.table";
 import StudentList from "./result/Student.list";
 import SearchForm from "./SearchForm.student";
 import { useTranslation } from "react-i18next";
-import { useStudents } from "../../../queries/students";
+import { useSearchStudents } from "../../../queries/students";
 
 const { useBreakpoint } = Grid;
+
+export type SearchData = {
+    id?: string;
+    name?: string;
+    dob?: string;
+};
 
 const FindStudent: React.FC = () => {
     const { t } = useTranslation();
@@ -22,29 +26,21 @@ const FindStudent: React.FC = () => {
     }, [t]);
     const screens = useBreakpoint();
     const isMobile = !screens.md;
-    const [count, setCount] = useState(0);
 
-    const { setButtons } = useSetButtons();
+    const [searchData, setSearchData] = useState<SearchData>({});
+    const filter = getFilter(searchData);
+
+    const { data: students, isLoading } = useSearchStudents(filter);
+
     useEffect(() => {
-        setButtons([
-            <Button key="add" type="default" onClick={() => setCount(count + 1)}>
-                +
-            </Button>,
-            <Button key="search" type="default" onClick={() => setCount(count - 1)}>
-                -
-            </Button>,
-        ]);
-    }, [count]);
-
-    const { data: students, isLoading } = useStudents();
-    if (isLoading) return <div>Loading...</div>;
-    console.log(students);
+        console.log("Search Data Changed:", searchData);
+    }, [searchData]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>
-            <SearchForm SearchOptions={SearchOptions} />
-            {`${t("general.resultsFound")} ${FindStudentResultDummyData.length}`}
+            <SearchForm SearchOptions={SearchOptions} SetData={setSearchData} />
+            {`${t("general.resultsFound")} ${students?.length}`}
             {isMobile ? (
                 <StudentList students={students ?? []} />
             ) : (
@@ -55,3 +51,10 @@ const FindStudent: React.FC = () => {
 };
 
 export default FindStudent;
+
+const getFilter = (data: SearchData) => {
+    if (data.id !== undefined) return { id: data.id };
+    if (data.name) return { name: data.name };
+    if (data.dob) return { dob: data.dob };
+    return {}; // fetch all
+};

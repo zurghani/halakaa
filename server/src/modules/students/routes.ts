@@ -27,6 +27,26 @@ const students = new Hono<{ Variables: AuthType }>()
     }
     return c.json([]);
   })
+  .get("/search", requireRoles({ students: ["view"] }), async (c) => {
+    const idParam = c.req.query("id");
+    const id = idParam ? Number(idParam) : undefined;
+    const name = c.req.query("name");
+    const dob = c.req.query("dob");
+    let filters = {};
+
+    if (id) {
+      filters = { id };
+    } else if (name) {
+      filters = { name };
+    } else if (dob) {
+      filters = { dob };
+    } else {
+      return c.json([]);
+    }
+
+    const students = await studentsService.getStudentBySearch(filters);
+    return c.json(students || []);
+  })
 
   .get("/:id", requireRoles({ students: ["view"] }), async (c) => {
     const id = c.req.param("id");

@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { students, classes, enrollments } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import { and, eq, ilike, sql } from "drizzle-orm";
 
 // Types
 export type Student = typeof students.$inferSelect;
@@ -65,6 +65,26 @@ export const getStudentByFilters = async (filters: getStudentsFilters): Promise<
   } else {
     return [];
   }
+};
+
+export type getStudentBySearchFilters = { id?: number; name?: string; dob?: string };
+
+export const getStudentBySearch = async (
+  filters: getStudentBySearchFilters
+): Promise<Student[]> => {
+  if (!filters.id && !filters.name && !filters.dob) {
+    return [];
+  }
+
+  let whereCondition;
+  if (filters.id) {
+    whereCondition = ilike(sql`${students.id}::text`, `%${filters.id}%`);
+  } else if (filters.name) {
+    whereCondition = ilike(students.fullName, `%${filters.name}%`);
+  } else if (filters.dob) {
+    whereCondition = eq(students.dateOfBirth, filters.dob);
+  }
+  return await db.select().from(students).where(whereCondition);
 };
 
 // Update

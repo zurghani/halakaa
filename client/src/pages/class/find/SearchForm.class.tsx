@@ -3,7 +3,6 @@ import { SearchOptionsType } from "./search.options";
 import { Input, Segmented, Select, Space } from "antd";
 import type { GetProps } from "antd";
 import { SearchData } from "./Find.class";
-import { t } from "i18next";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
