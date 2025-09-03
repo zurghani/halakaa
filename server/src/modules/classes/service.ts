@@ -5,7 +5,7 @@ import { and, eq, ilike, sql } from "drizzle-orm";
 export type Class = typeof classes.$inferSelect;
 export type ClassWithTeacherInfo = Omit<Class, "teacherId"> & {
   teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name };
-  };
+};
 
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
@@ -160,38 +160,4 @@ export const getClassByFilters = async (
   } else {
     return [];
   }
-};
-
-
-export const getClassById = async (id: number): Promise<ClassWithTeacherInfo | undefined> => {
-  const [quranClass] = await db
-    .select({
-      id: classes.id,
-      startsAt: classes.startsAt,
-      endsAt: classes.endsAt,
-      description: classes.description,
-      ageGroup: classes.ageGroup,
-      teacher: {
-        id: user.id,
-        name: user.name,
-      },
-      createdAt: classes.createdAt,
-    })
-    .from(classes)
-    .innerJoin(user, eq(classes.teacherId, user.id))
-    .where(eq(classes.id, id));
-  return quranClass;
-};
-
-export const updateClass = async (id: number, updates: UpdateClass): Promise<Class | undefined> => {
-  const [updatedClass] = await db
-    .update(classes)
-    .set(updates)
-    .where(eq(classes.id, id))
-    .returning();
-  return updatedClass;
-};
-
-export const deleteClass = async (id: number): Promise<void> => {
-  await db.delete(classes).where(eq(classes.id, id));
 };
