@@ -9,7 +9,6 @@ export function useClasses(filters?: { teacherId?: string; studentId?: string })
             const searchParams = new URLSearchParams();
             if (filters?.teacherId) searchParams.append("teacher_id", filters.teacherId);
             if (filters?.studentId) searchParams.append("student_id", filters.studentId);
-
             const res = await apiClient.classes.$get({
                 query: Object.fromEntries(searchParams.entries()),
             });
@@ -20,6 +19,27 @@ export function useClasses(filters?: { teacherId?: string; studentId?: string })
             }
             return await res.json();
         },
+    });
+}
+
+export function useSearchClasses(filters: { classId?: number; teacherName?: string }) {
+    return useQuery({
+        queryKey: ["classes", "search", filters],
+        queryFn: async () => {
+            const searchParams = new URLSearchParams();
+            if (filters?.classId) searchParams.append("class_id_like", String(filters.classId));
+            if (filters?.teacherName) searchParams.append("teacher_name_like", filters.teacherName);
+            const res = await apiClient.classes.$get({
+                query: Object.fromEntries(searchParams.entries()),
+            });
+            if (!res.ok) {
+                const error = new Error(await res.text());
+                (error as any).status = res.status;
+                throw error;
+            }
+            return await res.json();
+        },
+        // enabled: !!(filters?.classId || filters?.teacherName),
     });
 }
 

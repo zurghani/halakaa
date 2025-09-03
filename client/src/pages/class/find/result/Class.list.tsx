@@ -1,10 +1,11 @@
 import { List, Tag } from "antd";
-import { FindClassResultType } from "./dummy.data";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../../hooks/useTags";
+import dayjs from "dayjs";
+import { ClassWithTeacherInfo } from "../../../../types";
 
-const ClassList = ({ classes }: { classes: FindClassResultType[] }) => {
+const ClassList = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
 
@@ -26,11 +27,20 @@ const ClassList = ({ classes }: { classes: FindClassResultType[] }) => {
                         title={
                             <>
                                 <Tag> ID : {currentClass.id}</Tag>
-                                Teacher: {currentClass.teacher}
+                                Teacher: {currentClass.teacher?.name || "N/A"}
                                 <br />
-                                {ageGroupTags[currentClass.ageGroup]}
-                                <Tag>{currentClass.StartsAt}</Tag>
-                                <Tag>{currentClass.EndsAt}</Tag>
+                                {/* use age group tags when created  */}
+                                {currentClass.ageGroup}
+                                <Tag color="green">
+                                    {dayjs(currentClass.startsAt, ["HH:mm:ss", "HH:mm"]).format(
+                                        "h:mm A"
+                                    )}
+                                </Tag>
+                                <Tag color="red">
+                                    {dayjs(currentClass.endsAt, ["HH:mm:ss", "HH:mm"]).format(
+                                        "h:mm A"
+                                    )}
+                                </Tag>
                             </>
                         }
                     />

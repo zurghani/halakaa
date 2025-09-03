@@ -1,16 +1,20 @@
-import React, { use, useEffect, useState } from "react";
-import { Button, Space, Grid } from "antd";
-import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
+import React, { useEffect, useState } from "react";
+import { Space, Grid } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
-import { SearchOptions } from "./search.options";
 import SearchForm from "./SearchForm.class";
-import { FindClassResultDummyData } from "./result/dummy.data";
 import ClassesTable from "./result/Class.table";
 import ClassList from "./result/Class.list";
 import { useTranslation } from "react-i18next";
+import { useSearchClasses } from "../../../queries/classes";
+import { SearchOptions, SearchOptionsType } from "./search.options";
 
 const { useBreakpoint } = Grid;
+
+export type SearchData = {
+    classId?: number;
+    teacherName?: string;
+};
 
 const FindClass: React.FC = () => {
     const { t } = useTranslation();
@@ -20,32 +24,40 @@ const FindClass: React.FC = () => {
     }, [t]);
     const screens = useBreakpoint();
     const isMobile = !screens.md;
-    const [count, setCount] = useState(0);
 
-    const { setButtons } = useSetButtons();
+    const [searchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.all.value);
+    const [searchData, setSearchData] = useState<SearchData>({});
+
+    const filter = getFilter(searchData);
+
+    const { data: classes, isLoading } = useSearchClasses(searchType !== "all" ? filter : {});
+    console.log("Classes Data:", classes, isLoading, filter);
+
     useEffect(() => {
-        setButtons([
-            <Button key="add" type="default" onClick={() => setCount(count + 1)}>
-                +
-            </Button>,
-            <Button key="search" type="default" onClick={() => setCount(count - 1)}>
-                -
-            </Button>,
-        ]);
-    }, [count]);
-
+        console.log("Search Data Changed:", searchData);
+    }, [searchData]);
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>
-            <SearchForm SearchOptions={SearchOptions} />
-            {`${t("general.resultsFound")} ${FindClassResultDummyData.length}`}
+            <SearchForm
+                SetData={setSearchData}
+                searchType={searchType}
+                setSearchType={setSearchType}
+            />
+            {`${t("general.resultsFound")} ${classes?.length}`}
             {isMobile ? (
-                <ClassList classes={FindClassResultDummyData} />
+                <ClassList classes={classes ?? []} />
             ) : (
-                <ClassesTable classes={FindClassResultDummyData} />
+                <ClassesTable classes={classes ?? []} />
             )}
         </Space>
     );
 };
 
 export default FindClass;
+
+const getFilter = (data: SearchData) => {
+    if (data.classId !== undefined) return { classId: data.classId };
+    if (data.teacherName) return { teacherName: data.teacherName };
+    return {}; // fetch all
+};

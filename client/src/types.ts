@@ -40,12 +40,13 @@ export type Attendance = Omit<typeof attendance.$inferSelect, "createdAt"> & {
 export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
+
 //class
 export type Class = Omit<typeof classes.$inferSelect, "createdAt"> & {
     createdAt: string | null;
 };
 export type ClassWithTeacherInfo = Omit<Class, "teacherId" | "createdAt"> & {
-    teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
+    teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name };
     createdAt: string | null;
 };
 export type ClassFormValues = Omit<Class, "startsAt" | "endsAt"> & {
