@@ -1,6 +1,7 @@
 import { Col, Form, FormInstance, Input, Row, Select, TimePicker } from "antd";
 import { useTranslation } from "react-i18next";
 import { Class } from "../types";
+import { useAgeGroups } from "../../../queries/ageGroups";
 
 export interface ClassFormProps {
     disabled?: boolean;
@@ -15,6 +16,8 @@ export const ClassForm: React.FC<ClassFormProps> = ({
     form,
 }) => {
     const { t } = useTranslation();
+    const { data: ageGroups, isLoading } = useAgeGroups();
+    if (isLoading) return <div>Loading...</div>;
 
     return (
         <Form
@@ -58,7 +61,10 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                 </Col>
             </Row>
             <Form.Item
-                name="teacher"
+                name="teacher" // dont know how to display teacher name
+                getValueProps={(value) => ({
+                    value: value ? value.name : [],
+                })}
                 label={t("forms.teacher")}
                 rules={[{ required: true, message: t("forms.required.teacher") }]}>
                 <Select
@@ -66,6 +72,7 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
+                    //TODO fetch teachers from api
                     options={[
                         { label: "Mohamed", value: "001" },
                         { label: "Ahmed", value: "002" },
@@ -77,19 +84,16 @@ export const ClassForm: React.FC<ClassFormProps> = ({
             <Form.Item
                 name="ageGroup"
                 label={t("forms.ageGroup")}
-                rules={[{ required: false, message: t("forms.required.ageGroup") }]}>
+                rules={[{ required: true, message: t("forms.required.ageGroup") }]}>
                 <Select
                     mode="tags"
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
-                    options={[
-                        { label: "4 - 6", value: "4-6" },
-                        { label: "6 - 8", value: "6-8" },
-                        { label: "8 - 12", value: "8-12" },
-                        { label: "12 - 14", value: "12-14" },
-                        { label: "14 - 16", value: "14-16" },
-                    ]}
+                    options={ageGroups?.map((ageGroup) => ({
+                        label: `${ageGroup.from}-${ageGroup.to}`,
+                        value: ageGroup.id,
+                    }))}
                 />
             </Form.Item>
         </Form>

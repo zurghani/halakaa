@@ -1,52 +1,106 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button } from "antd";
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
-import { Enrollment, Student } from "./types";
+import { CloseOutlined } from "@ant-design/icons";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { Paths } from "../../Routes";
 import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
-import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
 import StudentSelectModal from "./Enrollments/StudentSelectModal";
-
-const dummyStudents: Student[] = [
-    { id: 1, fullName: "Alice Johnson", gender: "female" },
-    { id: 2, fullName: "Bob Smith", gender: "male" },
-    { id: 3, fullName: "Clara Nguyen", gender: "female" },
-    { id: 4, fullName: "David Brown", gender: "male" },
-    { id: 5, fullName: "Eva Davis", gender: "female" },
-];
+import { useStudents } from "../../queries/students";
+import {
+    useCreateEnrollment,
+    useDeleteEnrollment,
+    useEnrollments,
+} from "../../queries/enrollments";
+import { EnrollmentWithStudents, Student } from "../../types";
+import SaveSuccessModal from "../../components/Modals/Success";
+import DeleteConfirmModal from "../../components/Modals/Delete";
+import dayjs from "dayjs";
 
 const EnrollmentsEditPage: React.FC = () => {
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const { id: classId } = useParams<{ id: string }>();
 
-    const [enrollments, setEnrollments] = useState<Enrollment[]>(enrollmentsDummy);
+    const { data: students, isLoading: studentsLoading } = useStudents({ classId: classId });
+    const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
+        classId: classId,
+    });
+
+    const createEnrollmentMutation = useCreateEnrollment();
+    const deleteEnrollmentMutation = useDeleteEnrollment();
+
+    const [enrollmentsData, setEnrollmentsData] = useState<EnrollmentWithStudents[]>(
+        enrollments || []
+    );
+    const [toBeCreatedEnrollments, setToBeCreatedEnrollments] = useState<EnrollmentWithStudents[]>(
+        []
+    );
+    const [toBeDeletedEnrollments, setToBeDeletedEnrollments] = useState<Number[]>([]);
+
     const [selectStudentModalOpen, setSelectStudentModalOpen] = useState(false);
+    const [isSaveSuccessModalOpen, setIsSaveSuccessModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSave = () => {
-        console.log("Saving enrollments:", enrollments);
-        // TODO: Replace with API call
+        const classIdNum = parseInt(classId ?? "");
+        if (isNaN(classIdNum)) {
+            console.error("Invalid class ID");
+            return;
+        }
+        // TODO : what about transactions ?
+        toBeCreatedEnrollments.forEach((enrollment) => {
+            createEnrollmentMutation.mutate({
+                studentId: enrollment.student.id,
+                classId: classIdNum,
+            });
+        });
+        toBeDeletedEnrollments.forEach((id) => {
+            deleteEnrollmentMutation.mutate(id.toString());
+        });
+        setIsSaveSuccessModalOpen(true);
     };
 
-    const handleStudentSelected = (student: Student) => {
-        const nextId = Math.max(0, ...enrollments.map((e) => e.id)) + 1;
-
-        const newEnrollment: Enrollment = {
-            id: nextId,
-            studentId: student.id,
-            studentName: student.fullName,
-            classId: 1,
-        };
-
-        setEnrollments((prev) => [...prev, newEnrollment]);
+    const handleCreateEnrollments = (students: Student[]) => {
+        const newEnrollments: EnrollmentWithStudents[] = students.map((student) => ({
+            id: Math.floor(Math.random() * -1000), // Temporary negative ID for new enrollments
+            student: { id: student.id, name: student.fullName },
+            createdAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        }));
+        setToBeCreatedEnrollments((prev) => [...prev, ...newEnrollments]);
         setSelectStudentModalOpen(false);
+    };
+
+    const handleDeleteRequest = (id: number) => {
+        setDeleteId(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (deleteId !== null) {
+            if (toBeCreatedEnrollments.find((enrollment) => enrollment.id === deleteId)) {
+                setToBeCreatedEnrollments((prev) =>
+                    prev.filter((enrollment) => enrollment.id !== deleteId)
+                );
+            } else {
+                setToBeDeletedEnrollments((prev) => [...prev, deleteId]);
+            }
+            setEnrollmentsData((prev) => prev.filter((enrollment) => enrollment.id !== deleteId));
+        }
+        setIsDeleteModalOpen(false);
+        setDeleteId(null);
+    };
+
+    const handleCancelDelete = () => {
+        setIsDeleteModalOpen(false);
+        setDeleteId(null);
     };
 
     // Set Page Title
@@ -64,31 +118,39 @@ const EnrollmentsEditPage: React.FC = () => {
                 {t("general.save")}
             </ActionButton>,
         ]);
-    }, [t, enrollments]);
+    }, [t, toBeCreatedEnrollments, toBeDeletedEnrollments]);
+    useEffect(() => {
+        if (!enrollmentsLoading && !studentsLoading) {
+            setEnrollmentsData(enrollments || []);
+        }
+    }, [enrollments, students, enrollmentsLoading, studentsLoading]);
     return (
         <>
             <EnrollmentsTable
-                enrollments={enrollments}
+                enrollments={[...(enrollmentsData || []), ...toBeCreatedEnrollments]}
                 editable
-                onDelete={(id) => setEnrollments((prev) => prev.filter((t) => t.id !== id))}
+                onDelete={handleDeleteRequest}
+                onCreate={() => setSelectStudentModalOpen(true)}
             />
-            <div
-                style={{
-                    marginTop: "2rem",
-                    textAlign: "center",
-                }}>
-                <Button
-                    type="primary"
-                    icon={<PlusOutlined />}
-                    onClick={() => setSelectStudentModalOpen(true)}>
-                    {t("general.enrollment")}
-                </Button>
-            </div>
+            <SaveSuccessModal
+                isOpen={isSaveSuccessModalOpen}
+                onClose={() => setIsSaveSuccessModalOpen(false)}
+                navigatePath={Paths.CLASS.VIEW.replace(":id", classId ?? "")}
+                title={t("modal.enrollments.createSuccess")}
+                message={t("modal.doneMessage")}
+            />
+            <DeleteConfirmModal
+                isOpen={isDeleteModalOpen}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                title={t("modal.enrollments.deleteTitle")}
+                message={t("modal.enrollments.deleteConfirmation")}
+            />
             <StudentSelectModal
                 open={selectStudentModalOpen}
-                students={dummyStudents}
                 onCancel={() => setSelectStudentModalOpen(false)}
-                onSelect={handleStudentSelected}
+                onCreate={handleCreateEnrollments}
+                onSelect={() => {}}
             />
         </>
     );

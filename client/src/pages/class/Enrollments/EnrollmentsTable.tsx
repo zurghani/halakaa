@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
-import { Enrollment } from "../types";
+import { EnrollmentWithStudents } from "../../../types";
+import { enrollments } from "server/src/db/schema";
+import { PlusOutlined } from "@ant-design/icons";
 
 interface EnrollmentsTableProps {
-    enrollments: Enrollment[];
+    enrollments: EnrollmentWithStudents[];
     editable?: boolean;
     selectable?: boolean;
-    onSelect?: (student: Enrollment | null) => void;
+    onSelect?: (student: EnrollmentWithStudents | null) => void;
     onDelete?: (id: number) => void;
+    onCreate?: () => void;
 }
 
 const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
@@ -18,32 +21,35 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
     selectable = false,
     onSelect,
     onDelete,
+    onCreate,
 }) => {
     const { t } = useTranslation();
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
     const rowSelection = selectable
         ? {
               type: "radio" as const,
               selectedRowKeys,
-              onChange: (keys: React.Key[], selectedRows: Enrollment[]) => {
+              onChange: (keys: React.Key[], selectedRows: EnrollmentWithStudents[]) => {
                   setSelectedRowKeys(keys);
                   onSelect?.(selectedRows[0] || null);
               },
           }
         : undefined;
 
-    const columns: TableColumnsType<Enrollment> = [
+    const columns: TableColumnsType<EnrollmentWithStudents> = [
         {
-            title: t("class.id"),
-            dataIndex: "classId",
+            title: t("general.enrollment"),
+            dataIndex: "id",
+            key: "id",
             sorter: (a, b) => Number(a.id) - Number(b.id),
             width: "30%",
         },
         {
             title: t("class.name"),
-            dataIndex: "studentName",
-            sorter: (a, b) => ((a.studentId || "") > (b.studentId || "") ? 1 : -1),
+            dataIndex: "student",
+            key: "student",
+            render: (student) => student?.name,
+            sorter: (a, b) => ((a.student.id || "") > (b.student.id || "") ? 1 : -1),
             width: "70%",
         },
     ];
@@ -62,7 +68,7 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 
     return (
         <div>
-            <Table<Enrollment>
+            <Table<EnrollmentWithStudents>
                 rowKey="id"
                 dataSource={data}
                 columns={columns}
@@ -79,6 +85,17 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
                         : {}
                 }
             />
+            {editable && (
+                <div
+                    style={{
+                        marginTop: "2rem",
+                        textAlign: "center",
+                    }}>
+                    <Button type="primary" icon={<PlusOutlined />} onClick={onCreate}>
+                        {t("general.enrollment")}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

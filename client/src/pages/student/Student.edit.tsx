@@ -56,7 +56,6 @@ const StudentEditPage: React.FC = () => {
         ]);
     }, [t]);
     const { data: initialStudent, isLoading } = useStudent(id || "");
-    console.log(initialStudent);
 
     const formInitialValues = initialStudent
         ? {
