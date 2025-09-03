@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SearchOptionsType } from "./search.options";
+import { SearchOptions, SearchOptionsType } from "./search.options";
 import { Input, Segmented, Select, Space } from "antd";
 import type { GetProps } from "antd";
 import { SearchData } from "./Find.class";
@@ -9,22 +9,29 @@ const { Search } = Input;
 const { Option } = Select;
 
 type SearchFormProps = {
-    SearchOptions: SearchOptionsType;
+    searchType: keyof SearchOptionsType;
+    setSearchType: React.Dispatch<React.SetStateAction<keyof SearchOptionsType>>;
     SetData: React.Dispatch<React.SetStateAction<SearchData>>;
 };
 
-const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
-    const [SearchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.id.value);
+const SearchForm = ({ searchType, setSearchType, SetData }: SearchFormProps) => {
     const [teacherSearchOption, setTeacherSearchOption] = useState<"name" | "id">("name");
+
     useEffect(() => {
-        console.log("Search Type Changed:", SearchType);
-        console.log("Teacher Search Option Changed:", teacherSearchOption);
-        if (SearchType === "all") {
-            SetData({});
-        } else {
-            SetData({}); // reset when switching to teacher/id too
-        }
-    }, [SearchType, teacherSearchOption]);
+        SetData({});
+    }, [searchType, teacherSearchOption, SetData]);
+    // useEffect(() => {
+    //     console.log("Search Type Changed:", searchType);
+    //     console.log("Teacher Search Option Changed:", teacherSearchOption);
+    //     if (searchType === "all") {
+    //         SetData({
+    //             classId: undefined,
+    //             teacherName: undefined,
+    //         });
+    //     } else {
+    //         SetData({}); // reset when switching to teacher/id too
+    //     }
+    // }, [SearchType, teacherSearchOption, SetData]);
 
     const teacherSearchOptions = (
         <Select
@@ -38,10 +45,7 @@ const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
     );
 
     const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
-        console.log(info?.source, value);
-        console.log("Search Type:", SearchType);
-        console.log("Teacher Search Option:", teacherSearchOption);
-        if (SearchType === "teacher") {
+        if (searchType === "teacher") {
             if (teacherSearchOption === "name") {
                 SetData((prev) => ({
                     teacherName: value,
@@ -55,7 +59,7 @@ const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
                     classId: undefined,
                 }));
             }
-        } else if (SearchType === "id") {
+        } else if (searchType === "id") {
             const classId = parseInt(value);
             if (!isNaN(classId)) {
                 SetData((prev) => ({
@@ -75,7 +79,7 @@ const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
     return (
         <Space direction="vertical" style={{ width: "100%", marginBottom: "24px" }}>
             <Segmented<string>
-                value={SearchType}
+                value={searchType}
                 options={Object.values(SearchOptions).map((option) => ({
                     label: option.label,
                     value: option.value,
@@ -85,18 +89,18 @@ const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
                 }}
             />
 
-            {SearchType === "all" ? (
+            {searchType === "all" ? (
                 <>All Classes</>
             ) : (
                 <Search
-                    type={SearchType === "id" ? "number" : "text"}
+                    type={searchType === "id" ? "number" : "text"}
                     addonBefore={
-                        SearchType === "teacher"
+                        searchType === "teacher"
                             ? teacherSearchOptions
-                            : SearchOptions[SearchType].label
+                            : SearchOptions[searchType].label
                     }
-                    placeholder={`Enter ${SearchOptions[SearchType].label} ${
-                        SearchType === "teacher"
+                    placeholder={`Enter ${SearchOptions[searchType].label} ${
+                        searchType === "teacher"
                             ? teacherSearchOption === "name"
                                 ? "Name"
                                 : "ID"

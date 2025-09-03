@@ -1,3 +1,4 @@
+import { isParentOfStudent } from "./../students/service";
 import { Hono } from "hono";
 import { requireRoles } from "@/middleware/requireRole";
 import * as classesService from "./service";
@@ -12,29 +13,38 @@ PUT    => UPDATE
 */
 const classes = new Hono<{ Variables: AuthType }>()
   .get("/", requireRoles({ classes: ["view"] }), async (c) => {
+    const user = c.get("user");
+    //find
     const teacherId = c.req.query("teacher_id");
-    let teacherName = c.req.query("teacher_name");
-    let classId = c.req.query("class_id");
     const studentId = c.req.query("student_id");
-    let classes: any[] = [];
 
-    // Better Auth provides user.role (singular) not roles (plural)
-    if (user?.role === "teacher") {
-      teacherId = user.id;
-      classes = await classesService.getClassByFilters({ teacherId });
-    } else if (user?.role === "admin") {
-      if (teacherId) {
-        classes = await classesService.getClassByFilters({ teacherId });
+    //Search
+    const classId = Number(c.req.query("class_id_like") || "") || undefined;
+    const teacherName = c.req.query("teacher_name_like");
+
+    if (user?.role === "parent" || user?.role === "student") {
+      if (studentId && (await isParentOfStudent(user?.id, Number(studentId)))) {
+        const classes = await classesService.getClassByFilters({ studentId: Number(studentId) });
+        return c.json(classes || []);
       } else {
-        classes = await classesService.getAllClasses();
+        return c.json({ error: "No student linked to parent" }, 400);
       }
     }
-    // If parent and studentId is provided, fetch classes for that student
-    else if (user?.role === "parent" && studentId) {
-      classes = await classesService.getClassByFilters({ studentId: Number(studentId) });
+
+    if (teacherId || studentId) {
+      const classes = await classesService.getClassByFilters({
+        teacherId,
+        studentId: studentId ? Number(studentId) : undefined,
+      });
+      return c.json(classes || []);
     }
 
-    return c.json(classes || []);
+    if (classId || teacherName) {
+      const classes = await classesService.getClassbySearch({ classId, teacherName });
+      return c.json(classes || []);
+    }
+
+    return c.json((await classesService.getAllClasses()) || []);
   })
 
   .get("/:id", requireRoles({ classes: ["view"] }), async (c) => {

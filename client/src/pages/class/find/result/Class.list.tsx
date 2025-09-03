@@ -3,9 +3,9 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../../hooks/useTags";
 import dayjs from "dayjs";
-import { Class } from "../../../../types";
+import { ClassWithTeacherInfo } from "../../../../types";
 
-const ClassList = ({ classes }: { classes: Class[] }) => {
+const ClassList = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
 
@@ -27,7 +27,7 @@ const ClassList = ({ classes }: { classes: Class[] }) => {
                         title={
                             <>
                                 <Tag> ID : {currentClass.id}</Tag>
-                                Teacher: {currentClass.teacherId}
+                                Teacher: {currentClass.teacher?.name || "N/A"}
                                 <br />
                                 {/* use age group tags when created  */}
                                 {currentClass.ageGroup}

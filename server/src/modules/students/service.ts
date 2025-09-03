@@ -104,3 +104,12 @@ export const updateStudent = async (
 export const deleteStudent = async (id: number): Promise<void> => {
   await db.delete(students).where(eq(students.id, id));
 };
+
+//
+export const isParentOfStudent = async (parentId: string, studentId: number): Promise<boolean> => {
+  const student = await db
+    .select()
+    .from(students)
+    .where(and(eq(students.id, studentId), eq(students.parentId, parentId)));
+  return student.length > 0;
+};

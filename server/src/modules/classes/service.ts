@@ -3,6 +3,9 @@ import { classes, enrollments, user } from "@/db/schema";
 import { and, eq, ilike, sql } from "drizzle-orm";
 
 export type Class = typeof classes.$inferSelect;
+export type ClassWithTeacherInfo = Omit<Class, "teacherId"> & {
+  teacher: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name };
+};
 export type NewClass = typeof classes.$inferInsert;
 export type UpdateClass = Partial<NewClass>;
 
@@ -11,12 +14,42 @@ export const createClass = async (quranClass: NewClass): Promise<Class> => {
   return newClass!;
 };
 
-export const getAllClasses = async (): Promise<Class[]> => {
-  return await db.select().from(classes);
+export const getAllClasses = async (): Promise<ClassWithTeacherInfo[]> => {
+  return await db
+    .select({
+      id: classes.id,
+      startsAt: classes.startsAt,
+      endsAt: classes.endsAt,
+      description: classes.description,
+      ageGroup: classes.ageGroup,
+      teacherId: classes.teacherId,
+      createdAt: classes.createdAt,
+      teacher: {
+        id: user.id,
+        name: user.name,
+      },
+    })
+    .from(classes)
+    .innerJoin(user, eq(classes.teacherId, user.id));
 };
 
-export const getClassById = async (id: number): Promise<Class | undefined> => {
-  const [quranClass] = await db.select().from(classes).where(eq(classes.id, id));
+export const getClassById = async (id: number): Promise<ClassWithTeacherInfo | undefined> => {
+  const [quranClass] = await db
+    .select({
+      id: classes.id,
+      startsAt: classes.startsAt,
+      endsAt: classes.endsAt,
+      description: classes.description,
+      ageGroup: classes.ageGroup,
+      teacher: {
+        id: user.id,
+        name: user.name,
+      },
+      createdAt: classes.createdAt,
+    })
+    .from(classes)
+    .innerJoin(user, eq(classes.teacherId, user.id))
+    .where(eq(classes.id, id));
   return quranClass;
 };
 
@@ -38,19 +71,28 @@ export type getClassbySearchInterface = {
   classId?: number;
   teacherName?: string;
 };
-export const getClassbySearch = async (filters: getClassbySearchInterface): Promise<Class[]> => {
-  //   if (filters.classId) {
-  //     return await db.select().from(classes).where(eq(classes.id, filters.classId));
-  //   }
+
+export const getClassbySearch = async (
+  filters: getClassbySearchInterface
+): Promise<ClassWithTeacherInfo[]> => {
   if (filters.classId) {
     return await db
-      .select()
+      .select({
+        id: classes.id,
+        createdAt: classes.createdAt,
+        teacherId: classes.teacherId,
+        startsAt: classes.startsAt,
+        endsAt: classes.endsAt,
+        description: classes.description,
+        ageGroup: classes.ageGroup,
+        teacher: {
+          id: user.id,
+          name: user.name,
+        },
+      })
       .from(classes)
+      .innerJoin(user, eq(classes.teacherId, user.id))
       .where(ilike(sql`${classes.id}::text`, `%${filters.classId}%`));
-  }
-
-  if (filters.teacherId) {
-    return await db.select().from(classes).where(eq(classes.teacherId, filters.teacherId));
   }
 
   if (filters.teacherName) {
@@ -63,9 +105,13 @@ export const getClassbySearch = async (filters: getClassbySearchInterface): Prom
         endsAt: classes.endsAt,
         description: classes.description,
         ageGroup: classes.ageGroup,
+        teacher: {
+          id: user.id,
+          name: user.name,
+        },
       })
       .from(classes)
-      .leftJoin(user, eq(classes.teacherId, user.id))
+      .innerJoin(user, eq(classes.teacherId, user.id))
       .where(ilike(user.name, `%${filters.teacherName}%`));
   }
 
@@ -73,7 +119,9 @@ export const getClassbySearch = async (filters: getClassbySearchInterface): Prom
 };
 
 export type getClassFilters = { teacherId?: string; studentId?: number };
-export const getClassByFilters = async (filters: getClassFilters): Promise<Class[]> => {
+export const getClassByFilters = async (
+  filters: getClassFilters
+): Promise<ClassWithTeacherInfo[]> => {
   const selectFields = {
     id: classes.id,
     createdAt: classes.createdAt,
@@ -82,6 +130,10 @@ export const getClassByFilters = async (filters: getClassFilters): Promise<Class
     endsAt: classes.endsAt,
     description: classes.description,
     ageGroup: classes.ageGroup,
+    teacher: {
+      id: user.id,
+      name: user.name,
+    },
   };
   const conditions = [];
 
@@ -96,6 +148,7 @@ export const getClassByFilters = async (filters: getClassFilters): Promise<Class
       const query = db
         .select(selectFields)
         .from(classes)
+        .innerJoin(user, eq(classes.teacherId, user.id))
         .innerJoin(enrollments, eq(enrollments.classId, classes.id))
         .where(eq(enrollments.studentId, filters.studentId));
       return await query;

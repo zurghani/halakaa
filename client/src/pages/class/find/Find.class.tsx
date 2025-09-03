@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Space, Grid } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
-import { SearchOptions } from "./search.options";
 import SearchForm from "./SearchForm.class";
 import ClassesTable from "./result/Class.table";
 import ClassList from "./result/Class.list";
 import { useTranslation } from "react-i18next";
-import { useClasses } from "../../../queries/classes";
+import { useSearchClasses } from "../../../queries/classes";
+import { SearchOptions, SearchOptionsType } from "./search.options";
 
 const { useBreakpoint } = Grid;
 
 export type SearchData = {
     classId?: number;
-    teacherId?: string;
     teacherName?: string;
 };
 
@@ -26,11 +25,13 @@ const FindClass: React.FC = () => {
     const screens = useBreakpoint();
     const isMobile = !screens.md;
 
+    const [searchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.all.value);
     const [searchData, setSearchData] = useState<SearchData>({});
 
     const filter = getFilter(searchData);
 
-    const { data: classes, isLoading } = useClasses(filter);
+    const { data: classes, isLoading } = useSearchClasses(searchType !== "all" ? filter : {});
+    console.log("Classes Data:", classes, isLoading, filter);
 
     useEffect(() => {
         console.log("Search Data Changed:", searchData);
@@ -38,7 +39,11 @@ const FindClass: React.FC = () => {
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>
-            <SearchForm SearchOptions={SearchOptions} SetData={setSearchData} />
+            <SearchForm
+                SetData={setSearchData}
+                searchType={searchType}
+                setSearchType={setSearchType}
+            />
             {`${t("general.resultsFound")} ${classes?.length}`}
             {isMobile ? (
                 <ClassList classes={classes ?? []} />
@@ -53,7 +58,6 @@ export default FindClass;
 
 const getFilter = (data: SearchData) => {
     if (data.classId !== undefined) return { classId: data.classId };
-    if (data.teacherId) return { teacherId: data.teacherId };
     if (data.teacherName) return { teacherName: data.teacherName };
     return {}; // fetch all
 };

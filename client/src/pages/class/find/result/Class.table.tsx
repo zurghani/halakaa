@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../../hooks/useTags";
 import dayjs from "dayjs";
-import { Class } from "../../../../types";
+import { ClassWithTeacherInfo } from "../../../../types";
 
-const ClassesTable = ({ classes }: { classes: Class[] }) => {
+const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
 
-    const columns: TableProps<Class>["columns"] = [
+    const columns: TableProps<ClassWithTeacherInfo>["columns"] = [
         {
             title: t("general.id"),
             dataIndex: "id",
@@ -18,10 +18,10 @@ const ClassesTable = ({ classes }: { classes: Class[] }) => {
         },
         {
             title: t("general.teacher"),
-            dataIndex: "teacherId",
+            dataIndex: "teacher",
+            render: (teacher) => teacher?.name || "N/A",
             key: "teacherId",
-            sorter: (a, b) =>
-                a.teacherId && b.teacherId ? (a.teacherId > b.teacherId ? 1 : -1) : 0,
+            sorter: (a, b) => (a.teacher?.name > b.teacher?.name ? 1 : -1),
         },
         {
             title: t("general.ageGroup"),
@@ -62,7 +62,7 @@ const ClassesTable = ({ classes }: { classes: Class[] }) => {
             <Table
                 columns={columns}
                 dataSource={classes}
-                onRow={(record: Class) => ({
+                onRow={(record: ClassWithTeacherInfo) => ({
                     onClick: () => {
                         // handle row click here
                         navigate(`/class/${record.id}`);
