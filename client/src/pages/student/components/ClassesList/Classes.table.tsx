@@ -1,11 +1,11 @@
 import { Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useTags } from "../../../../hooks/useTags";
-import { Class } from "../../../../types";
+import { ClassWithTeacherInfo } from "../../../../types";
 import { useAgeGroups } from "../../../../queries/ageGroups";
 import dayjs from "dayjs";
 
-const ClassesTable = ({ classes }: { classes: Class[] }) => {
+const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
@@ -30,9 +30,10 @@ const ClassesTable = ({ classes }: { classes: Class[] }) => {
         },
         {
             title: t("class.teacher"),
-            dataIndex: "teacherId",
-            key: "teacherId",
-            sorter: (a, b) => (a.teacherId > b.teacherId ? 1 : -1),
+            dataIndex: "teacher",
+            key: "teacher",
+            render: (teacher) => teacher.name,
+            sorter: (a, b) => (a.teacher.name > b.teacherId.name ? 1 : -1),
         },
         {
             title: t("class.ageGroup"),

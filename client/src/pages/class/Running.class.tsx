@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Badge, Button, Col, Grid, Row, Tabs, TabsProps, Tag } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { setCurrentPageTitle } from "../../store/ui.slice";
-import { AppStore } from "../../store";
-import { TaskStatus } from "../../store/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Paths } from "../../Routes";
 import AssignedTasks from "../../components/StudentTasks/AssignedTasks/AssignedTasks";
 import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/CompletedTasks.table";
 import CompletedTasksList from "../../components/StudentTasks/CompletedTasks/CompletedTasks.list";
 import CreateTaskModal from "./components/CreateTaskModal";
-import { Enrollment } from "./types";
 import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
-import { enrollmentsDummy } from "./Enrollments/enrolled.students.dummy";
+import { EnrollmentWithStudents } from "../../types";
+import { useEnrollments } from "../../queries/enrollments";
+import { useTasks } from "../../queries/tasks";
 
 const { useBreakpoint } = Grid;
 
@@ -24,21 +23,13 @@ const RunningClass: React.FC = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const { setButtons } = useSetButtons();
+    const { id } = useParams();
+    const classId = id ?? "";
 
     const screens = useBreakpoint();
     const isMobile = !screens.lg;
 
-    const assignedTaskCount = useSelector(
-        (state: AppStore) =>
-            state.tasks.tasks.filter((task) => task.status === TaskStatus.Assigned).length
-    );
-
-    const completedTaskCount = useSelector(
-        (state: AppStore) =>
-            state.tasks.tasks.filter((task) => task.status === TaskStatus.Completed).length
-    );
-
-    const [selectedStudent, setSelectedStudent] = useState<Enrollment | null>(null);
+    const [selectedStudent, setSelectedStudent] = useState<EnrollmentWithStudents | null>(null);
     // Set Page Title
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("general.class")));
@@ -52,6 +43,13 @@ const RunningClass: React.FC = () => {
         ]);
     }, [t]);
 
+    const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
+        classId: classId,
+    });
+    const { data: studentTasks, isLoading: studentTasksLoading } = useTasks({
+        studentId: selectedStudent?.student.id?.toString(),
+    });
+
     useEffect(() => {
         // update the store
     }, [selectedStudent]);
@@ -64,7 +62,7 @@ const RunningClass: React.FC = () => {
                     {t("titles.assignedTasks")} <Badge count={assignedTaskCount} />
                 </span>
             ),
-            children: <AssignedTasks mode={"class"} />,
+            children: <AssignedTasks mode={"class"} tasks={[]} />,
         },
         {
             key: "compl",
@@ -78,9 +76,17 @@ const RunningClass: React.FC = () => {
                     />
                 </span>
             ),
-            children: isMobile ? <CompletedTasksList /> : <CompletedTasksTable />,
+            children: isMobile ? (
+                <CompletedTasksList tasks={[]} />
+            ) : (
+                <CompletedTasksTable tasks={[]} />
+            ),
         },
     ];
+
+    if (enrollmentsLoading) {
+        return <div>Loading...</div>;
+    }
     return (
         <>
             <Row gutter={24}>
@@ -89,7 +95,7 @@ const RunningClass: React.FC = () => {
                 ) : (
                     <Col span={8}>
                         <EnrollmentsTable
-                            enrollments={enrollmentsDummy}
+                            enrollments={[]}
                             selectable
                             onSelect={setSelectedStudent}
                         />
@@ -97,7 +103,7 @@ const RunningClass: React.FC = () => {
                 )}
                 <Col span={isMobile ? 24 : 16}>
                     <div>
-                        {selectedStudent?.studentName} <Tag>{selectedStudent?.id}</Tag>
+                        {selectedStudent?.student.name} <Tag>{selectedStudent?.id}</Tag>
                     </div>
                     <Tabs defaultActiveKey="1" items={items} />
                     <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
