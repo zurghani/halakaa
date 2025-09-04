@@ -154,7 +154,10 @@ export const getClassByFilters = async (
         .where(eq(enrollments.studentId, filters.studentId));
       return await query;
     } else {
-      let query = db.select(selectFields).from(classes);
+      let query = db
+        .select(selectFields)
+        .from(classes)
+        .innerJoin(user, eq(classes.teacherId, user.id));
       return conditions.length > 0 ? await query.where(and(...conditions)) : [];
     }
   } else {
