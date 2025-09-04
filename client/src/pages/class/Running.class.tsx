@@ -12,7 +12,7 @@ import CompletedTasksTable from "../../components/StudentTasks/CompletedTasks/Co
 import CompletedTasksList from "../../components/StudentTasks/CompletedTasks/CompletedTasks.list";
 import CreateTaskModal from "./components/CreateTaskModal";
 import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
-import { EnrollmentWithStudents } from "../../types";
+import { EnrollmentWithStudents, TaskStatus } from "../../types";
 import { useEnrollments } from "../../queries/enrollments";
 import { useTasks } from "../../queries/tasks";
 
@@ -50,6 +50,10 @@ const RunningClass: React.FC = () => {
         studentId: selectedStudent?.student.id?.toString(),
     });
 
+    const completedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Completed);
+    const completedTasksLength = completedTasks?.length || 0;
+    const assignedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Assigned);
+
     useEffect(() => {
         // update the store
     }, [selectedStudent]);
@@ -59,27 +63,23 @@ const RunningClass: React.FC = () => {
             key: "assigned-tab",
             label: (
                 <span>
-                    {t("titles.assignedTasks")} <Badge count={assignedTaskCount} />
+                    {t("titles.assignedTasks")} <Badge count={assignedTasks?.length} />
                 </span>
             ),
-            children: <AssignedTasks mode={"class"} tasks={[]} />,
+            children: <AssignedTasks mode={"class"} tasks={assignedTasks || []} />,
         },
         {
             key: "compl",
             label: (
                 <span>
                     {t("titles.completedTasks")}{" "}
-                    <Badge
-                        status="default"
-                        count={completedTaskCount}
-                        style={{ backgroundColor: "#52c41a" }}
-                    />
+                    <Badge count={completedTasks?.length} style={{ backgroundColor: "#52c41a" }} />
                 </span>
             ),
             children: isMobile ? (
-                <CompletedTasksList tasks={[]} />
+                <CompletedTasksList tasks={completedTasks || []} />
             ) : (
-                <CompletedTasksTable tasks={[]} />
+                <CompletedTasksTable tasks={completedTasks || []} />
             ),
         },
     ];
@@ -95,7 +95,7 @@ const RunningClass: React.FC = () => {
                 ) : (
                     <Col span={8}>
                         <EnrollmentsTable
-                            enrollments={[]}
+                            enrollments={enrollments || []}
                             selectable
                             onSelect={setSelectedStudent}
                         />
