@@ -5,7 +5,7 @@ import TaskTypeTag, { TaskType } from "../../../components/Tags/TaskTypeTag";
 import TextArea from "antd/es/input/TextArea";
 import { TaskExpanded } from "../../../types";
 import { FormInstance } from "antd/lib";
-import { useAyahs } from "../../../queries/ayahs";
+import { useSearchAyahs } from "../../../queries/ayahs";
 
 type TagRender = SelectProps["tagRender"];
 
@@ -22,10 +22,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
     const [ayahSearchFrom, setAyahSearchFrom] = useState("-");
     const [ayahSearchTo, setAyahSearchTo] = useState("-");
 
-    const { data: fromAyahOptions, isLoading: fromAyahLoading } = useAyahs({
+    const { data: fromAyahOptions, isLoading: fromAyahLoading } = useSearchAyahs({
         like: ayahSearchFrom,
     });
-    const { data: toAyahOptions, isLoading: toAyahLoading } = useAyahs({ like: ayahSearchTo });
+    const { data: toAyahOptions, isLoading: toAyahLoading } = useSearchAyahs({
+        like: ayahSearchTo,
+    });
     const options: SelectProps["options"] = [
         { value: "memorization", label: t("tags.memorization") },
         { value: "revision", label: t("tags.revision") },
@@ -82,7 +84,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     placeholder={t("editTaskModal.selectFrom")}
                     options={fromAyahOptions?.map((ayah) => {
                         return {
-                            label: `${ayah.surahName}`,
+                            label: `${ayah.surahName}:(${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
                             value: ayah.id,
                         };
                     })}
