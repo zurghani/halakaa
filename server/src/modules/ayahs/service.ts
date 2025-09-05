@@ -55,6 +55,7 @@ export const getAyahReferences = async (
       number: ayah.number,
       surahId: surah.id,
       surahName: surah.name,
+      text: ayah.plainText,
     })
     .from(ayah)
     .leftJoin(surah, eq(ayah.surahId, surah.id))
@@ -64,5 +65,6 @@ export const getAyahReferences = async (
     number: row.number,
     surahId: row.surahId ?? 0,
     surahName: row.surahName ?? "",
+    text: row.text ?? "",
   }));
 };

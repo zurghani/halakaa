@@ -74,13 +74,12 @@ export type UpdateTask = Partial<NewTask>;
 
 //taskType
 export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
-    createdAt?: dayjs.Dayjs | string | null;
+    createdAt?: Dayjs | string | null;
 };
-
 export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
     surahName: typeof surah.$inferSelect.name;
 };
-export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
+export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy" | "dueDate" | "completedOn"> & {
     assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     taskType: {
@@ -89,6 +88,8 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     } | null;
     startingAyah: AyahReference;
     endingAyah: AyahReference;
+    dueDate: Dayjs | null;
+    completedOn: Dayjs | null;
 };
 
 export type NewTaskType = typeof taskTypes.$inferInsert;

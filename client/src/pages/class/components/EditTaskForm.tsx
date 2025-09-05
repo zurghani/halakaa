@@ -6,21 +6,34 @@ import TextArea from "antd/es/input/TextArea";
 import { TaskExpanded } from "../../../types";
 import { FormInstance } from "antd/lib";
 import { useSearchAyahs } from "../../../queries/ayahs";
+import { useTaskTypes } from "../../../queries/taskTypes";
+import dayjs from "dayjs";
 
 type TagRender = SelectProps["tagRender"];
 
 interface EditTaskFormProps {
     onFinish: (values: TaskExpanded) => void;
     disabled?: boolean;
-    defaultValues?: TaskExpanded | any;
+    initialValues?: TaskExpanded | any;
     form: FormInstance;
     onSubmit?: (data: any) => void;
 }
-const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
+const EditTaskForm: React.FC<EditTaskFormProps> = ({
+    form,
+    onFinish,
+    disabled,
+    initialValues,
+    onSubmit,
+}) => {
     const { t } = useTranslation();
     const [complete, setComplete] = useState(false);
-    const [ayahSearchFrom, setAyahSearchFrom] = useState("-");
-    const [ayahSearchTo, setAyahSearchTo] = useState("-");
+    const initialTask = {
+        ...initialValues,
+        dueDate: initialValues?.dueDate ? dayjs(initialValues.dueDate, "YYYY-MM-DD") : null,
+    } as TaskExpanded;
+
+    const [ayahSearchFrom, setAyahSearchFrom] = useState(initialTask.startingAyah.text ?? "-");
+    const [ayahSearchTo, setAyahSearchTo] = useState(initialTask.endingAyah.text ?? "-");
 
     const { data: fromAyahOptions, isLoading: fromAyahLoading } = useSearchAyahs({
         like: ayahSearchFrom,
@@ -28,16 +41,13 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
     const { data: toAyahOptions, isLoading: toAyahLoading } = useSearchAyahs({
         like: ayahSearchTo,
     });
-    const options: SelectProps["options"] = [
-        { value: "memorization", label: t("tags.memorization") },
-        { value: "revision", label: t("tags.revision") },
-        { value: "reciting", label: t("tags.reciting") },
-    ];
+
+    const { data: taskTypes, isLoading: taskTypesLoading } = useTaskTypes();
 
     const handleCompleteTask = (e: any) => {
         setComplete(e.target.checked);
     };
-    console.log(fromAyahOptions);
+
     return (
         <Form
             form={form}
@@ -46,10 +56,11 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
             labelAlign="left"
             wrapperCol={{ span: 16 }}
             onFinish={onFinish}
-            initialValues={{}}>
+            initialValues={initialTask}>
             <Form.Item
                 label={t("editTaskModal.type")}
-                name="type"
+                name="taskType"
+                getValueProps={(value) => ({ value: value.id })}
                 rules={[
                     {
                         required: true,
@@ -57,17 +68,20 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    loading={taskTypesLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectType")}
-                    tagRender={taskTypeTagsRenderer}
-                    options={options}
+                    optionLabelProp="label"
+                    options={taskTypes?.map((type) => ({ label: type.name, value: type.id }))}
                 />
             </Form.Item>
 
             <Form.Item
                 label={t("editTaskModal.from")}
-                name="from"
+                name="startingAyah"
+                getValueProps={(value) => ({ value: value.ayahId })}
                 rules={[
                     {
                         required: true,
@@ -82,10 +96,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectFrom")}
+                    optionLabelProp="displayName"
                     options={fromAyahOptions?.map((ayah) => {
                         return {
-                            label: `${ayah.surahName}:(${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
+                            label: `${ayah.surahName} (${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
                             value: ayah.id,
+                            displayName: `${ayah.surahName} (${ayah.number})`,
                         };
                     })}
                 />
@@ -93,7 +109,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
 
             <Form.Item
                 label={t("editTaskModal.to")}
-                name="to"
+                name="endingAyah"
+                getValueProps={(value) => ({ value: value.ayahId })}
                 rules={[
                     {
                         required: true,
@@ -108,13 +125,20 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectTo")}
-                    options={toAyahOptions || []}
+                    optionLabelProp="displayName"
+                    options={toAyahOptions?.map((ayah) => {
+                        return {
+                            label: `${ayah.surahName} (${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
+                            value: ayah.id,
+                            displayName: `${ayah.surahName} (${ayah.number})`,
+                        };
+                    })}
                 />
             </Form.Item>
 
             <Form.Item
                 label={t("editTaskModal.due")}
-                name="due"
+                name="dueDate"
                 rules={[
                     {
                         required: true,
