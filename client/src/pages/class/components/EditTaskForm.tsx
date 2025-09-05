@@ -3,36 +3,29 @@ import { Checkbox, DatePicker, Form, InputNumber, Select, SelectProps } from "an
 import { useTranslation } from "react-i18next";
 import TaskTypeTag, { TaskType } from "../../../components/Tags/TaskTypeTag";
 import TextArea from "antd/es/input/TextArea";
+import { TaskExpanded } from "../../../types";
+import { FormInstance } from "antd/lib";
+import { useAyahs } from "../../../queries/ayahs";
 
 type TagRender = SelectProps["tagRender"];
-// dummy data for verses
-const verseOptions = [
-    { label: "Verse1", value: "verse1" },
-    { label: "Verse2", value: "verse2" },
-    { label: "Verse3", value: "verse3" },
-    { label: "Verse4", value: "verse4" },
-    { label: "Verse5", value: "verse5" },
-    { label: "Verse6", value: "verse6" },
-];
-
-export type EditTaskFormFieldsType = {
-    type?: TaskType[];
-    from?: string;
-    to?: string;
-    due?: string;
-    complete?: boolean;
-    mistakes?: Number;
-    notes?: string;
-};
 
 interface EditTaskFormProps {
-    form: any;
-    onFinish: (values: EditTaskFormFieldsType) => void;
+    onFinish: (values: TaskExpanded) => void;
+    disabled?: boolean;
+    defaultValues?: TaskExpanded | any;
+    form: FormInstance;
+    onSubmit?: (data: any) => void;
 }
 const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
     const { t } = useTranslation();
     const [complete, setComplete] = useState(false);
+    const [ayahSearchFrom, setAyahSearchFrom] = useState("-");
+    const [ayahSearchTo, setAyahSearchTo] = useState("-");
 
+    const { data: fromAyahOptions, isLoading: fromAyahLoading } = useAyahs({
+        like: ayahSearchFrom,
+    });
+    const { data: toAyahOptions, isLoading: toAyahLoading } = useAyahs({ like: ayahSearchTo });
     const options: SelectProps["options"] = [
         { value: "memorization", label: t("tags.memorization") },
         { value: "revision", label: t("tags.revision") },
@@ -42,6 +35,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
     const handleCompleteTask = (e: any) => {
         setComplete(e.target.checked);
     };
+    console.log(fromAyahOptions);
     return (
         <Form
             form={form}
@@ -50,13 +44,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
             labelAlign="left"
             wrapperCol={{ span: 16 }}
             onFinish={onFinish}
-            initialValues={{
-                type: [],
-                from: undefined,
-                to: undefined,
-                complete: false,
-            }}>
-            <Form.Item<EditTaskFormFieldsType>
+            initialValues={{}}>
+            <Form.Item
                 label={t("editTaskModal.type")}
                 name="type"
                 rules={[
@@ -74,7 +63,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                 />
             </Form.Item>
 
-            <Form.Item<EditTaskFormFieldsType>
+            <Form.Item
                 label={t("editTaskModal.from")}
                 name="from"
                 rules={[
@@ -84,14 +73,23 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    showSearch
+                    onSearch={setAyahSearchFrom}
+                    loading={fromAyahLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectFrom")}
-                    options={verseOptions}
+                    options={fromAyahOptions?.map((ayah) => {
+                        return {
+                            label: `${ayah.surahName}`,
+                            value: ayah.id,
+                        };
+                    })}
                 />
             </Form.Item>
 
-            <Form.Item<EditTaskFormFieldsType>
+            <Form.Item
                 label={t("editTaskModal.to")}
                 name="to"
                 rules={[
@@ -101,14 +99,18 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    showSearch
+                    onSearch={setAyahSearchTo}
+                    loading={toAyahLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("editTaskModal.selectTo")}
-                    options={verseOptions}
+                    options={toAyahOptions || []}
                 />
             </Form.Item>
 
-            <Form.Item<EditTaskFormFieldsType>
+            <Form.Item
                 label={t("editTaskModal.due")}
                 name="due"
                 rules={[
@@ -119,24 +121,17 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish }) => {
                 ]}>
                 <DatePicker placeholder={t("editTaskModal.due")} style={{ width: "100%" }} />
             </Form.Item>
-            <Form.Item<EditTaskFormFieldsType>
-                label={t("editTaskModal.complete")}
-                name="complete"
-                valuePropName="checked">
+            <Form.Item label={t("editTaskModal.complete")} name="complete" valuePropName="checked">
                 <Checkbox onChange={handleCompleteTask}></Checkbox>
             </Form.Item>
 
             {complete && (
                 <>
-                    <Form.Item<EditTaskFormFieldsType>
-                        label={t("editTaskModal.mistakes")}
-                        name="mistakes">
+                    <Form.Item label={t("editTaskModal.mistakes")} name="mistakes">
                         <InputNumber min={0} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item<EditTaskFormFieldsType>
-                        label={t("editTaskModal.notes")}
-                        name="notes">
+                    <Form.Item label={t("editTaskModal.notes")} name="notes">
                         <TextArea rows={4} />
                     </Form.Item>
                 </>

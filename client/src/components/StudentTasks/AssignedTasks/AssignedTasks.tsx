@@ -24,29 +24,34 @@ const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
     const isMobile = !screens.lg;
     const [activeKey, setActiveKey] = useState<string[]>([]);
 
-    const items = tasks.map((task, i) => ({
-        key: task.createdAt?.toString() ?? "_" + i,
-        label: (
-            <div className="task__label">
-                <div className="task__label__left">
-                    <div>
-                        <Tag>{task.taskTypeId}</Tag>
+    const items = tasks.map((task, i) => {
+        const key = task.createdAt?.toString() ?? "_" + i;
+
+        return {
+            key,
+            label: (
+                <div className="task__label">
+                    <div className="task__label__left">
+                        <div>
+                            <Tag>{task.taskTypeId}</Tag>
+                        </div>
+                        {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
                     </div>
-                    {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
+                    <div className="task__label__right">
+                        {activeKey.includes(key) && mode === "class" && (
+                            <EditTaskModal task={task} />
+                        )}
+                    </div>
                 </div>
-                <div className="task__label__right">
-                    {activeKey[0] == (i + 1).toString()
-                        ? mode === "class" && <EditTaskModal />
-                        : null}
-                </div>
-            </div>
-        ),
-        children: <TaskInfo {...task} />,
-    }));
+            ),
+            children: <TaskInfo {...task} />,
+        };
+    });
+    console.log(activeKey);
     return (
         <div>
             <Collapse
-                onChange={(e) => setActiveKey(e)}
+                onChange={(keys) => setActiveKey(keys as string[])}
                 accordion
                 items={items}
                 collapsible="icon"

@@ -3,6 +3,9 @@ import { ayah, surah } from "@/db/schema";
 import { and, eq, inArray, like } from "drizzle-orm";
 
 export type Ayah = typeof ayah.$inferSelect;
+export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
+  surahName: typeof surah.$inferSelect.name;
+};
 
 export const getAllAyahs = async (): Promise<Ayah[]> => {
   return await db.select().from(ayah);
@@ -19,10 +22,17 @@ export const getAyahBySurahAndNumber = async (surahId: number, number: number): 
     .where(and(eq(ayah.surahId, surahId), eq(ayah.number, number)));
 };
 
-export const getAyahsLike = async (search: string): Promise<Ayah[]> => {
+export const getAyahsLike = async (search: string): Promise<AyahReference[]> => {
   return await db
-    .select()
+    .select({
+      id: ayah.id,
+      number: ayah.number,
+      text: ayah.text,
+      surahId: surah.id,
+      surahName: surah.name,
+    })
     .from(ayah)
+    .innerJoin(surah, eq(ayah.surahId, surah.id))
     .where(like(ayah.plainText, `%${search}%`));
 };
 

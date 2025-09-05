@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
-import EditTaskForm, { EditTaskFormFieldsType } from "./EditTaskForm";
+import EditTaskForm from "./EditTaskForm";
 import { ActionButton } from "../../../components/Button/ActionButton";
+import { TaskExpanded } from "../../../types";
 
-const EditTaskModal: React.FC = () => {
+interface EditTaskModalProps {
+    task: TaskExpanded;
+}
+
+const EditTaskModal = ({ task }: EditTaskModalProps) => {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
     const complete = Form.useWatch("complete", form);
 
+    console.log("Task in EditTaskModal:", task);
     const showModal = () => {
         setOpen(true);
     };
@@ -20,7 +26,7 @@ const EditTaskModal: React.FC = () => {
         setOpen(false);
     };
 
-    const onFinish = (values: EditTaskFormFieldsType) => {
+    const onFinish = (values: TaskExpanded) => {
         console.log("Form values:", values);
         setConfirmLoading(true);
         setTimeout(() => {
@@ -52,7 +58,7 @@ const EditTaskModal: React.FC = () => {
                         {complete ? t("editTaskModal.complete") : t("editTaskModal.save")}
                     </Button>,
                 ]}>
-                <EditTaskForm form={form} onFinish={onFinish} />
+                <EditTaskForm form={form} onFinish={onFinish} task={task} />
             </Modal>
         </>
     );
