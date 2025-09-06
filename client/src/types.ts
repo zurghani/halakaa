@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import {
     user,
     students,
@@ -79,17 +79,25 @@ export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
 export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
     surahName: typeof surah.$inferSelect.name;
 };
-export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy" | "dueDate" | "completedOn"> & {
+export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     taskType: {
         id: typeof taskTypes.$inferSelect.id;
         name: typeof taskTypes.$inferSelect.name;
     } | null;
-    startingAyah: AyahReference;
-    endingAyah: AyahReference;
-    dueDate: Dayjs | null;
-    completedOn: Dayjs | null;
+    startingAyah: {
+        ayahId: typeof ayah.$inferSelect.id;
+        number: typeof ayah.$inferSelect.number;
+        surahId: typeof ayah.$inferSelect.surahId;
+        surahName: typeof surah.$inferSelect.name;
+    } | null;
+    endingAyah: {
+        ayahId: typeof ayah.$inferSelect.id;
+        number: typeof ayah.$inferSelect.number;
+        surahId: typeof ayah.$inferSelect.surahId;
+        surahName: typeof surah.$inferSelect.name;
+    } | null;
 };
 
 export type NewTaskType = typeof taskTypes.$inferInsert;

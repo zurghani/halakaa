@@ -51,7 +51,6 @@ const RunningClass: React.FC = () => {
     });
 
     const completedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Completed);
-    const completedTasksLength = completedTasks?.length || 0;
     const assignedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Assigned);
 
     useEffect(() => {
@@ -66,7 +65,19 @@ const RunningClass: React.FC = () => {
                     {t("titles.assignedTasks")} <Badge count={assignedTasks?.length} />
                 </span>
             ),
-            children: <AssignedTasks mode={"class"} tasks={assignedTasks || []} />,
+            children: (
+                <div>
+                    <AssignedTasks mode={"class"} tasks={assignedTasks || []} />
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+                        {selectedStudent && (
+                            <CreateTaskModal
+                                studentId={selectedStudent?.student.id}
+                                classId={Number(classId)}
+                            />
+                        )}
+                    </div>
+                </div>
+            ),
         },
         {
             key: "compl",
@@ -101,15 +112,19 @@ const RunningClass: React.FC = () => {
                         />
                     </Col>
                 )}
-                <Col span={isMobile ? 24 : 16}>
-                    <div>
-                        {selectedStudent?.student.name} <Tag>{selectedStudent?.id}</Tag>
-                    </div>
-                    <Tabs defaultActiveKey="1" items={items} />
-                    <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+                {studentTasksLoading ? (
+                    <div>Loading...</div>
+                ) : (
+                    <Col span={isMobile ? 24 : 16}>
+                        <div>
+                            {selectedStudent?.student.name} <Tag>{selectedStudent?.student.id}</Tag>
+                        </div>
+                        <Tabs defaultActiveKey="1" items={items} />
+                        {/* <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
                         <CreateTaskModal />
-                    </div>
-                </Col>
+                    </div> */}
+                    </Col>
+                )}
             </Row>
         </>
     );

@@ -16,15 +16,8 @@ interface EditTaskFormProps {
     disabled?: boolean;
     initialValues?: TaskExpanded | any;
     form: FormInstance;
-    onSubmit?: (data: any) => void;
 }
-const EditTaskForm: React.FC<EditTaskFormProps> = ({
-    form,
-    onFinish,
-    disabled,
-    initialValues,
-    onSubmit,
-}) => {
+const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish, disabled, initialValues }) => {
     const { t } = useTranslation();
     const [complete, setComplete] = useState(false);
     const initialTask = {

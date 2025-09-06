@@ -5,7 +5,6 @@ import EditTaskForm from "./EditTaskForm";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import { TaskExpanded, TaskStatus, UpdateTask } from "../../../types";
 import { useUpdateTask } from "../../../queries/tasks";
-import { Task } from "better-auth/react";
 import dayjs from "dayjs";
 import { authClient } from "../../../lib/auth-client";
 
@@ -43,7 +42,6 @@ const EditTaskModal = ({ task }: EditTaskModalProps) => {
         const taskTypeId = Array.isArray(values.taskType)
             ? values.taskType[0]
             : values.taskType?.id;
-        console.log("taskTypeId", taskTypeId);
         const baseUpdates = {
             taskTypeId: taskTypeId,
             startingAyahId: startingAyahId,
