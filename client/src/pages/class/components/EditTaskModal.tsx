@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import EditTaskForm from "./EditTaskForm";
 import { ActionButton } from "../../../components/Button/ActionButton";
-import { NewTask, TaskExpanded, TaskStatus, UpdateTask } from "../../../types";
+import { TaskExpanded, TaskStatus, UpdateTask } from "../../../types";
 import { useUpdateTask } from "../../../queries/tasks";
 import dayjs from "dayjs";
 import { authClient } from "../../../lib/auth-client";

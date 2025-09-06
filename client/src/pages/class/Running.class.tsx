@@ -27,7 +27,8 @@ const RunningClass: React.FC = () => {
     const classId = id ?? "";
 
     const screens = useBreakpoint();
-    const isMobile = !screens.lg;
+    const isMobile = !screens.md;
+    const toggleTableOn = !screens.xl;
 
     const [selectedStudent, setSelectedStudent] = useState<EnrollmentWithStudents | null>(null);
     // Set Page Title
@@ -87,7 +88,7 @@ const RunningClass: React.FC = () => {
                     <Badge count={completedTasks?.length} style={{ backgroundColor: "#52c41a" }} />
                 </span>
             ),
-            children: isMobile ? (
+            children: toggleTableOn ? (
                 <CompletedTasksList tasks={completedTasks || []} />
             ) : (
                 <CompletedTasksTable tasks={completedTasks || []} />
@@ -102,7 +103,10 @@ const RunningClass: React.FC = () => {
         <>
             <Row gutter={24}>
                 {isMobile ? (
-                    <div>NEED TO IMPLEMENT MOBILE STUDENT SELECT</div>
+                    <h1>
+                        This page runs well only on wide screen devices! please switch for better
+                        experiance
+                    </h1>
                 ) : (
                     <Col span={8}>
                         <EnrollmentsTable
@@ -112,17 +116,18 @@ const RunningClass: React.FC = () => {
                         />
                     </Col>
                 )}
-                {studentTasksLoading ? (
-                    <div>Loading...</div>
+                {studentTasksLoading || !selectedStudent ? (
+                    <Col span={isMobile ? 24 : 16}>
+                        <div style={{ textAlign: "center", marginTop: "2rem" }}>
+                            waiting for student to be selected..
+                        </div>
+                    </Col>
                 ) : (
                     <Col span={isMobile ? 24 : 16}>
                         <div>
                             {selectedStudent?.student.name} <Tag>{selectedStudent?.student.id}</Tag>
                         </div>
                         <Tabs defaultActiveKey="1" items={items} />
-                        {/* <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
-                        <CreateTaskModal />
-                    </div> */}
                     </Col>
                 )}
             </Row>

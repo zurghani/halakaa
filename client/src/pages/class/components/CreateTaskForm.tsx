@@ -51,7 +51,6 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("createTaskModal.selectType")}
-                    tagRender={taskTypeTagsRenderer}
                     optionLabelProp="label"
                     options={taskTypes?.map((type) => ({ label: type.name, value: type.id }))}
                 />

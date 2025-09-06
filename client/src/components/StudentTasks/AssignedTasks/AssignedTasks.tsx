@@ -33,7 +33,7 @@ const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
                 <div className="task__label">
                     <div className="task__label__left">
                         <div>
-                            <Tag>{task.taskTypeId}</Tag>
+                            <Tag>{i + 1}</Tag>
                         </div>
                         {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
                     </div>
@@ -47,7 +47,6 @@ const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
             children: <TaskInfo {...task} />,
         };
     });
-    console.log(activeKey);
     return (
         <div>
             <Collapse

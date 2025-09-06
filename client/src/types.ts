@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import {
     user,
     students,
@@ -72,13 +72,6 @@ export type Task = Omit<typeof tasks.$inferSelect, "createdAt"> & {
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
 
-//taskType
-export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
-    createdAt?: Dayjs | string | null;
-};
-export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
-    surahName: typeof surah.$inferSelect.name;
-};
 export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
@@ -90,6 +83,13 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     endingAyah: AyahReference | null;
 };
 
+//taskType
+export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
+    createdAt?: Dayjs | string | null;
+};
+export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
+    surahName: typeof surah.$inferSelect.name;
+};
 export type NewTaskType = typeof taskTypes.$inferInsert;
 
 //Quran

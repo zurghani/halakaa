@@ -3,7 +3,6 @@ import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useTranslation } from "react-i18next";
 import { EnrollmentWithStudents } from "../../../types";
-import { enrollments } from "server/src/db/schema";
 import { PlusOutlined } from "@ant-design/icons";
 
 interface EnrollmentsTableProps {
@@ -38,11 +37,10 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
 
     const columns: TableColumnsType<EnrollmentWithStudents> = [
         {
-            title: t("general.enrollment"),
+            title: "#",
             dataIndex: "id",
             key: "id",
             sorter: (a, b) => Number(a.id) - Number(b.id),
-            width: "30%",
         },
         {
             title: t("class.name"),
@@ -50,7 +48,6 @@ const EnrollmentsTable: React.FC<EnrollmentsTableProps> = ({
             key: "student",
             render: (student) => student?.name,
             sorter: (a, b) => ((a.student.id || "") > (b.student.id || "") ? 1 : -1),
-            width: "70%",
         },
     ];
 

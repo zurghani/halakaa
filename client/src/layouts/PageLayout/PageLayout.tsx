@@ -2,7 +2,6 @@ import { Breadcrumb, BreadcrumbProps, Card, Space } from "antd";
 import { Outlet, useOutletContext } from "react-router-dom";
 import React, { useState } from "react";
 import "./PageLayout.scss";
-import { current } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 interface PageLayoutProps {
