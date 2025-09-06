@@ -47,7 +47,11 @@ const ClassView: React.FC = () => {
                       </ActionButton>,
                   ]
                 : [
-                      <ActionButton key="start" onClick={() => navigate(Paths.CLASS.RUNNING)}>
+                      <ActionButton
+                          key="start"
+                          onClick={() =>
+                              navigate(Paths.CLASS.RUNNING.replace(":id", classId ?? ""))
+                          }>
                           {t("titles.startClass")}
                       </ActionButton>,
                   ]),

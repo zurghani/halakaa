@@ -1,38 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { DatePicker, Form, Select, SelectProps } from "antd";
 import { useTranslation } from "react-i18next";
 import TaskTypeTag, { TaskType } from "../../../components/Tags/TaskTypeTag";
+import { NewTask } from "../../../types";
+import { useSearchAyahs } from "../../../queries/ayahs";
+import { useTaskTypes } from "../../../queries/taskTypes";
 
 type TagRender = SelectProps["tagRender"];
 // dummy data for verses
-const verseOptions = [
-    { label: "Verse1", value: "verse1" },
-    { label: "Verse2", value: "verse2" },
-    { label: "Verse3", value: "verse3" },
-    { label: "Verse4", value: "verse4" },
-    { label: "Verse5", value: "verse5" },
-    { label: "Verse6", value: "verse6" },
-];
-
-export type CreateTaskFormFieldsType = {
-    type?: TaskType[];
-    from?: string;
-    to?: string;
-    due?: string;
-};
 
 interface Props {
     form: any;
-    onFinish: (values: CreateTaskFormFieldsType) => void;
+    onFinish: (values: NewTask) => void;
 }
 const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
     const { t } = useTranslation();
 
-    const options: SelectProps["options"] = [
-        { value: "memorization", label: t("tags.memorization") },
-        { value: "revision", label: t("tags.revision") },
-        { value: "reciting", label: t("tags.reciting") },
-    ];
+    const [ayahSearchFrom, setAyahSearchFrom] = useState("-");
+    const [ayahSearchTo, setAyahSearchTo] = useState("-");
+    const { data: fromAyahOptions, isLoading: fromAyahLoading } = useSearchAyahs({
+        like: ayahSearchFrom,
+    });
+    const { data: toAyahOptions, isLoading: toAyahLoading } = useSearchAyahs({
+        like: ayahSearchTo,
+    });
+
+    const { data: taskTypes, isLoading: taskTypesLoading } = useTaskTypes();
+
     return (
         <Form
             form={form}
@@ -40,15 +34,11 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
             labelCol={{ span: 6 }}
             labelAlign="left"
             wrapperCol={{ span: 16 }}
-            onFinish={onFinish}
-            initialValues={{
-                type: [],
-                from: undefined,
-                to: undefined,
-            }}>
-            <Form.Item<CreateTaskFormFieldsType>
+            onFinish={onFinish}>
+            <Form.Item
                 label={t("createTaskModal.type")}
-                name="type"
+                name="taskTypeId"
+                getValueProps={(value) => ({ value: value })}
                 rules={[
                     {
                         required: true,
@@ -56,17 +46,20 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    loading={taskTypesLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("createTaskModal.selectType")}
-                    tagRender={taskTypeTagsRenderer}
-                    options={options}
+                    optionLabelProp="label"
+                    options={taskTypes?.map((type) => ({ label: type.name, value: type.id }))}
                 />
             </Form.Item>
 
-            <Form.Item<CreateTaskFormFieldsType>
+            <Form.Item
                 label={t("createTaskModal.from")}
-                name="from"
+                name="startingAyahId"
+                getValueProps={(value) => ({ value: value })}
                 rules={[
                     {
                         required: true,
@@ -74,16 +67,28 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    showSearch
+                    onSearch={setAyahSearchFrom}
+                    loading={fromAyahLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("createTaskModal.selectFrom")}
-                    options={verseOptions}
+                    optionLabelProp="displayName"
+                    options={fromAyahOptions?.map((ayah) => {
+                        return {
+                            label: `${ayah.surahName} (${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
+                            value: ayah.id,
+                            displayName: `${ayah.surahName} (${ayah.number})`,
+                        };
+                    })}
                 />
             </Form.Item>
 
-            <Form.Item<CreateTaskFormFieldsType>
+            <Form.Item
                 label={t("createTaskModal.to")}
-                name="to"
+                name="endingAyahId"
+                getValueProps={(value) => ({ value: value })}
                 rules={[
                     {
                         required: true,
@@ -91,16 +96,27 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     },
                 ]}>
                 <Select
+                    showSearch
+                    onSearch={setAyahSearchTo}
+                    loading={toAyahLoading}
+                    filterOption={false}
                     mode="multiple"
                     maxCount={1}
                     placeholder={t("createTaskModal.selectTo")}
-                    options={verseOptions}
+                    optionLabelProp="displayName"
+                    options={toAyahOptions?.map((ayah) => {
+                        return {
+                            label: `${ayah.surahName} (${ayah.number}) - ${ayah.text?.split(" ").slice(0, 5).join(" ")}`,
+                            value: ayah.id,
+                            displayName: `${ayah.surahName} (${ayah.number})`,
+                        };
+                    })}
                 />
             </Form.Item>
 
-            <Form.Item<CreateTaskFormFieldsType>
+            <Form.Item
                 label={t("createTaskModal.due")}
-                name="due"
+                name="dueDate"
                 rules={[
                     {
                         required: true,

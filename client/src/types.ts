@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import {
     user,
     students,
@@ -40,7 +40,6 @@ export type Attendance = Omit<typeof attendance.$inferSelect, "createdAt"> & {
 export type NewAttendance = typeof attendance.$inferInsert;
 export type UpdateAttendance = Partial<NewAttendance>;
 
-
 //class
 export type Class = Omit<typeof classes.$inferSelect, "createdAt"> & {
     createdAt: string | null;
@@ -73,10 +72,6 @@ export type Task = Omit<typeof tasks.$inferSelect, "createdAt"> & {
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
 
-//taskType
-export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
-    createdAt?: dayjs.Dayjs | string | null;
-};
 export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     assignedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
     completedBy: { id: typeof user.$inferInsert.id; name: typeof user.$inferInsert.name } | null;
@@ -84,20 +79,17 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
         id: typeof taskTypes.$inferSelect.id;
         name: typeof taskTypes.$inferSelect.name;
     } | null;
-    startingAyah: {
-        ayahId: typeof ayah.$inferSelect.id;
-        number: typeof ayah.$inferSelect.number;
-        surahId: typeof ayah.$inferSelect.surahId;
-        surahName: typeof surah.$inferSelect.name;
-    } | null;
-    endingAyah: {
-        ayahId: typeof ayah.$inferSelect.id;
-        number: typeof ayah.$inferSelect.number;
-        surahId: typeof ayah.$inferSelect.surahId;
-        surahName: typeof surah.$inferSelect.name;
-    } | null;
+    startingAyah: AyahReference | null;
+    endingAyah: AyahReference | null;
 };
 
+//taskType
+export type TaskType = Omit<typeof taskTypes.$inferSelect, "createdAt"> & {
+    createdAt?: Dayjs | string | null;
+};
+export type AyahReference = Omit<Ayah, "plainText" | "createdAt"> & {
+    surahName: typeof surah.$inferSelect.name;
+};
 export type NewTaskType = typeof taskTypes.$inferInsert;
 
 //Quran

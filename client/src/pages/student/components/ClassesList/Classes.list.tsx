@@ -2,11 +2,11 @@ import { List, Tag } from "antd";
 
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useTags } from "../../../../hooks/useTags";
-import { Class } from "../../../../types";
+import { ClassWithTeacherInfo } from "../../../../types";
 import { useAgeGroups } from "../../../../queries/ageGroups";
 import dayjs from "dayjs";
 
-const ClassesList = ({ classes }: { classes: Class[] }) => {
+const ClassesList = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { ageGroupTags } = useTags({});
     const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
     const classesWithAgeGroups = classes?.map((_class) => {
@@ -38,7 +38,7 @@ const ClassesList = ({ classes }: { classes: Class[] }) => {
                         title={
                             <>
                                 <Tag>{currentClass.id}</Tag>
-                                <Tag>{currentClass.teacherId}</Tag>
+                                <Tag>{currentClass.teacher.name}</Tag>
                                 {ageGroupTags[currentClass.ageGroup] || currentClass.ageGroup}
                                 <br />
                                 <Tag color="blue">{currentClass.startsAt}</Tag>

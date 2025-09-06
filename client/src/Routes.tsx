@@ -158,7 +158,7 @@ export const Paths = {
         EDIT: "/class/edit/:id",
         ENROLLMENTS: "/class/edit-enrollments/:id",
         FIND: "/class/find",
-        RUNNING: "/class/running",
+        RUNNING: "/class/running/:id",
     },
     USER: {
         ROOT: "/user",
