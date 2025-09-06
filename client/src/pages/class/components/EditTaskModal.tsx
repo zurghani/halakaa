@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import EditTaskForm from "./EditTaskForm";
 import { ActionButton } from "../../../components/Button/ActionButton";
-import { TaskExpanded, TaskStatus, UpdateTask } from "../../../types";
+import { NewTask, TaskExpanded, TaskStatus, UpdateTask } from "../../../types";
 import { useUpdateTask } from "../../../queries/tasks";
 import dayjs from "dayjs";
 import { authClient } from "../../../lib/auth-client";
@@ -42,29 +42,30 @@ const EditTaskModal = ({ task }: EditTaskModalProps) => {
         const taskTypeId = Array.isArray(values.taskType)
             ? values.taskType[0]
             : values.taskType?.id;
-        const baseUpdates = {
+
+        let updateTaskInformation: UpdateTask = {
             taskTypeId: taskTypeId,
             startingAyahId: startingAyahId,
             endingAyahId: endingAyahId,
             dueDate: values.dueDate,
         };
+        if (complete) {
+            updateTaskInformation = {
+                ...updateTaskInformation,
+                status: TaskStatus.Completed,
+                completedOn: dayjs().format("YYYY-MM-DD"),
+                completedBy: userId,
+                notes: values.notes || "",
+                mistakes: values.mistakes || 0,
+            };
+        }
 
-        const updates = complete
-            ? {
-                  ...baseUpdates,
-                  status: TaskStatus.Completed,
-                  completedOn: dayjs().format("YYYY-MM-DD"),
-                  completedBy: userId,
-                  notes: values.notes || "",
-                  mistakes: values.mistakes || 0,
-              }
-            : baseUpdates;
         setConfirmLoading(true);
 
         updateTaskMutation.mutate(
             {
                 taskId: task.id.toString(),
-                updates: updates as UpdateTask,
+                updates: updateTaskInformation,
             },
             {
                 onSuccess: () => {
