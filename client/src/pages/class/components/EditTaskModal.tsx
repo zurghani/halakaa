@@ -35,10 +35,10 @@ const EditTaskModal = ({ task }: EditTaskModalProps) => {
         console.log("Received values of form: ", values);
         const startingAyahId = Array.isArray(values.startingAyah)
             ? values.startingAyah[0]
-            : values.startingAyah.id;
+            : values.startingAyah?.id;
         const endingAyahId = Array.isArray(values.endingAyah)
             ? values.endingAyah[0]
-            : values.endingAyah.id;
+            : values.endingAyah?.id;
         const taskTypeId = Array.isArray(values.taskType)
             ? values.taskType[0]
             : values.taskType?.id;
@@ -46,7 +46,7 @@ const EditTaskModal = ({ task }: EditTaskModalProps) => {
             taskTypeId: taskTypeId,
             startingAyahId: startingAyahId,
             endingAyahId: endingAyahId,
-            dueDate: values.dueDate ? values.dueDate.format("YYYY-MM-DD") : null,
+            dueDate: values.dueDate,
         };
 
         const updates = complete

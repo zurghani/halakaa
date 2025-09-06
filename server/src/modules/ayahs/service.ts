@@ -46,25 +46,24 @@ export const getAyahsByIds = async (ids: number[]): Promise<Ayah[]> => {
   return await db.select().from(ayah).where(inArray(ayah.id, ids));
 };
 
-export const getAyahReferences = async (
-  ids: number[]
-): Promise<{ ayahId: number; number: number; surahId: number; surahName: string }[]> => {
+export const getAyahReferences = async (ids: number[]): Promise<AyahReference[]> => {
   const data = await db
     .select({
-      ayahId: ayah.id,
+      id: ayah.id,
       number: ayah.number,
-      surahId: surah.id,
+      surahId: ayah.surahId,
       surahName: surah.name,
       text: ayah.plainText,
     })
     .from(ayah)
     .leftJoin(surah, eq(ayah.surahId, surah.id))
     .where(inArray(ayah.id, ids));
+
   return data.map((row) => ({
-    ayahId: row.ayahId,
+    id: row.id,
     number: row.number,
-    surahId: row.surahId ?? 0,
+    surahId: row.surahId ?? null,
     surahName: row.surahName ?? "",
-    text: row.text ?? "",
+    text: row.text ?? null,
   }));
 };

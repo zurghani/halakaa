@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import {
     user,
     students,
@@ -86,18 +86,8 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
         id: typeof taskTypes.$inferSelect.id;
         name: typeof taskTypes.$inferSelect.name;
     } | null;
-    startingAyah: {
-        ayahId: typeof ayah.$inferSelect.id;
-        number: typeof ayah.$inferSelect.number;
-        surahId: typeof ayah.$inferSelect.surahId;
-        surahName: typeof surah.$inferSelect.name;
-    } | null;
-    endingAyah: {
-        ayahId: typeof ayah.$inferSelect.id;
-        number: typeof ayah.$inferSelect.number;
-        surahId: typeof ayah.$inferSelect.surahId;
-        surahName: typeof surah.$inferSelect.name;
-    } | null;
+    startingAyah: AyahReference | null;
+    endingAyah: AyahReference | null;
 };
 
 export type NewTaskType = typeof taskTypes.$inferInsert;

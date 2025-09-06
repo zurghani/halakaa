@@ -25,8 +25,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish, disabled, i
         dueDate: initialValues?.dueDate ? dayjs(initialValues.dueDate, "YYYY-MM-DD") : null,
     } as TaskExpanded;
 
-    const [ayahSearchFrom, setAyahSearchFrom] = useState(initialTask.startingAyah.text ?? "-");
-    const [ayahSearchTo, setAyahSearchTo] = useState(initialTask.endingAyah.text ?? "-");
+    const [ayahSearchFrom, setAyahSearchFrom] = useState(initialTask.startingAyah?.text ?? "-");
+    const [ayahSearchTo, setAyahSearchTo] = useState(initialTask.endingAyah?.text ?? "-");
 
     const { data: fromAyahOptions, isLoading: fromAyahLoading } = useSearchAyahs({
         like: ayahSearchFrom,

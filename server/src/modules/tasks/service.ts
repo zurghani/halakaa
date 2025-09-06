@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { ayah, surah, tasks, taskTypes, user } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { getAyahReferences } from "../ayahs/service";
+import { getAyahReferences, type AyahReference } from "../ayahs/service";
 import { alias } from "drizzle-orm/pg-core";
 
 export type Task = typeof tasks.$inferSelect;
@@ -12,18 +12,8 @@ export type TaskExpanded = Omit<Task, "assignedBy" | "completedBy"> & {
     id: typeof taskTypes.$inferSelect.id;
     name: typeof taskTypes.$inferSelect.name;
   } | null;
-  startingAyah: {
-    ayahId: typeof ayah.$inferSelect.id;
-    number: typeof ayah.$inferSelect.number;
-    surahId: typeof ayah.$inferSelect.surahId;
-    surahName: typeof surah.$inferSelect.name;
-  } | null;
-  endingAyah: {
-    ayahId: typeof ayah.$inferSelect.id;
-    number: typeof ayah.$inferSelect.number;
-    surahId: typeof ayah.$inferSelect.surahId;
-    surahName: typeof surah.$inferSelect.name;
-  } | null;
+  startingAyah: AyahReference | null;
+  endingAyah: AyahReference | null;
 };
 export type NewTask = typeof tasks.$inferInsert;
 export type UpdateTask = Partial<NewTask>;
@@ -37,6 +27,7 @@ export const getTasksByStudentId = async (studentId: number): Promise<TaskExpand
   const assignedByUser = alias(user, "assignedByUser");
   const completedByUser = alias(user, "completedByUser");
 
+  // Fetch base task data
   const data = await db
     .select({
       id: tasks.id,
@@ -70,15 +61,20 @@ export const getTasksByStudentId = async (studentId: number): Promise<TaskExpand
     .leftJoin(completedByUser, eq(tasks.completedBy, completedByUser.id))
     .where(eq(tasks.studentId, studentId));
 
+  // Collect all ayah IDs that appear in any task
   const ayahIds = [
-    ...new Set(data.flatMap((t) => [t.startingAyahId, t.endingAyahId].filter(Boolean)) as number[]),
+    ...new Set(data.flatMap((t) => [t.startingAyahId, t.endingAyahId]).filter(Boolean) as number[]),
   ];
 
-  //TODO: optimize this
-  const ayahRefs = ayahIds.length ? await getAyahReferences(ayahIds) : [];
+  // Get references for all unique ayah IDs
+  const ayahRefs: AyahReference[] = ayahIds.length ? await getAyahReferences(ayahIds) : [];
 
-  const ayahMap = new Map(ayahRefs.map((ref) => [ref.ayahId, ref]));
+  // Map ayahId -> AyahReference for quick lookup
+  const ayahMap = new Map<number, AyahReference>(
+    ayahRefs.map((ref) => [ref.id, ref]) // important: use ref.id because AyahReference.id is ayah id
+  );
 
+  // Build final tasks with AyahReference objects
   return data.map((t) => ({
     ...t,
     taskType: t.taskType ? { id: t.taskType.id, name: t.taskType.name } : null,
