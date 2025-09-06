@@ -74,7 +74,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish, disabled, i
             <Form.Item
                 label={t("editTaskModal.from")}
                 name="startingAyah"
-                getValueProps={(value) => ({ value: value.ayahId })}
+                getValueProps={(value) => ({ value: value.id })}
                 rules={[
                     {
                         required: true,
@@ -103,7 +103,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({ form, onFinish, disabled, i
             <Form.Item
                 label={t("editTaskModal.to")}
                 name="endingAyah"
-                getValueProps={(value) => ({ value: value.ayahId })}
+                getValueProps={(value) => ({ value: value.id })}
                 rules={[
                     {
                         required: true,
