@@ -141,6 +141,8 @@ const RunningClass: React.FC = () => {
         }
     };
 
+    //TODO:  when we first load this page we need to create an attendance record for today if not exists for todays date
+
     if (enrollmentsLoading) {
         return <div>Loading...</div>;
     }
