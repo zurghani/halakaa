@@ -10,6 +10,9 @@ import { ClassForm } from "./components/ClassForm";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { ActionButton } from "../../components/Button/ActionButton";
 import SaveSuccessModal from "../../components/Modals/Success";
+import { NewClass } from "../../types";
+import { useCreateClass } from "../../queries/classes";
+import dayjs from "dayjs";
 
 const ClassCreatePage: React.FC = () => {
     const navigate = useNavigate();
@@ -19,11 +22,29 @@ const ClassCreatePage: React.FC = () => {
     const [form] = Form.useForm();
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const createClassMutation = useCreateClass();
 
-    const handleSubmit = (values: any) => {
+    const handleSubmit = (values: NewClass) => {
         console.log("Submitted:", values);
-        // Create class here
-        setIsSuccessModalOpen(true); 
+
+        const newClass: NewClass = {
+            teacherId: Array.isArray(values.teacherId) ? values.teacherId[0] : values.teacherId,
+            description: values.description,
+            ageGroup: Array.isArray(values.ageGroup) ? values.ageGroup[0] : values.ageGroup,
+            startsAt: dayjs(values.startsAt).format("HH:mm:ss"),
+            endsAt: dayjs(values.endsAt).format("HH:mm:ss"),
+        };
+        console.log(newClass);
+
+        createClassMutation.mutate(
+            newClass,
+
+            {
+                onSuccess: () => {
+                    setIsSuccessModalOpen(true);
+                },
+            }
+        );
     };
 
     // Set Page Title
@@ -40,16 +61,16 @@ const ClassCreatePage: React.FC = () => {
         ]);
     }, [t]);
     return (
-    <>
-        <ClassForm form={form} onSubmit={handleSubmit} />
-        <SaveSuccessModal 
-                isOpen={isSuccessModalOpen} 
+        <>
+            <ClassForm form={form} onSubmit={handleSubmit} />
+            <SaveSuccessModal
+                isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
                 navigatePath={Paths.CLASS.FIND}
                 title={t("modal.class.createSuccess")}
                 message={t("modal.doneMessage")}
             />
-    </>
-    )
+        </>
+    );
 };
 export default ClassCreatePage;
