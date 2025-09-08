@@ -176,9 +176,15 @@ export const attendance = pgTable(
   "attendance",
   {
     id: serial("id").primaryKey(),
-    studentId: integer("student_id").references(() => students.id),
-    teacherId: text("teacher_id").references(() => user.id),
-    classId: integer("class_id").references(() => classes.id),
+    studentId: integer("student_id")
+      .references(() => students.id)
+      .notNull(),
+    teacherId: text("teacher_id")
+      .references(() => user.id)
+      .notNull(),
+    classId: integer("class_id")
+      .references(() => classes.id)
+      .notNull(),
     date: date("date").notNull(),
     status: attendanceStatusEnum("status").notNull(),
     createdAt: timestamp("created_at").defaultNow(),

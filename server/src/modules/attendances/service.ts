@@ -8,11 +8,25 @@ export type UpdateAttendance = Partial<NewAttendance>;
 
 // Create
 export const createAttendance = async (attendanceData: NewAttendance): Promise<Attendance> => {
-  const [newAttendance] = await db.insert(attendance).values(attendanceData).returning();
-  return newAttendance!;
+  let existing: Attendance | undefined;
+  await getAttendanceByFilters({
+    classId: attendanceData.classId,
+    studentId: attendanceData.studentId,
+    date: attendanceData.date,
+  }).then((res) => {
+    if (res.length > 0) {
+      existing = res[0];
+    }
+  });
+  if (existing) {
+    return existing;
+  } else {
+    const [newAttendance] = await db.insert(attendance).values(attendanceData).returning();
+    return newAttendance!;
+  }
 };
 
-export type getAttendanceFilters = { classId?: number; studentId?: number };
+export type getAttendanceFilters = { classId?: number; studentId?: number; date?: string };
 export const getAttendanceByFilters = async (
   filters: getAttendanceFilters
 ): Promise<Attendance[]> => {
@@ -22,6 +36,9 @@ export const getAttendanceByFilters = async (
   }
   if (filters.studentId) {
     conditions.push(eq(attendance.studentId, filters.studentId));
+  }
+  if (filters.date) {
+    conditions.push(eq(attendance.date, filters.date));
   }
   const result = await db
     .select()
