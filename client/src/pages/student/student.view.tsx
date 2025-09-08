@@ -23,7 +23,7 @@ import { useClasses } from "../../queries/classes";
 import { useTasks } from "../../queries/tasks";
 import { TaskStatus } from "../../types";
 import { authClient } from "../../lib/auth-client";
-import { UserRole } from "../../store/types";
+import { UserRole } from "../../types";
 
 const { useBreakpoint } = Grid;
 

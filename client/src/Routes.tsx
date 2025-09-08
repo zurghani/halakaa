@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 // storeimport { AppStore } from "./store";
-import { UserRole } from "./store/types";
+import { UserRole } from "./types";
 import { ErrorHandlerProvider } from "./components/ErrorHandlerProvider";
 // pages
 import Login from "./pages/login/Login";

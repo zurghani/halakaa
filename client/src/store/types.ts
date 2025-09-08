@@ -1,10 +1,3 @@
-export enum UserRole {
-    All = "all",
-    Admin = "admin",
-    Teacher = "teacher",
-    Parent = "parent",
-    Student = "student",
-}
 export enum SupportedLanguage {
     English = "en",
     Arabic = "ar",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Paths } from "../Routes";
-import { UserRole } from "../store/types";
+import { UserRole } from "../types";
 import { authClient } from "../lib/auth-client";
 
 const ParentGuard: React.FC = () => {
