@@ -14,7 +14,7 @@ const attendances = new Hono<{ Variables: AuthType }>()
       return c.json({ error: "You must provide a class_id or student_id or date" }, 400);
     }
 
-    const attendance = await attendanceService.getAttendanceByFilters({ classId, studentId });
+    const attendance = await attendanceService.getAttendanceByFilters({ classId, studentId, date });
     return c.json(attendance || []);
   })
 

@@ -32,6 +32,7 @@ const RunningClass: React.FC = () => {
     const { setButtons } = useSetButtons();
     const { id } = useParams();
     const classId = id ?? "";
+    const teacherId = authClient.useSession()?.data?.user.id || "";
 
     const screens = useBreakpoint();
     const isMobile = !screens.md;
@@ -62,7 +63,7 @@ const RunningClass: React.FC = () => {
     const assignedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Assigned);
 
     useEffect(() => {
-        // update the store
+        // update the store ?
     }, [selectedStudent]);
 
     const items: TabsProps["items"] = [
@@ -103,9 +104,38 @@ const RunningClass: React.FC = () => {
         },
     ];
 
+    const useCreateAttendanceMutation = useCreateAttendance();
+    const { data: allAttendances, isLoading: allAttendancesLoading } = useAttendances({
+        classId: Number(classId),
+        date: dayjs().format("YYYY-MM-DD"),
+    });
+    console.log("allAttendances", allAttendances);
+    useEffect(() => {
+        if (enrollments && enrollments.length > 0) {
+            enrollments.forEach((enrollment) => {
+                useCreateAttendanceMutation.mutate(
+                    {
+                        teacherId: teacherId,
+                        classId: Number(classId),
+                        studentId: enrollment.student.id,
+                        date: dayjs().format("YYYY-MM-DD"),
+                        status: "absent",
+                    },
+                    {
+                        onSuccess: () => {
+                            console.log(
+                                `Attendance record created for student ${enrollment.student.id}`
+                            );
+                        },
+                    }
+                );
+            });
+        }
+    }, []);
+
     const { data: attendances, isLoading: attendancesLoading } = useAttendances({
         classId: Number(classId),
-        studentId: selectedStudent?.student.id.toString() || "1",
+        studentId: selectedStudent?.student.id.toString() || "-1",
         date: dayjs().format("YYYY-MM-DD"),
     });
 
