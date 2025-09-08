@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Collapse, CollapseProps, Grid } from "antd";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import StudentDetailsCard from "../../components/StudentDetailsCard/StudentDetailsCard";
@@ -15,22 +15,22 @@ import DownloadModal from "../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AppStore } from "../../store";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { Paths } from "../../Routes";
-import { UserRole } from "../../store/types";
 import { useStudent } from "../../queries/students";
 import { useAttendances } from "../../queries/attendances";
 import { useClasses } from "../../queries/classes";
 import { useTasks } from "../../queries/tasks";
 import { TaskStatus } from "../../types";
+import { authClient } from "../../lib/auth-client";
+import { UserRole } from "../../store/types";
 
 const { useBreakpoint } = Grid;
 
 // Common items for both roles
 
 const ViewStudent: React.FC = () => {
-    const userRole = useSelector((state: AppStore) => state.user.role);
+    const userRole = authClient.useSession()?.data?.user.role || "guest";
     const navigate = useNavigate();
     const { setButtons } = useSetButtons();
     const { t } = useTranslation();

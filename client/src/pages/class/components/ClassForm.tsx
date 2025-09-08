@@ -61,20 +61,22 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                 </Col>
             </Row>
             <Form.Item
-                name="teacher" // dont know how to display teacher name
-                getValueProps={(value) => ({
-                    value: value ? value.name : [],
-                })}
+                name="teacherId" // dont know how to display teacher name
                 label={t("forms.teacher")}
-                rules={[{ required: true, message: t("forms.required.teacher") }]}>
+                rules={[{ required: true, message: t("forms.required.teacher") }]}
+                getValueProps={(value) => ({ value: value })}>
                 <Select
                     mode="tags"
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
+                    optionLabelProp="label"
                     //TODO fetch teachers from api
                     options={[
-                        { label: "Mohamed", value: "001" },
+                        {
+                            label: "USE THIS FOR NOW",
+                            value: "5add4a19-648a-48f9-b9df-6fb00b10e7a7",
+                        },
                         { label: "Ahmed", value: "002" },
                         { label: "Zacharea", value: "003" },
                         { label: "Yusuf", value: "004" },
@@ -84,12 +86,14 @@ export const ClassForm: React.FC<ClassFormProps> = ({
             <Form.Item
                 name="ageGroup"
                 label={t("forms.ageGroup")}
-                rules={[{ required: true, message: t("forms.required.ageGroup") }]}>
+                rules={[{ required: true, message: t("forms.required.ageGroup") }]}
+                getValueProps={(value) => ({ value: value })}>
                 <Select
                     mode="tags"
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
+                    optionLabelProp="label"
                     options={ageGroups?.map((ageGroup) => ({
                         label: `${ageGroup.from}-${ageGroup.to}`,
                         value: ageGroup.id,
