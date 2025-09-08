@@ -1,6 +1,6 @@
 import { Table, TableProps } from "antd";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
-import { AttendanceStatus } from "../../../../store/types";
+import { AttendanceStatus } from "../../../../types";
 import { useTranslation } from "react-i18next";
 import { Attendance } from "../../../../types";
 
