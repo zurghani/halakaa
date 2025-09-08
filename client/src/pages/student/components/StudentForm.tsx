@@ -1,11 +1,11 @@
 // StudentForm.tsx
 import { DatePicker, Form, Input, Segmented, Select } from "antd";
 import { useTranslation } from "react-i18next";
-import { StudentFormValues } from "../../../types";
 import { FormInstance } from "antd/lib";
+import { StudentWithParent } from "../../../types";
 export interface StudentFormProps {
     disabled?: boolean;
-    initialValues?: StudentFormValues;
+    initialValues?: StudentWithParent;
     form: FormInstance;
     onSubmit?: (data: any) => void;
 }
@@ -54,7 +54,7 @@ export const StudentForm: React.FC<StudentFormProps> = ({
             </Form.Item>
 
             <Form.Item
-                name="parentId"
+                name="parent"
                 label={t("forms.parent")}
                 rules={[{ required: false, message: t("forms.required.parent") }]}>
                 <Select

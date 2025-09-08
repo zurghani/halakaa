@@ -1,9 +1,9 @@
 import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
-import { Attendance } from "../../../../types";
+import { AttendanceWithTeacher } from "../../../../types";
 
-const AttendanceList = ({ attendance }: { attendance: Attendance[] }) => {
+const AttendanceList = ({ attendance }: { attendance: AttendanceWithTeacher[] }) => {
     return (
         <List
             itemLayout="horizontal"
@@ -19,7 +19,7 @@ const AttendanceList = ({ attendance }: { attendance: Attendance[] }) => {
                     <List.Item.Meta
                         title={
                             <>
-                                {attendance.teacherId}
+                                <Tag>{attendance.teacher.name}</Tag>
                                 <Tag>{attendance.date}</Tag>
                                 <AttendanceStatusTag status={attendance.status} />
                             </>

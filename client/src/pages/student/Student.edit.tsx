@@ -12,7 +12,7 @@ import SaveSuccessModal from "../../components/Modals/Success";
 import { ActionButton } from "../../components/Button/ActionButton";
 import { useStudent, useUpdateStudent } from "../../queries/students";
 import dayjs from "dayjs";
-import { StudentFormValues } from "../../types";
+import { StudentWithParent } from "../../types";
 
 const StudentEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -24,15 +24,20 @@ const StudentEditPage: React.FC = () => {
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const updateStudentMutation = useUpdateStudent();
-    const handleSubmit = (values: StudentFormValues) => {
+    const handleSubmit = (values: StudentWithParent) => {
         const student = {
             studentId: id || "",
             updates: {
                 fullName: values.fullName,
                 gender: values.gender,
-                parentId: values.parentId,
+                parent: {
+                    id: values.parent.id,
+                    name: values.parent.name,
+                },
                 userId: values.userId,
-                dateOfBirth: values.dateOfBirth ? values.dateOfBirth.format("YYYY-MM-DD") : null,
+                dateOfBirth: values.dateOfBirth
+                    ? dayjs(values.dateOfBirth).format("YYYY-MM-DD")
+                    : null,
             },
         };
         updateStudentMutation.mutate(student, {
@@ -57,17 +62,10 @@ const StudentEditPage: React.FC = () => {
     }, [t]);
     const { data: initialStudent, isLoading } = useStudent(id || "");
 
-    const formInitialValues = initialStudent
-        ? {
-              ...initialStudent,
-              dateOfBirth: initialStudent?.dateOfBirth ? dayjs(initialStudent.dateOfBirth) : null,
-          }
-        : undefined;
-
     if (isLoading) return <div>Loading...</div>;
     return (
         <>
-            <StudentForm form={form} onSubmit={handleSubmit} initialValues={formInitialValues} />
+            <StudentForm form={form} onSubmit={handleSubmit} initialValues={initialStudent} />
             <SaveSuccessModal
                 isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}

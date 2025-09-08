@@ -37,10 +37,11 @@ export type Student = Omit<typeof students.$inferSelect, "createdAt" | "dateOfBi
     createdAt: string | null;
     dateOfBirth: string | null;
 };
-export type StudentFormValues = Omit<Student, "dateOfBirth"> & {
-    dateOfBirth: Dayjs | null;
-};
+
 export type NewStudent = typeof students.$inferInsert;
+export type StudentWithParent = Omit<Student, "parentId"> & {
+    parent: { id: typeof user.$inferSelect.id; name: typeof user.$inferSelect.name };
+};
 export type UpdateStudent = Partial<NewStudent>;
 
 //AgeGroup
@@ -54,6 +55,9 @@ export type Attendance = Omit<typeof attendance.$inferSelect, "createdAt"> & {
     createdAt: string | null;
 };
 export type NewAttendance = typeof attendance.$inferInsert;
+export type AttendanceWithTeacher = Omit<Attendance, "teacherId"> & {
+    teacher: { id: typeof user.$inferSelect.id; name: typeof user.$inferSelect.name };
+};
 export type UpdateAttendance = Partial<NewAttendance>;
 
 //class

@@ -1,8 +1,7 @@
 import { Table, TableProps } from "antd";
 import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag";
-import { AttendanceStatus } from "../../../../types";
+import { AttendanceStatus, AttendanceWithTeacher } from "../../../../types";
 import { useTranslation } from "react-i18next";
-import { Attendance } from "../../../../types";
 
 // interface DataType {
 //   key: string;
@@ -13,15 +12,16 @@ import { Attendance } from "../../../../types";
 //   date: string;
 // }
 
-const AttendanceTable = ({ attendance }: { attendance: Attendance[] }) => {
+const AttendanceTable = ({ attendance }: { attendance: AttendanceWithTeacher[] }) => {
     const { t } = useTranslation();
 
     const columns: TableProps["columns"] = [
         {
             title: t("general.teacher"),
-            dataIndex: "teacherId",
-            key: "teacherId",
+            dataIndex: "teacher",
+            key: "teacher",
             defaultSortOrder: "descend",
+            render: (teacher) => teacher.name,
             sorter: (a, b) => a.teacherId - b.teacherId,
         },
         {
