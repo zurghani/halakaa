@@ -9,7 +9,7 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
 import { User } from "./types";
-import { UserRole } from "../../store/types";
+import { UserRole } from "../../types";
 import SaveSuccessModal from "../../components/Modals/Success";
 import { ActionButton } from "../../components/Button/ActionButton";
 

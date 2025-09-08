@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { NavPermissions } from "./NavPermissions";
 import { authClient } from "../../lib/auth-client";
-import { UserRole } from "../../store/types";
+import { UserRole } from "../../types";
 
 const NavBarLinks: React.FC = () => {
     const { t } = useTranslation();

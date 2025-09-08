@@ -12,6 +12,22 @@ import {
     ayah,
 } from "../../server/src/db/schema";
 
+export enum UserRole {
+    All = "all",
+    Admin = "admin",
+    Teacher = "teacher",
+    Parent = "parent",
+    Student = "student",
+}
+export enum SupportedLanguage {
+    English = "en",
+    Arabic = "ar",
+}
+export enum AttendanceStatus {
+    Present = "present",
+    Absent = "absent",
+    Late = "late",
+}
 //student
 export type User = typeof user.$inferSelect;
 export type NewUser = typeof user.$inferInsert;

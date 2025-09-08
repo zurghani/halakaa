@@ -1,5 +1,3 @@
-import { UserRole } from "../../store/types";
-
 // export type User = {
 //     fullName: string;
 //     id?: string | undefined;
@@ -10,6 +8,8 @@ import { UserRole } from "../../store/types";
 //     role?: UserRole | null | undefined; //ADDED FOR NOW
 //     children?: { id: string; fullName: string; ageGroup: string }[]; // ADDED FOR NOW
 // };
+
+import { UserRole } from "../../types";
 
 // export interface UserListItem extends User {
 //     key: string;

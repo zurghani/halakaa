@@ -1,19 +1,11 @@
 // src/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "./ui.slice";
-import studentReducer from "./student.slice";
-import classReducer from "./class.slice";
-import parentReducer from "./parent.slice";
-import tasksReducer from "./tasks.slice";
 import tagsReducer from "./tags.slice";
 
 export const store = configureStore({
     reducer: {
         ui: uiReducer,
-        student: studentReducer,
-        class: classReducer,
-        parent: parentReducer,
-        tasks: tasksReducer,
         tags: tagsReducer,
     },
 });

@@ -11,7 +11,7 @@ import {
 import { NavigateFunction } from "react-router-dom";
 import { TFunction } from "i18next";
 import { Paths } from "../../Routes";
-import { UserRole } from "../../store/types";
+import { UserRole } from "../../types";
 
 type NavPermissionsType = {
     [key in UserRole | "non"]?: {

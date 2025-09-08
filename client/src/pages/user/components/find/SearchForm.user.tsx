@@ -1,6 +1,6 @@
 import { GetProps, Input, Segmented, Space } from "antd";
 import { useState } from "react";
-import { UserRole } from "../../../../store/types";
+import { UserRole } from "../../../../types";
 import { rolesObject, UserSearchOptionsType } from "../../types";
 import { useTranslation } from "react-i18next";
 
