@@ -12,7 +12,7 @@ export interface StudentFormProps {
 
 export const StudentForm: React.FC<StudentFormProps> = ({
     disabled = false,
-    initialValues = { gender: "male" },
+    initialValues,
     onSubmit,
     form,
 }) => {
@@ -54,15 +54,20 @@ export const StudentForm: React.FC<StudentFormProps> = ({
             </Form.Item>
 
             <Form.Item
-                name="parent"
+                name="parentId"
                 label={t("forms.parent")}
-                rules={[{ required: false, message: t("forms.required.parent") }]}>
+                rules={[{ required: false, message: t("forms.required.parent") }]}
+                getValueProps={(value) => value}>
                 <Select
                     disabled={disabled}
                     showSearch
                     placeholder={t("forms.selectParent")}
+                    optionLabelProp="label"
                     options={[
-                        { label: "Mohamed", value: "mohamed" },
+                        {
+                            label: "USE THIS FOR NOW",
+                            value: "d6dca3a6-76e1-4300-8406-dea962c50f06",
+                        },
                         { label: "Ahmed", value: "ahmed" },
                         { label: "Sara", value: "sara" },
                     ]}

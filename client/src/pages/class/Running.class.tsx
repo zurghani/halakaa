@@ -1,6 +1,6 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Badge, Button, Checkbox, Col, Divider, Flex, Grid, Row, Tabs, TabsProps, Tag } from "antd";
+import { Badge, Button, Checkbox, Col, Flex, Grid, Row, Tabs, TabsProps, Tag } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";

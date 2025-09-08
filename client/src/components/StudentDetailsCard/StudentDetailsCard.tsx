@@ -12,22 +12,22 @@ const StudentStat = ({ percentage, legend }: { percentage: number; legend: strin
         </div>
     );
 };
-const StudentDetailsCard = ({ student }: { student: StudentWithParent }) => {
+const StudentDetailsCard = ({ student }: { student?: StudentWithParent }) => {
     const { t } = useTranslation();
     return (
         <>
             <Row gutter={[16, 8]} className="student-section__info">
                 <Col span={4}>{t("general.id")}</Col>
-                <Col span={20}>{student.id}</Col>
+                <Col span={20}>{student?.id}</Col>
 
                 <Col span={4}>{t("general.name")}</Col>
-                <Col span={20}>{student.fullName}</Col>
+                <Col span={20}>{student?.fullName}</Col>
 
                 <Col span={4}>{t("general.dob")}</Col>
-                <Col span={20}>{student.dateOfBirth}</Col>
+                <Col span={20}>{student?.dateOfBirth?.format("YYYY-MM-DD")}</Col>
 
                 <Col span={4}>{t("general.parent")}</Col>
-                <Col span={20}>{student.parent.name}</Col>
+                <Col span={20}>{student?.parent.name}</Col>
             </Row>
             <Row justify="space-between" align="middle">
                 <Col span={6}>

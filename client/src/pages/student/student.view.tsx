@@ -24,6 +24,7 @@ import { useTasks } from "../../queries/tasks";
 import { TaskStatus } from "../../types";
 import { authClient } from "../../lib/auth-client";
 import { UserRole } from "../../types";
+import dayjs from "dayjs";
 
 const { useBreakpoint } = Grid;
 
@@ -59,6 +60,13 @@ const ViewStudent: React.FC = () => {
         studentId: id,
     });
     const { data: student, isLoading: studentLoading } = useStudent(id ?? "");
+
+    const studentToView = student
+        ? {
+              ...student,
+              dateOfBirth: student.dateOfBirth ? dayjs(student.dateOfBirth) : null,
+          }
+        : undefined;
     const { data: classes, isLoading: classesLoading } = useClasses({ studentId: id });
     const { data: tasks, isLoading: tasksLoading } = useTasks({ studentId: id });
 
@@ -110,7 +118,7 @@ const ViewStudent: React.FC = () => {
 
     return (
         <>
-            <StudentDetailsCard student={student} />
+            <StudentDetailsCard student={studentToView} />
             <Collapse items={collapseItems} />
         </>
     );

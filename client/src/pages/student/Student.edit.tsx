@@ -60,7 +60,13 @@ const StudentEditPage: React.FC = () => {
             <ActionButton onClick={() => form.submit()}>{t("general.save")}</ActionButton>,
         ]);
     }, [t]);
-    const { data: initialStudent, isLoading } = useStudent(id || "");
+    const { data: student, isLoading } = useStudent(id || "");
+    const initialStudent = student
+        ? {
+              ...student,
+              dateOfBirth: student.dateOfBirth ? dayjs(student.dateOfBirth) : null,
+          }
+        : undefined;
 
     if (isLoading) return <div>Loading...</div>;
     return (
