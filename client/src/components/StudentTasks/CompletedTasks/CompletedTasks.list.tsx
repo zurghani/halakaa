@@ -11,7 +11,7 @@ const CompletedTasksList = ({ tasks }: { tasks: TaskExpanded[] }) => {
         key: `completed-${task.id}`,
         label: (
             <>
-                <Tag>{task.id}</Tag>
+                <Tag>{i + 1}</Tag>
                 {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
                 <Tag>{task.completedOn}</Tag>
             </>

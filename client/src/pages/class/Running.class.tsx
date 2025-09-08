@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Badge, Button, Col, Grid, Row, Tabs, TabsProps, Tag } from "antd";
+import { Badge, Button, Checkbox, Col, Divider, Flex, Grid, Row, Tabs, TabsProps, Tag } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
@@ -15,6 +15,13 @@ import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
 import { EnrollmentWithStudents, TaskStatus } from "../../types";
 import { useEnrollments } from "../../queries/enrollments";
 import { useTasks } from "../../queries/tasks";
+import dayjs from "dayjs";
+import {
+    useAttendances,
+    useCreateAttendance,
+    useUpdateAttendance,
+} from "../../queries/attendances";
+import { authClient } from "../../lib/auth-client";
 
 const { useBreakpoint } = Grid;
 
@@ -25,6 +32,7 @@ const RunningClass: React.FC = () => {
     const { setButtons } = useSetButtons();
     const { id } = useParams();
     const classId = id ?? "";
+    const teacherId = authClient.useSession()?.data?.user.id || "";
 
     const screens = useBreakpoint();
     const isMobile = !screens.md;
@@ -55,7 +63,7 @@ const RunningClass: React.FC = () => {
     const assignedTasks = studentTasks?.filter((task) => task.status === TaskStatus.Assigned);
 
     useEffect(() => {
-        // update the store
+        // update the store ?
     }, [selectedStudent]);
 
     const items: TabsProps["items"] = [
@@ -96,6 +104,75 @@ const RunningClass: React.FC = () => {
         },
     ];
 
+    const useCreateAttendanceMutation = useCreateAttendance();
+    const { data: allAttendances, isLoading: allAttendancesLoading } = useAttendances({
+        classId: Number(classId),
+        date: dayjs().format("YYYY-MM-DD"),
+    });
+    console.log("allAttendances", allAttendances);
+    useEffect(() => {
+        if (enrollments && enrollments.length > 0) {
+            enrollments.forEach((enrollment) => {
+                useCreateAttendanceMutation.mutate(
+                    {
+                        teacherId: teacherId,
+                        classId: Number(classId),
+                        studentId: enrollment.student.id,
+                        date: dayjs().format("YYYY-MM-DD"),
+                        status: "absent",
+                    },
+                    {
+                        onSuccess: () => {
+                            console.log(
+                                `Attendance record created for student ${enrollment.student.id}`
+                            );
+                        },
+                    }
+                );
+            });
+        }
+    }, []);
+
+    const { data: attendances, isLoading: attendancesLoading } = useAttendances({
+        classId: Number(classId),
+        studentId: selectedStudent?.student.id.toString() || "-1",
+        date: dayjs().format("YYYY-MM-DD"),
+    });
+
+    const recordAttendance = () => {
+        if (attendances && attendances.length > 0) {
+            useUpdateAttendanceMutation.mutate(
+                {
+                    attendanceId: attendances[0].id,
+                    updateAttendance: { status: "present" },
+                },
+                {
+                    onSuccess: () => {
+                        console.log("Attendance recorded successfully");
+                    },
+                }
+            );
+        }
+    };
+    const useUpdateAttendanceMutation = useUpdateAttendance();
+    const removeAttendance = () => {
+        if (attendances && attendances.length > 0) {
+            useUpdateAttendanceMutation.mutate(
+                {
+                    attendanceId: attendances[0].id,
+                    updateAttendance: { status: "absent" },
+                },
+                {
+                    onSuccess: () => {
+                        console.log("Attendance removed successfully");
+                    },
+                }
+            );
+        }
+    };
+
+    //TODO:  when we first load this page we need to create an attendance record for today if not exists for todays date
+
     if (enrollmentsLoading) {
         return <div>Loading...</div>;
     }
@@ -124,10 +201,26 @@ const RunningClass: React.FC = () => {
                     </Col>
                 ) : (
                     <Col span={isMobile ? 24 : 16}>
-                        <div>
-                            {selectedStudent?.student.name} <Tag>{selectedStudent?.student.id}</Tag>
-                        </div>
-                        <Tabs defaultActiveKey="1" items={items} />
+                        <Flex justify={"space-between"}>
+                            <span>
+                                <Tag>{selectedStudent?.student.id}</Tag>
+                                {selectedStudent?.student.name}
+                            </span>
+                            <Checkbox
+                                checked={
+                                    attendances &&
+                                    attendances.length > 0 &&
+                                    attendances[0].status === "present"
+                                }
+                                onChange={(e) =>
+                                    e.target.checked === true
+                                        ? recordAttendance()
+                                        : removeAttendance()
+                                }>
+                                Attendance <Tag>{dayjs().format("MMMM/DD")}</Tag>
+                            </Checkbox>
+                        </Flex>
+                        <Tabs defaultActiveKey="1" items={items} style={{ marginTop: "1rem" }} />
                     </Col>
                 )}
             </Row>
