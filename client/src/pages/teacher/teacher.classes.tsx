@@ -35,24 +35,10 @@ const ViewClasses: React.FC = () => {
     const { data: classes, isLoading: classesLoading } = useClasses({
         teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7", //TODO: GET TEACHER ID FROM LOGGED IN USER
     });
-    const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
 
-    if (classesLoading || ageGroupsLoading) return <div>Loading...</div>;
+    if (classesLoading) return <div>Loading...</div>;
 
-    const classesWithAgeGroups: ClassWithAgeGroup[] =
-        classes?.map((_class) => {
-            const ag = ageGroups?.find((ag) => ag.id === _class.ageGroup);
-            return {
-                ..._class,
-                ageGroup: ag ? `${ag.from} - ${ag.to}` : "",
-            };
-        }) || [];
-
-    return isMobile ? (
-        <MyClassesList classes={classesWithAgeGroups} />
-    ) : (
-        <MyClassesTable classes={classesWithAgeGroups} />
-    );
+    return isMobile ? <MyClassesList classes={classes} /> : <MyClassesTable classes={classes} />;
 };
 
 export default ViewClasses;

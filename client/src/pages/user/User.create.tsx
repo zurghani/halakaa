@@ -22,17 +22,13 @@ const UserCreatePage: React.FC = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const handleSubmit = async (values: any) => {
-        const s = await authClient.getSession();
-
-        console.log("session?", s?.data?.user?.id, s?.data?.user?.role); // must log "admin"
-        console.log("Submitted:", values);
         try {
             // Create user using authClient
             const result = await authClient.admin.createUser({
                 name: values.fullName,
                 email: values.email,
                 password: "1234", // You may want to generate a random password or handle this differently
-                role: values.role
+                role: values.role,
             });
 
             if (result.data) {

@@ -34,8 +34,7 @@ const UserFindPage: React.FC = () => {
         try {
             // Check current session and permissions
             const session = await authClient.getSession();
-            console.log("Current session:", session?.data?.user?.id, session?.data?.user?.role);
-            
+
             const result = await authClient.admin.listUsers({
                 query: {
                     // limit: 50,
@@ -45,7 +44,6 @@ const UserFindPage: React.FC = () => {
             });
 
             if (result.data) {
-                console.log("Fetched users:", result.data);
                 setUsers(result.data.users);
                 setTotalUsers(result.data.total);
             }

@@ -10,7 +10,6 @@ const AttendanceList = ({ attendance }: { attendance: AttendanceWithTeacher[] })
             dataSource={attendance}
             renderItem={(attendance) => (
                 <List.Item
-                    onClick={() => console.log(`Attendance: ${attendance.date}`)}
                     actions={[
                         <a key="view-attendance">
                             <ArrowRightOutlined />

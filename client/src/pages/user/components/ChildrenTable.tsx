@@ -1,16 +1,9 @@
 import { Button, Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
-import { useTags } from "../../../hooks/useTags";
-
-interface ChildrenType {
-    id: string;
-    fullName: string;
-    ageGroup: string;
-    editable?: boolean; // Optional property to indicate if the child is editable
-}
+import { Student } from "../../../types";
 
 interface ChildrenTableProps {
-    childrenData: ChildrenType[];
+    childrenData: Student[];
     onDelete?: (id: string) => void;
     editable?: boolean;
 }
@@ -20,9 +13,8 @@ const ChildrenTable: React.FC<ChildrenTableProps> = ({
     onDelete,
     editable = false,
 }) => {
-    const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
-    const columns: TableProps<ChildrenType>["columns"] = [
+    const columns: TableProps<Student>["columns"] = [
         {
             title: t("forms.childrenTable.id"),
             dataIndex: "id",
@@ -34,10 +26,9 @@ const ChildrenTable: React.FC<ChildrenTableProps> = ({
             key: "fullName",
         },
         {
-            title: t("forms.childrenTable.ageGroup"),
-            dataIndex: "ageGroup",
-            key: "ageGroup",
-            render: (ageGroup: string) => ageGroupTags[ageGroup] || ageGroup,
+            title: t("general.dob"),
+            dataIndex: "dateOfBirth",
+            key: "dateOfBirth",
         },
     ];
 
@@ -46,7 +37,7 @@ const ChildrenTable: React.FC<ChildrenTableProps> = ({
             title: t("forms.childrenTable.delete"),
             key: "delete",
             render: (_, record) => (
-                <Button danger size="small" onClick={() => onDelete?.(record.id)}>
+                <Button danger size="small" onClick={() => onDelete?.(record.dateOfBirth)}>
                     {t("general.delete")}
                 </Button>
             ),

@@ -2,32 +2,21 @@ import { Table, TableProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../hooks/useTags";
-import { ClassWithAgeGroup } from "../../../types";
+import { ClassWithTeacherInfo } from "../../../types";
+import dayjs from "dayjs";
 
-const MyClassesTable = ({ classes }: { classes: ClassWithAgeGroup[] }) => {
+const MyClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] | undefined }) => {
+    if (!classes) return <div>No classes available.</div>;
+
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const data = classes.map((teacherClass) => ({
         id: teacherClass.id,
-        teacherId: teacherClass.teacherId,
+        teacherId: teacherClass.teacher.id,
         ageGroup: teacherClass.ageGroup,
-        start: (() => {
-            const date = new Date();
-            date.setHours(
-                parseInt(teacherClass?.startsAt?.split(" ")[0].split(":")[0] || "0"),
-                parseInt(teacherClass?.startsAt?.split(" ")[0].split(":")[1] || "0")
-            );
-            return date.toLocaleString([], { hour: "2-digit", minute: "2-digit", hour12: true });
-        })(),
-        end: (() => {
-            const date = new Date();
-            date.setHours(
-                parseInt(teacherClass?.endsAt?.split(" ")[0].split(":")[0] || "0"),
-                parseInt(teacherClass?.endsAt?.split(" ")[0].split(":")[1] || "0")
-            );
-            return date.toLocaleString([], { hour: "2-digit", minute: "2-digit", hour12: true });
-        })(),
+        start: dayjs(teacherClass.startsAt, "HH:mm").format("h:mm A"),
+        end: dayjs(teacherClass.endsAt, "HH:mm").format("h:mm A"),
     }));
 
     const columns: TableProps["columns"] = [
@@ -42,13 +31,15 @@ const MyClassesTable = ({ classes }: { classes: ClassWithAgeGroup[] }) => {
             dataIndex: "ageGroup",
             key: "ageGroup",
             render: (ageGroup) => ageGroupTags[ageGroup || 0],
-            filters: classes.map((_class) => ({ text: _class.ageGroup, value: _class.ageGroup })),
-            onFilter: (value, record) => record.ageGroup.indexOf(value as string) === 0,
-            sorter: (a, b) => {
-                const [aMin] = a.ageGroup.split(" - ").map(Number);
-                const [bMin] = b.ageGroup.split(" - ").map(Number);
-                return aMin - bMin;
+            filters: Object.keys(ageGroupTags).map((key) => ({
+                id: Number(key),
+                text: ageGroupTags[key],
+                value: key,
+            })),
+            onFilter: (value, record) => {
+                return record.ageGroup == value;
             },
+            sorter: (a, b) => (a.ageGroup > b.ageGroup ? 1 : -1),
         },
         {
             title: t("class.startsAt"),

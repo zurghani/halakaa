@@ -3,15 +3,6 @@ import AttendanceStatusTag from "../../../../components/Tags/AttendanceStatusTag
 import { AttendanceStatus, AttendanceWithTeacher } from "../../../../types";
 import { useTranslation } from "react-i18next";
 
-// interface DataType {
-//   key: string;
-//   teacher: string;
-//   type: TaskType;
-//   from: string;
-//   to: string;
-//   date: string;
-// }
-
 const AttendanceTable = ({ attendance }: { attendance: AttendanceWithTeacher[] }) => {
     const { t } = useTranslation();
 
@@ -57,7 +48,11 @@ const AttendanceTable = ({ attendance }: { attendance: AttendanceWithTeacher[] }
 
     return (
         <>
-            <Table columns={columns} dataSource={attendance} />
+            <Table
+                columns={columns}
+                dataSource={attendance.map((item) => ({ ...item, key: item.id }))}
+                pagination={false}
+            />
         </>
     );
 };

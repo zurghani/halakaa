@@ -1,12 +1,10 @@
 // src/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "./ui.slice";
-import tagsReducer from "./tags.slice";
 
 export const store = configureStore({
     reducer: {
         ui: uiReducer,
-        tags: tagsReducer,
     },
 });
 

@@ -8,7 +8,10 @@ export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
 
 export type StudentWithParent = Omit<Student, "parentId"> & {
-  parent: { id: typeof user.$inferSelect.id; name: typeof user.$inferSelect.name };
+  parent: {
+    id: typeof user.$inferSelect.id;
+    name: typeof user.$inferSelect.name;
+  } | null;
 };
 
 // Create
@@ -38,7 +41,7 @@ export const getStudentById = async (id: number): Promise<StudentWithParent | un
       },
     })
     .from(students)
-    .innerJoin(user, eq(students.parentId, user.id))
+    .leftJoin(user, eq(students.parentId, user.id))
     .where(eq(students.id, id));
   return student;
 };

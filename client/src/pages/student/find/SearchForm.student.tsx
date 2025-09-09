@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SearchOptionsType } from "./search.options";
 import { DatePicker, Input, Segmented, Space } from "antd";
 import type { GetProps } from "antd";
@@ -15,13 +15,8 @@ type SearchFormProps = {
 
 const SearchForm = ({ SearchOptions, SetData }: SearchFormProps) => {
     const [SearchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.id.value);
-    useEffect(() => {
-        console.log("Search Type Changed:", SearchType);
-    }, [SearchType]);
 
-    const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
-        console.log(info?.source, value);
-        console.log("Search Type:", SearchType);
+    const onSearch: SearchProps["onSearch"] = (value, _e) => {
         if (SearchType === "id") {
             SetData({ id: value, name: undefined, dob: undefined });
         } else if (SearchType === "name") {

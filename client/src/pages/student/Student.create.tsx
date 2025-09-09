@@ -9,7 +9,7 @@ import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { StudentForm } from "./components/StudentForm";
 import SaveSuccessModal from "../../components/Modals/Success";
-import { NewStudent } from "../../types";
+import { NewStudent, Student } from "../../types";
 import { useCreateStudent } from "../../queries/students";
 import { ActionButton } from "../../components/Button/ActionButton";
 
@@ -22,12 +22,12 @@ const StudentCreatePage: React.FC = () => {
 
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const createStudentMutation = useCreateStudent();
+    const [createdStudent, setCreatedStudent] = useState<Student | null>(null);
 
     const handleSubmit = (values: NewStudent) => {
-        console.log("Submitted:", values);
-
         createStudentMutation.mutate(values, {
-            onSuccess: () => {
+            onSuccess: (e) => {
+                setCreatedStudent(e);
                 setIsSuccessModalOpen(true);
             },
         });
@@ -51,7 +51,10 @@ const StudentCreatePage: React.FC = () => {
             <SaveSuccessModal
                 isOpen={isSuccessModalOpen}
                 onClose={() => setIsSuccessModalOpen(false)}
-                navigatePath={Paths.STUDENT.VIEW}
+                navigatePath={Paths.STUDENT.VIEW.replace(
+                    ":id",
+                    createdStudent?.id?.toString() || ""
+                )}
                 title={t("modal.student.createSuccess")}
                 message={t("modal.doneMessage")}
             />

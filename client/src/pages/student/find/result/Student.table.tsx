@@ -22,19 +22,19 @@ const StudentTable = ({ students }: { students: Student[] }) => {
             sorter: (a, b) => a.fullName.localeCompare(b.fullName),
         },
         {
-            title: t("general.ageGroup"),
+            title: t("general.dob"),
             dataIndex: "dateOfBirth",
             key: "dateOfBirth",
             render: (record: string) => <Tag color="blue">{record}</Tag>,
             sorter: (a, b) =>
-                a.dateOfBirth && b.dateOfBirth ? a.dateOfBirth.localeCompare(b.dateOfBirth) : 0,
+                a.dateOfBirth && b.dateOfBirth ? (a.dateOfBirth > b.dateOfBirth ? 1 : 0) : 0,
         },
     ];
     return (
         <>
             <Table
                 columns={columns}
-                dataSource={students}
+                dataSource={students.map((student) => ({ ...student, key: student.id }))}
                 onRow={(record: Student) => ({
                     onClick: () => {
                         // handle row click here

@@ -35,8 +35,6 @@ const AgeGroupEditPage: React.FC = () => {
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSave = () => {
-        console.log("CREATED", toBeCreatedAgeGroupList);
-        console.log("DELETIONS", toBeDeletedAgeGroupList);
         toBeCreatedAgeGroupList.forEach((ageGroup) => {
             createAgeGroupMutation.mutate({
                 from: ageGroup.from,

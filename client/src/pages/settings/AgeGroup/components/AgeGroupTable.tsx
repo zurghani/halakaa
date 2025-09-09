@@ -31,8 +31,7 @@ const AgeGroupTable: React.FC<AgeGroupTableProps> = ({
         {
             title: t("forms.ageGroup"),
             key: "ageGroup",
-            render: (_, record) =>
-                ageGroupTags[`${record.from} - ${record.to}`] || `${record.from} - ${record.to}`,
+            render: (_, record) => ageGroupTags[record.id] || `${record.from} - ${record.to}`,
             sorter: (a, b) => a.from - b.from,
         },
         {

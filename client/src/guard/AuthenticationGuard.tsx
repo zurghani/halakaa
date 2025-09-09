@@ -6,9 +6,8 @@ import { Paths } from "../Routes";
 import { authClient } from "../lib/auth-client";
 
 const AuthenticationGuard: React.FC = () => {
-    const {data, isPending} = authClient.useSession()
-    // console.log("RoutesGuard", isAuthenticated);
-    if (isPending) return null
+    const { data, isPending } = authClient.useSession();
+    if (isPending) return null;
 
     if (!data?.session) {
         return <Navigate to={Paths.AUTH.LOGIN} />;

@@ -105,11 +105,6 @@ const RunningClass: React.FC = () => {
     ];
 
     const useCreateAttendanceMutation = useCreateAttendance();
-    const { data: allAttendances, isLoading: allAttendancesLoading } = useAttendances({
-        classId: Number(classId),
-        date: dayjs().format("YYYY-MM-DD"),
-    });
-    console.log("allAttendances", allAttendances);
     useEffect(() => {
         if (enrollments && enrollments.length > 0) {
             enrollments.forEach((enrollment) => {
@@ -133,7 +128,7 @@ const RunningClass: React.FC = () => {
         }
     }, []);
 
-    const { data: attendances, isLoading: attendancesLoading } = useAttendances({
+    const { data: attendances } = useAttendances({
         classId: Number(classId),
         studentId: selectedStudent?.student.id.toString() || "-1",
         date: dayjs().format("YYYY-MM-DD"),

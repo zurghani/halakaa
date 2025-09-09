@@ -15,7 +15,6 @@ import { Student } from "../../../types";
 const StudentsTable = ({ students }: { students: Student[] }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    console.log(students);
 
     const columns: TableProps["columns"] = [
         {

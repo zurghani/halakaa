@@ -30,12 +30,8 @@ const FindClass: React.FC = () => {
 
     const filter = getFilter(searchData);
 
-    const { data: classes, isLoading } = useSearchClasses(searchType !== "all" ? filter : {});
-    console.log("Classes Data:", classes, isLoading, filter);
+    const { data: classes } = useSearchClasses(searchType !== "all" ? filter : {});
 
-    useEffect(() => {
-        console.log("Search Data Changed:", searchData);
-    }, [searchData]);
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>
