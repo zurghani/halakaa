@@ -26,14 +26,16 @@ const CompletedTasksTable = ({ tasks }: { tasks: TaskExpanded[] }) => {
             title: t("general.type"),
             dataIndex: "taskType",
             key: "taskType",
-            render: (taskType) => taskTypeTags[taskType.name] || taskType.name,
-            filters:
-                taskTypes?.map((type) => ({
-                    text: taskTypeTags[type.name],
-                    value: type.id,
-                })) ?? [],
-            onFilter: (value, record) => record.type.indexOf(value as string) === 0,
+            render: (taskType) => taskTypeTags[taskType.id] || taskType.name,
+            filters: Object.keys(taskTypeTags).map((key) => ({
+                text: taskTypeTags[key],
+                value: key,
+            })),
+            onFilter: (value, record) => {
+                return record.id == value;
+            },
         },
+
         {
             title: t("general.from"),
             dataIndex: "startingAyah",

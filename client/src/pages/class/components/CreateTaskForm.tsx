@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { DatePicker, Form, Select, SelectProps } from "antd";
+import { DatePicker, Form, Select } from "antd";
 import { useTranslation } from "react-i18next";
-import TaskTypeTag, { TaskType } from "../../../components/Tags/TaskTypeTag";
 import { NewTask } from "../../../types";
 import { useSearchAyahs } from "../../../queries/ayahs";
 import { useTaskTypes } from "../../../queries/taskTypes";
-
-type TagRender = SelectProps["tagRender"];
-// dummy data for verses
 
 interface Props {
     form: any;
@@ -52,7 +48,10 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
                     maxCount={1}
                     placeholder={t("createTaskModal.selectType")}
                     optionLabelProp="label"
-                    options={taskTypes?.map((type) => ({ label: type.name, value: type.id }))}
+                    options={taskTypes?.map((type) => ({
+                        label: type.name,
+                        value: type.id,
+                    }))}
                 />
             </Form.Item>
 
@@ -129,19 +128,3 @@ const CreateTaskForm: React.FC<Props> = ({ form, onFinish }) => {
     );
 };
 export default CreateTaskForm;
-
-const taskTypeTagsRenderer: TagRender = ({ value, onClose }) => {
-    const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
-        event.preventDefault();
-        event.stopPropagation();
-    };
-    return (
-        <TaskTypeTag
-            key={value}
-            type={value as TaskType}
-            closable
-            onClose={onClose}
-            onMouseDown={onPreventMouseDown}
-        />
-    );
-};
