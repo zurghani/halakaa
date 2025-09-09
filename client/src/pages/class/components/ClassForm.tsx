@@ -2,6 +2,7 @@ import { Col, Form, FormInstance, Input, Row, Select, TimePicker } from "antd";
 import { useTranslation } from "react-i18next";
 import { Class } from "../types";
 import { useAgeGroups } from "../../../queries/ageGroups";
+import { useTags } from "../../../hooks/useTags";
 
 export interface ClassFormProps {
     disabled?: boolean;
@@ -18,6 +19,7 @@ export const ClassForm: React.FC<ClassFormProps> = ({
     const { t } = useTranslation();
     const { data: ageGroups, isLoading } = useAgeGroups();
     if (isLoading) return <div>Loading...</div>;
+    const { ageGroupTags } = useTags({ closable: true });
 
     return (
         <Form
@@ -89,13 +91,12 @@ export const ClassForm: React.FC<ClassFormProps> = ({
                 rules={[{ required: true, message: t("forms.required.ageGroup") }]}
                 getValueProps={(value) => ({ value: value })}>
                 <Select
-                    mode="tags"
                     maxCount={1}
                     style={{ width: "100%" }}
                     disabled={disabled}
                     optionLabelProp="label"
                     options={ageGroups?.map((ageGroup) => ({
-                        label: `${ageGroup.from}-${ageGroup.to}`,
+                        label: ageGroupTags[ageGroup.id] || `${ageGroup.from} - ${ageGroup.to}`,
                         value: ageGroup.id,
                     }))}
                 />
