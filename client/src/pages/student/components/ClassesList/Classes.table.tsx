@@ -4,14 +4,17 @@ import { useTags } from "../../../../hooks/useTags";
 import { ClassWithTeacherInfo } from "../../../../types";
 import { useAgeGroups } from "../../../../queries/ageGroups";
 import dayjs from "dayjs";
+import { ReactNode } from "react";
 
 const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { ageGroupTags } = useTags({});
     const { t } = useTranslation();
     const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
+    const extractedAgeGroups: { text: ReactNode; value: string }[] = [];
     const classesWithAgeGroups = classes?.map((_class) => {
         const ageGroupObj = ageGroups?.find((ag) => ag.id === _class.ageGroup);
-        const ageGroup = ageGroupObj ? `${ageGroupObj.from}-${ageGroupObj.to}` : "";
+        const ageGroup = ageGroupObj ? `${ageGroupObj.from} - ${ageGroupObj.to}` : "";
+        extractedAgeGroups.push({ text: ageGroupTags[ageGroup], value: ageGroup });
         return {
             ..._class,
             ageGroup: ageGroup,
@@ -40,11 +43,7 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
             dataIndex: "ageGroup",
             key: "ageGroup",
             render: (ageGroup) => ageGroupTags[ageGroup] || ageGroup,
-            filters:
-                ageGroups?.map((ag) => ({
-                    text: `${ag.from}-${ag.to}`,
-                    value: `${ag.from}-${ag.to}`,
-                })) ?? [],
+            filters: extractedAgeGroups,
             onFilter: (value, record) => record.ageGroup.indexOf(value as string) === 0,
             sorter: (a, b) => {
                 const [aMin] = a.ageGroup.split(" - ").map(Number);
