@@ -72,7 +72,6 @@ const ViewStudent: React.FC = () => {
 
     const completedTasks = tasks?.filter((task) => task.status === TaskStatus.Completed);
     const assignedTasks = tasks?.filter((task) => task.status === TaskStatus.Assigned);
-    // console.log("TASKS", tasksWithTaskTypesAndAyahs, ayahRefMap);
 
     const collapseItems: CollapseProps["items"] = [
         {

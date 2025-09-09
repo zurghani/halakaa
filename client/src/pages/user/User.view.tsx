@@ -8,21 +8,21 @@ import { setCurrentPageTitle } from "../../store/ui.slice";
 import { Paths } from "../../Routes";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { UserForm } from "./components/UserForm";
-import { User } from "./types";
+import { User } from "../../types";
 import { UserRole } from "../../types";
 import { ActionButton } from "../../components/Button/ActionButton";
 
-const dummyUser: User = {
+const dummyUser = {
     id: "1",
-    fullName: "Zacharea K",
+    name: "Zacharea K",
     email: "zachrea@gmail.com",
     phone: "+1234567890",
     language: "en",
     role: UserRole.Parent,
     children: [
-        { id: "1", fullName: "Child 1", ageGroup: "5 - 7" },
-        { id: "2", fullName: "Child 2", ageGroup: "8 - 10" },
-        { id: "3", fullName: "Child 3", ageGroup: "11 - 13" },
+        { id: "1", fullName: "Child 1", ageGroup: "5 - 7", dateOfBirth: "2017-05-20" },
+        { id: "2", fullName: "Child 2", ageGroup: "8 - 10", dateOfBirth: "2014-03-15" },
+        { id: "3", fullName: "Child 3", ageGroup: "11 - 13", dateOfBirth: "2011-07-30" },
     ],
 };
 

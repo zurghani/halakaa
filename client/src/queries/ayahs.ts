@@ -82,26 +82,3 @@ export function useAyahsByIds(ayahIds: number[]) {
         enabled: !!ayahIds && ayahIds.length > 0,
     });
 }
-
-// export function useAyahReferences(ids: number[]) {
-//     return useQuery<AyahReference[]>({
-//         queryKey: ["ayahReferences", ids],
-//         queryFn: async () => {
-//             if (!ids || ids.length === 0) return [];
-
-//             const res = await apiClient.ayahs.references.$get({
-//                 query: { ids: ids.join(",") },
-//             });
-//             console.log("Query IDs", ids);
-//             console.log("API response", res);
-
-//             if (!res.ok) {
-//                 const error = new Error(await res.text());
-//                 (error as any).status = res.status;
-//                 throw error;
-//             }
-//             return await res.json();
-//         },
-//         enabled: !!ids && ids.length > 0,
-//     });
-// }

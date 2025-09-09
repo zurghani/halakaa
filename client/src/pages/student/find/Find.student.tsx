@@ -32,10 +32,6 @@ const FindStudent: React.FC = () => {
 
     const { data: students, isLoading } = useSearchStudents(filter);
 
-    useEffect(() => {
-        console.log("Search Data Changed:", searchData);
-    }, [searchData]);
-
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
             <h2>{t("general.searchBy")}</h2>

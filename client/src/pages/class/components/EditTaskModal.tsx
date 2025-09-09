@@ -32,7 +32,6 @@ const EditTaskModal = ({ task }: EditTaskModalProps) => {
     };
 
     const onFinish = (values: TaskExpanded) => {
-        console.log("Received values of form: ", values);
         const startingAyahId = Array.isArray(values.startingAyah)
             ? values.startingAyah[0]
             : values.startingAyah?.id;

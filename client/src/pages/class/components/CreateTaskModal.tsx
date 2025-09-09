@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import { PlusOutlined } from "@ant-design/icons";
@@ -43,8 +43,6 @@ const CreateTaskModal = ({ studentId, classId }: CreateTaskModalProps) => {
                 ? values.endingAyahId[0]
                 : values.endingAyahId,
         };
-
-        console.log("Task values:", taskToBeCreated);
 
         setConfirmLoading(true);
         createTaskMutation.mutate(taskToBeCreated, {

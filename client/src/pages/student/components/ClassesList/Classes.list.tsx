@@ -21,7 +21,6 @@ const ClassesList = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
             dataSource={classesWithAgeGroups}
             renderItem={(currentClass) => (
                 <List.Item
-                    onClick={() => console.log(`Class: ${currentClass.id}`)}
                     actions={[
                         <a key="view-class">
                             <ArrowRightOutlined />

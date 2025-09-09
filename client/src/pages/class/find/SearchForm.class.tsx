@@ -20,18 +20,6 @@ const SearchForm = ({ searchType, setSearchType, SetData }: SearchFormProps) => 
     useEffect(() => {
         SetData({});
     }, [searchType, teacherSearchOption, SetData]);
-    // useEffect(() => {
-    //     console.log("Search Type Changed:", searchType);
-    //     console.log("Teacher Search Option Changed:", teacherSearchOption);
-    //     if (searchType === "all") {
-    //         SetData({
-    //             classId: undefined,
-    //             teacherName: undefined,
-    //         });
-    //     } else {
-    //         SetData({}); // reset when switching to teacher/id too
-    //     }
-    // }, [SearchType, teacherSearchOption, SetData]);
 
     const teacherSearchOptions = (
         <Select

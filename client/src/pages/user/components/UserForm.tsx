@@ -1,7 +1,7 @@
 import { Form, FormInstance, Input, Segmented, Select } from "antd";
 import ChildrenTable from "./ChildrenTable";
 import { useTranslation } from "react-i18next";
-import { User } from "../types";
+import { User } from "../../../types";
 
 export interface UserFormProps {
     disabled?: boolean;

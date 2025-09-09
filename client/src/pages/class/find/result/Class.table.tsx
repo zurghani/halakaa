@@ -9,7 +9,6 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
-    console.log("ageGroupTags", ageGroupTags);
 
     const columns: TableProps<ClassWithTeacherInfo>["columns"] = [
         {

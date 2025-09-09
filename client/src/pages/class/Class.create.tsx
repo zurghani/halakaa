@@ -25,8 +25,6 @@ const ClassCreatePage: React.FC = () => {
     const createClassMutation = useCreateClass();
 
     const handleSubmit = (values: NewClass) => {
-        console.log("Submitted:", values);
-
         const newClass: NewClass = {
             teacherId: Array.isArray(values.teacherId) ? values.teacherId[0] : values.teacherId,
             description: values.description,
@@ -34,7 +32,6 @@ const ClassCreatePage: React.FC = () => {
             startsAt: dayjs(values.startsAt).format("HH:mm:ss"),
             endsAt: dayjs(values.endsAt).format("HH:mm:ss"),
         };
-        console.log(newClass);
 
         createClassMutation.mutate(
             newClass,

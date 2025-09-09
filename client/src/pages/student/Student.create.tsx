@@ -25,8 +25,6 @@ const StudentCreatePage: React.FC = () => {
     const [createdStudent, setCreatedStudent] = useState<Student | null>(null);
 
     const handleSubmit = (values: NewStudent) => {
-        console.log("Submitted:", values);
-
         createStudentMutation.mutate(values, {
             onSuccess: (e) => {
                 setCreatedStudent(e);
