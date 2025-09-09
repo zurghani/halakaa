@@ -1,13 +1,25 @@
-import { useSelector } from "react-redux";
-import { AppStore } from "../store";
 import { generalTags } from "../components/Tags/GeneralTag";
+import { useAgeGroups } from "../queries/ageGroups";
+import { useTaskTypes } from "../queries/taskTypes";
+import { UserRole } from "../types";
 
 export const useTags = ({ closable }: { closable?: boolean }) => {
-    const { roles, ageGroups, taskTypes } = useSelector((state: AppStore) => state.tags);
+    // const { roles, ageGroups, taskTypes } = useSelector((state: AppStore) => state.tags);
+    const { data: ageGroups, isLoading: ageGroupIsloading } = useAgeGroups();
+    const { data: taskTypes, isLoading: tasktypesIsLoading } = useTaskTypes();
 
     return {
-        roleTags: generalTags(roles.map((label) => ({ label: label, closable: closable }))),
-        ageGroupTags: generalTags(ageGroups.map((label) => ({ label: label, closable: closable }))),
-        taskTypeTags: generalTags(taskTypes.map((label) => ({ label: label, closable: closable }))),
+        roleTags: generalTags(
+            Object.keys(UserRole).map((role) => ({ label: role, closable: closable }))
+        ),
+        ageGroupTags: generalTags(
+            ageGroups?.map((item) => ({
+                label: `${item.from} - ${item.to}`,
+                closable: closable,
+            })) || []
+        ),
+        taskTypeTags: generalTags(
+            taskTypes?.map((type) => ({ label: type.name, closable: closable })) || []
+        ),
     };
 };

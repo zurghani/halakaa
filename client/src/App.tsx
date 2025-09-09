@@ -5,11 +5,13 @@ import AppRoutes from "./Routes";
 import "./App.scss";
 import { useTranslation } from "react-i18next";
 
-
-
 function App() {
     const { i18n } = useTranslation();
     const isDarkMode = useSelector((state: AppStore) => state.ui.isDarkMode);
+
+    // preload :
+    // 1 : ageGroups
+    // 2 : taskTypes
 
     return (
         <>
