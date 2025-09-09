@@ -51,6 +51,7 @@ const AttendanceTable = ({ attendance }: { attendance: AttendanceWithTeacher[] }
             <Table
                 columns={columns}
                 dataSource={attendance.map((item) => ({ ...item, key: item.id }))}
+                pagination={false}
             />
         </>
     );
