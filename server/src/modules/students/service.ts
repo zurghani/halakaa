@@ -1,11 +1,15 @@
 import { db } from "@/db";
-import { students, classes, enrollments } from "@/db/schema";
+import { students, classes, enrollments, user } from "@/db/schema";
 import { and, eq, ilike, sql } from "drizzle-orm";
 
 // Types
 export type Student = typeof students.$inferSelect;
 export type NewStudent = typeof students.$inferInsert;
 export type UpdateStudent = Partial<NewStudent>;
+
+export type StudentWithParent = Omit<Student, "parentId"> & {
+  parent: { id: typeof user.$inferSelect.id; name: typeof user.$inferSelect.name };
+};
 
 // Create
 export const createStudent = async (student: NewStudent): Promise<Student> => {
@@ -19,8 +23,23 @@ export const getAllStudents = async (): Promise<Student[]> => {
 };
 
 // Read one
-export const getStudentById = async (id: number): Promise<Student | undefined> => {
-  const [student] = await db.select().from(students).where(eq(students.id, id));
+export const getStudentById = async (id: number): Promise<StudentWithParent | undefined> => {
+  const [student] = await db
+    .select({
+      id: students.id,
+      fullName: students.fullName,
+      userId: students.userId,
+      createdAt: students.createdAt,
+      gender: students.gender,
+      dateOfBirth: students.dateOfBirth,
+      parent: {
+        id: user.id,
+        name: user.name,
+      },
+    })
+    .from(students)
+    .innerJoin(user, eq(students.parentId, user.id))
+    .where(eq(students.id, id));
   return student;
 };
 

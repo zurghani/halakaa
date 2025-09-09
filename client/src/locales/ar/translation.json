@@ -184,7 +184,8 @@
         "yes": "نعم",
         "no": "لا",
         "enrollment": "التسجيلات",
-        "delete": "حذف"
+        "delete": "حذف",
+        "parent": "ولي الأمر"
     },
     "titles": {
         "viewStudent": "تقرير الطالب",

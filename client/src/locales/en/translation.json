@@ -184,7 +184,8 @@
         "yes": "Yes",
         "no": "No",
         "enrollment": "Enrollment",
-        "delete": "Delete"
+        "delete": "Delete",
+        "parent": "Parent"
     },
     "titles": {
         "viewStudent": "Student Report",
