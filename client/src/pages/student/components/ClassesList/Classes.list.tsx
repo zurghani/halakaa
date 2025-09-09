@@ -11,7 +11,7 @@ const ClassesList = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { data: ageGroups, isLoading: ageGroupsLoading } = useAgeGroups();
     const classesWithAgeGroups = classes?.map((_class) => {
         const ageGroupObj = ageGroups?.find((ag) => ag.id === _class.ageGroup);
-        const ageGroup = ageGroupObj ? `${ageGroupObj.from}-${ageGroupObj.to}` : "";
+        const ageGroup = ageGroupObj ? `${ageGroupObj.from} - ${ageGroupObj.to}` : "";
         return {
             ..._class,
             ageGroup: ageGroup,
