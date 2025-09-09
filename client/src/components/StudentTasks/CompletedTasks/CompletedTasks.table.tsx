@@ -29,7 +29,7 @@ const CompletedTasksTable = ({ tasks }: { tasks: TaskExpanded[] }) => {
             render: (taskType) => taskTypeTags[taskType.name] || taskType.name,
             filters:
                 taskTypes?.map((type) => ({
-                    text: type.name,
+                    text: taskTypeTags[type.name],
                     value: type.id,
                 })) ?? [],
             onFilter: (value, record) => record.type.indexOf(value as string) === 0,
