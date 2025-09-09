@@ -9,6 +9,7 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
+    console.log("ageGroupTags", ageGroupTags);
 
     const columns: TableProps<ClassWithTeacherInfo>["columns"] = [
         {
@@ -28,12 +29,13 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
             dataIndex: "ageGroup",
             key: "ageGroup",
             render: (ageGroup: string) => ageGroupTags[ageGroup] || ageGroup,
-            filters: [
-                { text: "5-10", value: "5-10" },
-                { text: "11-15", value: "11-15" },
-                { text: "16-20", value: "16-20" },
-            ],
-            onFilter: (value, record) => record.ageGroup === value,
+            filters: Object.keys(ageGroupTags).map((key) => ({
+                text: ageGroupTags[key],
+                value: key,
+            })),
+            onFilter: (value, record) => {
+                return record.id == value;
+            },
         },
         {
             title: t("general.startsAt"),
@@ -61,13 +63,14 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
         <>
             <Table
                 columns={columns}
-                dataSource={classes}
+                dataSource={classes.map((cls) => ({ ...cls, key: cls.id }))}
                 onRow={(record: ClassWithTeacherInfo) => ({
                     onClick: () => {
                         // handle row click here
                         navigate(`/class/${record.id}`);
                     },
                 })}
+                pagination={false}
             />
         </>
     );

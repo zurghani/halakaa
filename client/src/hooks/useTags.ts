@@ -10,16 +10,17 @@ export const useTags = ({ closable }: { closable?: boolean }) => {
 
     return {
         roleTags: generalTags(
-            Object.keys(UserRole).map((role) => ({ label: role, closable: closable }))
+            Object.keys(UserRole).map((role) => ({ id: role, label: role, closable: closable }))
         ),
         ageGroupTags: generalTags(
             ageGroups?.map((item) => ({
+                id: item.id,
                 label: `${item.from} - ${item.to}`,
                 closable: closable,
             })) || []
         ),
         taskTypeTags: generalTags(
-            taskTypes?.map((type) => ({ label: type.name, closable: closable })) || []
+            taskTypes?.map((type) => ({ id: type.id, label: type.name, closable: closable })) || []
         ),
     };
 };
