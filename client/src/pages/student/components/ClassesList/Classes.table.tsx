@@ -45,7 +45,7 @@ const ClassesTable = ({ classes }: { classes: ClassWithTeacherInfo[] }) => {
             render: (ageGroup) => ageGroupTags[ageGroup] || ageGroup,
             filters: extractedAgeGroups,
             onFilter: (value, record) => {
-                return record.id == value;
+                return record.ageGroup == value;
             },
             sorter: (a, b) => (a.ageGroup > b.ageGroup ? 1 : -1),
         },

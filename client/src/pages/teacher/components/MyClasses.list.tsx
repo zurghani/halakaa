@@ -2,12 +2,15 @@ import { List, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTags } from "../../../hooks/useTags";
-import { ClassWithAgeGroup } from "../../../types";
+import { Class, ClassWithTeacherInfo } from "../../../types";
 
-const MyClassesList = ({ classes }: { classes: ClassWithAgeGroup[] }) => {
+const MyClassesList = ({ classes }: { classes: ClassWithTeacherInfo[] | undefined }) => {
     const navigate = useNavigate();
     const { ageGroupTags } = useTags({});
 
+    if (!classes || classes.length === 0) {
+        return <div>No classes available.</div>;
+    }
     return (
         <List
             itemLayout="horizontal"
