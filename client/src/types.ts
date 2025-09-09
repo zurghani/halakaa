@@ -35,7 +35,7 @@ export type UpdateUser = Partial<NewUser>;
 
 export type Student = Omit<typeof students.$inferSelect, "createdAt" | "dateOfBirth"> & {
     createdAt: string | null;
-    dateOfBirth: Dayjs | null;
+    dateOfBirth: Dayjs | string | null;
 };
 
 export type NewStudent = typeof students.$inferInsert;

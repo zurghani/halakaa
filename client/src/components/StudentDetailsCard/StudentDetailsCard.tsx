@@ -3,6 +3,7 @@ import { Col, Progress, Row } from "antd";
 import "./StudentDetailsCard.scss";
 import { useTranslation } from "react-i18next";
 import { StudentWithParent } from "../../types";
+import dayjs from "dayjs";
 
 const StudentStat = ({ percentage, legend }: { percentage: number; legend: string }) => {
     return (
@@ -24,10 +25,10 @@ const StudentDetailsCard = ({ student }: { student?: StudentWithParent }) => {
                 <Col span={20}>{student?.fullName}</Col>
 
                 <Col span={4}>{t("general.dob")}</Col>
-                <Col span={20}>{student?.dateOfBirth?.format("YYYY-MM-DD")}</Col>
+                <Col span={20}>{dayjs(student?.dateOfBirth).format("YYYY-MM-DD")}</Col>
 
                 <Col span={4}>{t("general.parent")}</Col>
-                <Col span={20}>{student?.parent.name}</Col>
+                <Col span={20}>{student?.parent?.name || "N/A"}</Col>
             </Row>
             <Row justify="space-between" align="middle">
                 <Col span={6}>
