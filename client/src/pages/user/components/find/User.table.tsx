@@ -30,7 +30,7 @@ const UserTable = ({ users }: { users: User[] }) => {
             title: t("forms.role"),
             dataIndex: "role",
             key: "role",
-            render: (role: string) => roleTags[role] || role,
+            render: (_, record) => roleTags[record.id] || record.role,
         },
     ];
     return (

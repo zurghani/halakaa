@@ -35,7 +35,7 @@ const AssignedTasks = ({ mode, tasks }: AssignedTasksProps) => {
                         <div>
                             <Tag>{i + 1}</Tag>
                         </div>
-                        {task.taskType?.name ? taskTypeTags[task.taskType?.name] : null}
+                        {task.taskType?.name ? taskTypeTags[task.taskType?.id] : null}
                     </div>
                     <div className="task__label__right">
                         {activeKey.includes(key) && mode === "class" && (

@@ -31,7 +31,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
                             <>
                                 {user.name}
                                 <Tag>{user.phone}</Tag>
-                                {roleTags[user.role || ""]}
+                                {roleTags[user.id || ""]}
                             </>
                         }
                     />

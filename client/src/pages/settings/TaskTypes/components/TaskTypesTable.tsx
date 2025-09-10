@@ -32,7 +32,7 @@ const TaskTypeTable: React.FC<TaskTypeTableProps> = ({
             title: t("forms.name"),
             dataIndex: "name",
             key: "name",
-            render: (text) => taskTypeTags[text] || text,
+            render: (_, record) => taskTypeTags[record.id] || record.name,
             sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
