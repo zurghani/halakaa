@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -7,7 +7,7 @@ import { PrinterOutlined } from "@ant-design/icons";
 import { setCurrentPageTitle } from "../../store/ui.slice";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { Paths } from "../../Routes";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../components/ExportModal/DownloadModal";
 import ClassDetailsCard from "../../components/ClassDetailsCard/ClassDetailsCard";
 import { ActionButton } from "../../components/Button/ActionButton";
 import EnrollmentsTable from "./Enrollments/EnrollmentsTable";
@@ -22,15 +22,31 @@ const ClassView: React.FC = () => {
     const { data: auth } = authClient.useSession();
     const { id } = useParams();
     const classId = id ?? "";
+    const [exportData, setExportData] = useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.viewClass")));
     }, [t]);
     const { setButtons } = useSetButtons();
+
+    const { data: classData, isLoading: classLoading } = useClass(classId);
+    const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
+        classId: classId,
+    });
+
+    useEffect(() => {
+        if (classData && enrollments) {
+            setExportData([
+                ...flatten([classData], "Class Information"),
+                ...flatten(enrollments || [], "Student Enrollments"),
+            ]);
+        }
+    }, [classData, enrollments]);
+
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />} />,
-            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+            <DownloadModal title={""} data={exportData} />,
             ...(auth?.user.role === "admin"
                 ? [
                       <ActionButton
@@ -56,11 +72,8 @@ const ClassView: React.FC = () => {
                       </ActionButton>,
                   ]),
         ]);
-    }, []);
-    const { data: classData, isLoading: classLoading } = useClass(classId);
-    const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments({
-        classId: classId,
-    });
+    }, [classData, enrollments, exportData]);
+
     const classSize = enrollments?.length;
     if (enrollmentsLoading || classLoading) {
         return <div>Loading...</div>;

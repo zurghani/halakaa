@@ -37,23 +37,9 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
         if (!data || data.length === 0) return;
 
         // Extract headers from object keys
-        const headers = Object.keys(data[0]);
-        const csvRows = [
-            headers.join(","), // header row
-            ...data.map((row) =>
-                headers
-                    .map((h) => {
-                        if (typeof row[h] === "object") {
-                            return Object.values(row[h]).join(" | ");
-                        } else {
-                            return `"${row[h] ?? ""}"`;
-                        }
-                    })
-                    .join(",")
-            ),
-        ];
+        // const csvRows = flatten(data);
 
-        const csvString = csvRows.join("\n");
+        const csvString = data.join("\n");
         const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
 
         const link = document.createElement("a");
@@ -109,3 +95,26 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
 };
 
 export default DownloadModal;
+
+export const flatten = (data: any[], title: string) => {
+    if (!data) return [];
+    // Extract headers from object keys
+    console.log(data);
+    const headers = Object.keys(data[0]);
+    const csvRows = [
+        title,
+        headers.join(","), // header row
+        ...data.map((row) =>
+            headers
+                .map((h) => {
+                    if (typeof row[h] === "object") {
+                        return Object.values(row[h]).join(" | ");
+                    } else {
+                        return `"${row[h] ?? ""}"`;
+                    }
+                })
+                .join(",")
+        ),
+    ];
+    return csvRows;
+};
