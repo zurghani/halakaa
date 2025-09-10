@@ -8,7 +8,7 @@ import "./DownloadModal.scss";
 const { Text } = Typography;
 
 interface DownloadModalProps {
-    title: string;
+    title?: string;
     data: any[]; //NOT SURE WHAT THE TYPE SHOULD BE
 }
 
@@ -40,7 +40,17 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
         const headers = Object.keys(data[0]);
         const csvRows = [
             headers.join(","), // header row
-            ...data.map((row) => headers.map((h) => `"${row[h] ?? ""}"`).join(",")),
+            ...data.map((row) =>
+                headers
+                    .map((h) => {
+                        if (typeof row[h] === "object") {
+                            return Object.values(row[h]).join(" | ");
+                        } else {
+                            return `"${row[h] ?? ""}"`;
+                        }
+                    })
+                    .join(",")
+            ),
         ];
 
         const csvString = csvRows.join("\n");
@@ -62,7 +72,7 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
             <Button onClick={showModal} icon={<DownloadOutlined />}></Button>
             <Modal
                 className="modal"
-                title={t("modal.title") + title}
+                title="Download All Data *filters are not applied"
                 closable={{ "aria-label": "Custom Close Button" }}
                 open={isModalOpen}
                 onOk={handleOk}
@@ -71,7 +81,7 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
                 okText={t("modal.download")}
                 okButtonProps={{ icon: <DownloadOutlined /> }}>
                 <div className="modal__content">
-                    <div className="modal__content__time-frame-select">
+                    {/* <div className="modal__content__time-frame-select">
                         <Segmented
                             options={[
                                 t("modal.day"),
@@ -80,7 +90,7 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
                                 t("modal.all"),
                             ]}
                         />
-                    </div>
+                    </div> */}
                     <div className="modal__content__file-format-text">
                         <Text strong>{t("modal.selectFormat")}</Text>
                         <Text type="secondary"> • {t("modal.bodyText")}</Text>
