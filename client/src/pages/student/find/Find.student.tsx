@@ -38,7 +38,6 @@ const FindStudent: React.FC = () => {
     const { data: students, isLoading } = useSearchStudents(filter);
 
     useEffect(() => {
-        console.log(students);
         if (students && students.length > 0) {
             setExportData(flatten(students, "Students Searched:"));
         } else {

@@ -8,7 +8,7 @@ import ClassList from "./result/Class.list";
 import { useTranslation } from "react-i18next";
 import { useSearchClasses } from "../../../queries/classes";
 import { SearchOptions, SearchOptionsType } from "./search.options";
-import DownloadModal from "../../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
 import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 
@@ -28,6 +28,7 @@ const FindClass: React.FC = () => {
     }, [t]);
     const screens = useBreakpoint();
     const isMobile = !screens.md;
+    const [exportData, setExportData] = useState<any[]>([]);
 
     const [searchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.all.value);
     const [searchData, setSearchData] = useState<SearchData>({});
@@ -36,11 +37,19 @@ const FindClass: React.FC = () => {
 
     const { data: classes } = useSearchClasses(searchType !== "all" ? filter : {});
     useEffect(() => {
+        if (classes && classes.length > 0) {
+            setExportData(flatten(classes, "Classes Searched:"));
+        } else {
+            setExportData([]);
+        }
+    }, [classes]);
+
+    useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />} />,
-            <DownloadModal title={""} data={classes || []} />,
+            <DownloadModal title={""} data={exportData || []} />,
         ]);
-    }, [classes]);
+    }, [classes, exportData]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
