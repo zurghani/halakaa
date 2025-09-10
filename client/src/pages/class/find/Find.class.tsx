@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Grid } from "antd";
+import { Space, Grid, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import SearchForm from "./SearchForm.class";
@@ -8,6 +8,9 @@ import ClassList from "./result/Class.list";
 import { useTranslation } from "react-i18next";
 import { useSearchClasses } from "../../../queries/classes";
 import { SearchOptions, SearchOptionsType } from "./search.options";
+import DownloadModal from "../../../components/ExportModal/DownloadModal";
+import { PrinterOutlined } from "@ant-design/icons";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 
 const { useBreakpoint } = Grid;
 
@@ -19,6 +22,7 @@ export type SearchData = {
 const FindClass: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const { setButtons } = useSetButtons();
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.findClass")));
     }, [t]);
@@ -31,6 +35,12 @@ const FindClass: React.FC = () => {
     const filter = getFilter(searchData);
 
     const { data: classes } = useSearchClasses(searchType !== "all" ? filter : {});
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />} />,
+            <DownloadModal title={""} data={classes || []} />,
+        ]);
+    }, [classes]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
