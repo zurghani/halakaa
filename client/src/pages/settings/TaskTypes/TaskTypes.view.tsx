@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import { Paths } from "../../../Routes";
 import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
-import DownloadModal from "../../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../../components/ExportModal/DownloadModal";
 import { ActionButton } from "../../../components/Button/ActionButton";
 import TaskTypeTable from "./components/TaskTypesTable";
 import { useTaskTypes } from "../../../queries/taskTypes";
@@ -20,18 +20,17 @@ const TaskTypesViewPage: React.FC = () => {
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.taskTypes")));
     }, [t]);
-
+    const { data: taskTypes, isLoading } = useTaskTypes();
     // Set Buttons
     useEffect(() => {
         setButtons([
-            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+            <DownloadModal title={""} data={flatten(taskTypes || [], "Task Types")} />,
             <ActionButton key="edit" onClick={() => navigate(Paths.SETTINGS.ADMIN.TASKTYPES.EDIT)}>
                 {t("general.edit")}
             </ActionButton>,
         ]);
-    }, [t]);
+    }, [t, taskTypes]);
 
-    const { data: taskTypes, isLoading } = useTaskTypes();
     if (isLoading) return <div>Loading...</div>;
 
     return <TaskTypeTable data={taskTypes} editable={false} />;
