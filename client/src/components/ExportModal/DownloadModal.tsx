@@ -97,24 +97,24 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
 export default DownloadModal;
 
 export const flatten = (data: any[], title: string) => {
-    if (!data) return [];
-    // Extract headers from object keys
-    console.log(data);
-    const headers = Object.keys(data[0]);
+    console.log("NOT GETTING FLATTENED");
+    if (!Array.isArray(data) || data.length === 0) return [];
+    console.log("FLATTEN---", data);
+    const headers = Object.keys(data[0] || {});
     const csvRows = [
         title,
         headers.join(","), // header row
         ...data.map((row) =>
             headers
                 .map((h) => {
-                    if (typeof row[h] === "object") {
-                        return Object.values(row[h]).join(" | ");
-                    } else {
-                        return `"${row[h] ?? ""}"`;
+                    const cell = row?.[h];
+                    if (cell && typeof cell === "object") {
+                        return Object.values(cell).join(" | ");
                     }
+                    return `"${cell ?? ""}"`;
                 })
                 .join(",")
         ),
     ];
-    return csvRows;
+    return csvRows; // still array of strings
 };

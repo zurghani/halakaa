@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Space, Grid } from "antd";
+import { Space, Grid, Button } from "antd";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import { SearchOptions } from "./search.options";
 import StudentTable from "./result/Student.table";
@@ -8,6 +8,9 @@ import StudentList from "./result/Student.list";
 import SearchForm from "./SearchForm.student";
 import { useTranslation } from "react-i18next";
 import { useSearchStudents } from "../../../queries/students";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
+import DownloadModal, { flatten } from "../../../components/ExportModal/DownloadModal";
+import { PrinterOutlined } from "@ant-design/icons";
 
 const { useBreakpoint } = Grid;
 
@@ -20,6 +23,8 @@ export type SearchData = {
 const FindStudent: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const { setButtons } = useSetButtons();
+    const [exportData, setExportData] = useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.findStudent")));
@@ -31,6 +36,22 @@ const FindStudent: React.FC = () => {
     const filter = getFilter(searchData);
 
     const { data: students, isLoading } = useSearchStudents(filter);
+
+    useEffect(() => {
+        console.log(students);
+        if (students && students.length > 0) {
+            setExportData(flatten(students, "Students Searched:"));
+        } else {
+            setExportData([]);
+        }
+    }, [students]);
+
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />} />,
+            <DownloadModal title={""} data={exportData || []} />,
+        ]);
+    }, [students, exportData]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
