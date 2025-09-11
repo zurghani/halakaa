@@ -1,4 +1,4 @@
-import DownloadModal from "../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../components/ExportModal/DownloadModal";
 import { Button, Grid } from "antd";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
 import { useEffect } from "react";
@@ -24,19 +24,22 @@ const ViewStudents: React.FC = () => {
     }, [t]);
 
     const { data: auth } = authClient.useSession();
+    const { data: students, isLoading } = useStudents({ teacherId: auth?.user.id });
 
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} dataSelectorFunction={undefined} />,
+            <DownloadModal
+                file_name={"my_students"}
+                data={flatten(students || [], "My Students") || []}
+            />,
         ]);
-    }, []);
-    const { data, isLoading } = useStudents({ teacherId: auth?.user.id });
+    }, [students]);
     if (isLoading) return <div>Loading...</div>;
     return isMobile ? (
-        <StudentsList students={data ?? []} />
+        <StudentsList students={students ?? []} />
     ) : (
-        <StudentsTable students={data ?? []} />
+        <StudentsTable students={students ?? []} />
     );
 };
 

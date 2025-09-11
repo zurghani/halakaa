@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Collapse, CollapseProps, Grid } from "antd";
 import { setCurrentPageTitle } from "../../store/ui.slice";
@@ -11,7 +11,7 @@ import ClassesList from "./components/ClassesList/Classes.list";
 import AttendanceTable from "./components/AttendanceList/Attendance.table";
 import AttendanceList from "./components/AttendanceList/Attendance.list";
 import { useSetButtons } from "../../layouts/PageLayout/PageLayout";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../components/ExportModal/DownloadModal";
 import { PrinterOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -39,23 +39,11 @@ const ViewStudent: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const isMobile = !screens.lg;
     const dispatch = useDispatch();
+    const [exportData, setExportData] = useState<any[]>([]);
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.viewStudent")));
     }, [t]);
 
-    useEffect(() => {
-        setButtons([
-            <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} dataSelectorFunction={undefined} />,
-            userRole === UserRole.Admin && (
-                <ActionButton
-                    key="edit"
-                    onClick={() => navigate(Paths.STUDENT.EDIT.replace(":id", id || ""))}>
-                    {t("titles.editStudent")}
-                </ActionButton>
-            ),
-        ]);
-    }, [t]);
     const { data: attendanceData, isLoading: attendanceLoading } = useAttendances({
         studentId: id,
     });
@@ -72,6 +60,30 @@ const ViewStudent: React.FC = () => {
 
     const completedTasks = tasks?.filter((task) => task.status === TaskStatus.Completed);
     const assignedTasks = tasks?.filter((task) => task.status === TaskStatus.Assigned);
+    useEffect(() => {
+        if (classes && tasks && attendanceData && student) {
+            setExportData([
+                ...flatten([student], "Student Details"),
+                ...flatten(attendanceData, "Attendance"),
+                ...flatten(classes, "Classes"),
+                ...flatten(completedTasks || [], "Task History"),
+                ...flatten(assignedTasks || [], "Assigned Tasks"),
+            ]);
+        }
+    }, [classes, student, attendanceData, tasks]);
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />}></Button>,
+            <DownloadModal file_name={`Student_report_${student?.fullName}`} data={exportData} />,
+            userRole === UserRole.Admin && (
+                <ActionButton
+                    key="edit"
+                    onClick={() => navigate(Paths.STUDENT.EDIT.replace(":id", id || ""))}>
+                    {t("titles.editStudent")}
+                </ActionButton>
+            ),
+        ]);
+    }, [classes, student, attendanceData, tasks, exportData]);
 
     const collapseItems: CollapseProps["items"] = [
         {

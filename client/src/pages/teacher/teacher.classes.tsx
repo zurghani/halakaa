@@ -6,11 +6,9 @@ import { useDispatch } from "react-redux";
 import { PrinterOutlined } from "@ant-design/icons";
 import MyClassesList from "./components/MyClasses.list";
 import MyClassesTable from "./components/MyClasses.table";
-import DownloadModal from "../../components/ExportModal/DownloadModal";
+import DownloadModal, { flatten } from "../../components/ExportModal/DownloadModal";
 import { useTranslation } from "react-i18next";
 import { useClasses } from "../../queries/classes";
-import { useAgeGroups } from "../../queries/ageGroups";
-import { ClassWithAgeGroup } from "../../types";
 
 const { useBreakpoint } = Grid;
 
@@ -25,16 +23,18 @@ const ViewClasses: React.FC = () => {
         dispatch(setCurrentPageTitle(t("titles.myClasses")));
     }, [t]);
 
-    useEffect(() => {
-        setButtons([
-            <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} dataSelectorFunction={undefined} />,
-        ]);
-    }, []);
-
     const { data: classes, isLoading: classesLoading } = useClasses({
         teacherId: "5add4a19-648a-48f9-b9df-6fb00b10e7a7", //TODO: GET TEACHER ID FROM LOGGED IN USER
     });
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />}></Button>,
+            <DownloadModal
+                file_name={"my_classes"}
+                data={flatten(classes || [], "My Classes") || []}
+            />,
+        ]);
+    }, [classes]);
 
     if (classesLoading) return <div>Loading...</div>;
 

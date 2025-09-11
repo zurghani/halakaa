@@ -13,7 +13,7 @@ const enrollments = new Hono<{ Variables: AuthType }>()
   .get("/", requireRoles({ enrollments: ["view"] }), async (c) => {
     const classId = Number(c.req.query("class_id"));
     const studentId = Number(c.req.query("student_id"));
-    let data: any[] = [];
+    let data: enrollmentsService.EnrollmentWithStudent[] | enrollmentsService.Enrollment[] = [];
 
     if (classId) {
       data = await enrollmentsService.getEnrolledStudentsByClassId(classId);

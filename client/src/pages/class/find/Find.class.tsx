@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Grid } from "antd";
+import { Space, Grid, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setCurrentPageTitle } from "../../../store/ui.slice";
 import SearchForm from "./SearchForm.class";
@@ -8,6 +8,9 @@ import ClassList from "./result/Class.list";
 import { useTranslation } from "react-i18next";
 import { useSearchClasses } from "../../../queries/classes";
 import { SearchOptions, SearchOptionsType } from "./search.options";
+import DownloadModal, { flatten } from "../../../components/ExportModal/DownloadModal";
+import { PrinterOutlined } from "@ant-design/icons";
+import { useSetButtons } from "../../../layouts/PageLayout/PageLayout";
 
 const { useBreakpoint } = Grid;
 
@@ -19,11 +22,13 @@ export type SearchData = {
 const FindClass: React.FC = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const { setButtons } = useSetButtons();
     useEffect(() => {
         dispatch(setCurrentPageTitle(t("titles.findClass")));
     }, [t]);
     const screens = useBreakpoint();
     const isMobile = !screens.md;
+    const [exportData, setExportData] = useState<any[]>([]);
 
     const [searchType, setSearchType] = useState<keyof SearchOptionsType>(SearchOptions.all.value);
     const [searchData, setSearchData] = useState<SearchData>({});
@@ -31,6 +36,23 @@ const FindClass: React.FC = () => {
     const filter = getFilter(searchData);
 
     const { data: classes } = useSearchClasses(searchType !== "all" ? filter : {});
+    useEffect(() => {
+        if (classes && classes.length > 0) {
+            setExportData(flatten(classes, "Classes Searched:"));
+        } else {
+            setExportData([]);
+        }
+    }, [classes]);
+
+    useEffect(() => {
+        setButtons([
+            <Button icon={<PrinterOutlined />} />,
+            <DownloadModal
+                file_name={`Class_filtered_by_${searchType}=${searchData.classId ? searchData.classId : searchData.teacherName}`}
+                data={exportData || []}
+            />,
+        ]);
+    }, [classes, exportData]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
