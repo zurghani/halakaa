@@ -1,0 +1,109 @@
+import { Col, Row, Table, TableProps } from "antd";
+import { useTranslation } from "react-i18next";
+import { useTags } from "../../../hooks/useTags";
+import { TaskExpanded } from "../../../types";
+import { useTaskTypes } from "../../../queries/taskTypes";
+import dayjs from "dayjs";
+
+const CompletedTasksTable = ({ tasks }: { tasks: TaskExpanded[] }) => {
+    const { taskTypeTags } = useTags({});
+    const { t } = useTranslation();
+    const { data: taskTypes } = useTaskTypes();
+    const tableData: TableProps["dataSource"] = tasks.map((task) => ({
+        ...task,
+        key: task.createdAt?.toString(),
+    }));
+    const columns: TableProps["columns"] = [
+        {
+            title: t("general.teacher"),
+            dataIndex: "assignedBy",
+            key: "assignedBy",
+            render: (assignedBy) => assignedBy?.name || "-",
+            defaultSortOrder: "descend",
+            sorter: (a, b) => (a.assignedBy > b.assignedBy ? 1 : -1),
+        },
+        {
+            title: t("general.type"),
+            dataIndex: "taskType",
+            key: "taskType",
+            render: (taskType) => taskTypeTags[taskType.id] || taskType.name,
+            filters: Object.keys(taskTypeTags).map((key) => ({
+                text: taskTypeTags[key],
+                value: key,
+            })),
+            onFilter: (value, record) => {
+                return record.id == value;
+            },
+        },
+
+        {
+            title: t("general.from"),
+            dataIndex: "startingAyah",
+            key: "startingAyah",
+            render: (startingAyah) =>
+                startingAyah ? `(${startingAyah.number}) ${startingAyah.surahName}` : "-",
+            sorter: (a, b) => a.ayahId - b.ayahId,
+        },
+        {
+            title: t("general.to"),
+            dataIndex: "endingAyah",
+            key: "endingAyah",
+            render: (endingAyah) =>
+                endingAyah ? `(${endingAyah.number}) ${endingAyah.surahName}` : "-",
+            sorter: (a, b) => a.ayahId - b.ayahId,
+        },
+        {
+            title: t("general.date"),
+            dataIndex: "createdAt",
+            key: "createdAt",
+            render: (createdAt) => dayjs(createdAt).format("YYYY-MM-DD"),
+            sorter: (a, b) => (a.createdAt > b.createdAt ? 1 : -1),
+        },
+    ];
+    return (
+        <>
+            <Table
+                columns={columns}
+                pagination={false}
+                expandable={{
+                    expandedRowRender: (task) => (
+                        <Row gutter={[16, 8]}>
+                            <Col span={6}>From:</Col>
+                            <Col
+                                span={
+                                    6
+                                }>{`(${task.startingAyah.number}) ${task.startingAyah.surahName}`}</Col>
+
+                            <Col span={6}>To:</Col>
+                            <Col
+                                span={
+                                    6
+                                }>{`(${task.endingAyah.number}) ${task.endingAyah.surahName}`}</Col>
+
+                            <Col span={6}>Assigned On:</Col>
+                            <Col span={6}>{dayjs(task.createdAt).format("YYYY-MM-DD")}</Col>
+
+                            <Col span={6}>Completed On:</Col>
+                            <Col span={6}>{dayjs(task.completedOn).format("YYYY-MM-DD")}</Col>
+
+                            <Col span={6}>Assigned By:</Col>
+                            <Col span={6}>{task.assignedBy.name}</Col>
+
+                            <Col span={6}>Completed By:</Col>
+                            <Col span={6}>{task.completedBy.name}</Col>
+
+                            <Col span={6}>Notes:</Col>
+                            <Col span={6}>{task.notes}</Col>
+
+                            <Col span={6}>Mistakes:</Col>
+                            <Col span={6}>{task.mistakes}</Col>
+                        </Row>
+                    ),
+                }}
+                dataSource={tableData}
+            />
+        </>
+    );
+};
+
+export default CompletedTasksTable;

@@ -1,48 +1,33 @@
 {
   "name": "halakah",
-  "private": true,
   "version": "0.0.1",
+  "module": "index.ts",
   "type": "module",
+  "private": true,
+  "workspaces": [
+    "./server",
+    "./client"
+  ],
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@ant-design/icons": "^6.0.0",
-    "@reduxjs/toolkit": "^2.7.0",
-    "antd": "^5.24.8",
-    "dayjs": "^1.11.13",
-    "i18next": "^25.0.2",
-    "i18next-browser-languagedetector": "^8.0.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-i18next": "^15.5.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.5.2"
+    "dev:client": "cd client && bun run dev",
+    "dev:server": "cd server && bun run dev",
+    "dev": "concurrently \"bun run dev:server\" \"bun run dev:client\"",
+    "build:client": "cd client && bun run build",
+    "build:server": "cd server && bun run build",
+    "build": "bun run build:server && bun run build:client",
+    "postinstall": "bun run build:server"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@typescript-eslint/eslint-plugin": "^8.31.1",
-    "@typescript-eslint/parser": "^8.31.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.25.1",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.6",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
-    "sass": "^1.87.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.26.1",
-    "vite": "^6.3.1"
+    "@types/bun": "latest",
+    "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.85.5",
+    "@tanstack/react-query-devtools": "^5.85.5",
+    "better-auth": "1.3.7",
+    "hono": "^4.8.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
