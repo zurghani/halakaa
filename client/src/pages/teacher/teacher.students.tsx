@@ -29,7 +29,10 @@ const ViewStudents: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} data={flatten(students || [], "My Students") || []} />,
+            <DownloadModal
+                file_name={"my_students"}
+                data={flatten(students || [], "My Students") || []}
+            />,
         ]);
     }, [students]);
     if (isLoading) return <div>Loading...</div>;

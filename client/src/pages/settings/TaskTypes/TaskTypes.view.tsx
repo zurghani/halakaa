@@ -24,7 +24,10 @@ const TaskTypesViewPage: React.FC = () => {
     // Set Buttons
     useEffect(() => {
         setButtons([
-            <DownloadModal title={""} data={flatten(taskTypes || [], "Task Types")} />,
+            <DownloadModal
+                file_name={"task-types"}
+                data={flatten(taskTypes || [], "Task Types")}
+            />,
             <ActionButton key="edit" onClick={() => navigate(Paths.SETTINGS.ADMIN.TASKTYPES.EDIT)}>
                 {t("general.edit")}
             </ActionButton>,

@@ -46,7 +46,10 @@ const ClassView: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />} />,
-            <DownloadModal title={""} data={exportData} />,
+            <DownloadModal
+                file_name={`class_${classId}_${classData?.description}`}
+                data={exportData}
+            />,
             ...(auth?.user.role === "admin"
                 ? [
                       <ActionButton

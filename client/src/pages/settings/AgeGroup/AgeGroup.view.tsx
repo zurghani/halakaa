@@ -24,7 +24,10 @@ const AgeGroupViewPage: React.FC = () => {
     // Set Buttons
     useEffect(() => {
         setButtons([
-            <DownloadModal title={""} data={flatten(ageGroups || [], "Age Groups")} />,
+            <DownloadModal
+                file_name={"age-groups"}
+                data={flatten(ageGroups || [], "Age Groups")}
+            />,
             <ActionButton key="edit" onClick={() => navigate(Paths.SETTINGS.ADMIN.AGEGROUP.EDIT)}>
                 {t("general.edit")}
             </ActionButton>,

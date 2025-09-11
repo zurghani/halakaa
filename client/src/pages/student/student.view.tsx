@@ -63,7 +63,7 @@ const ViewStudent: React.FC = () => {
     useEffect(() => {
         if (classes && tasks && attendanceData && student) {
             setExportData([
-                ...flatten([studentToView], "Student Details"),
+                ...flatten([student], "Student Details"),
                 ...flatten(attendanceData, "Attendance"),
                 ...flatten(classes, "Classes"),
                 ...flatten(completedTasks || [], "Task History"),
@@ -74,7 +74,7 @@ const ViewStudent: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} data={exportData} />,
+            <DownloadModal file_name={`Student_report_${student?.fullName}`} data={exportData} />,
             userRole === UserRole.Admin && (
                 <ActionButton
                     key="edit"

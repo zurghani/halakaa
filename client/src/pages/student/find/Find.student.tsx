@@ -48,9 +48,12 @@ const FindStudent: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />} />,
-            <DownloadModal title={""} data={exportData || []} />,
+            <DownloadModal
+                file_name={`students_filtered_by_${Object.values(filter).map((v) => (v ? v : ""))}`}
+                data={exportData || []}
+            />,
         ]);
-    }, [students, exportData]);
+    }, [students, exportData, searchData]);
 
     return (
         <Space direction="vertical" style={{ width: "100%" }}>

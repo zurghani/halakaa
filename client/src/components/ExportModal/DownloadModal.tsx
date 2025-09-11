@@ -8,11 +8,11 @@ import "./DownloadModal.scss";
 const { Text } = Typography;
 
 interface DownloadModalProps {
-    title?: string;
+    file_name: string;
     data: any[]; //NOT SURE WHAT THE TYPE SHOULD BE
 }
 
-const DownloadModal = ({ title, data }: DownloadModalProps) => {
+const DownloadModal = ({ file_name, data }: DownloadModalProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [fileFormat, setFileFormat] = useState<"PDF" | "CSV">("CSV");
     const { t } = useTranslation();
@@ -25,7 +25,7 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
         //DOWNLOAD LOGIC GOES HERE
         console.log("Downloading...");
         if (fileFormat === "CSV") {
-            downloadCSV(data, "students_results.csv");
+            downloadCSV(data, `${file_name}.csv`);
         } else {
             // You can handle PDF later
             console.log("PDF download not implemented yet");
@@ -58,7 +58,7 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
             <Button onClick={showModal} icon={<DownloadOutlined />}></Button>
             <Modal
                 className="modal"
-                title="Download All Data *filters are not applied"
+                title="Download All Data *Table filters are not applied"
                 closable={{ "aria-label": "Custom Close Button" }}
                 open={isModalOpen}
                 onOk={handleOk}
@@ -67,16 +67,6 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
                 okText={t("modal.download")}
                 okButtonProps={{ icon: <DownloadOutlined /> }}>
                 <div className="modal__content">
-                    {/* <div className="modal__content__time-frame-select">
-                        <Segmented
-                            options={[
-                                t("modal.day"),
-                                t("modal.week"),
-                                t("modal.month"),
-                                t("modal.all"),
-                            ]}
-                        />
-                    </div> */}
                     <div className="modal__content__file-format-text">
                         <Text strong>{t("modal.selectFormat")}</Text>
                         <Text type="secondary"> • {t("modal.bodyText")}</Text>
@@ -97,24 +87,25 @@ const DownloadModal = ({ title, data }: DownloadModalProps) => {
 export default DownloadModal;
 
 export const flatten = (data: any[], title: string) => {
-    console.log("NOT GETTING FLATTENED");
     if (!Array.isArray(data) || data.length === 0) return [];
     console.log("FLATTEN---", data);
     const headers = Object.keys(data[0] || {});
     const csvRows = [
         title,
-        headers.join(","), // header row
-        ...data.map((row) =>
-            headers
-                .map((h) => {
-                    const cell = row?.[h];
-                    if (cell && typeof cell === "object") {
-                        return Object.values(cell).join(" | ");
-                    }
-                    return `"${cell ?? ""}"`;
-                })
-                .join(",")
-        ),
+        `,${headers.join(",")}`, // header row
+        ...data
+            .map((row) =>
+                headers
+                    .map((h) => {
+                        const cell = row?.[h];
+                        if (cell && typeof cell === "object") {
+                            return Object.values(cell).join(" | ");
+                        }
+                        return `"${cell ?? ""}"`;
+                    })
+                    .join(",")
+            )
+            .map((r) => `,${r}`),
     ];
-    return csvRows; // still array of strings
+    return csvRows;
 };

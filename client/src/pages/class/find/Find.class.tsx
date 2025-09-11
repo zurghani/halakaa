@@ -47,7 +47,10 @@ const FindClass: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />} />,
-            <DownloadModal title={""} data={exportData || []} />,
+            <DownloadModal
+                file_name={`Class_filtered_by_${searchType}=${searchData.classId ? searchData.classId : searchData.teacherName}`}
+                data={exportData || []}
+            />,
         ]);
     }, [classes, exportData]);
 

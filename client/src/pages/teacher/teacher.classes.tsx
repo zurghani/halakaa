@@ -29,7 +29,10 @@ const ViewClasses: React.FC = () => {
     useEffect(() => {
         setButtons([
             <Button icon={<PrinterOutlined />}></Button>,
-            <DownloadModal title={""} data={flatten(classes || [], "My Classes") || []} />,
+            <DownloadModal
+                file_name={"my_classes"}
+                data={flatten(classes || [], "My Classes") || []}
+            />,
         ]);
     }, [classes]);
 

@@ -62,6 +62,7 @@ const StudentsTable = ({ students }: { students: Student[] }) => {
                         navigate(`/student/${row.id}`);
                     },
                 })}
+                pagination={false}
             />
         </>
     );
