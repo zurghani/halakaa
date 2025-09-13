@@ -1,15 +1,11 @@
 import { Button, Col, Empty, Row } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../../../store";
 import { useNavigate } from "react-router-dom";
 import { Student } from "../../../../types";
 
 const ParentStudentList = ({ students }: { students: Student[] }) => {
-    const parent = useSelector((state: AppStore) => state.parent);
     const navigate = useNavigate();
-
-    if (!parent.students?.length) {
+    if (!students?.length) {
         return <Empty />;
     }
     return (
