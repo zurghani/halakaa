@@ -13,6 +13,7 @@ const ParentHome: React.FC = () => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
+    console.log(students);
     return (
         <div>
             <h1>{t("welcome")}</h1>
